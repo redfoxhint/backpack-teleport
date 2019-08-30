@@ -1,0 +1,30 @@
+[August 27th 2019]
+
+	- [Addition] Implemented new event system in form of a tutorial level.
+	- [Addition] Added new tutorial level featuring a walkthrough on how to use the backpack to teleport around the map.
+	- [Addition] Added new dialogue system.
+	- [Change] UI elements representing the player stats will now be updated using events.
+	- [Change] Player Stats are now a scriptable object. This makes it easier to add any stats that we want the player or other entity to have.
+
+[Tasks]
+	- [Feature] Start working on player combat. (Melee attack, on teleport AOE, backpack damage)
+	- [Fix] Rework tutorial level to store a list of tutorial segments. Use reordered list library.
+
+[Tutorial System]
+
+Classes needed: 
+	- TutorialSegement : ScriptableObject
+	{
+		Each segment will be composed of 1 dialog object which will hold the sentences that belong to the tutorial.
+		It will also contain variables for the tutorial name, and the event which it must listen to.
+	}
+
+	- TutorialManager : Monobehavior
+	{
+		The tutorial manager will be responsible for displaying the tutorial.
+		It will also be responsible for catching the event that was raised.
+	}
+
+
+[August 28th 2019] HAPPY BIRTHDAY!
+
