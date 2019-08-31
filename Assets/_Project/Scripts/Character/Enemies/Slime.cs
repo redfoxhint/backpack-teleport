@@ -10,7 +10,6 @@ namespace BackpackTeleport.Characters
 		[Header("Attack Configuations")]
 		[SerializeField] private float attackCooldownTime = 1f;
 		[SerializeField] private Image damageVisualization;
-		[SerializeField] private NavMeshObstacle2D obstacle2D;
 
 		private float currentCooldownTime;
 
