@@ -284,8 +284,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 979f6cc65aa7538428047fd402bdc93b, type: 3}
-  m_Color: {r: 0.4382088, g: 1, b: 0.033018887, a: 1}
+  m_Sprite: {fileID: -5894894341141171568, guid: 04a4dd097f7994f449adc9f1154b52f2,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -339,20 +340,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6948207509988616446}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45f6216f97eb15049bbf17a2a92e0599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 1
   health: 10
-  moveSpeed: 3
   healthBar: {fileID: 6948207510246087516}
   currentState: 0
   baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
   onStatChanged: {fileID: 0}
   attackCooldownTime: 2
   damageVisualization: {fileID: 6948207509702134593}
-  obstacle2D: {fileID: 0}
 --- !u!95 &6948207509988616438
 Animator:
   serializedVersion: 3
@@ -363,7 +363,7 @@ Animator:
   m_GameObject: {fileID: 6948207509988616446}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47976db0e3635c242aab0b630e7b5007, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
   accelerationRate: 2
   decelerationRate: 2
   lookAheadDistance: 1
-  avoidRadius: 2
+  avoidRadius: 0.39
   avoidanceConsiderStuckedTime: 3
   avoidanceConsiderReachedDistance: 1
   rotateTransform: 0

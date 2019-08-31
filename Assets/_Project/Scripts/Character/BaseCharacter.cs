@@ -4,11 +4,10 @@ using PolyNav;
 
 namespace BackpackTeleport.Characters
 {
-	public abstract class BaseCharacter : MonoBehaviour, IDamageable
+	public abstract class BaseCharacter : BaseCharacterMovement, IDamageable
 	{
 		// Public Variables
 		[SerializeField] protected float health = 10f;
-		[SerializeField] protected float moveSpeed = 3f;
 		[SerializeField] protected Image healthBar;
 		[SerializeField] protected States currentState;
 		[SerializeField] protected BaseCharacterData baseCharacterData;
@@ -17,7 +16,6 @@ namespace BackpackTeleport.Characters
 		protected float currentHealth;
 
 		// Components
-		protected Animator animator;
 		protected PolyNavAgent agent2D;
 		protected Player player;
 
@@ -27,22 +25,23 @@ namespace BackpackTeleport.Characters
 
 		// Tasks
 
-		private void Awake()
+		public override void Awake()
 		{
-			animator = GetComponent<Animator>();
+			base.Awake();
 			agent2D = GetComponent<PolyNavAgent>();
 			player = FindObjectOfType<Player>();
 		}
 
-		private void Start()
+		public void Start()
 		{
 			InitializeCharacter();
 			SetState(States.CHASE);
 		}
 
-		private void Update()
+		public override void Update()
 		{
 			UpdateStates(currentState);
+			base.Update();
 		}
 
 		private void InitializeCharacter()
@@ -59,11 +58,6 @@ namespace BackpackTeleport.Characters
 				Destroy(gameObject); // Kill this character.
 				return;
 			}
-		}
-
-		private void Movement()
-		{
-			//agent2D.destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		}
 
 		private void RecalculateHealth(float amount)
@@ -149,7 +143,13 @@ namespace BackpackTeleport.Characters
 			}
 
 			agent2D.SetDestination(player.transform.position);
+			Vector2 target = agent2D.nextPoint;
+			Vector2 direction = (target - (Vector2)transform.position).normalized;
+			velocity = direction;
 		}
+
+
+		
 
 		public virtual void UpdateIdleState()
 		{

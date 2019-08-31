@@ -32,9 +32,9 @@ public class CharacterDash : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.LeftControl))
 		{
-			if (playerMovement.Movement.sqrMagnitude != 0 && !hasDashed)
+			if (playerMovement.Velocity.sqrMagnitude != 0 && !hasDashed)
 			{
-				Dash(playerMovement.Movement.x, playerMovement.Movement.y);
+				Dash(playerMovement.Velocity.x, playerMovement.Velocity.y);
 			}
 		}
 	}

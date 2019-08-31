@@ -23,11 +23,18 @@ namespace BackpackTeleport.Characters
 		{
 			base.UpdateAttackState();
 
-			if(currentCooldownTime <= Time.time)
+			if (currentCooldownTime <= Time.time)
 			{
 				StartCoroutine(Attack());
 			}
 
+		}
+
+		public override void HandleMovementAnimation()
+		{
+			animator.SetFloat("Horizontal", Mathf.RoundToInt(agent2D.movingDirection.x));
+			animator.SetFloat("Vertical", Mathf.RoundToInt(agent2D.movingDirection.y));
+			animator.SetFloat("Speed", agent2D.movingDirection.sqrMagnitude);
 		}
 
 		IEnumerator Attack()
@@ -39,7 +46,7 @@ namespace BackpackTeleport.Characters
 			yield return new WaitForSeconds(0.5f);
 			damageVisualization.gameObject.SetActive(false);
 			yield break;
-			
+
 		}
 	}
 }
