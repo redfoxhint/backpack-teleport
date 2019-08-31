@@ -51,6 +51,7 @@ public class CharacterDash : MonoBehaviour
 
 	IEnumerator DashWait()
 	{
+		FindObjectOfType<GhostingEffect>().ShowGhost();
 		StartCoroutine(GroundDash());
 		DOVirtual.Float(14, 0, 0.8f, SetRigidbodyDrag);
 		isDashing = true;
