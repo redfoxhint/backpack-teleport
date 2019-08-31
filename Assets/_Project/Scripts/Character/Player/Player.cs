@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
 			onThrowEvent.Raise();
 			backpack.Launch(pointB);
 			backpack.InitializeState(BackpackStates.INFLIGHT);
-			playerAnimations.TriggerThrowing(playerMovement.FaceDirection);
+			playerAnimations.TriggerThrowing(playerMovement.FacingDirection);
 			yield break;
 		}
 		else

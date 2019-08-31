@@ -1,153 +1,93 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-namespace BackpackTeleport.Characters
+/* 
+
+    FACING DIRECTIONS:
+    DOWN =      0
+    UPRIGHT =   1
+    DOWNRIGHT = 2
+    LEFT =      3
+    RIGHT =     4
+    UPLEFT =    5
+    DOWNLEFT =  6
+    UP =        7
+
+ */
+
+
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+public class BaseCharacterMovement : MonoBehaviour
 {
-	public class BaseCharacterMovement : MonoBehaviour
+	[Header("Movement Setup")]
+	[SerializeField] protected float moveSpeed = 5f;
+
+	// Private Variables
+	protected float facingDirection;
+	protected Vector2 velocity;
+
+	// Facing DirectionContext
+	private Vector2 down = new Vector2(0, -1);
+	private Vector2 upright = new Vector2(0, 1);
+	private Vector2 downright = new Vector2(-1, -1);
+	private Vector2 left = new Vector2(1, 0);
+	private Vector2 right = new Vector2(-1, 0);
+	private Vector2 upleft = new Vector2(1, 1);
+	private Vector2 downleft = new Vector2(1, -1);
+	private Vector2 up = new Vector2(0, 1);
+
+	// Properties
+	public float FacingDirection { get => facingDirection; set => facingDirection = value; }
+	public Vector2 Velocity { get => velocity; }
+
+	// Components
+	protected Animator animator;
+	protected Rigidbody2D rBody;
+
+	public virtual void Awake()
 	{
-		[Header("Movement Configuration")]
-		[SerializeField] private float turnSpeed = 50f;
-		private Transform targetDestination;
-		[SerializeField] private LayerMask enemyMask;
+		if (rBody == null) rBody = GetComponent<Rigidbody2D>();
+		if (animator == null) animator = GetComponent<Animator>();
+	}
 
-		[Header("Probe Setup")]
-		[SerializeField] private float probeDetectionRange = 1.0f;
-		[SerializeField] private Transform forwardProbe;
-		[SerializeField] private Transform leftProbe;
-		[SerializeField] private Transform rightProbe;
-		[SerializeField] private Transform downProbe;
+	public virtual void Update()
+	{
+        HandleMovementDirection();
+        HandleMovementAnimation();
+	}
 
-		// Private Variables
-		private Transform obstaleToAvoid;
-		private bool avoidObstacle = false;
-		private bool hasPath = false;
+	public virtual void FixedUpdate()
+	{
+		
+	}
 
-		// Components
-		private NavMeshAgent2D navMeshAgent2D;
+	public virtual void Move(Vector2 direction)
+	{
+		velocity = direction;
+        rBody.velocity = velocity * moveSpeed;
+	}
 
-		private void Awake()
-		{
-			navMeshAgent2D = GetComponent<NavMeshAgent2D>();
-		}
+	public virtual void HandleMovementAnimation()
+	{
+		animator.SetFloat("Horizontal", velocity.x);
+		animator.SetFloat("Vertical", velocity.y);
+		animator.SetFloat("Speed", velocity.sqrMagnitude);
+	}
 
-		public void SetTarget(Transform newDestination)
-		{
-			targetDestination = newDestination;
-			hasPath = true;
+	private void HandleMovementDirection()
+	{
+		if (velocity == Vector2.zero) return;
 
-			if (forwardProbe == null)
-				forwardProbe = transform;
-
-			if (leftProbe == null)
-				leftProbe = transform;
-
-			if (rightProbe == null)
-				rightProbe = transform;
-
-			if (downProbe == null)
-				downProbe = transform;
-
-		}
-
-		private void Update()
-		{
-			if (hasPath)
-			{
-				RaycastHit2D hit2D;
-				Vector2 direction = (targetDestination.position - transform.position).normalized;
-
-				bool previousCastMissed = true;
-
-				hit2D = Physics2D.Raycast(forwardProbe.position, transform.up, probeDetectionRange, enemyMask);
-
-				if (hit2D)
-				{
-					if (obstaleToAvoid != targetDestination.transform)
-					{
-						Debug.DrawLine(transform.position, hit2D.point, Color.green);
-						previousCastMissed = false;
-						avoidObstacle = true;
-						navMeshAgent2D.isStopped = true;
-
-						if (hit2D.transform != transform)
-						{
-							obstaleToAvoid = hit2D.transform;
-							direction += hit2D.normal * turnSpeed;
-						}
-					}
-				}
-
-				if (obstaleToAvoid && previousCastMissed)
-				{
-					hit2D = Physics2D.Raycast(leftProbe.position, -transform.right, probeDetectionRange, enemyMask);
-
-					if (hit2D)
-					{
-						if (obstaleToAvoid != targetDestination)
-						{
-							Debug.DrawLine(leftProbe.position, hit2D.point, Color.red);
-							avoidObstacle = true;
-							navMeshAgent2D.isStopped = true;
-
-							if (hit2D.transform != transform)
-							{
-								obstaleToAvoid = hit2D.transform;
-								previousCastMissed = false;
-								direction += hit2D.normal * turnSpeed;
-							}
-						}
-					}
-
-				}
-
-				if (obstaleToAvoid && previousCastMissed)
-				{
-					hit2D = Physics2D.Raycast(rightProbe.position, transform.right, probeDetectionRange, enemyMask);
-
-					if (hit2D)
-					{
-						if (obstaleToAvoid != targetDestination)
-						{
-							Debug.DrawLine(rightProbe.position, hit2D.point, Color.green);
-							avoidObstacle = true;
-							navMeshAgent2D.isStopped = true;
-
-							if (hit2D.transform != transform)
-							{
-								obstaleToAvoid = hit2D.transform;
-								previousCastMissed = false;
-								direction += hit2D.normal * turnSpeed;
-							}
-						}
-					}
-				}
-
-				if (obstaleToAvoid != null)
-				{
-					Vector2 forward = transform.TransformDirection(Vector2.up);
-					Vector2 toOther = obstaleToAvoid.position - transform.position;
-
-					if(Vector2.Dot(forward, toOther) < 0)
-					{
-						avoidObstacle = false;
-						obstaleToAvoid = null;
-						navMeshAgent2D.ResetPath();
-						navMeshAgent2D.SetDestination(targetDestination.position);
-						navMeshAgent2D.isStopped = false;
-					}
-				}
-
-				if(avoidObstacle)
-				{
-					//Quaternion rot = Quaternion.LookRotation(direction);
-					//transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime);
-					//transform.position += transform.up * navMeshAgent2D.speed * Time.deltaTime;
-				}
-			}
-		}
+		if (velocity == new Vector2(0, -1)) facingDirection = 0f;
+		if (velocity == new Vector2(-1, 1)) facingDirection = 1f;
+		if (velocity == new Vector2(-1, -1)) facingDirection = 2f;
+		if (velocity == new Vector2(1, 0)) facingDirection = 3f;
+		if (velocity == new Vector2(-1, 0)) facingDirection = 4f;
+		if (velocity == Vector2.one) facingDirection = 5f;
+		if (velocity == new Vector2(1, -1)) facingDirection = 6f;
+		if (velocity == new Vector2(0, 1)) facingDirection = 7f;
 	}
 }
-
-
