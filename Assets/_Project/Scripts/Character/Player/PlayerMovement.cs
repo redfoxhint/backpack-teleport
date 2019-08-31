@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField] private float moveSpeed = 5f;
 	public float FaceDirection { get { return faceDirection; } }
+	public Vector2 Movement { get => movement; set => movement = value;}
 
 	private float faceDirection;
 

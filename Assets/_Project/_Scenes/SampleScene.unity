@@ -24956,10 +24956,6 @@ PrefabInstance:
       propertyPath: backpack
       value: 
       objectReference: {fileID: 1784774495}
-    - target: {fileID: 12143946, guid: 0fc31374e00dd32489ba72c3c10f85b9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.89
-      objectReference: {fileID: 0}
     - target: {fileID: 1453788068, guid: 0fc31374e00dd32489ba72c3c10f85b9, type: 3}
       propertyPath: m_Camera
       value: 
