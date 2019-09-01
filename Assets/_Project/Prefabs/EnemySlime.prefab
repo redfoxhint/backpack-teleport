@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6948207509445310855}
   - component: {fileID: 6948207509445310854}
   - component: {fileID: 6948207509445310853}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealthCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.079}
-  m_SizeDelta: {x: 0.1, y: 0.0084}
+  m_AnchoredPosition: {x: -0.041, y: 0.242}
+  m_SizeDelta: {x: 0.5, y: 0.0084}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6948207509445310855
 Canvas:
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6948207509702134592}
   - component: {fileID: 6948207509702134594}
   - component: {fileID: 6948207509702134593}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DamageVisualization
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6948207509953443598}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LeftProbe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,10 +217,11 @@ GameObject:
   - component: {fileID: 6948207509988616441}
   - component: {fileID: 6948207509988616440}
   - component: {fileID: 6948207509988616447}
-  - component: {fileID: 6948207509988616443}
   - component: {fileID: 6948207509988616438}
   - component: {fileID: 6948207509908168719}
-  m_Layer: 0
+  - component: {fileID: 433417133}
+  - component: {fileID: 1054791162462496225}
+  m_Layer: 11
   m_Name: EnemySlime
   m_TagString: Damageable
   m_Icon: {fileID: 0}
@@ -236,7 +237,7 @@ Transform:
   m_GameObject: {fileID: 6948207509988616446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.16, y: 2.55, z: 0}
-  m_LocalScale: {x: 4.5, y: 4.5, z: 4.5}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 6948207510838604816}
   - {fileID: 6948207509445310852}
@@ -284,13 +285,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5894894341141171568, guid: 04a4dd097f7994f449adc9f1154b52f2,
+  m_Sprite: {fileID: 1894739188514534099, guid: 461c9d4190b802242a088333e7c9748f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.125, y: 0.125}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -309,7 +310,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -330,29 +331,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.042139053, y: 0.029497623}
   serializedVersion: 2
-  m_Radius: 0.06250001
---- !u!114 &6948207509988616443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6948207509988616446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f6216f97eb15049bbf17a2a92e0599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 1
-  health: 10
-  healthBar: {fileID: 6948207510246087516}
-  currentState: 0
-  baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
-  onStatChanged: {fileID: 0}
-  attackCooldownTime: 2
-  damageVisualization: {fileID: 6948207509702134593}
+  m_Radius: 0.23948479
 --- !u!95 &6948207509988616438
 Animator:
   serializedVersion: 3
@@ -402,6 +383,40 @@ MonoBehaviour:
   restrict: 0
   closerPointOnInvalid: 1
   debugPath: 1
+--- !u!114 &433417133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948207509988616446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a590e545baa6b44a9b31b4bfc4da6ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackAmount: 25
+  knockbackTime: 1
+--- !u!114 &1054791162462496225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948207509988616446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0cef32d486b16a4b8eff2c0e06b9aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  maxHealth: 10
+  healthBar: {fileID: 6948207510246087516}
+  baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
+  damageColor: {r: 1, g: 0, b: 0, a: 0}
+  currentState: 0
+  attackCooldownTime: 1
+  damageVisualization: {fileID: 6948207509702134593}
 --- !u!1 &6948207510246087491
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +428,7 @@ GameObject:
   - component: {fileID: 6948207510246087518}
   - component: {fileID: 6948207510246087517}
   - component: {fileID: 6948207510246087516}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6948207510705271103}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ForwardProbe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6948207510719958515}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RightProbe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6948207510838604816}
   - component: {fileID: 6948207510838604817}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Backpack_Kid_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,152 +1,246 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using BackpackTeleport.Character.Enemy;
 
-[RequireComponent(typeof(AimingAnimation))]
-public class Player : MonoBehaviour
+namespace BackpackTeleport.Character.PlayerCharacter
 {
-	// Public Variables
-	[SerializeField] private Transform playerCenter;
-	[SerializeField] private GameObject teleportEffect;
-	[SerializeField] private VoidEvent onTeleportEvent;
-	[SerializeField] private VoidEvent onThrowEvent;
-
-	// Private Variables
-	private Vector2 pointA;
-	private Vector2 pointB;
-	private bool isAiming;
-	private float backpackTravelDistance;
-
-	// Components
-	[HideInInspector] public Rigidbody2D rBody;
-	[SerializeField] private Backpack backpack;
-	private PlayerMovement playerMovement;
-	private PlayerAnimations playerAnimations;
-	private PlayerStats playerStats;
-	private ForceManager statManager;
-	private AimingAnimation aimingAnimation;
-	private DottedLine dottedLine;
-	private TrailRenderer trailRenderer;
-	private Camera cam;
-
-	void Awake()
+	[RequireComponent(typeof(AimingAnimation))]
+	public class Player : BaseCharacter
 	{
-		rBody = GetComponent<Rigidbody2D>();
-		aimingAnimation = GetComponent<AimingAnimation>();
-		playerAnimations = GetComponent<PlayerAnimations>();
-		playerMovement = GetComponent<PlayerMovement>();
-		playerStats = GetComponent<PlayerStats>();
-		trailRenderer = GetComponent<TrailRenderer>();
-		statManager = ForceManager.Instance;
-		dottedLine = DottedLine.Instance;
-		cam = Camera.main;
-	}
+		// Inspector Fields
+		[Header("Backpack Settings")]
+		[Space]
+		[SerializeField] private float maxThrowDistance = 300f;
 
-	void Start()
-	{
-		isAiming = false;
-		trailRenderer.enabled = false;
-	}
+		[Header("Area of Effect Damage Settings")]
+		[Space]
+		[SerializeField] private float areaDamageAmount = 3f;
+		[SerializeField] private float areaDamageRadius = 4f;
 
-	private void Update()
-	{
-		if (ThrowBackPack() && backpack.CanBeAimed)
+		[Header("Events")]
+		[Space]
+		[SerializeField] private VoidEvent onTeleportEvent;
+		[SerializeField] private VoidEvent onThrowEvent;
+		[SerializeField] private StatEvent onTakeDamage;
+		[SerializeField] private StatEvent onTeleportStatEvent;
+
+		[Header("Other")]
+		[Space]
+		[SerializeField] private Transform playerCenter;
+		[SerializeField] private GameObject teleportEffect;
+		[SerializeField] private Stat healthStat;
+		[SerializeField] private Stat energyStat;
+
+		// Public Variables
+		
+
+		// Private Variables
+		private Vector2 pointA;
+		private Vector2 pointB;
+
+		private bool isAimingBackpack;
+
+		private float calculatedBackpackTravelDistance;
+
+		// Components
+		private Backpack backpack;
+		private PlayerAnimations playerAnimations;
+		private AimingAnimation aimingAnimation;
+		private DottedLine dottedLine;
+		private TrailRenderer trailRenderer;
+		private Camera cam;
+
+		public override void Awake()
 		{
-			backpack.InitializeState(BackpackStates.AIMING);
-			isAiming = true;
-			StartCoroutine(AimBackpack());
+			base.Awake();
+
+			backpack = FindObjectOfType<Backpack>();
+			aimingAnimation = GetComponent<AimingAnimation>();
+			playerAnimations = GetComponent<PlayerAnimations>();
+			trailRenderer = GetComponent<TrailRenderer>();
+			dottedLine = DottedLine.Instance;
+			cam = Camera.main;
 		}
 
-		if (isAiming)
+		public override void Start()
 		{
-			HandleBackpackAiming();
-			aimingAnimation.DrawGraphics(pointA, pointB);
-			aimingAnimation.IsAiming = true;
-		}
-		else
-		{
-			aimingAnimation.IsAiming = false;
-		}
-	}
+			base.Start();
 
-	private void HandleBackpackAiming()
-	{
-		if (statManager.HasForceRequired(backpackTravelDistance))
-		{
-			aimingAnimation.UpdateUI(backpackTravelDistance, Color.white);
-		}
-		else
-		{
-			aimingAnimation.UpdateUI(backpackTravelDistance, Color.red);
+			isAimingBackpack = false;
+			trailRenderer.enabled = false;
 		}
 
-		if (aimingAnimation.AimAngle > 90f || aimingAnimation.AimAngle < -90f)
+		public override void Update()
 		{
-			aimingAnimation.RotateText(-180f);
-		}
-		else
-		{
-			aimingAnimation.RotateText(0f);
-		}
-	}
+			HandleMovement();
+			base.Update();
 
-	private IEnumerator AimBackpack()
-	{
-		while (Input.GetKey(KeyCode.Space))
-		{
-			pointA = playerCenter.transform.position;
-			pointB = cam.ScreenToWorldPoint(Input.mousePosition);
-
-			if (Input.GetKeyDown(KeyCode.R))
+			if (ThrowBackPack() && backpack.CanBeAimed)
 			{
-				backpack.InitializeState(BackpackStates.INHAND);
-				isAiming = false;
-				yield break;
+				backpack.InitializeState(BackpackStates.AIMING);
+				isAimingBackpack = true;
+				StartCoroutine(AimBackpack());
 			}
 
-			backpackTravelDistance = (pointB - pointA).sqrMagnitude;
-
-			yield return new WaitForSeconds(Time.deltaTime);
+			if (isAimingBackpack)
+			{
+				HandleBackpackAimingUI();
+				aimingAnimation.DrawDottedLineAndArrow(pointA, pointB);
+				aimingAnimation.IsAiming = true;
+			}
+			else
+			{
+				aimingAnimation.IsAiming = false;
+			}
 		}
 
-		// Throw the bag only if we have enough force points and strength.
-
-		if (statManager.HasForceRequired(backpackTravelDistance))
+		private void HandleMovement()
 		{
-			isAiming = false;
-			onThrowEvent.Raise();
-			backpack.Launch(pointB);
-			backpack.InitializeState(BackpackStates.INFLIGHT);
-			playerAnimations.TriggerThrowing(playerMovement.FacingDirection);
-			yield break;
+			if (knockback.KnockbackCounter > 0) return;
+
+			// Get Input
+			float horizontal = Input.GetAxisRaw("Horizontal");
+			float vertical = Input.GetAxisRaw("Vertical");
+
+			// Clamp the magnitude so we cant move faster diagonally.
+			Vector2 vel = new Vector2(horizontal, vertical);
+			vel = Vector2.ClampMagnitude(vel, 1);
+
+			base.Update();
+
+			playerAnimations.SetIdleSprite(facingDirection);
+
+			// Move the rigidbody from the BaseCharacterMovement
+			Move(vel);
 		}
-		else
+
+		private void HandleBackpackAimingUI()
 		{
-			isAiming = false;
-			backpack.InitializeState(BackpackStates.INHAND);
-			yield break;
+			if (calculatedBackpackTravelDistance <= maxThrowDistance)
+			{
+				aimingAnimation.UpdateUI(calculatedBackpackTravelDistance, Color.white);
+			}
+			else
+			{
+				aimingAnimation.UpdateUI(calculatedBackpackTravelDistance, Color.red);
+			}
+
+			if (aimingAnimation.AimAngle > 90f || aimingAnimation.AimAngle < -90f)
+			{
+				aimingAnimation.RotateText(-180f);
+			}
+			else
+			{
+				aimingAnimation.RotateText(0f);
+			}
 		}
-	}
 
-	private bool ThrowBackPack()
-	{
-		return Input.GetKeyDown(KeyCode.Space) && backpack.currentState == BackpackStates.INHAND;
-	}
+		public override void TakeDamage(float amount, Vector2 damageDirection)
+		{
+			this.RecalculateHealth(amount);
+			onTakeDamage.Raise(healthStat);
+			knockback.ApplyKnockback(damageDirection, damageColor);
+		}
 
-	public void Teleport(Vector2 pos)
-	{
-		rBody.position = pos;
-		playerStats.UseTeleport();
-		onTeleportEvent.Raise();
-		trailRenderer.enabled = true;
-		GameObject newTeleportEffect = Instantiate(teleportEffect, pos, teleportEffect.transform.rotation);
-		Destroy(newTeleportEffect, 2f);
-		Invoke("TurnTrailRendererOff", 0.5f);
-	}
+		public override void RecalculateHealth(float amount)
+		{
+			healthStat.runtimeStatValue -= amount;
+		}
 
-	private void TurnTrailRendererOff()
-	{
-		trailRenderer.enabled = false;
+		private IEnumerator AimBackpack()
+		{
+			while (Input.GetKey(KeyCode.Space))
+			{
+				pointA = playerCenter.transform.position;
+				pointB = cam.ScreenToWorldPoint(Input.mousePosition);
+
+				if (Input.GetKeyDown(KeyCode.R))
+				{
+					backpack.InitializeState(BackpackStates.INHAND);
+					isAimingBackpack = false;
+					yield break;
+				}
+
+				calculatedBackpackTravelDistance = (pointB - pointA).sqrMagnitude;
+
+				yield return new WaitForSeconds(Time.deltaTime);
+			}
+
+			// Throw the bag only if we have enough force points and strength.
+
+			if (calculatedBackpackTravelDistance <= maxThrowDistance)
+			{
+				isAimingBackpack = false;
+				onThrowEvent.Raise();
+				backpack.Launch(pointB);
+				backpack.InitializeState(BackpackStates.INFLIGHT);
+				playerAnimations.TriggerThrowing(FacingDirection);
+				yield break;
+			}
+			else
+			{
+				isAimingBackpack = false;
+				backpack.InitializeState(BackpackStates.INHAND);
+				yield break;
+			}
+		}
+
+		private bool ThrowBackPack()
+		{
+			return Input.GetKeyDown(KeyCode.Space) && backpack.currentState == BackpackStates.INHAND;
+		}
+
+		public void Teleport(Vector2 pos)
+		{
+			rBody.position = pos;
+			//playerStats.UseTeleport();
+			onTeleportEvent.Raise();
+			trailRenderer.enabled = true;
+
+			GameObject newTeleportEffect = Instantiate(teleportEffect, pos, teleportEffect.transform.rotation);
+			Destroy(newTeleportEffect, 2f);
+
+			AreaOfEffectDamage();
+
+			// Update UI
+			energyStat.runtimeStatValue = 0;
+			onTeleportStatEvent.Raise(energyStat);
+			
+			Invoke("TurnTrailRendererOff", 0.5f);
+		}
+
+		private void TurnTrailRendererOff()
+		{
+			trailRenderer.enabled = false;
+		}
+
+		private void AreaOfEffectDamage()
+		{
+			Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(rBody.position, areaDamageRadius);
+
+			if (collidersInRadius.Length > 0)
+			{
+				foreach (Collider2D col in collidersInRadius)
+				{
+					BaseEnemy enemy = col.GetComponent<BaseEnemy>();
+
+					if (enemy != null)
+					{
+						Vector2 dir = col.transform.position - transform.position;
+						enemy.GetComponent<IDamageable>().TakeDamage(areaDamageAmount, dir);
+						GameObject effect = Instantiate(teleportEffect, rBody.position, Quaternion.identity);
+						Debug.Log("Enemy damaged");
+					}
+				}
+			}
+		}
+
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.magenta;
+			Gizmos.DrawWireSphere(transform.position, areaDamageRadius);
+		}
 	}
 }
+
+

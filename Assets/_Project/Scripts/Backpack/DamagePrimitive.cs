@@ -138,7 +138,9 @@ public class DamagePrimitive : MonoBehaviour
 	{
 		if (other.CompareTag("Damageable"))
 		{
-			other.GetComponent<IDamageable>().TakeDamage(1f);
+			Vector2 dir = transform.position - other.transform.position;
+
+			other.GetComponent<IDamageable>().TakeDamage(1f, dir);
 			Debug.Log("Collided with IDamageable Object");
 		}
 	}
