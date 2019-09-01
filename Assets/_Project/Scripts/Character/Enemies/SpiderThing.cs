@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BackpackTeleport.Character.PlayerCharacter;
 
-namespace BackpackTeleport.Characters
+namespace BackpackTeleport.Character.Enemy
 {
-	public class Slime : BaseCharacter
+	public class SpiderThing : BaseEnemy
 	{
 		[Header("Attack Configuations")]
 		[SerializeField] private float attackCooldownTime = 1f;
@@ -40,9 +41,28 @@ namespace BackpackTeleport.Characters
 		IEnumerator Attack()
 		{
 			Vector2 attackDirection = transform.position - player.transform.position;
-			Debug.Log("Attacked");
+			//Debug.Log("Attacked");
 			damageVisualization.gameObject.SetActive(true);
 			currentCooldownTime = Time.time + attackCooldownTime;
+
+			Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(rBody.position, 2f);
+
+			if (collidersInRadius.Length > 0)
+			{
+				foreach (Collider2D col in collidersInRadius)
+				{
+					Player p = col.GetComponent<Player>();
+
+					if (p != null)
+					{
+						Vector2 dir = col.transform.position - transform.position;
+						p.GetComponent<IDamageable>().TakeDamage(0f, dir);
+						//GameObject effect = Instantiate(teleportEffect, rBody.position, Quaternion.identity);
+						Debug.Log("Player damaged");
+					}
+				}
+			}
+
 			yield return new WaitForSeconds(0.5f);
 			damageVisualization.gameObject.SetActive(false);
 			yield break;

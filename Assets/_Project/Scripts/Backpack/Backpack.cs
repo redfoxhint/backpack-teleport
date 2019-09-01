@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BackpackTeleport.Character.PlayerCharacter;
 
 public enum BackpackStates
 {
@@ -107,7 +108,7 @@ public class Backpack : MonoBehaviour
 				break;
 
 			case BackpackStates.INHAND:
-				rBody.position = owner.rBody.position; // Performance check
+				rBody.position = owner.RBody2D.position; // Performance check
 				break;
 
 			case BackpackStates.RETURNING:
@@ -189,7 +190,7 @@ public class Backpack : MonoBehaviour
 		launchTask.Start();
 
 		teleportDestination = pos;
-		rBody.position = owner.rBody.position; // Set the position of the backpack to the players location so it looks like it spawns from the players center.
+		rBody.position = owner.RBody2D.position; // Set the position of the backpack to the players location so it looks like it spawns from the players center.
 	}
 
 	IEnumerator MoveToPointOverSpeed(Vector3 endPoint, float speed)
@@ -209,9 +210,9 @@ public class Backpack : MonoBehaviour
 
 	IEnumerator ReturnToPlayerOverSpeed()
 	{
-		while (Vector3.Distance(owner.rBody.position, rBody.position) > 2f)
+		while (Vector3.Distance(owner.RBody2D.position, rBody.position) > 2f)
 		{
-			rBody.position = Vector2.MoveTowards(rBody.position, owner.rBody.position, backpackMovementSpeed * Time.fixedDeltaTime);
+			rBody.position = Vector2.MoveTowards(rBody.position, owner.RBody2D.position, backpackMovementSpeed * Time.fixedDeltaTime);
 			yield return new WaitForFixedUpdate();
 		}
 

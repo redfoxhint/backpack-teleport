@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using BackpackTeleport.Character;
 using UnityEngine;
 using DG.Tweening;
 
@@ -14,12 +13,12 @@ public class GhostingEffect : MonoBehaviour
 
 
 	// Components
-	private PlayerMovement playerMovement;
+	private BaseCharacterMovement characterMovement;
 	private SpriteRenderer spriteRenderer;
 
 	private void Awake()
 	{
-		playerMovement = FindObjectOfType<PlayerMovement>();
+		characterMovement = FindObjectOfType<BaseCharacterMovement>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
@@ -30,17 +29,17 @@ public class GhostingEffect : MonoBehaviour
 		for (int i = 0; i < ghostParent.childCount; i++)
 		{
 			Transform currentGhost = ghostParent.GetChild(i);
-			s.AppendCallback(() => currentGhost.position = playerMovement.transform.position);
-			s.AppendCallback(() => currentGhost.GetComponent<SpriteRenderer>().sprite = playerMovement.GetComponent<SpriteRenderer>().sprite);
+			s.AppendCallback(() => currentGhost.position = characterMovement.transform.position);
+			s.AppendCallback(() => currentGhost.GetComponent<SpriteRenderer>().sprite = characterMovement.GetComponent<SpriteRenderer>().sprite);
 			s.Append(currentGhost.GetComponent<SpriteRenderer>().material.DOColor(trailColor, 0));
 			s.AppendCallback(() => FadeSprite(currentGhost));
 			s.AppendInterval(ghostInterval);
 		}
 	}
 
-    public void FadeSprite(Transform current)
-    {
-        current.GetComponent<SpriteRenderer>().material.DOKill();
-        current.GetComponent<SpriteRenderer>().material.DOColor(fadeColor, fadeTime);
-    }
+	public void FadeSprite(Transform current)
+	{
+		current.GetComponent<SpriteRenderer>().material.DOKill();
+		current.GetComponent<SpriteRenderer>().material.DOColor(fadeColor, fadeTime);
+	}
 }

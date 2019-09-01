@@ -48,7 +48,7 @@ public class AimingAnimation : MonoBehaviour
 		if (isAiming) arrow.SetActive(true); else arrow.SetActive(false);
 	}
 
-	public void DrawGraphics(Vector2 startPoint, Vector2 endPoint)
+	public void DrawDottedLineAndArrow(Vector2 startPoint, Vector2 endPoint)
 	{
 		dottedLine.DrawDottedLine(startPoint, endPoint);
 		arrow.SetActive(true);

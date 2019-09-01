@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BackpackTeleport.Characters
+namespace BackpackTeleport.Character
 {
 	[CreateAssetMenu(fileName = "New Base Character Data", menuName = "Characters/New Character Data")]
 	public class BaseCharacterData : ScriptableObject

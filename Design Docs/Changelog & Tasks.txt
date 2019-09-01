@@ -28,3 +28,19 @@ Classes needed:
 
 [August 28th 2019] HAPPY BIRTHDAY!
 
+[August 30th 2019]
+		
+	- [Addition] Added new spider enemy animations.
+
+[August 31st 2019]
+
+	- [Addition] Any BaseCharacter entity will now recieve a knockback effect when recieving damage.
+	- [Change] Enemy types will now reference the BaseEnemy class instead of the BaseCharacter Class.
+			   This will allow for custom code to be applied to enemy types that require an extra level of depth.
+	- [Addition] Added new dash ability.
+	- [Addition] Added dash ability ghosting effect.
+	- [Change] Player now derives from BaseCharacter.
+	- [Change] Removed Force Mechanic.
+	- [Change] Player can now choose what type of dash aim type they want to use. Move Direction will
+			   mean the player will dash in the direction it's moving. Mouse Direction will mean the player 
+			   will dash in the direction of where the mouse is on the screen.
