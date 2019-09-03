@@ -32,7 +32,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		[SerializeField] private Stat energyStat;
 
 		// Public Variables
-		
+
 
 		// Private Variables
 		private Vector2 pointA;
@@ -117,22 +117,14 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		private void HandleBackpackAimingUI()
 		{
 			if (calculatedBackpackTravelDistance <= maxThrowDistance)
-			{
 				aimingAnimation.UpdateUI(calculatedBackpackTravelDistance, Color.white);
-			}
 			else
-			{
 				aimingAnimation.UpdateUI(calculatedBackpackTravelDistance, Color.red);
-			}
 
 			if (aimingAnimation.AimAngle > 90f || aimingAnimation.AimAngle < -90f)
-			{
 				aimingAnimation.RotateText(-180f);
-			}
 			else
-			{
 				aimingAnimation.RotateText(0f);
-			}
 		}
 
 		public override void TakeDamage(float amount, Vector2 damageDirection)
@@ -205,7 +197,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			// Update UI
 			energyStat.runtimeStatValue = 0;
 			onTeleportStatEvent.Raise(energyStat);
-			
+
 			Invoke("TurnTrailRendererOff", 0.5f);
 		}
 
