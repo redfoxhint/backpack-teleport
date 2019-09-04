@@ -21,12 +21,14 @@ public class Knockback : MonoBehaviour
 	private Rigidbody2D rBody;
 	private SpriteRenderer spriteRenderer;
 
-    public float KnockbackCounter => knockbackCounter;
+	public float KnockbackCounter => knockbackCounter;
+	public float KnockbackAmount { get { return knockbackAmount; } set { knockbackAmount = value; } }
+	public float KnockbackTime { get { return knockbackTime; } set { knockbackTime = value; } }
 
 	private void Awake()
 	{
-        rBody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+		rBody = GetComponent<Rigidbody2D>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 
@@ -39,7 +41,7 @@ public class Knockback : MonoBehaviour
 		else if (knockbackCounter <= 0 && knockbackTimerStart)
 		{
 			knockbackTimerStart = false;
-            spriteRenderer.color = Color.white;
+			spriteRenderer.color = Color.white;
 		}
 	}
 
@@ -54,11 +56,11 @@ public class Knockback : MonoBehaviour
 
 	public void ApplyKnockback(Vector2 direction, Color damageColor)
 	{
-        rBody.velocity = Vector2.zero;
-        doKnockback = true;
-        knockbackCounter = knockbackTime;
-        knockbackTimerStart = true;
-        knockbackDirection = direction;
-        spriteRenderer.color = damageColor;
+		rBody.velocity = Vector2.zero;
+		doKnockback = true;
+		knockbackCounter = knockbackTime;
+		knockbackTimerStart = true;
+		knockbackDirection = direction;
+		spriteRenderer.color = damageColor;
 	}
 }

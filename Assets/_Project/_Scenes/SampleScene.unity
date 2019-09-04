@@ -1001,6 +1001,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1054791162462496225, guid: ad7f54de07bacf44eac9085ddbdb48a4,
+        type: 3}
+      propertyPath: damageColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7f54de07bacf44eac9085ddbdb48a4, type: 3}
 --- !u!1 &302071415
@@ -2270,6 +2275,11 @@ PrefabInstance:
     - target: {fileID: 6948207509988616441, guid: ad7f54de07bacf44eac9085ddbdb48a4,
         type: 3}
       propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054791162462496225, guid: ad7f54de07bacf44eac9085ddbdb48a4,
+        type: 3}
+      propertyPath: damageColor.a
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -24582,6 +24592,11 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1054791162462496225, guid: ad7f54de07bacf44eac9085ddbdb48a4,
+        type: 3}
+      propertyPath: damageColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7f54de07bacf44eac9085ddbdb48a4, type: 3}
 --- !u!1 &1773274915
@@ -25354,6 +25369,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 1054791162462496225, guid: ad7f54de07bacf44eac9085ddbdb48a4,
+        type: 3}
+      propertyPath: damageColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7f54de07bacf44eac9085ddbdb48a4, type: 3}
 --- !u!1001 &7424613240907837133

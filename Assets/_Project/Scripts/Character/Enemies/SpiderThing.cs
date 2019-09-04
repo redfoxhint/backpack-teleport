@@ -31,13 +31,6 @@ namespace BackpackTeleport.Character.Enemy
 
 		}
 
-		public override void HandleMovementAnimation()
-		{
-			animator.SetFloat("Horizontal", Mathf.RoundToInt(agent2D.movingDirection.x));
-			animator.SetFloat("Vertical", Mathf.RoundToInt(agent2D.movingDirection.y));
-			animator.SetFloat("Speed", agent2D.movingDirection.sqrMagnitude);
-		}
-
 		IEnumerator Attack()
 		{
 			Vector2 attackDirection = transform.position - player.transform.position;

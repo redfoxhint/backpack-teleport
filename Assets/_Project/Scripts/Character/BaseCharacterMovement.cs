@@ -43,6 +43,7 @@ namespace BackpackTeleport.Character
 		public float FacingDirection { get => facingDirection; set => facingDirection = value; }
 		public Vector2 Velocity { get => velocity; }
 		public Rigidbody2D RBody2D { get => rBody; }
+		public float MoveSpeed { set => moveSpeed = value; }
 
 		// Components
 		protected Animator animator;

@@ -16,12 +16,16 @@ namespace BackpackTeleport.Character
 		// Private Variables
 		protected float currentHealth;
 
+		public BaseCharacterData BaseCharacterData { set { baseCharacterData = value; } }
+		public Color DamageColor { set { damageColor = value; } }
+
 		// Components
 		protected Knockback knockback;
 
 		public override void Awake()
 		{
 			base.Awake();
+			healthBar = GetComponentInChildren<Image>();
 			knockback = GetComponent<Knockback>();
 		}
 
