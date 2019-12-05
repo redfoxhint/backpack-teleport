@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55387bfc348564b40befcd1cb7a183ac, type: 3}
+  m_Name: TestTutorial
+  m_EditorClassIdentifier: 
+  pages:
+  - title: How to USE the backpack!
+    description: Press and hold the spacebar to begin a new throw. Then use the mouse
+      to aim. When you are ready, let go of the spacebar to launch the backpack.
+    tutorialImage: {fileID: 21300000, guid: 9300f189d68bfda42a910a5e8c399c68, type: 3}
+  - title: How to USE the backpack!
+    description: At any point during it's flight, you can press space again and you
+      will be teleported to it's location. Try it!
+    tutorialImage: {fileID: 21300000, guid: ac99fc73e19d48148ab647522e07e5bf, type: 3}
+  - title: How to USE the backpack!
+    description: At any point during it's flight, you can press space again and you
+      will be teleported to it's location. Try it!
+    tutorialImage: {fileID: 21300000, guid: af628c0f072c558459274254e1fc5854, type: 3}

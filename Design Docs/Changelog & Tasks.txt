@@ -44,3 +44,6 @@ Classes needed:
 	- [Change] Player can now choose what type of dash aim type they want to use. Move Direction will
 			   mean the player will dash in the direction it's moving. Mouse Direction will mean the player 
 			   will dash in the direction of where the mouse is on the screen.
+
+
+			   

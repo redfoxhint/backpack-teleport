@@ -185,8 +185,9 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		public void Teleport(Vector2 pos)
 		{
 			rBody.position = pos;
-			//playerStats.UseTeleport();
-			onTeleportEvent.Raise();
+            //playerStats.UseTeleport();
+            FindObjectOfType<GhostingEffect>().ShowGhost();
+            onTeleportEvent.Raise();
 			trailRenderer.enabled = true;
 
 			GameObject newTeleportEffect = Instantiate(teleportEffect, pos, teleportEffect.transform.rotation);

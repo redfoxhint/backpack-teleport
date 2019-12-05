@@ -413,7 +413,7 @@ MonoBehaviour:
   maxHealth: 10
   healthBar: {fileID: 6948207510246087516}
   baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
-  damageColor: {r: 1, g: 0, b: 0, a: 0}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
   currentState: 0
   attackCooldownTime: 1
   damageVisualization: {fileID: 6948207509702134593}
