@@ -63,7 +63,7 @@ public class Backpack : MonoBehaviour
 				break;
 
 			case BackpackStates.INFLIGHT:
-				if (Input.GetKeyDown(KeyCode.Space))
+				if (Input.GetKeyDown(KeyCode.LeftControl))
 				{
 					if (launchTask != null)
 						launchTask.Stop();
@@ -89,7 +89,7 @@ public class Backpack : MonoBehaviour
 					return;
 				}
 
-				if (Input.GetKeyDown(KeyCode.Space))
+				if (Input.GetKeyDown(KeyCode.LeftControl))
 				{
 					owner.Teleport(teleportDestination);
 					InitializeState(BackpackStates.INHAND);

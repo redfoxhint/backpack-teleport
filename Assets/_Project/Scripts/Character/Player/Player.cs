@@ -11,6 +11,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		[Header("Backpack Settings")]
 		[Space]
 		[SerializeField] private float maxThrowDistance = 300f;
+		[SerializeField] private KeyCode throwKey = KeyCode.LeftControl;
 
 		[Header("Area of Effect Damage Settings")]
 		[Space]
@@ -141,7 +142,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		private IEnumerator AimBackpack()
 		{
-			while (Input.GetKey(KeyCode.Space))
+			while (Input.GetKey(throwKey))
 			{
 				pointA = playerCenter.transform.position;
 				pointB = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -179,7 +180,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		private bool ThrowBackPack()
 		{
-			return Input.GetKeyDown(KeyCode.Space) && backpack.currentState == BackpackStates.INHAND;
+			return Input.GetKeyDown(throwKey) && backpack.currentState == BackpackStates.INHAND;
 		}
 
 		public void Teleport(Vector2 pos)

@@ -10,6 +10,7 @@ public class CharacterDash : MonoBehaviour
 	[SerializeField] private float dashSpeed = 5f;
 	[SerializeField] private float startDashTime;
 	[SerializeField] private DashAimType aimType = DashAimType.MoveDirection;
+	[SerializeField] private KeyCode dashKey;
 
 	// Private Variables
 	private float dashTime;
@@ -38,7 +39,7 @@ public class CharacterDash : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.LeftControl))
+		if (Input.GetKeyDown(dashKey))
 		{
 			if (characterMovement.Velocity.sqrMagnitude != 0 && !hasDashed)
 			{

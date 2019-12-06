@@ -7,6 +7,7 @@ TagManager:
   - Marker
   - Damageable
   - Backpack
+  - UI_Element
   layers:
   - Default
   - TransparentFX
