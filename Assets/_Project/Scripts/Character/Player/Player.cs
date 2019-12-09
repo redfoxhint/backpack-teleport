@@ -47,6 +47,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		private Backpack backpack;
 		private PlayerAnimations playerAnimations;
 		private AimingAnimation aimingAnimation;
+		private AttackManager attackManager;
 		private DottedLine dottedLine;
 		private TrailRenderer trailRenderer;
 		private Camera cam;
@@ -58,6 +59,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			backpack = FindObjectOfType<Backpack>();
 			aimingAnimation = GetComponent<AimingAnimation>();
 			playerAnimations = GetComponent<PlayerAnimations>();
+			attackManager = GetComponent<AttackManager>();
 			trailRenderer = GetComponent<TrailRenderer>();
 			dottedLine = DottedLine.Instance;
 			cam = Camera.main;
@@ -92,6 +94,11 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			else
 			{
 				aimingAnimation.IsAiming = false;
+			}
+
+			if(Input.GetKeyDown(KeyCode.T))
+			{
+				Attack();
 			}
 		}
 
@@ -227,6 +234,11 @@ namespace BackpackTeleport.Character.PlayerCharacter
 					}
 				}
 			}
+		}
+
+		private void Attack()
+		{
+			attackManager.Attack();
 		}
 
 		private void OnDrawGizmos()

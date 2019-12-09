@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AnimationCurveMovementTest : MonoBehaviour
 {
@@ -11,40 +12,54 @@ public class AnimationCurveMovementTest : MonoBehaviour
     // Private Variables
     private Vector3 target;
     private Vector3 startPoint;
+    private bool destinationReached = true;
     private float animationTimePosition;
 
     private void Start()
     {
-        UpdatePath();
+        //UpdatePath();
     }
 
     private void Update()
     {
-        if(target != transform.position)
+        if(Input.GetMouseButtonDown(0) && destinationReached)
         {
-            animationTimePosition += speed * Time.deltaTime;
-            transform.position = Vector3.Lerp(startPoint, target, animationCurve.Evaluate(animationTimePosition));
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-        }
-        else
-        {
-            UpdatePath();
-            animationTimePosition = 0;
+            MoveBag();
         }
     }
 
+    private void MoveBag()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        target = mousePos;
 
+        StartCoroutine(MoveToPositionWithCurve());
+        destinationReached = false;
+    }
 
     private void UpdatePath()
     {
         startPoint = transform.position;
+        target = Random.insideUnitSphere * 3f;
+        target.z = 0;
+    }
 
-        if (Input.GetMouseButtonDown(0))
+    private IEnumerator MoveToPositionWithCurve()
+    {
+        startPoint = transform.position;
+        animationTimePosition = 0;
+        target.z = 0;
+
+        while(transform.position != target)
         {
-            
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            animationTimePosition += speed * Time.deltaTime;
+            transform.position = Vector3.Lerp(startPoint, target, animationCurve.Evaluate(animationTimePosition));
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+            yield return null;
         }
-        
-        //target = UnityEngine.Random.insideUnitSphere* 5;
+
+        destinationReached = true;
+
+        yield break;
     }
 }

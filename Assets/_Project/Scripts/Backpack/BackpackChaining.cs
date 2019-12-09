@@ -167,7 +167,7 @@ public class BackpackChaining : MonoBehaviour
 				yield break;
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.LeftControl))
 			{
 				if (teleportsLeft >= maxAmountOfMarkers)
 				{

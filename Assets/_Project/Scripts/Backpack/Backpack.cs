@@ -13,6 +13,7 @@ public class Backpack : MonoBehaviour
 {
 	// Public Variables
 	[SerializeField] private float backpackMovementSpeed;
+	[SerializeField] private AnimationCurve movementCurve;
 	public bool CanBeAimed { get { return canBeAimed; } set { canBeAimed = value; } }
 	public bool ChainReady { get { return chainReady; } set { chainReady = value; } }
 	public Player Owner { get { return owner; } }
@@ -175,7 +176,8 @@ public class Backpack : MonoBehaviour
 	{
 		currentState = BackpackStates.RETURNING;
 
-		returningTask = new Task(ReturnToPlayerOverSpeed());
+		//returningTask = new Task(ReturnToPlayerOverSpeed());
+		returningTask = new Task(ReturnToPlayerWithCurve(backpackMovementSpeed * 2, movementCurve));
 		returningTask.Start();
 	}
 
@@ -186,7 +188,8 @@ public class Backpack : MonoBehaviour
 			launchTask.Stop();
 		}
 
-		launchTask = new Task(MoveToPointOverSpeed(pos, backpackMovementSpeed));
+		//launchTask = new Task(MoveToPointOverSpeed(pos, backpackMovementSpeed));
+		launchTask = new Task(MoveToPointWithCurve(backpackMovementSpeed, pos, movementCurve));
 		launchTask.Start();
 
 		teleportDestination = pos;
@@ -208,15 +211,54 @@ public class Backpack : MonoBehaviour
 		yield break;
 	}
 
-	IEnumerator ReturnToPlayerOverSpeed()
+	private IEnumerator MoveToPointWithCurve(float speed, Vector3 target, AnimationCurve animCurve)
 	{
+		Vector2 startPoint = rBody.position;
+		float animationTimePosition = 0;
+		target.z = 0;
+
+		while (transform.position != target)
+		{
+			animationTimePosition += speed * Time.deltaTime;
+			transform.position = Vector3.Lerp(startPoint, target, animCurve.Evaluate(animationTimePosition));
+			transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+			yield return null;
+		}
+
+		InitializeState(BackpackStates.IDLE);
+		//destinationReached = true;
+
+		yield break;
+	}
+
+	private IEnumerator ReturnToPlayerWithCurve(float speed, AnimationCurve animCurve)
+	{
+		Vector2 startPoint = rBody.position;
+		float animationTimePosition = 0;
+
 		while (Vector3.Distance(owner.RBody2D.position, rBody.position) > 2f)
 		{
-			rBody.position = Vector2.MoveTowards(rBody.position, owner.RBody2D.position, backpackMovementSpeed * Time.fixedDeltaTime);
-			yield return new WaitForFixedUpdate();
+			animationTimePosition += speed * Time.deltaTime;
+			transform.position = Vector3.Lerp(startPoint, owner.RBody2D.position, animCurve.Evaluate(animationTimePosition));
+			transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+			yield return null;
 		}
 
 		InitializeState(BackpackStates.INHAND);
+		//destinationReached = true;
+
 		yield break;
 	}
+
+	//IEnumerator ReturnToPlayerOverSpeed()
+	//{
+	//	while (Vector3.Distance(owner.RBody2D.position, rBody.position) > 2f)
+	//	{
+	//		rBody.position = Vector2.MoveTowards(rBody.position, owner.RBody2D.position, backpackMovementSpeed * Time.fixedDeltaTime);
+	//		yield return new WaitForFixedUpdate();
+	//	}
+
+	//	InitializeState(BackpackStates.INHAND);
+	//	yield break;
+	//}
 }
