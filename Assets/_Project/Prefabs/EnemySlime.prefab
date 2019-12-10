@@ -282,8 +282,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1597723733
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1894739188514534099, guid: 461c9d4190b802242a088333e7c9748f,
     type: 3}
@@ -410,11 +410,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  down: {x: 0, y: -1}
+  upright: {x: 0, y: 1}
+  downright: {x: -1, y: -1}
+  left: {x: 1, y: 0}
+  right: {x: -1, y: 0}
+  upleft: {x: 1, y: 1}
+  downleft: {x: 1, y: -1}
   maxHealth: 10
   healthBar: {fileID: 6948207510246087516}
   baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   currentState: 0
+  doMove: 0
   attackCooldownTime: 1
   damageVisualization: {fileID: 6948207509702134593}
 --- !u!1 &6948207510246087491

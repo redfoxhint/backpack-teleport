@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackDirection : MonoBehaviour
 {
-    public System.Action<IDamageable> onColliderHit;
+    public System.Action<GameObject> onColliderHit;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,7 +12,7 @@ public class AttackDirection : MonoBehaviour
 
         if(damageable != null)
         {
-            onColliderHit.Invoke(damageable);
+            onColliderHit.Invoke(other.gameObject);
         }
     }
 }

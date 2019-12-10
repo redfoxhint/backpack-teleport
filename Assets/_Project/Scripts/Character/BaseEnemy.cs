@@ -11,6 +11,7 @@ namespace BackpackTeleport.Character.Enemy
 	{
 		// Inspector Fields
 		[SerializeField] protected States currentState;
+		[SerializeField] private bool doMove;
 
 		// Components
 		protected PolyNavAgent agent2D;
@@ -31,6 +32,8 @@ namespace BackpackTeleport.Character.Enemy
 
 		public override void Update()
 		{
+			if (!doMove) return;
+
 			UpdateStates(currentState);
 			base.Update();
 		}

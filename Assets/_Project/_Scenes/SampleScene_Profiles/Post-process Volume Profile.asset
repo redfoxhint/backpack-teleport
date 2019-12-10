@@ -66,10 +66,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 8.1
+    value: 6.46
   threshold:
     overrideState: 1
-    value: 1
+    value: 1.06
   softKnee:
     overrideState: 1
     value: 0.5
@@ -81,13 +81,13 @@ MonoBehaviour:
     value: 7
   anamorphicRatio:
     overrideState: 1
-    value: 0
+    value: -0.707
   color:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
   fastMode:
     overrideState: 1
-    value: 0
+    value: 1
   dirtTexture:
     overrideState: 1
     value: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
     defaultState: 1
   tonemapper:
     overrideState: 1
-    value: 2
+    value: 1
   toneCurveToeStrength:
     overrideState: 1
     value: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: 0
+    value: -6.2
   tint:
     overrideState: 1
     value: 2
@@ -1451,16 +1451,16 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.238
+    value: 0.272
   smoothness:
     overrideState: 1
-    value: 0.2
+    value: 0.956
   roundness:
     overrideState: 1
     value: 1
   rounded:
     overrideState: 1
-    value: 1
+    value: 0
   mask:
     overrideState: 1
     value: {fileID: 0}

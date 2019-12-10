@@ -7,9 +7,17 @@ public abstract class Interactable : MonoBehaviour
     // Inspector Fields
     [SerializeField] protected GameObject interactableUI;
     [SerializeField] private KeyCode interactionKeyCode = KeyCode.E;
+    [SerializeField] private bool isInteractable = true;
 
     // Private variables
     protected bool isInRange = false;
+
+    private InputManager inputManager;
+
+    private void Awake()
+    {
+        inputManager = InputManager.Instance;
+    }
 
     protected virtual void Start()
     {
@@ -21,7 +29,7 @@ public abstract class Interactable : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(isInRange && Input.GetKeyDown(interactionKeyCode))
+        if(isInRange && InputManager.Instance.KeyDown("interact"))
         {
             Interact();
             OnOutOfRange();

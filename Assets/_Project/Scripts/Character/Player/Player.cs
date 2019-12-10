@@ -11,7 +11,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		[Header("Backpack Settings")]
 		[Space]
 		[SerializeField] private float maxThrowDistance = 300f;
-		[SerializeField] private KeyCode throwKey = KeyCode.LeftControl;
+		[SerializeField] private KeyCode throwKey = KeyCode.Mouse1;
 
 		[Header("Area of Effect Damage Settings")]
 		[Space]
@@ -47,7 +47,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		private Backpack backpack;
 		private PlayerAnimations playerAnimations;
 		private AimingAnimation aimingAnimation;
-		private AttackManager attackManager;
+		private MeleeAttack attackManager;
 		private DottedLine dottedLine;
 		private TrailRenderer trailRenderer;
 		private Camera cam;
@@ -59,7 +59,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			backpack = FindObjectOfType<Backpack>();
 			aimingAnimation = GetComponent<AimingAnimation>();
 			playerAnimations = GetComponent<PlayerAnimations>();
-			attackManager = GetComponent<AttackManager>();
+			attackManager = GetComponent<MeleeAttack>();
 			trailRenderer = GetComponent<TrailRenderer>();
 			dottedLine = DottedLine.Instance;
 			cam = Camera.main;
@@ -96,7 +96,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 				aimingAnimation.IsAiming = false;
 			}
 
-			if(Input.GetKeyDown(KeyCode.T))
+			if(Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				Attack();
 			}
@@ -238,13 +238,29 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		private void Attack()
 		{
-			attackManager.Attack();
+			attackManager.Attack(this, animator, LastVelocity);
 		}
 
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.magenta;
 			Gizmos.DrawWireSphere(transform.position, areaDamageRadius);
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			if(other.GetComponent<IActivateable>() != null)
+			{
+				other.GetComponent<IActivateable>().Activate();
+			}
+		}
+
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			if (other.GetComponent<IActivateable>() != null)
+			{
+				other.GetComponent<IActivateable>().Deactivate();
+			}
 		}
 	}
 }

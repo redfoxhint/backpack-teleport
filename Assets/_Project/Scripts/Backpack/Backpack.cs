@@ -20,8 +20,10 @@ public class Backpack : MonoBehaviour
 
 	// Private variables
 	private Vector2 teleportDestination;
+	private IActivateable lastActivated;
 	private bool chainReady;
 	private bool canBeAimed;
+	private bool onActivateable = false;
 
 	// Components
 	public BackpackStates currentState;
@@ -64,7 +66,7 @@ public class Backpack : MonoBehaviour
 				break;
 
 			case BackpackStates.INFLIGHT:
-				if (Input.GetKeyDown(KeyCode.LeftControl))
+				if (Input.GetKeyDown(KeyCode.Mouse1))
 				{
 					if (launchTask != null)
 						launchTask.Stop();
@@ -90,7 +92,7 @@ public class Backpack : MonoBehaviour
 					return;
 				}
 
-				if (Input.GetKeyDown(KeyCode.LeftControl))
+				if (Input.GetKeyDown(KeyCode.Mouse1))
 				{
 					owner.Teleport(teleportDestination);
 					InitializeState(BackpackStates.INHAND);
@@ -120,6 +122,17 @@ public class Backpack : MonoBehaviour
 
 	public void InitializeState(BackpackStates newState)
 	{
+		if(onActivateable)
+		{
+			onActivateable = false;
+
+			if (lastActivated != null)
+			{
+				lastActivated.Deactivate();
+				lastActivated = null;
+			}
+		}
+
 		switch (newState)
 		{
 			case BackpackStates.AIMING:
@@ -161,6 +174,24 @@ public class Backpack : MonoBehaviour
 	{
 		currentState = BackpackStates.IDLE;
 		backpackAnimation.ToggleTrails(false);
+
+		Collider2D[] interactables = Physics2D.OverlapCircleAll(transform.position, 2f);
+
+		if (interactables.Length > 0)
+		{
+			foreach (Collider2D col in interactables)
+			{
+				IActivateable activateable = col.GetComponent<IActivateable>();
+
+				if (activateable != null)
+				{
+					activateable.Activate();
+					lastActivated = activateable;
+					onActivateable = true;
+					Debug.Log("Enemy damaged");
+				}
+			}
+		}
 	}
 
 	private void Init_InHandState()

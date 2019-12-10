@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 9bbfc708a13d73349a40d1eec5f71960
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Diffusion
+  fontNames:
+  - Diffusion
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 228ad095e0e4d6c498ffef0416aedff4, type: 3}
+  - {fileID: 12800000, guid: 5d5ea32782886fd439724eaabf1836b8, type: 3}
+  - {fileID: 12800000, guid: 199e9b48bc60d214eb3702b1818b6b83, type: 3}
+  - {fileID: 12800000, guid: 788e8a9d2c5ae9547b8e3e56d18f146e, type: 3}
+  - {fileID: 12800000, guid: 671eed7f2ec803242a70bb1f193a0a80, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
