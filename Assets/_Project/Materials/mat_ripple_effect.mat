@@ -58,8 +58,8 @@ Material:
     m_Floats:
     - _Amount: 3e-45
     - _BumpScale: 1
-    - _CenterX: 327.03458
-    - _CenterY: 61.00888
+    - _CenterX: 482
+    - _CenterY: 319.5
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
