@@ -113,13 +113,11 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			// Clamp the magnitude so we cant move faster diagonally.
 			Vector2 vel = new Vector2(horizontal, vertical);
 			vel = Vector2.ClampMagnitude(vel, 1);
-
 			base.Update();
-
-			playerAnimations.SetIdleSprite(facingDirection);
 
 			// Move the rigidbody from the BaseCharacterMovement
 			Move(vel);
+			//playerAnimations.SetIdleSprite(facingDirection);
 		}
 
 		private void HandleBackpackAimingUI()
@@ -174,7 +172,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 				onThrowEvent.Raise();
 				backpack.Launch(pointB);
 				backpack.InitializeState(BackpackStates.INFLIGHT);
-				playerAnimations.TriggerThrowing(FacingDirection);
+				playerAnimations.TriggerThrowing(facingDirection);
 				yield break;
 			}
 			else

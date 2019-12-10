@@ -26,7 +26,7 @@ public class PlayerAnimations : MonoBehaviour
 
 	public void SetIdleSprite(float facingDirection)
 	{
-		animator.SetFloat("facingDirection", facingDirection);
+		//animator.SetFloat("facingDirection", facingDirection);
 	}
 
 	public void TriggerThrowing(float facingDirection)

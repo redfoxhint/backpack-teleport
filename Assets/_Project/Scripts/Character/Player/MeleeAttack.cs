@@ -25,8 +25,10 @@ public class MeleeAttack : MonoBehaviour
         Vector2 arrowPos = Camera.main.WorldToScreenPoint(player.transform.position);
         arrowPos = (Vector2)Input.mousePosition - arrowPos;
 
+        //Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector2 arrowPos = ((Vector2)transform.position - mousePos).normalized;
+
         aimAngle = Mathf.Atan2(arrowPos.y, arrowPos.x) * Mathf.Rad2Deg;
-        Debug.Log(aimAngle);
 
         arrowPos = Quaternion.AngleAxis(aimAngle, Vector3.forward) * (Vector2.right * 1.5f);
         arrow.transform.position = (Vector2)player.transform.position + arrowPos;
@@ -37,6 +39,8 @@ public class MeleeAttack : MonoBehaviour
         attackDir = Utils.GetVectorFromAngle(aimAngle);
 
         Vector2 attackDirRounded = new Vector2(Mathf.RoundToInt(attackDir.x), Mathf.RoundToInt(attackDir.y));
+        Debug.Log(attackDirRounded);
+
         player.HandleMovementDirection(attackDirRounded);
     }
 
