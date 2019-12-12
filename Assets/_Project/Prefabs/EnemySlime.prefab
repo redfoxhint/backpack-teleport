@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 6948207509908168719}
   - component: {fileID: 433417133}
   - component: {fileID: 1054791162462496225}
+  - component: {fileID: 844915350}
   m_Layer: 11
   m_Name: EnemySlime
   m_TagString: Damageable
@@ -407,15 +408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cef32d486b16a4b8eff2c0e06b9aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  down: {x: 0, y: -1}
-  right: {x: -1, y: 0}
-  left: {x: 1, y: 0}
-  upright: {x: 0, y: 1}
-  up: {x: 0, y: 1}
-  downright: {x: -1, y: -1}
-  upleft: {x: 1, y: 1}
-  downleft: {x: 1, y: -1}
   maxHealth: 10
   healthBar: {fileID: 6948207510246087516}
   baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
@@ -424,6 +416,28 @@ MonoBehaviour:
   doMove: 1
   attackCooldownTime: 1
   damageVisualization: {fileID: 6948207509702134593}
+--- !u!114 &844915350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948207509988616446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26e6935edc93cf48a3f6956ec817975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 7
+  movementDampingAmount: 15
+  down: {x: 0, y: -1}
+  right: {x: 1, y: 0}
+  left: {x: -1, y: 0}
+  upright: {x: 1, y: 1}
+  up: {x: 0, y: 1}
+  downright: {x: 1, y: -1}
+  upleft: {x: -1, y: 1}
+  downleft: {x: -1, y: -1}
 --- !u!1 &6948207510246087491
 GameObject:
   m_ObjectHideFlags: 0

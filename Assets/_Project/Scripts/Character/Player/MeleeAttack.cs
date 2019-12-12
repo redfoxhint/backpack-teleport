@@ -41,12 +41,12 @@ public class MeleeAttack : MonoBehaviour
 
         Vector2 attackDirRounded = new Vector2(Mathf.RoundToInt(attackDir.x), Mathf.RoundToInt(attackDir.y));
 
-        player.HandleMovementDirection(attackDirRounded);
+        player.GetComponent<PlayerMovement>().SetFacingDirection(attackDirRounded);
     }
 
     private void Damage(GameObject other)
     {
-        other.GetComponent<IDamageable>().TakeDamage(1f, attackDir * 2f);
+        other.GetComponent<IDamageable>().TakeDamage(gameObject, 1f);
     }
 
     private void Test(CustomTestEventData pos)

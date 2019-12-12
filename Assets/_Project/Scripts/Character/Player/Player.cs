@@ -32,16 +32,15 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		[SerializeField] private Stat healthStat;
 		[SerializeField] private Stat energyStat;
 
-		// Public Variables
-
-
 		// Private Variables
 		private Vector2 pointA;
 		private Vector2 pointB;
 
 		private bool isAimingBackpack;
-
 		private float calculatedBackpackTravelDistance;
+
+		// Properties
+		public Rigidbody2D RBody2D { get; private set; }
 
 		// Components
 		private Backpack backpack;
@@ -51,24 +50,27 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		private MeleeAttack attackManager;
 		private DottedLine dottedLine;
 		private TrailRenderer trailRenderer;
+		private Animator animator;
 		private Camera cam;
 
-		public override void Awake()
+		protected override void Awake()
 		{
 			base.Awake();
 
 			backpack = FindObjectOfType<Backpack>();
+			animator = GetComponent<Animator>();
 			characterMovement = GetComponent<PlayerMovement>();
 			aimingAnimation = GetComponent<AimingAnimation>();
 			playerAnimations = GetComponent<PlayerAnimations>();
 			attackManager = GetComponent<MeleeAttack>();
 			trailRenderer = GetComponent<TrailRenderer>();
+			RBody2D = GetComponent<Rigidbody2D>();
 
 			dottedLine = DottedLine.Instance;
 			cam = Camera.main;
 		}
 
-		public override void Start()
+		protected override void Start()
 		{
 			base.Start();
 
@@ -76,11 +78,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			trailRenderer.enabled = false;
 		}
 
-		public override void Update()
+		private void Update()
 		{
-			//HandleMovement();
-			//base.Update();
-
 			if (ThrowBackPack() && backpack.CanBeAimed)
 			{
 				backpack.InitializeState(BackpackStates.AIMING);
@@ -105,24 +104,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			}
 		}
 
-		private void HandleMovement()
-		{
-			if (knockback.KnockbackCounter > 0) return;
-
-			// Get Input
-			float horizontal = Input.GetAxisRaw("Horizontal");
-			float vertical = Input.GetAxisRaw("Vertical");
-
-			// Clamp the magnitude so we cant move faster diagonally.
-			Vector2 vel = new Vector2(horizontal, vertical);
-			vel = Vector2.ClampMagnitude(vel, 1);
-			base.Update();
-
-			// Move the rigidbody from the BaseCharacterMovement
-			Move(vel);
-			//playerAnimations.SetIdleSprite(facingDirection);
-		}
-
 		private void HandleBackpackAimingUI()
 		{
 			if (calculatedBackpackTravelDistance <= maxThrowDistance)
@@ -136,11 +117,14 @@ namespace BackpackTeleport.Character.PlayerCharacter
 				aimingAnimation.RotateText(0f);
 		}
 
-		public override void TakeDamage(float amount, Vector2 damageDirection)
+		public override void TakeDamage(GameObject dealer, float amount)
 		{
 			this.RecalculateHealth(amount);
 			onTakeDamage.Raise(healthStat);
-			knockback.ApplyKnockback(damageDirection, damageColor);
+
+			characterMovement.ApplyKnockback(dealer.transform, 10f);
+
+			//knockback.ApplyKnockback(damageDirection, damageColor);
 		}
 
 		public override void RecalculateHealth(float amount)
@@ -175,7 +159,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 				onThrowEvent.Raise();
 				backpack.Launch(pointB);
 				backpack.InitializeState(BackpackStates.INFLIGHT);
-				playerAnimations.TriggerThrowing(facingDirection);
+				playerAnimations.TriggerThrowing(characterMovement.FacingDirection);
 				yield break;
 			}
 			else
@@ -193,8 +177,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		public void Teleport(Vector2 pos)
 		{
-			rBody.position = pos;
-            //playerStats.UseTeleport();
+			transform.position = pos;
             FindObjectOfType<GhostingEffect>().ShowGhost();
             onTeleportEvent.Raise();
 			trailRenderer.enabled = true;
@@ -218,7 +201,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		private void AreaOfEffectDamage()
 		{
-			Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(rBody.position, areaDamageRadius);
+			Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(transform.position, areaDamageRadius);
 
 			if (collidersInRadius.Length > 0)
 			{
@@ -229,8 +212,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 					if (enemy != null)
 					{
 						Vector2 dir = col.transform.position - transform.position;
-						enemy.GetComponent<IDamageable>().TakeDamage(areaDamageAmount, dir);
-						GameObject effect = Instantiate(teleportEffect, rBody.position, Quaternion.identity);
+						enemy.GetComponent<IDamageable>().TakeDamage(gameObject, areaDamageAmount);
+						GameObject effect = Instantiate(teleportEffect, transform.position, Quaternion.identity);
 						Debug.Log("Enemy damaged");
 					}
 				}
@@ -249,22 +232,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			Gizmos.color = Color.magenta;
 			Gizmos.DrawWireSphere(transform.position, areaDamageRadius);
 		}
-
-		//private void OnTriggerEnter2D(Collider2D other)
-		//{
-		//	if(other.GetComponent<IActivateable>() != null)
-		//	{
-		//		other.GetComponent<IActivateable>().Activate();
-		//	}
-		//}
-
-		//private void OnTriggerExit2D(Collider2D other)
-		//{
-		//	if (other.GetComponent<IActivateable>() != null)
-		//	{
-		//		other.GetComponent<IActivateable>().Deactivate();
-		//	}
-		//}
 	}
 }
 

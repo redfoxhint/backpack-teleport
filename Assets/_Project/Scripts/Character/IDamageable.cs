@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void TakeDamage(float value, Vector2 dir);
+    void TakeDamage(GameObject dealer, float value);
 }

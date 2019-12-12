@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace BackpackTeleport.Character
 {
 	[RequireComponent(typeof(Knockback))]
-	public abstract class BaseCharacter : BaseCharacterMovement, IDamageable, IActivator
+	public abstract class BaseCharacter : MonoBehaviour, IDamageable, IActivator
 	{
 		// Inspector Fields
 		[SerializeField] protected float maxHealth = 10f;
@@ -23,21 +23,15 @@ namespace BackpackTeleport.Character
 		// Components
 		protected Knockback knockback;
 
-		public override void Awake()
+		protected virtual void Awake()
 		{
-			base.Awake();
 			healthBar = GetComponentInChildren<Image>();
 			knockback = GetComponent<Knockback>();
 		}
 
-		public virtual void Start()
+		protected virtual void Start()
 		{
 			InitializeCharacter();
-		}
-
-		public override void Update()
-		{
-			base.Update();
 		}
 
 		public virtual void InitializeCharacter()
@@ -45,7 +39,7 @@ namespace BackpackTeleport.Character
 			currentHealth = maxHealth;
 		}
 
-		public virtual void TakeDamage(float amount, Vector2 damageDirection)
+		public virtual void TakeDamage(GameObject dealer, float amount)
 		{
 			RecalculateHealth(amount);
 
@@ -54,8 +48,6 @@ namespace BackpackTeleport.Character
 				Destroy(gameObject); // Kill this character.
 				return;
 			}
-
-			knockback.ApplyKnockback(damageDirection, damageColor);
 		}
 
 		public virtual void RecalculateHealth(float amount)

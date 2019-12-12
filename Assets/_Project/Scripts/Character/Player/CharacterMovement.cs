@@ -21,17 +21,18 @@ public class CharacterMovement : MonoBehaviour
 {
     // Inspector Fields
     [Header("Character Movement Settings")]
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float movementDampingAmount = 15f;
 
     // Private Variables
     private float currentSpeed;
-    private float facingDirection;
     private Vector2 smoothedVelocity; // Smoothed movement direction
 
     // Properties
     public Vector2 LastVelocity { get; private set; }
     public Vector2 MovementVector { get; private set; } // Normalized movement direction
+    public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+    public float FacingDirection { get; private set; }
 
     // Facing Direction Context
     [HideInInspector] public Vector2 down = new Vector2(0, -1);
@@ -65,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
         MovementVector = moveDirection.normalized;
         SetFacingDirection(moveDirection.normalized);
 
-        smoothedVelocity = Vector2.Lerp(smoothedVelocity, moveDirection.normalized * moveSpeed, Time.deltaTime * movementDampingAmount);
+        smoothedVelocity = Vector2.Lerp(smoothedVelocity, moveDirection.normalized * MoveSpeed, Time.deltaTime * movementDampingAmount);
         rBody.velocity = smoothedVelocity;
 
         SetAnimatorParameters();
@@ -78,11 +79,11 @@ public class CharacterMovement : MonoBehaviour
             animator.SetFloat("Horizontal", Mathf.RoundToInt(MovementVector.x));
             animator.SetFloat("Vertical", Mathf.RoundToInt(MovementVector.y));
             animator.SetFloat("Speed", MovementVector.sqrMagnitude);
-            animator.SetFloat("facingDirection", facingDirection);
+            animator.SetFloat("facingDirection", FacingDirection);
         }
     }
 
-    private void SetFacingDirection(Vector2 moveDir)
+    public void SetFacingDirection(Vector2 moveDir)
     {
         if (moveDir == Vector2.zero) return;
 
@@ -103,12 +104,12 @@ public class CharacterMovement : MonoBehaviour
     public void SetFacingDirection(float newDirection)
     {
         if (newDirection < 0 || newDirection > 7) return; // In case a number which is a direction is passed in.
-        facingDirection = newDirection;
+        FacingDirection = newDirection;
     }
 
     public void ApplyKnockback(Transform other, float force)
     {
-        Vector2 direction = other.position - transform.position;
+        Vector2 direction = transform.position - other.position;
         rBody.AddForce(direction.normalized * force, ForceMode2D.Impulse);
     }
 }

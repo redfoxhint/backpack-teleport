@@ -38,7 +38,7 @@ namespace BackpackTeleport.Character.Enemy
 			damageVisualization.gameObject.SetActive(true);
 			currentCooldownTime = Time.time + attackCooldownTime;
 
-			Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(rBody.position, 2f);
+			Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(transform.position, 2f);
 
 			if (collidersInRadius.Length > 0)
 			{
@@ -49,7 +49,7 @@ namespace BackpackTeleport.Character.Enemy
 					if (p != null)
 					{
 						Vector2 dir = col.transform.position - transform.position;
-						p.GetComponent<IDamageable>().TakeDamage(0f, dir);
+						p.GetComponent<IDamageable>().TakeDamage(gameObject, 0f);
 						//GameObject effect = Instantiate(teleportEffect, rBody.position, Quaternion.identity);
 						Debug.Log("Player damaged");
 					}

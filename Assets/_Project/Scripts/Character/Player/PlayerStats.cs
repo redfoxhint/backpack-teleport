@@ -20,19 +20,14 @@ public class PlayerStats : MonoBehaviour, IDamageable
 		knockback = GetComponent<Knockback>();
 	}
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.I)) TakeDamage(2f, Vector2.zero);
-	}
-
-	public void TakeDamage(float amount, Vector2 dir)
+	public void TakeDamage(GameObject dealer, float amount)
 	{
 		healthStat.SetOldValue();
 		healthStat.runtimeStatValue -= amount;
 
 		onTakeDamageEvent.Raise(healthStat); // Raise an event pointing to the health player stat when the player takes damage.
 		Debug.Log("Player took " + amount.ToString() + " damage.");
-		knockback.ApplyKnockback(dir, Color.red);
+		//knockback.ApplyKnockback(dir, Color.red);
 	}
 
 	public void UseTeleport()

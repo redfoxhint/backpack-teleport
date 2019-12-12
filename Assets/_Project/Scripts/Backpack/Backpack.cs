@@ -22,8 +22,6 @@ public class Backpack : MonoBehaviour, IActivator
 
     // Private variables
     private Vector2 teleportDestination;
-	private IActivateable lastActivated;
-	private bool onActivateable = false;
 
 	// Components
 	public BackpackStates currentState;
@@ -121,17 +119,6 @@ public class Backpack : MonoBehaviour, IActivator
 
 	public void InitializeState(BackpackStates newState)
 	{
-		//if(onActivateable)
-		//{
-		//	onActivateable = false;
-
-		//	if (lastActivated != null)
-		//	{
-		//		lastActivated.Deactivate();
-		//		lastActivated = null;
-		//	}
-		//}
-
 		switch (newState)
 		{
 			case BackpackStates.AIMING:
@@ -173,24 +160,6 @@ public class Backpack : MonoBehaviour, IActivator
 	{
 		currentState = BackpackStates.IDLE;
 		backpackAnimation.ToggleTrails(false);
-
-		Collider2D[] interactables = Physics2D.OverlapCircleAll(transform.position, 2f);
-
-		//if (interactables.Length > 0)
-		//{
-		//	foreach (Collider2D col in interactables)
-		//	{
-		//		IActivateable activateable = col.GetComponent<IActivateable>();
-
-		//		if (activateable != null)
-		//		{
-		//			activateable.Activate();
-		//			lastActivated = activateable;
-		//			onActivateable = true;
-		//			Debug.Log("Enemy damaged");
-		//		}
-		//	}
-		//}
 	}
 
 	private void Init_InHandState()

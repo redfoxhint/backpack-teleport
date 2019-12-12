@@ -6,7 +6,7 @@ using BackpackTeleport.Character.PlayerCharacter;
 
 namespace BackpackTeleport.Character.Enemy
 {
-	[RequireComponent(typeof(PolyNavAgent))]
+	[RequireComponent(typeof(PolyNavAgent), typeof(CharacterMovement))]
 	public class BaseEnemy : BaseCharacter
 	{
 		// Inspector Fields
@@ -14,28 +14,32 @@ namespace BackpackTeleport.Character.Enemy
 		[SerializeField] private bool doMove;
 
 		// Components
+		protected CharacterMovement characterMovement;
 		protected PolyNavAgent agent2D;
+		protected Animator animator;
 		protected Player player;
 
-		public override void Awake()
+		protected override void Awake()
 		{
 			base.Awake();
+			animator = GetComponent<Animator>();
+			characterMovement = GetComponent<CharacterMovement>();
 			agent2D = GetComponent<PolyNavAgent>();
 			player = FindObjectOfType<Player>();
 		}
 
-		public override void Start()
+		protected override void Start()
 		{
 			base.Start();
 			SetState(States.CHASE);
 		}
 
-		public override void Update()
+		private void Update()
 		{
 			if (!doMove) return;
 
 			UpdateStates(currentState);
-			base.Update();
+			HandleMovementAnimation();
 		}
 
 		public void SetState(States state)
@@ -70,7 +74,13 @@ namespace BackpackTeleport.Character.Enemy
 			}
 		}
 
-		public override void HandleMovementAnimation()
+		public override void TakeDamage(GameObject dealer, float amount)
+		{
+			base.TakeDamage(dealer, amount);
+			characterMovement.ApplyKnockback(dealer.transform, 10f);
+		}
+
+		private void HandleMovementAnimation()
 		{
 			animator.SetFloat("Horizontal", Mathf.RoundToInt(agent2D.movingDirection.x));
 			animator.SetFloat("Vertical", Mathf.RoundToInt(agent2D.movingDirection.y));
@@ -128,7 +138,7 @@ namespace BackpackTeleport.Character.Enemy
 					agent2D.SetDestination(player.transform.position);
 					Vector2 target = agent2D.nextPoint;
 					Vector2 direction = (target - (Vector2)transform.position).normalized;
-					velocity = direction;
+					//velocity = direction;
 				}
 				else
 				{

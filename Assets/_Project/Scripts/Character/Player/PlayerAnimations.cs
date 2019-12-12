@@ -18,15 +18,9 @@ public class PlayerAnimations : MonoBehaviour
         animator = GetComponent<Animator>();
 	}
 
-
     public void SwitchHasBackback(bool hasBackpack)
 	{
 		animator.SetBool("hasBackpack", true);
-	}
-
-	public void SetIdleSprite(float facingDirection)
-	{
-		//animator.SetFloat("facingDirection", facingDirection);
 	}
 
 	public void TriggerThrowing(float facingDirection)

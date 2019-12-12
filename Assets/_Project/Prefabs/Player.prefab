@@ -1024,15 +1024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297f84fabd4dc754f8bcbdf181e1740c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  down: {x: 0, y: -1}
-  right: {x: 1, y: 0}
-  left: {x: -1, y: 0}
-  upright: {x: 1, y: 1}
-  up: {x: 0, y: 1}
-  downright: {x: 1, y: -1}
-  upleft: {x: -1, y: 1}
-  downleft: {x: -1, y: -1}
   maxHealth: 10
   healthBar: {fileID: 0}
   baseCharacterData: {fileID: 0}
