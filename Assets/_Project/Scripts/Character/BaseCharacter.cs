@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 
 namespace BackpackTeleport.Character
 {
 	[RequireComponent(typeof(Knockback))]
-	public abstract class BaseCharacter : BaseCharacterMovement, IDamageable
+	public abstract class BaseCharacter : BaseCharacterMovement, IDamageable, IActivator
 	{
 		// Inspector Fields
 		[SerializeField] protected float maxHealth = 10f;

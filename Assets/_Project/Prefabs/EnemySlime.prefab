@@ -163,8 +163,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 17daff2f8d23ee542977df8dab9a606b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -366,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 0}
-  maxSpeed: 3.5
+  maxSpeed: 2
   mass: 20
   stoppingDistance: 0.1
   slowingDistance: 1
@@ -409,12 +407,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cef32d486b16a4b8eff2c0e06b9aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
   down: {x: 0, y: -1}
-  upright: {x: 0, y: 1}
-  downright: {x: -1, y: -1}
-  left: {x: 1, y: 0}
   right: {x: -1, y: 0}
+  left: {x: 1, y: 0}
+  upright: {x: 0, y: 1}
+  up: {x: 0, y: 1}
+  downright: {x: -1, y: -1}
   upleft: {x: 1, y: 1}
   downleft: {x: 1, y: -1}
   maxHealth: 10
@@ -422,7 +421,7 @@ MonoBehaviour:
   baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   currentState: 0
-  doMove: 0
+  doMove: 1
   attackCooldownTime: 1
   damageVisualization: {fileID: 6948207509702134593}
 --- !u!1 &6948207510246087491
@@ -488,8 +487,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 17daff2f8d23ee542977df8dab9a606b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0

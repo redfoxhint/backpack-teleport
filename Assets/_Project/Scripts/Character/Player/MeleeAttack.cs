@@ -16,6 +16,7 @@ public class MeleeAttack : MonoBehaviour
     private void Awake()
     {
         attack.onColliderHit = i => Damage(i);
+        GameEvents.testEvent.AddListener(Test);
     }
 
     public void Attack(Player player, Animator anim, Vector2 vel)
@@ -39,7 +40,6 @@ public class MeleeAttack : MonoBehaviour
         attackDir = Utils.GetVectorFromAngle(aimAngle);
 
         Vector2 attackDirRounded = new Vector2(Mathf.RoundToInt(attackDir.x), Mathf.RoundToInt(attackDir.y));
-        Debug.Log(attackDirRounded);
 
         player.HandleMovementDirection(attackDirRounded);
     }
@@ -47,5 +47,10 @@ public class MeleeAttack : MonoBehaviour
     private void Damage(GameObject other)
     {
         other.GetComponent<IDamageable>().TakeDamage(1f, attackDir * 2f);
+    }
+
+    private void Test(CustomTestEventData pos)
+    {
+        Debug.Log(pos.pos.name);
     }
 }

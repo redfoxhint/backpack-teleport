@@ -100,7 +100,6 @@ namespace BackpackTeleport.Character
 			if (vel == Vector2.zero) return;
 
 			vel = new Vector2(Mathf.RoundToInt(vel.x), Mathf.RoundToInt(vel.y));
-			Debug.Log(vel);	
 
 			if (vel == down) facingDirection = 0f;
 			if (vel == right) facingDirection = 1f;

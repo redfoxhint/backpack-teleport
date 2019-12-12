@@ -1,99 +1,77 @@
 ﻿using System.Collections;
 using UnityEngine;
-using BackpackTeleport.Character;
 using DG.Tweening;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class CharacterDash : MonoBehaviour
 {
-	[Header("Dash Setup")]
-	[SerializeField] private float dashSpeed = 5f;
-	[SerializeField] private float startDashTime;
-	[SerializeField] private DashAimType aimType = DashAimType.MoveDirection;
-	[SerializeField] private KeyCode dashKey;
+    [Header("Dash Setup")]
+    [SerializeField] private float dashSpeed = 5f;
+    [SerializeField] private DashAimType aimType = DashAimType.MoveDirection;
 
-	// Private Variables
-	private float dashTime;
-	private float startDrag;
-	private int direction;
-	private bool hasDashed;
-	private bool isDashing;
-	private enum DashAimType { MouseDirection, MoveDirection }
+    // Private Variables
+    private float startDrag;
+    private bool hasDashed;
+    private bool isDashing;
+    private enum DashAimType { MouseDirection, MoveDirection }
 
-	private BaseCharacterMovement characterMovement;
+    // Components
+    private Rigidbody2D rBody;
 
-	// Components
-	private Rigidbody2D rBody2D;
+    public void Dash(Vector2 direction, Rigidbody2D rBody)
+    {
+        if (!CanDash(direction)) return;
 
-	private void Awake()
-	{
-		rBody2D = GetComponent<Rigidbody2D>();
-		characterMovement = GetComponent<BaseCharacterMovement>();
-		dashTime = startDashTime;
-	}
+        this.rBody = rBody;
+        startDrag = rBody.drag;
 
-	private void Start()
-	{
-		startDrag = characterMovement.RBody2D.drag;
-	}
+        hasDashed = true;
+        rBody.velocity = Vector2.zero;
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(dashKey))
-		{
-			if (characterMovement.Velocity.sqrMagnitude != 0 && !hasDashed)
-			{
-				Dash(characterMovement.Velocity.x, characterMovement.Velocity.y);
-			}
-		}
-	}
+        Vector2 dashDirection = Vector2.zero;
 
-	private void Dash(float x, float y)
-	{
-		hasDashed = true;
-		rBody2D.velocity = Vector2.zero;
+        switch (aimType)
+        {
+            case DashAimType.MouseDirection:
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                dashDirection = (mousePos - (Vector2)transform.position).normalized;
+                break;
 
-		Vector2 dashDirection = Vector2.zero;
+            case DashAimType.MoveDirection:
+                dashDirection = new Vector2(direction.x, direction.y);
+                break;
+        }
 
-		switch (aimType)
-		{
-			case DashAimType.MouseDirection:
-				Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				dashDirection = (mousePos - (Vector2)transform.position).normalized;
-				break;
+        rBody.AddForce(dashDirection.normalized * dashSpeed);
+        StartCoroutine(DashWait());
+        Debug.Log("Dashed");
+    }
 
-			case DashAimType.MoveDirection:
-				dashDirection = new Vector2(x, y);
-				break;
-		}
+    private bool CanDash(Vector2 direction)
+    {
+        return direction.sqrMagnitude != 0 && !hasDashed;
+    }
 
-		//Vector2 dashDirection = new Vector2(x, y);
-		rBody2D.AddForce(dashDirection.normalized * dashSpeed);
-		StartCoroutine(DashWait());
-		Debug.Log("Dashed");
-	}
+    IEnumerator DashWait()
+    {
+        FindObjectOfType<GhostingEffect>().ShowGhost();
+        StartCoroutine(GroundDash());
+        DOVirtual.Float(14, startDrag, 0.8f, SetRigidbodyDrag);
+        isDashing = true;
 
-	IEnumerator DashWait()
-	{
-		FindObjectOfType<GhostingEffect>().ShowGhost();
-		StartCoroutine(GroundDash());
-		DOVirtual.Float(14, startDrag, 0.8f, SetRigidbodyDrag);
-		isDashing = true;
+        yield return new WaitForSeconds(0.3f);
+        isDashing = false;
+        yield break;
+    }
 
-		yield return new WaitForSeconds(0.3f);
-		isDashing = false;
-		yield break;
-	}
+    IEnumerator GroundDash()
+    {
+        yield return new WaitForSeconds(0.15f);
+        hasDashed = false;
+        yield break;
+    }
 
-	IEnumerator GroundDash()
-	{
-		yield return new WaitForSeconds(0.15f);
-		hasDashed = false;
-		yield break;
-	}
-
-	private void SetRigidbodyDrag(float drag)
-	{
-		rBody2D.drag = drag;
-	}
+    private void SetRigidbodyDrag(float drag)
+    {
+        rBody.drag = drag;
+    }
 }

@@ -4,7 +4,7 @@ using BackpackTeleport.Character.Enemy;
 
 namespace BackpackTeleport.Character.PlayerCharacter
 {
-	[RequireComponent(typeof(AimingAnimation))]
+	[RequireComponent(typeof(AimingAnimation), typeof(PlayerMovement))]
 	public class Player : BaseCharacter
 	{
 		// Inspector Fields
@@ -46,6 +46,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		// Components
 		private Backpack backpack;
 		private PlayerAnimations playerAnimations;
+		private PlayerMovement characterMovement;
 		private AimingAnimation aimingAnimation;
 		private MeleeAttack attackManager;
 		private DottedLine dottedLine;
@@ -57,10 +58,12 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			base.Awake();
 
 			backpack = FindObjectOfType<Backpack>();
+			characterMovement = GetComponent<PlayerMovement>();
 			aimingAnimation = GetComponent<AimingAnimation>();
 			playerAnimations = GetComponent<PlayerAnimations>();
 			attackManager = GetComponent<MeleeAttack>();
 			trailRenderer = GetComponent<TrailRenderer>();
+
 			dottedLine = DottedLine.Instance;
 			cam = Camera.main;
 		}
@@ -75,8 +78,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		public override void Update()
 		{
-			HandleMovement();
-			base.Update();
+			//HandleMovement();
+			//base.Update();
 
 			if (ThrowBackPack() && backpack.CanBeAimed)
 			{
@@ -236,7 +239,9 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		private void Attack()
 		{
-			attackManager.Attack(this, animator, LastVelocity);
+			attackManager.Attack(this, animator, characterMovement.LastVelocity);
+			CustomTestEventData data = new CustomTestEventData(transform);
+			GameEvents.testEvent.Invoke(data);
 		}
 
 		private void OnDrawGizmos()
@@ -245,21 +250,21 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			Gizmos.DrawWireSphere(transform.position, areaDamageRadius);
 		}
 
-		private void OnTriggerEnter2D(Collider2D other)
-		{
-			if(other.GetComponent<IActivateable>() != null)
-			{
-				other.GetComponent<IActivateable>().Activate();
-			}
-		}
+		//private void OnTriggerEnter2D(Collider2D other)
+		//{
+		//	if(other.GetComponent<IActivateable>() != null)
+		//	{
+		//		other.GetComponent<IActivateable>().Activate();
+		//	}
+		//}
 
-		private void OnTriggerExit2D(Collider2D other)
-		{
-			if (other.GetComponent<IActivateable>() != null)
-			{
-				other.GetComponent<IActivateable>().Deactivate();
-			}
-		}
+		//private void OnTriggerExit2D(Collider2D other)
+		//{
+		//	if (other.GetComponent<IActivateable>() != null)
+		//	{
+		//		other.GetComponent<IActivateable>().Deactivate();
+		//	}
+		//}
 	}
 }
 

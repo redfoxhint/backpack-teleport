@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorActivateable : MonoBehaviour, IActivateable
+public class DoorActivateable : BaseActivateable
 {
     [SerializeField] private GameObject testSprite;
 
-    public void Activate()
+    public override void Activate()
     {
+        base.Activate();
         testSprite.SetActive(true);
     }
 
-    public void Deactivate()
+    public override void Deactivate()
     {
+        base.Deactivate();
         testSprite.SetActive(false);
     }
 }

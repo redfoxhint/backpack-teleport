@@ -13,12 +13,12 @@ public class GhostingEffect : MonoBehaviour
 
 
 	// Components
-	private BaseCharacterMovement characterMovement;
+	private PlayerMovement characterMovement;
 	private SpriteRenderer spriteRenderer;
 
 	private void Awake()
 	{
-		characterMovement = FindObjectOfType<BaseCharacterMovement>();
+		characterMovement = FindObjectOfType<PlayerMovement>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 

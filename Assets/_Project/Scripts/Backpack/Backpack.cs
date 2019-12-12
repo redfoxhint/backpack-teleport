@@ -8,21 +8,21 @@ public enum BackpackStates
 	AIMING, INFLIGHT, IDLE, RETURNING, INHAND
 }
 
-[RequireComponent(typeof(BackpackAnimation))]
-public class Backpack : MonoBehaviour
+[RequireComponent(typeof(BackpackAnimation), typeof(Rigidbody2D))]
+public class Backpack : MonoBehaviour, IActivator
 {
 	// Public Variables
 	[SerializeField] private float backpackMovementSpeed;
 	[SerializeField] private AnimationCurve movementCurve;
-	public bool CanBeAimed { get { return canBeAimed; } set { canBeAimed = value; } }
-	public bool ChainReady { get { return chainReady; } set { chainReady = value; } }
-	public Player Owner { get { return owner; } }
 
-	// Private variables
-	private Vector2 teleportDestination;
+    // Properties
+    public bool CanBeAimed { get; set; }
+    public bool ChainReady { get; set; }
+    public Player Owner { get; private set; }
+
+    // Private variables
+    private Vector2 teleportDestination;
 	private IActivateable lastActivated;
-	private bool chainReady;
-	private bool canBeAimed;
 	private bool onActivateable = false;
 
 	// Components
@@ -30,7 +30,6 @@ public class Backpack : MonoBehaviour
 	private BackpackAnimation backpackAnimation;
 	private BackpackChaining backpackChaining;
 	private Rigidbody2D rBody;
-	private Player owner;
 	private Camera cam;
 
 	// Tasks
@@ -40,7 +39,7 @@ public class Backpack : MonoBehaviour
 	void Awake()
 	{
 		rBody = GetComponent<Rigidbody2D>();
-		owner = FindObjectOfType<Player>();
+		Owner = FindObjectOfType<Player>();
 		backpackAnimation = GetComponent<BackpackAnimation>();
 		backpackChaining = GetComponent<BackpackChaining>();
 		cam = Camera.main;
@@ -50,7 +49,7 @@ public class Backpack : MonoBehaviour
 
 	private void Start()
 	{
-		canBeAimed = true;
+		CanBeAimed = true;
 	}
 
 	void Update()
@@ -71,7 +70,7 @@ public class Backpack : MonoBehaviour
 					if (launchTask != null)
 						launchTask.Stop();
 
-					owner.Teleport(transform.position);
+					Owner.Teleport(transform.position);
 					InitializeState(BackpackStates.INHAND);
 					return;
 				}
@@ -85,7 +84,7 @@ public class Backpack : MonoBehaviour
 
 				if (backpackChaining.ChainComplete)
 				{
-					if (!chainReady)
+					if (!ChainReady)
 					{
 						backpackChaining.InitializeChain();
 					}
@@ -94,7 +93,7 @@ public class Backpack : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Mouse1))
 				{
-					owner.Teleport(teleportDestination);
+					Owner.Teleport(teleportDestination);
 					InitializeState(BackpackStates.INHAND);
 				}
 
@@ -111,7 +110,7 @@ public class Backpack : MonoBehaviour
 				break;
 
 			case BackpackStates.INHAND:
-				rBody.position = owner.RBody2D.position; // Performance check
+				rBody.position = Owner.RBody2D.position; // Performance check
 				break;
 
 			case BackpackStates.RETURNING:
@@ -122,16 +121,16 @@ public class Backpack : MonoBehaviour
 
 	public void InitializeState(BackpackStates newState)
 	{
-		if(onActivateable)
-		{
-			onActivateable = false;
+		//if(onActivateable)
+		//{
+		//	onActivateable = false;
 
-			if (lastActivated != null)
-			{
-				lastActivated.Deactivate();
-				lastActivated = null;
-			}
-		}
+		//	if (lastActivated != null)
+		//	{
+		//		lastActivated.Deactivate();
+		//		lastActivated = null;
+		//	}
+		//}
 
 		switch (newState)
 		{
@@ -177,21 +176,21 @@ public class Backpack : MonoBehaviour
 
 		Collider2D[] interactables = Physics2D.OverlapCircleAll(transform.position, 2f);
 
-		if (interactables.Length > 0)
-		{
-			foreach (Collider2D col in interactables)
-			{
-				IActivateable activateable = col.GetComponent<IActivateable>();
+		//if (interactables.Length > 0)
+		//{
+		//	foreach (Collider2D col in interactables)
+		//	{
+		//		IActivateable activateable = col.GetComponent<IActivateable>();
 
-				if (activateable != null)
-				{
-					activateable.Activate();
-					lastActivated = activateable;
-					onActivateable = true;
-					Debug.Log("Enemy damaged");
-				}
-			}
-		}
+		//		if (activateable != null)
+		//		{
+		//			activateable.Activate();
+		//			lastActivated = activateable;
+		//			onActivateable = true;
+		//			Debug.Log("Enemy damaged");
+		//		}
+		//	}
+		//}
 	}
 
 	private void Init_InHandState()
@@ -207,7 +206,6 @@ public class Backpack : MonoBehaviour
 	{
 		currentState = BackpackStates.RETURNING;
 
-		//returningTask = new Task(ReturnToPlayerOverSpeed());
 		returningTask = new Task(ReturnToPlayerWithCurve(backpackMovementSpeed * 2, movementCurve));
 		returningTask.Start();
 	}
@@ -219,27 +217,11 @@ public class Backpack : MonoBehaviour
 			launchTask.Stop();
 		}
 
-		//launchTask = new Task(MoveToPointOverSpeed(pos, backpackMovementSpeed));
 		launchTask = new Task(MoveToPointWithCurve(backpackMovementSpeed, pos, movementCurve));
 		launchTask.Start();
 
 		teleportDestination = pos;
-		rBody.position = owner.RBody2D.position; // Set the position of the backpack to the players location so it looks like it spawns from the players center.
-	}
-
-	IEnumerator MoveToPointOverSpeed(Vector3 endPoint, float speed)
-	{
-		Vector2 dir = (transform.position - endPoint).normalized;
-
-		while (rBody.position != (Vector2)endPoint)
-		{
-			rBody.position = Vector2.MoveTowards(rBody.position, endPoint, backpackMovementSpeed * Time.fixedDeltaTime);
-			yield return new WaitForFixedUpdate();
-		}
-
-		InitializeState(BackpackStates.IDLE);
-		rBody.AddForce(-dir * 2000f);
-		yield break;
+		rBody.position = Owner.RBody2D.position; // Set the position of the backpack to the players location so it looks like it spawns from the players center.
 	}
 
 	private IEnumerator MoveToPointWithCurve(float speed, Vector3 target, AnimationCurve animCurve)
@@ -257,7 +239,6 @@ public class Backpack : MonoBehaviour
 		}
 
 		InitializeState(BackpackStates.IDLE);
-		//destinationReached = true;
 
 		yield break;
 	}
@@ -267,29 +248,16 @@ public class Backpack : MonoBehaviour
 		Vector2 startPoint = rBody.position;
 		float animationTimePosition = 0;
 
-		while (Vector3.Distance(owner.RBody2D.position, rBody.position) > 2f)
+		while (Vector3.Distance(Owner.RBody2D.position, rBody.position) > 2f)
 		{
 			animationTimePosition += speed * Time.deltaTime;
-			transform.position = Vector3.Lerp(startPoint, owner.RBody2D.position, animCurve.Evaluate(animationTimePosition));
+			transform.position = Vector3.Lerp(startPoint, Owner.RBody2D.position, animCurve.Evaluate(animationTimePosition));
 			transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 			yield return null;
 		}
 
 		InitializeState(BackpackStates.INHAND);
-		//destinationReached = true;
 
 		yield break;
 	}
-
-	//IEnumerator ReturnToPlayerOverSpeed()
-	//{
-	//	while (Vector3.Distance(owner.RBody2D.position, rBody.position) > 2f)
-	//	{
-	//		rBody.position = Vector2.MoveTowards(rBody.position, owner.RBody2D.position, backpackMovementSpeed * Time.fixedDeltaTime);
-	//		yield return new WaitForFixedUpdate();
-	//	}
-
-	//	InitializeState(BackpackStates.INHAND);
-	//	yield break;
-	//}
 }
