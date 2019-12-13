@@ -8,6 +8,12 @@ public class CharacterDash : MonoBehaviour
     [SerializeField] private float dashSpeed = 5f;
     [SerializeField] private DashAimType aimType = DashAimType.MoveDirection;
 
+    [Header("Ghost Effect Settings")]
+    [SerializeField] private Color trailColor;
+    [SerializeField] private Color fadeColor;
+    [SerializeField] private float ghostInterval;
+    [SerializeField] private float fadeTime;
+
     // Private Variables
     private float startDrag;
     private bool hasDashed;
@@ -16,6 +22,12 @@ public class CharacterDash : MonoBehaviour
 
     // Components
     private Rigidbody2D rBody;
+    [SerializeField] private GhostingEffect ghostingEffect;
+
+    private void Start()
+    {
+        ghostingEffect = new GhostingEffect(gameObject, trailColor, fadeColor, ghostInterval, fadeTime);
+    }
 
     public void Dash(Vector2 direction, Rigidbody2D rBody)
     {
@@ -27,13 +39,14 @@ public class CharacterDash : MonoBehaviour
         hasDashed = true;
         rBody.velocity = Vector2.zero;
 
-        Vector2 dashDirection = Vector2.zero;
+        Vector3 dashDirection = Vector2.zero;
 
         switch (aimType)
         {
             case DashAimType.MouseDirection:
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                dashDirection = (mousePos - (Vector2)transform.position).normalized;
+                //dashDirection = (mousePos - (Vector2)transform.position).normalized;
+                dashDirection = transform.position.DirectionTo(mousePos);
                 break;
 
             case DashAimType.MoveDirection:
@@ -48,12 +61,12 @@ public class CharacterDash : MonoBehaviour
 
     private bool CanDash(Vector2 direction)
     {
-        return direction.sqrMagnitude != 0 && !hasDashed;
+        return direction.sqrMagnitude != 0 && !isDashing;
     }
 
     IEnumerator DashWait()
     {
-        FindObjectOfType<GhostingEffect>().ShowGhost();
+        ghostingEffect.ShowGhost();
         StartCoroutine(GroundDash());
         DOVirtual.Float(14, startDrag, 0.8f, SetRigidbodyDrag);
         isDashing = true;

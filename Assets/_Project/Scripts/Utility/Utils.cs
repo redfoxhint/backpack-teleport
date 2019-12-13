@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 
 public static class Utils
@@ -74,4 +72,12 @@ public static class Utils
 
         cameraMount.DOShakePosition(duration, strength, vibrato, randomness, fadeOut);
     }
+
+    #region Vector3 Extension Methods
+    public static Vector3 DirectionTo(this Vector3 from, Vector3 to)
+    {
+        return Vector3.Normalize(to - from);
+    }
+
+    #endregion
 }

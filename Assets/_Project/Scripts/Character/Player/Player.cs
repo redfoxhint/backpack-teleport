@@ -76,6 +76,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			isAimingBackpack = false;
 			trailRenderer.enabled = false;
+
+			TestNonMonoUpdate testMono = new TestNonMonoUpdate();
 		}
 
 		private void Update()
@@ -178,7 +180,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		public void Teleport(Vector2 pos)
 		{
 			transform.position = pos;
-            FindObjectOfType<GhostingEffect>().ShowGhost();
+            //FindObjectOfType<GhostingEffect>().ShowGhost();
             onTeleportEvent.Raise();
 			trailRenderer.enabled = true;
 
