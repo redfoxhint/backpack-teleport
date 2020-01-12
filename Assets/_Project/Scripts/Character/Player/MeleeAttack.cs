@@ -21,8 +21,6 @@ public class MeleeAttack : MonoBehaviour
 
     public void Attack(Player player, Animator anim, Vector2 vel)
     {
-        anim.SetTrigger("Attack");
-
         Vector2 arrowPos = Camera.main.WorldToScreenPoint(player.transform.position);
         arrowPos = (Vector2)Input.mousePosition - arrowPos;
 
@@ -40,8 +38,10 @@ public class MeleeAttack : MonoBehaviour
         attackDir = Utils.GetVectorFromAngle(aimAngle);
 
         Vector2 attackDirRounded = new Vector2(Mathf.RoundToInt(attackDir.x), Mathf.RoundToInt(attackDir.y));
+        Debug.Log(attackDirRounded);
 
         player.GetComponent<PlayerMovement>().SetFacingDirection(attackDirRounded);
+        anim.SetTrigger("Attack");
     }
 
     private void Damage(GameObject other)

@@ -22,7 +22,7 @@ public class CharacterDash : MonoBehaviour
 
     // Components
     private Rigidbody2D rBody;
-    [SerializeField] private GhostingEffect ghostingEffect;
+    private GhostingEffect ghostingEffect;
 
     private void Start()
     {
@@ -56,7 +56,6 @@ public class CharacterDash : MonoBehaviour
 
         rBody.AddForce(dashDirection.normalized * dashSpeed);
         StartCoroutine(DashWait());
-        Debug.Log("Dashed");
     }
 
     private bool CanDash(Vector2 direction)

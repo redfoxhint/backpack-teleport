@@ -42,7 +42,6 @@ public class PressurePlateActivateable : BaseActivateable
         if(activator != null)
         {
             Activate();
-            Debug.Log("Activated");
         }
     }
 
@@ -53,7 +52,6 @@ public class PressurePlateActivateable : BaseActivateable
         if (activator != null)
         {
             Deactivate();
-            Debug.Log("Deactivated");
         }
     }
 }

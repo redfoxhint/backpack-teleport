@@ -16,5 +16,4 @@ public class UpdateCaller : PersistentSingleton<UpdateCaller>
     {
         updateCallback();
     }
-
 }

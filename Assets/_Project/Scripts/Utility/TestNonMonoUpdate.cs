@@ -11,6 +11,6 @@ public class TestNonMonoUpdate
 
     public void Update()
     {
-        Debug.Log("Updating...");
+        
     }
 }

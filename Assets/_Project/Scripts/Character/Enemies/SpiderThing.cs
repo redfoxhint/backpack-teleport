@@ -8,7 +8,7 @@ namespace BackpackTeleport.Character.Enemy
 {
 	public class SpiderThing : BaseEnemy
 	{
-		[Header("Attack Configuations")]
+		[Header("Attack Configurations")]
 		[SerializeField] private float attackCooldownTime = 1f;
 		[SerializeField] private Image damageVisualization;
 
