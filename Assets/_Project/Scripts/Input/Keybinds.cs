@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Keybinds", menuName = "Keybinds/New Keybinds")]
 public class Keybinds : ScriptableObject
 {
-    public KeyCode interact, pause;
+    public KeyCode interact, pause, confirm, toggleConsole;
 
     public KeyCode CheckKey(string key)
     {
@@ -16,6 +16,12 @@ public class Keybinds : ScriptableObject
 
             case "pause":
                 return pause;
+
+            case "confirm":
+                return confirm;
+
+            case "toggleConsole":
+                return toggleConsole;
 
             default:
                 return KeyCode.None;

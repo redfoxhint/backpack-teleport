@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interact: 101
   pause: 27
+  confirm: 13
+  toggleConsole: 96

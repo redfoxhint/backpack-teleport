@@ -51,7 +51,7 @@ namespace BackpackTeleport.Character.Enemy
 						Vector2 dir = col.transform.position - transform.position;
 						p.GetComponent<IDamageable>().TakeDamage(gameObject, 0f);
 						//GameObject effect = Instantiate(teleportEffect, rBody.position, Quaternion.identity);
-						Debug.Log("Player damaged");
+						//Debug.Log("Player damaged");
 					}
 				}
 			}

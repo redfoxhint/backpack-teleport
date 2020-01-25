@@ -38,7 +38,7 @@ public class MeleeAttack : MonoBehaviour
         attackDir = Utils.GetVectorFromAngle(aimAngle);
 
         Vector2 attackDirRounded = new Vector2(Mathf.RoundToInt(attackDir.x), Mathf.RoundToInt(attackDir.y));
-        Debug.Log(attackDirRounded);
+        //Debug.Log(attackDirRounded);
 
         player.GetComponent<PlayerMovement>().SetFacingDirection(attackDirRounded);
         anim.SetTrigger("Attack");
@@ -51,6 +51,6 @@ public class MeleeAttack : MonoBehaviour
 
     private void Test(CustomTestEventData pos)
     {
-        Debug.Log(pos.pos.name);
+        //Debug.Log(pos.pos.name);
     }
 }
