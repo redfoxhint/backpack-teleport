@@ -51,6 +51,6 @@ public class MeleeAttack : MonoBehaviour
 
     private void Test(CustomTestEventData pos)
     {
-        //Debug.Log(pos.pos.name);
+        //Debug.Log(pos.pos.position.x);
     }
 }
