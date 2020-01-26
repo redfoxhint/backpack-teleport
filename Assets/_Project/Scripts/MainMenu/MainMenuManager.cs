@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using CameraFading;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void InitializeButtons()
     {
-        if(playButton != null)
+        if (playButton != null)
         {
             playButton.onClick.AddListener(OnPlayClicked);
         }
@@ -45,7 +46,7 @@ public class MainMenuManager : MonoBehaviour
             exitButton.onClick.AddListener(OnExitClicked);
         }
 
-        if(backButton != null)
+        if (backButton != null)
         {
             backButton.onClick.AddListener(OnBackButtonClicked);
         }
@@ -64,14 +65,15 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnExitClicked()
     {
+#if UNITY_EDITOR
         if (Application.isEditor)
         {
             UnityEditor.EditorApplication.isPlaying = false;
+            return;
         }
-        else
-        {
-            Application.Quit();
-        }
+#endif
+        Application.Quit();
+
     }
 
     private void OnBackButtonClicked()

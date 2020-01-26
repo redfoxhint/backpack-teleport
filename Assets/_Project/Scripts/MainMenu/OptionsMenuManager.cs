@@ -7,6 +7,28 @@ using System;
 
 public class OptionsMenuManager : MonoBehaviour
 {
+    class OptionsPage
+    {
+        public RectTransform pageContent;
+        public string pageTitle = "Options Page";
+
+        public OptionsPage(RectTransform content, string title)
+        {
+            pageContent = content;
+            pageTitle = title;
+        }
+
+        public void HideContent()
+        {
+            pageContent.gameObject.SetActive(false);
+        }
+
+        public void ShowContent()
+        {
+            pageContent.gameObject.SetActive(true);
+        }
+    }
+
     [Header("Option Tabs")]
     [SerializeField] private RectTransform gameplayTab;
     [SerializeField] private RectTransform graphicsTab;
@@ -15,16 +37,13 @@ public class OptionsMenuManager : MonoBehaviour
 
     [Space]
 
-    [Header("Other Buttons")]
-    [SerializeField] private Button soundButton;
+    [Header("Menu Elements")]
+    [SerializeField] private TextMeshProUGUI pageTitleText;
     [SerializeField] private Button saveButton;
-
-    [Space]
-
-    [Header("Tab Buttons")]
-    [SerializeField] private Button gameplayButton;
-    [SerializeField] private Button graphicsButton;
-    [SerializeField] private Button controlsButton;
+    [SerializeField] private Button nextPageButton;
+    [SerializeField] private Button lastPageButton;
+    [SerializeField] private GameObject keybindOptionPrefab;
+    [SerializeField] private Transform keybindParent;
 
     [Space]
 
@@ -33,29 +52,54 @@ public class OptionsMenuManager : MonoBehaviour
     [SerializeField] private Toggle doSuperSpeedToggle; // FOR TESTING
     [SerializeField] private Toggle doNoStaminaToggle; // FOR TESTING
 
+    [Header("Graphics Options")]
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private Toggle fullscreenToggle;
+    [SerializeField] private Toggle vSyncToggle;
+    [SerializeField] private Slider testSlider;
+
+    [Header("Control Options")]
+
+
     [Header("Sound Options")]
     [SerializeField] private Slider masterVolumeSlider;
+    [SerializeField] private Slider soundVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
 
+    private int pageIndex = 0;
 
-    private RectTransform currentTabOpen = null;
+    private Resolution[] resolutions;
+
+    private List<OptionsPage> optionPages = new List<OptionsPage>();
+    private OptionsPage currentPage;
+    private OptionsPage gameplayPage;
+    private OptionsPage graphicsPage;
+    private OptionsPage controlsPage;
+    private OptionsPage soundPage;
 
     private void Awake()
     {
         InitializeOptions();
-        currentTabOpen = gameplayTab;
+        CreateResolutionOptions();
+        CreateKeyBindOptions();
         LoadOptions();
     }
 
     private void InitializeOptions()
     {
-        // Tabs
-        if (gameplayButton != null) gameplayButton.onClick.AddListener(delegate { SetCurrentTab(gameplayTab); });
-        if (graphicsButton != null) graphicsButton.onClick.AddListener(delegate { SetCurrentTab(graphicsTab); });
-        if (controlsButton != null) controlsButton.onClick.AddListener(delegate { SetCurrentTab(controlsTab); });
+        // Create all the tabs.
+        CreateTab(gameplayPage, gameplayTab, "Gameplay Options");
+        CreateTab(graphicsPage, graphicsTab, "Graphics Options");
+        CreateTab(controlsPage, controlsTab, "Control Options");
+        CreateTab(soundPage, soundTab, "Sound Options");
 
-        // Other Buttons
-        if (soundButton != null) soundButton.onClick.AddListener(delegate { SetCurrentTab(soundTab); });
+        currentPage = optionPages[0];
+        SetPage(0);
+
+        // Menu Buttons
         if (saveButton != null) saveButton.onClick.AddListener(OnSaveClicked);
+        if (nextPageButton != null) nextPageButton.onClick.AddListener(NextPage);
+        if (lastPageButton != null) lastPageButton.onClick.AddListener(LastPage);
 
         // Gameplay Options
         if (doGodModeToggle != null) doGodModeToggle.onValueChanged.AddListener(delegate { SetGodMode(doGodModeToggle.isOn); });
@@ -63,18 +107,32 @@ public class OptionsMenuManager : MonoBehaviour
         if (doNoStaminaToggle != null) doNoStaminaToggle.onValueChanged.AddListener(delegate { SetNoStamina(doNoStaminaToggle.isOn); });
 
         // Graphics Options
+        if (resolutionDropdown != null) resolutionDropdown.onValueChanged.AddListener(delegate { SetResolution(resolutionDropdown.value); });
+        if (fullscreenToggle != null) fullscreenToggle.onValueChanged.AddListener(delegate { SetFullscreen(fullscreenToggle.isOn); });
+        if (vSyncToggle != null) vSyncToggle.onValueChanged.AddListener(delegate { ToggleVsync(vSyncToggle.isOn); });
+        if (testSlider != null) testSlider.onValueChanged.AddListener(delegate { SetTestSlider(testSlider.value); });
 
         // Control Options
 
         // Sound Options
         if (masterVolumeSlider != null) masterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(masterVolumeSlider.value); });
+        if (soundVolumeSlider != null) soundVolumeSlider.onValueChanged.AddListener(delegate { SetSoundVolume(soundVolumeSlider.value); });
+        if (musicVolumeSlider != null) musicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(musicVolumeSlider.value); });
     }
 
     private void SaveOptions()
     {
         OptionsData options = new OptionsData
             (
-                masterVolumeSlider.value
+                doGodModeToggle.isOn,
+                doSuperSpeedToggle.isOn,
+                doNoStaminaToggle.isOn,
+                fullscreenToggle.isOn,
+                vSyncToggle.isOn,
+                testSlider.value,
+                masterVolumeSlider.value,
+                soundVolumeSlider.value,
+                musicVolumeSlider.value
             );
 
         FileReadWrite.WriteToJsonFile(options);
@@ -83,29 +141,83 @@ public class OptionsMenuManager : MonoBehaviour
     private void LoadOptions()
     {
         OptionsData options = FileReadWrite.ReadFromJsonFile<OptionsData>();
-        
-        if(options != null)
+
+        if (options != null)
         {
+            doGodModeToggle.isOn = options.godMode;
+            doSuperSpeedToggle.isOn = options.superSpeed;
+            doNoStaminaToggle.isOn = options.noStamina;
+            fullscreenToggle.isOn = options.fullScreen;
+            vSyncToggle.isOn = options.vSync;
+            testSlider.value = options.testValue;
             masterVolumeSlider.value = options.masterVolumeValue;
+            soundVolumeSlider.value = options.soundVolumeValue;
+            musicVolumeSlider.value = options.musicVolumeValue;
         }
-    }
-
-    private void SetCurrentTab(RectTransform tab)
-    {
-        if (currentTabOpen != null)
-        {
-            currentTabOpen.gameObject.SetActive(false);
-        }
-
-        currentTabOpen = tab;
-
-        tab.gameObject.SetActive(true);
     }
 
     private void OnSaveClicked()
     {
         Debug.Log("Options saved.");
         SaveOptions();
+    }
+
+    private void CreateTab(OptionsPage newPage, RectTransform content, string title)
+    {
+        newPage = new OptionsPage(content, title);
+        optionPages.Add(newPage);
+    }
+
+    private void NextPage()
+    {
+        int totalPages = optionPages.Count - 1;
+
+        if (totalPages <= 0) return;
+
+        if (pageIndex + 1 > totalPages)
+        {
+            pageIndex = 0;
+            SetPage(pageIndex);
+            return;
+        }
+
+        pageIndex++;
+        SetPage(pageIndex);
+    }
+
+    private void LastPage()
+    {
+        int totalPages = optionPages.Count - 1;
+
+        if (totalPages <= 0) return;
+
+        if (pageIndex - 1 < 0)
+        {
+            pageIndex = totalPages;
+            SetPage(pageIndex);
+            return;
+        }
+
+        pageIndex--;
+        SetPage(pageIndex);
+    }
+    private void SetPageTitle(string newTitle)
+    {
+        if (pageTitleText != null)
+        {
+            pageTitleText.SetText(newTitle);
+        }
+    }
+
+    private void SetPage(int index)
+    {
+        OptionsPage page = optionPages[index];
+
+        currentPage.HideContent();
+        currentPage = page;
+        currentPage.ShowContent();
+
+        SetPageTitle(page.pageTitle);
     }
 
     #region Gameplay Region
@@ -128,9 +240,108 @@ public class OptionsMenuManager : MonoBehaviour
 
     #region Graphics Region
 
+    private void CreateResolutionOptions()
+    {
+        resolutions = Screen.resolutions;
+
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = $"{resolutions[i].width} x {resolutions[i].height}";
+            options.Add(option);
+
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+    }
+
+    private void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    private void SetFullscreen(bool isOn)
+    {
+        Screen.fullScreen = isOn;
+    }
+
+    private void ToggleVsync(bool isOn)
+    {
+        QualitySettings.vSyncCount = Convert.ToInt32(isOn);
+    }
+
+    private void SetTestSlider(float value)
+    {
+        Debug.Log($"Test Slider: {value}");
+    }
+
     #endregion
 
     #region Controls Region
+
+    private void CreateKeyBindOptions()
+    {
+        Keybinds keybinds = InputManager.Instance.keybinds;
+
+        foreach (KeyValuePair<string, Keybind> key in keybinds.keys)
+        {
+            GameObject newKey = Instantiate(keybindOptionPrefab, keybindParent);
+            Button bindButton = newKey.GetComponentInChildren<Button>();
+            TextMeshProUGUI keyText = newKey.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI bindText = newKey.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
+
+            keyText.SetText(key.Value.keybindName);
+            bindText.SetText(key.Value.associatedKey.ToString());
+
+            bindButton.onClick.AddListener(delegate { ChangeKey(key.Value, bindText); });
+        }
+    }
+
+    private void ChangeKey(Keybind key, TextMeshProUGUI bindText)
+    {
+        StartCoroutine(ChangeKeyRoutine(key, bindText));
+    }
+
+    private IEnumerator ChangeKeyRoutine(Keybind key, TextMeshProUGUI bindText)
+    {
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                yield break;
+            }
+
+            if (Input.anyKeyDown)
+            {
+                Debug.Log(Input.inputString);
+                UpdateKeyBind(key, bindText, Input.inputString);
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
+    private void UpdateKeyBind(Keybind key, TextMeshProUGUI bindText, string inputString)
+    {
+        KeyCode inputToKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), inputString.ToUpper());
+
+        key.associatedKey = inputToKey;
+        bindText.SetText(inputString.ToUpper());
+        InputManager.Instance.keybinds.UpdateKey(key);
+    }
 
     #endregion
 
@@ -138,6 +349,16 @@ public class OptionsMenuManager : MonoBehaviour
     private void SetMasterVolume(float value)
     {
         Debug.Log($"Master Volume: {value}");
+    }
+
+    private void SetMusicVolume(float value)
+    {
+        Debug.Log($"Music Volume: {value}");
+    }
+
+    private void SetSoundVolume(float value)
+    {
+        Debug.Log($"Sound Volume: {value}");
     }
 
     #endregion

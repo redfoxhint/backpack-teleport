@@ -78,13 +78,13 @@ public class DeveloperConsole
     {
         ConsoleCommand reg = null;
 
-        if(!commands.TryGetValue(command, out reg))
+        if (!commands.TryGetValue(command, out reg))
         {
             AppendLogLine(string.Format("Unknown command '{0}', type 'help' for list.", command));
         }
         else
         {
-            if(reg.Handler == null)
+            if (reg.Handler == null)
             {
                 AppendLogLine(string.Format("Unable to process command '{0}', handler was null."));
             }
@@ -101,16 +101,16 @@ public class DeveloperConsole
         bool inQuote = false;
         var node = paramChars.First;
 
-        while(node != null)
+        while (node != null)
         {
             var next = node.Next;
-            if(node.Value == '"')
+            if (node.Value == '"')
             {
                 inQuote = !inQuote;
                 paramChars.Remove(node);
             }
 
-            if(!inQuote && node.Value == ' ')
+            if (!inQuote && node.Value == ' ')
             {
                 node.Value = '\n';
             }
@@ -120,7 +120,7 @@ public class DeveloperConsole
         char[] paramCharsArray = new char[paramChars.Count];
         paramChars.CopyTo(paramCharsArray, 0);
 
-        return (new string(paramCharsArray)).Split(new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
+        return (new string(paramCharsArray)).Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
     }
 
     #region Command Handlers
@@ -137,19 +137,22 @@ public class DeveloperConsole
 
     private void ExitGame(string[] args)
     {
-        if(Application.isEditor)
+
+#if UNITY_EDITOR
+        if (Application.isEditor)
         {
             UnityEditor.EditorApplication.isPlaying = false;
+            return;
         }
-        else
-        {
-            Application.Quit();
-        }
+#endif
+
+        Application.Quit();
+
     }
 
     private void Echo(string[] args)
     {
-        
+
     }
 
     #endregion

@@ -9,6 +9,7 @@ public class InputManager : PersistentSingleton<InputManager>
     private void OnEnable()
     {
         keybinds = Resources.Load<ScriptableObject>("Keybinds") as Keybinds;
+        keybinds.InitializeKeys();
     }
 
     public bool KeyDown(string key)
