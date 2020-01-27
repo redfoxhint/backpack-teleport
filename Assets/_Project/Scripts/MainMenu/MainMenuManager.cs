@@ -10,57 +10,36 @@ public class MainMenuManager : MonoBehaviour
     // Inspector Fields
     [Header("Main Menu")]
     [SerializeField] private RectTransform mainMenu;
-    [SerializeField] private Button playButton;
+    [SerializeField] private RectTransform levelSelectionMenu;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button backButton;
+    [SerializeField] private Button levelSelectionButton;
 
     [Header("Options Menu")]
     [SerializeField] private RectTransform optionsMenu;
 
     // Private Variables
-
-    // Components
-    private OptionsMenuManager optionsMenuManager;
+    private RectTransform currentMenu;
 
     private void Awake()
     {
         InitializeButtons();
-        optionsMenuManager = FindObjectOfType<OptionsMenuManager>();
     }
 
     private void InitializeButtons()
     {
-        if (playButton != null)
-        {
-            playButton.onClick.AddListener(OnPlayClicked);
-        }
-
-        if (optionsButton != null)
-        {
-            optionsButton.onClick.AddListener(OnOptionsClicked);
-        }
-
-        if (exitButton != null)
-        {
-            exitButton.onClick.AddListener(OnExitClicked);
-        }
-
-        if (backButton != null)
-        {
-            backButton.onClick.AddListener(OnBackButtonClicked);
-        }
-    }
-
-    private void OnPlayClicked()
-    {
-
+        if (optionsButton != null) optionsButton.onClick.AddListener(OnOptionsClicked);
+        if (exitButton != null) exitButton.onClick.AddListener(OnExitClicked);
+        if (backButton != null) backButton.onClick.AddListener(OnBackButtonClicked);
+        if (levelSelectionButton != null) levelSelectionButton.onClick.AddListener(OnStoryButtonClicked);
     }
 
     private void OnOptionsClicked()
     {
         mainMenu.gameObject.SetActive(false);
         optionsMenu.gameObject.SetActive(true);
+        currentMenu = optionsMenu;
     }
 
     private void OnExitClicked()
@@ -73,12 +52,18 @@ public class MainMenuManager : MonoBehaviour
         }
 #endif
         Application.Quit();
-
     }
 
     private void OnBackButtonClicked()
     {
-        optionsMenu.gameObject.SetActive(false);
+        currentMenu.gameObject.SetActive(false);
         mainMenu.gameObject.SetActive(true);
+    }
+
+    private void OnStoryButtonClicked()
+    {
+        mainMenu.gameObject.SetActive(false);
+        levelSelectionMenu.gameObject.SetActive(true);
+        currentMenu = levelSelectionMenu;
     }
 }

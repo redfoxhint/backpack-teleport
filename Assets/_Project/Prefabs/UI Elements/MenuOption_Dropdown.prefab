@@ -101,8 +101,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Option A
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a228c054185fd24499f0b26944b1f667, type: 2}
+  m_sharedMaterial: {fileID: 6173084282815465593, guid: a228c054185fd24499f0b26944b1f667,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 513
+  m_textAlignment: 4097
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -1001,7 +1002,7 @@ GameObject:
   - component: {fileID: 7846734859566893538}
   - component: {fileID: 7846734859566893539}
   m_Layer: 5
-  m_Name: ResolutionDropdown
+  m_Name: MenuOption_Dropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
