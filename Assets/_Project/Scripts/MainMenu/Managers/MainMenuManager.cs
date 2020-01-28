@@ -40,6 +40,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.gameObject.SetActive(false);
         optionsMenu.gameObject.SetActive(true);
         currentMenu = optionsMenu;
+        EnableBackButton();
     }
 
     private void OnExitClicked()
@@ -58,6 +59,7 @@ public class MainMenuManager : MonoBehaviour
     {
         currentMenu.gameObject.SetActive(false);
         mainMenu.gameObject.SetActive(true);
+        DisableBackButton();
     }
 
     private void OnStoryButtonClicked()
@@ -65,5 +67,16 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.gameObject.SetActive(false);
         levelSelectionMenu.gameObject.SetActive(true);
         currentMenu = levelSelectionMenu;
+        EnableBackButton();
+    }
+
+    private void EnableBackButton()
+    {
+        backButton.gameObject.SetActive(true);
+    }
+
+    private void DisableBackButton()
+    {
+        backButton.gameObject.SetActive(false);
     }
 }
