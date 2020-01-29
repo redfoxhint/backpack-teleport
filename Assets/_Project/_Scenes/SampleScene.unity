@@ -52624,6 +52624,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -52718,15 +52719,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.00046771765
+    y: 0.050748765
+    width: 0.99906456
+    height: 0.89850247
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.91
+  orthographic size: 2.8125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -52771,6 +52772,20 @@ MonoBehaviour:
   rippleMaterial: {fileID: 2100000, guid: 384baa110b7846141a0f49c89bcf9f31, type: 2}
   MaxAmount: 30
   Friction: 0.752
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca652c13353f448d9227970c0928082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceHeight: 180
+  pixelsPerUnit: 32
 --- !u!1 &552837005
 GameObject:
   m_ObjectHideFlags: 0
