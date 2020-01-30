@@ -7,11 +7,6 @@ public class TabbedMenu : MonoBehaviour
     private TabbedMenuTab currentlySelectedTab;
     [SerializeField] private TabbedMenuTab defaultTab;
 
-    private void Awake()
-    {
-        SetCurrentlySelectedTab(defaultTab);
-    }
-
     private void Start()
     {
         foreach (Transform tab in transform)
@@ -19,6 +14,8 @@ public class TabbedMenu : MonoBehaviour
             TabbedMenuTab _tab = tab.GetComponent<TabbedMenuTab>();
             _tab.Init(this);
         }
+
+        SetCurrentlySelectedTab(defaultTab);
     }
 
     public void SetCurrentlySelectedTab(TabbedMenuTab tab)
