@@ -38,10 +38,7 @@ public class OptionsMenuManager : MonoBehaviour
     [Space]
 
     [Header("Menu Elements")]
-    [SerializeField] private TextMeshProUGUI pageTitleText;
     [SerializeField] private Button saveButton;
-    [SerializeField] private Button nextPageButton;
-    [SerializeField] private Button lastPageButton;
     [SerializeField] private GameObject keybindOptionPrefab;
     [SerializeField] private Transform keybindParent;
 
@@ -98,8 +95,6 @@ public class OptionsMenuManager : MonoBehaviour
 
         // Menu Buttons
         if (saveButton != null) saveButton.onClick.AddListener(OnSaveClicked);
-        if (nextPageButton != null) nextPageButton.onClick.AddListener(NextPage);
-        if (lastPageButton != null) lastPageButton.onClick.AddListener(LastPage);
 
         // Gameplay Options
         if (doGodModeToggle != null) doGodModeToggle.onValueChanged.AddListener(delegate { SetGodMode(doGodModeToggle.isOn); });
@@ -168,47 +163,6 @@ public class OptionsMenuManager : MonoBehaviour
         optionPages.Add(newPage);
     }
 
-    private void NextPage()
-    {
-        int totalPages = optionPages.Count - 1;
-
-        if (totalPages <= 0) return;
-
-        if (pageIndex + 1 > totalPages)
-        {
-            pageIndex = 0;
-            SetPage(pageIndex);
-            return;
-        }
-
-        pageIndex++;
-        SetPage(pageIndex);
-    }
-
-    private void LastPage()
-    {
-        int totalPages = optionPages.Count - 1;
-
-        if (totalPages <= 0) return;
-
-        if (pageIndex - 1 < 0)
-        {
-            pageIndex = totalPages;
-            SetPage(pageIndex);
-            return;
-        }
-
-        pageIndex--;
-        SetPage(pageIndex);
-    }
-    private void SetPageTitle(string newTitle)
-    {
-        if (pageTitleText != null)
-        {
-            pageTitleText.SetText(newTitle);
-        }
-    }
-
     private void SetPage(int index)
     {
         OptionsPage page = optionPages[index];
@@ -216,8 +170,6 @@ public class OptionsMenuManager : MonoBehaviour
         currentPage.HideContent();
         currentPage = page;
         currentPage.ShowContent();
-
-        SetPageTitle(page.pageTitle);
     }
 
     #region Gameplay Region
@@ -298,14 +250,12 @@ public class OptionsMenuManager : MonoBehaviour
         foreach (KeyValuePair<string, Keybind> key in keybinds.keys)
         {
             GameObject newKey = Instantiate(keybindOptionPrefab, keybindParent);
-            Button bindButton = newKey.GetComponentInChildren<Button>();
-            TextMeshProUGUI keyText = newKey.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI bindText = newKey.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
+            KeybindUI bindButton = newKey.GetComponentInChildren<KeybindUI>();
 
-            keyText.SetText(key.Value.keybindName);
-            bindText.SetText(key.Value.associatedKey.ToString());
+            bindButton.functionText.SetText(key.Value.keybindName);
+            bindButton.bindText.SetText(key.Value.associatedKey.ToString());
 
-            bindButton.onClick.AddListener(delegate { ChangeKey(key.Value, bindText); });
+            bindButton.keyBindButton.onClick.AddListener(delegate { ChangeKey(key.Value, bindButton.bindText); });
         }
     }
 

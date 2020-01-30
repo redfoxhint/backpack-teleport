@@ -10,11 +10,6 @@ public class LevelSelectionBar : MonoBehaviour
     private LevelSelector currentlySelectedLevel;
     [HideInInspector] public LevelSelectorEvent OnLevelSelected = new LevelSelectorEvent();
 
-    private void Awake()
-    {
-        
-    }
-
     public void SetCurrentLevelSelected(LevelSelector levelSelector)
     {
         if (currentlySelectedLevel == null)

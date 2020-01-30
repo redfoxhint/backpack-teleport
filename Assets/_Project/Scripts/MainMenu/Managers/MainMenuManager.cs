@@ -21,6 +21,7 @@ public class MainMenuManager : MonoBehaviour
 
     // Private Variables
     private RectTransform currentMenu;
+    private OptionsMenuManager optionsMenuManager;
 
     private void Awake()
     {

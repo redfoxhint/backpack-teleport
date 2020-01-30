@@ -5,37 +5,29 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LevelSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class LevelSelector : MonoBehaviour
 {
     [Header("Selector UI")]
     [SerializeField] private Image levelPreviewImage;
     [SerializeField] private Image borderImage;
+    [SerializeField] private Sprite selectedSprite;
+    [SerializeField] private Sprite originalSprite;
 
     public LevelData levelData;
     private LevelSelectionBar selectionBar;
-
-    private Sprite hoveredImage;
-    private Sprite originalImage;
-    private Button button;
-    private bool selectable;
     private bool selected;
+    private bool levelUnlocked;
+
+    private Button button;
 
     private void Awake()
     {
-        hoveredImage = Resources.Load<Sprite>("Sprites/UI/Menus/Story Menu/storymenu_level_box_outline_hovered");
         selectionBar = GetComponentInParent<LevelSelectionBar>();
         button = GetComponent<Button>();
-        button.onClick.AddListener(OnClicked);
-        originalImage = borderImage.sprite;
+        selectedSprite = button.spriteState.highlightedSprite;
+        originalSprite = borderImage.sprite;
 
         Initialize();
-    }
-
-    private void OnClicked()
-    {
-        if (levelData == null) return;
-
-        selectionBar.SetCurrentLevelSelected(this);
     }
 
     public void Initialize()
@@ -49,51 +41,38 @@ public class LevelSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         EnableSelector();
         levelPreviewImage.sprite = levelData.levelPreview;
+
+        button.onClick.AddListener(OnClicked);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    private void OnClicked()
     {
-        if (selected) return;
-        if (!selectable) return;
+        if (levelData == null) return;
 
-        SetBorderImage(hoveredImage);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (selected) return;
-        if (!selectable) return;
-
-        SetBorderImage(originalImage);
-    }
-
-    private void SetBorderImage(Sprite border)
-    {
-        borderImage.sprite = border;
+        selectionBar.SetCurrentLevelSelected(this);
     }
 
     public void Select()
     {
-        SetBorderImage(hoveredImage);
         selected = true;
+        borderImage.sprite = selectedSprite;
     }
 
     public void Deselect()
     {
-        SetBorderImage(originalImage);
         selected = false;
+        borderImage.sprite = originalSprite;
     }
 
     public void EnableSelector()
     {
         button.interactable = true;
         borderImage.color = Color.white;
-        selectable = true;
+        //borderImage.sprite = unlockedSprite;
     }
     public void DisableSelector()
     {
         button.interactable = false;
-        borderImage.color = new Color(34, 34, 34, 29);
-        selectable = false;
+        //borderImage.sprite = lockedSprite;
     }
 }

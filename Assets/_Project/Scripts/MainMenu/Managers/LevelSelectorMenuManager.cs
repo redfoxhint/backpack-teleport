@@ -73,7 +73,7 @@ public class LevelSelectorMenuManager : MonoBehaviour
 
     private void OnLevelSelected(LevelSelector selected)
     {
-        UpdateLevelPreview(selected);
+        //UpdateLevelPreview(selected);
     }
 
     private void UpdateLevelPreview(LevelSelector selected)
