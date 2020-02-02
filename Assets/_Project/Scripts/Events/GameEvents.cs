@@ -9,6 +9,7 @@ public class GameEvents
 }
 
 public class CustomTestEvent : UnityEvent<CustomTestEventData> { }
+public class UnityEventLevelData : UnityEvent<LevelData> { }
 
 public class CustomTestEventData
 {
