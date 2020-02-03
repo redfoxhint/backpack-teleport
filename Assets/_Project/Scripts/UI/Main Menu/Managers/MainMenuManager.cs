@@ -22,10 +22,12 @@ public class MainMenuManager : MonoBehaviour
     // Private Variables
     private RectTransform currentMenu;
     private OptionsMenuManager optionsMenuManager;
+    private LevelSelectorMenuManager levelMenuManager;
 
     private void Awake()
     {
         InitializeButtons();
+        levelMenuManager = GetComponent<LevelSelectorMenuManager>();
     }
 
     private void InitializeButtons()
@@ -69,6 +71,7 @@ public class MainMenuManager : MonoBehaviour
         levelSelectionMenu.gameObject.SetActive(true);
         currentMenu = levelSelectionMenu;
         EnableBackButton();
+        levelMenuManager.SetDefaultLevel();
     }
 
     private void EnableBackButton()

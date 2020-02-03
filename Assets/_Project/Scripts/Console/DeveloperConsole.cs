@@ -41,6 +41,7 @@ public class DeveloperConsole
         RegisterCommand("reload", ReloadScene, "Reloads the current scene.");
         RegisterCommand("exit", ExitGame, "Exits the game.");
         RegisterCommand("echo", Echo, "Echos the input back to the console.");
+        //RegisterCommand("unlockalllevels", UnlockAllLevels, "Unlocks all the levels in the game.");
     }
 
     private void RegisterCommand(string command, CommandHandler handler, string help)
@@ -155,5 +156,19 @@ public class DeveloperConsole
 
     }
 
-    #endregion
+#if UNITY_EDITOR
+
+    private void UnlockAllLevels(string[] args)
+    {
+        LevelData[] levels = Utils.GetAllInstances<LevelData>();
+
+        foreach (LevelData level in levels)
+        {
+            level.levelLocked = false;
+        }
+    }
+
+#endif
+
+#endregion
 }

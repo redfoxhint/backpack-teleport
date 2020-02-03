@@ -14,16 +14,17 @@ public class LevelSelectorMenuManager : MonoBehaviour
     [SerializeField] private Button loadGameButton;
     [SerializeField] private Button continueButton;
 
-    [Header("Level Selection UI")]
+    [Header("Other Level Selection UI")]
     [SerializeField] private Image levelPreviewImage;
     [SerializeField] private TextMeshProUGUI levelTitleText;
     [SerializeField] private TextMeshProUGUI levelDescriptionText;
     [SerializeField] private TextMeshProUGUI playButtonText;
 
-    private LevelData currentLevelToLoad;
-
+    [Header("Components")]
     [SerializeField] private CarouselMenu carouselMenu;
 
+    // Private Variables
+    private LevelData currentLevelToLoad;
     private string defaultPlayButtonMessage = "Select A Level";
 
     private void Awake()
@@ -35,6 +36,10 @@ public class LevelSelectorMenuManager : MonoBehaviour
         {
             carouselMenu.OnPageChangedEvent.AddListener(SelectLevel);
         }
+    }
+    private void Start()
+    {
+        //SelectLevel();
     }
 
     private void InitializeButtons()
@@ -57,11 +62,33 @@ public class LevelSelectorMenuManager : MonoBehaviour
         }
     }
 
+    public void SetDefaultLevel()
+    {
+        Transform defaultPage = carouselMenu.GetDefaultPage();
+        Debug.Log(defaultPage.gameObject.name);
+
+        LevelData defaultLevelData = carouselMenu.GetDefaultPage().GetComponent<LevelSelector>().levelData;
+
+        if (defaultLevelData != null) UpdateLevelPreview(defaultLevelData);
+    }
+
     private void OnPlayLevelButtonClicked()
     {
-        if (currentLevelToLoad.levelLocked) return; // TODO: Show message saying level is locked.
+        if (currentLevelToLoad == null) return;
+        if (IfLevelLocked()) return; // TODO: Show message saying level is locked.
 
         FindObjectOfType<SceneLoader>().LoadLevelByIndex(currentLevelToLoad.levelBuildIndex);
+    }
+
+    private bool IfLevelLocked()
+    {
+        if (currentLevelToLoad.levelLocked)
+        {
+            Debug.Log($"Level selected is <color=red>locked!</color>");
+            return true;
+        }
+
+        return false;
     }
 
     private void UpdateLevelPreview(LevelData level)

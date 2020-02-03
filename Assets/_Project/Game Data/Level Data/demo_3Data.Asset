@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57990f64ca69d99458c5f85d4163efba, type: 3}
-  m_Name: Level2
+  m_Name: demo_3Data
   m_EditorClassIdentifier: 
-  levelBuildIndex: 1
-  levelName: Demo 2
-  levelSlug: level_demo_two
-  levelDescription: 'Yet walls times spoil put. Be it reserved contempt rendered
-    smallest. '
-  levelPreview: {fileID: 5884103722290905241, guid: fb43fda06f89fc64c901b226a07dff63,
-    type: 3}
+  levelBuildIndex: 0
+  levelName: 
+  levelSlug: 
+  levelDescription: 
+  levelPreview: {fileID: 0}
   levelLocked: 0
