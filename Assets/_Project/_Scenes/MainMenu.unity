@@ -1644,6 +1644,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1248495091}
   transitionTime: 1
+--- !u!224 &1326823581 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3544861642582818928, guid: 03c9666892934bd49a15c219f01656f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1401361757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1352185656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,6 +1741,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -291.4004
       objectReference: {fileID: 0}
+    - target: {fileID: 75604263660781230, guid: 03c9666892934bd49a15c219f01656f9,
+        type: 3}
+      propertyPath: content
+      value: 
+      objectReference: {fileID: 1326823581}
     - target: {fileID: 1225354235864185327, guid: 03c9666892934bd49a15c219f01656f9,
         type: 3}
       propertyPath: m_AnchoredPosition.x

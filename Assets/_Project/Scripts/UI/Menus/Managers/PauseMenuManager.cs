@@ -10,8 +10,6 @@ public class PauseMenuManager : BaseMenuManager
     [SerializeField] private RectTransform saveScreen;
     [SerializeField] private RectTransform loadScreen;
     [SerializeField] private RectTransform optionsScreen;
-    [SerializeField] private RectTransform testScreen;
-    [SerializeField] private RectTransform testScreen2;
 
     [Header("Buttons")]
     [SerializeField] private Button resumeButton;
@@ -19,8 +17,6 @@ public class PauseMenuManager : BaseMenuManager
     [SerializeField] private Button saveButton;
     [SerializeField] private Button loadButton;
     [SerializeField] private Button mainMenuButton;
-    [SerializeField] private Button testButton;
-    [SerializeField] private Button testButton2;
 
     // Private Variables
 
@@ -32,13 +28,6 @@ public class PauseMenuManager : BaseMenuManager
         RegisterButton(loadButton, OnLoadButtonClicked);
         RegisterButton(resumeButton, OnResumeButtonClicked);
         RegisterButton(mainMenuButton, OnMainMenuButtonClicked);
-        RegisterButton(testButton, OnTestButtonClicked);
-        RegisterButton(testButton2, OnTestButton2Clicked);
-    }
-
-    private void OnTestButton2Clicked()
-    {
-        UpdateCurrentScreen(testScreen2);
     }
 
     private void OnOptionsButtonClicked()
@@ -63,10 +52,5 @@ public class PauseMenuManager : BaseMenuManager
     private void OnMainMenuButtonClicked()
     {
         Debug.Log("Returned to main menu.");
-    }
-
-    private void OnTestButtonClicked()
-    {
-        UpdateCurrentScreen(testScreen);
     }
 }
