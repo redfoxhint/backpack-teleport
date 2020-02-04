@@ -6,34 +6,22 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public abstract class BaseMenu : MonoBehaviour
+public abstract class BaseMenuManager : MonoBehaviour
 {
     [Header("Base Menu Configuration")]
     [SerializeField] private Button backButton;
     [SerializeField] private RectTransform defaultScreen;
 
     // Private Variables
-    protected RectTransform previousScreen;
-    private List<Button> registeredButtons = new List<Button>();
+    [SerializeField] protected RectTransform previousScreen = null;
+    [SerializeField] private RectTransform nextPreviousPage = null;
+    [SerializeField] private RectTransform currentScreen;
+    [SerializeField] private List<Button> registeredButtons = new List<Button>();
 
     // Events
 
     // Properties
     public Stack<RectTransform> Screens { get; } = new Stack<RectTransform>();
-    protected RectTransform CurrentScreen
-    {
-        get => CurrentScreen;
-        set
-        {
-            if(value.Equals(CurrentScreen))
-            {
-                return;
-            }
-
-            CurrentScreen = value;
-        }
-    }
-
 
     protected virtual void Awake()
     {
@@ -73,41 +61,52 @@ public abstract class BaseMenu : MonoBehaviour
     protected void UpdateCurrentScreen(RectTransform newScreen)
     {
         GotoScreen(newScreen);
+        EnableBackButton();
+    }
+
+    private void GotoDefaultScreen()
+    {
+        GotoScreen(defaultScreen);
+
+        Screens.Clear();
+        DisableBackButton();
     }
 
     private void GotoScreen(RectTransform screenToGoto)
     {
-        if(CurrentScreen != null)
+        RectTransform oldScreen = currentScreen;
+        currentScreen = screenToGoto;
+
+        if (!Screens.Contains(oldScreen))
         {
-            DisableScreen(CurrentScreen);
-            previousScreen = CurrentScreen;
-        }
-        else
-        {
-            previousScreen = null;
+            Screens.Push(oldScreen);
         }
 
+        DisableScreen(oldScreen);
         EnableScreen(screenToGoto);
-        CurrentScreen = screenToGoto;
-        EnableBackButton();
     }
-    private void GoToPreviousScreen()
+
+    private void GoToPreviousScreen(RectTransform screenToGoto)
     {
-        RectTransform previousInStack = Screens.Pop();
+        RectTransform oldScreen = currentScreen;
+        currentScreen = screenToGoto;
 
-        if(previousScreen == null)
-        {
-            DisableBackButton();
-            return;
-        }
-
-        GotoScreen(previousScreen);
-        previousScreen = previousInStack;
+        DisableScreen(oldScreen);
+        EnableScreen(screenToGoto);
     }
 
     private void SetDefaultScreen()
     {
-        CurrentScreen = defaultScreen;
+        bool isAlreadyEnabled = defaultScreen.gameObject.activeSelf;
+
+        if (!isAlreadyEnabled)
+        {
+            EnableScreen(defaultScreen);
+        }
+
+        currentScreen = defaultScreen;
+        previousScreen = null;
+        Screens.Clear();
     }
 
     private void EnableScreen(RectTransform screenToEnable)
@@ -153,7 +152,18 @@ public abstract class BaseMenu : MonoBehaviour
 
     private void OnBackButtonClicked()
     {
-        GoToPreviousScreen();
+        if (Screens.Count == 0 || Screens == null) return;
+
+        if (Screens.Peek().Equals(defaultScreen))
+        {
+            GotoDefaultScreen();
+            return;
+        }
+        else if (Screens.Count > 1)
+        {
+            RectTransform previous = Screens.Pop();
+            GoToPreviousScreen(previous);
+        }
     }
 
     private void EnableBackButton()
@@ -173,6 +183,7 @@ public abstract class BaseMenu : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(PauseMenuManager))]
 public class StackPreview : Editor
 {
@@ -193,3 +204,6 @@ public class StackPreview : Editor
         }
     }
 }
+#endif
+
+

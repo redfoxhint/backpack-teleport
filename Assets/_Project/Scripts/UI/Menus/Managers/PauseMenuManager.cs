@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseMenuManager : BaseMenu
+public class PauseMenuManager : BaseMenuManager
 {
     [Header("Pause Menu")]
     [SerializeField] private RectTransform saveScreen;
