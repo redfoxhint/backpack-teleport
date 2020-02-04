@@ -29,7 +29,7 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadLevel(int levelIndex)
     {
         anim.SetTrigger("start");
-        yield return new WaitForSeconds(transitionTime);
+        yield return new WaitForSecondsRealtime(transitionTime);
 
         SceneManager.LoadScene(levelIndex);
     }

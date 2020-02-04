@@ -5,45 +5,38 @@ using TMPro;
 using UnityEngine.UI;
 using CameraFading;
 
-public class MainMenuManager : MonoBehaviour
+public class MainMenuManager : BaseMenuManager
 {
     // Inspector Fields
     [Header("Main Menu")]
-    [SerializeField] private RectTransform mainMenu;
-    [SerializeField] private RectTransform levelSelectionMenu;
+    [SerializeField] private RectTransform levelSelectScreen;
+    [SerializeField] private RectTransform optionsScreen;
+
+    [Header("Buttons")]
+    [SerializeField] private Button levelSelectionButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button exitButton;
-    [SerializeField] private Button backButton;
-    [SerializeField] private Button levelSelectionButton;
-
-    [Header("Options Menu")]
-    [SerializeField] private RectTransform optionsMenu;
 
     // Private Variables
-    private RectTransform currentMenu;
-    private OptionsMenuManager optionsMenuManager;
-    private LevelSelectorMenuManager levelMenuManager;
+    private LevelSelectScreen levelMenuManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        InitializeButtons();
-        levelMenuManager = GetComponent<LevelSelectorMenuManager>();
+        base.Awake();
+        levelMenuManager = GetComponent<LevelSelectScreen>();
     }
 
-    private void InitializeButtons()
+    protected override void InitializeButtons()
     {
-        if (optionsButton != null) optionsButton.onClick.AddListener(OnOptionsClicked);
-        if (exitButton != null) exitButton.onClick.AddListener(OnExitClicked);
-        if (backButton != null) backButton.onClick.AddListener(OnBackButtonClicked);
-        if (levelSelectionButton != null) levelSelectionButton.onClick.AddListener(OnStoryButtonClicked);
+        base.InitializeButtons();
+        RegisterButton(optionsButton, OnOptionsClicked);
+        RegisterButton(levelSelectionButton, OnStoryButtonClicked);
+        RegisterButton(exitButton, OnExitClicked);
     }
 
     private void OnOptionsClicked()
     {
-        mainMenu.gameObject.SetActive(false);
-        optionsMenu.gameObject.SetActive(true);
-        currentMenu = optionsMenu;
-        EnableBackButton();
+        UpdateCurrentScreen(optionsScreen);
     }
 
     private void OnExitClicked()
@@ -58,29 +51,9 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    private void OnBackButtonClicked()
-    {
-        currentMenu.gameObject.SetActive(false);
-        mainMenu.gameObject.SetActive(true);
-        DisableBackButton();
-    }
-
     private void OnStoryButtonClicked()
     {
-        mainMenu.gameObject.SetActive(false);
-        levelSelectionMenu.gameObject.SetActive(true);
-        currentMenu = levelSelectionMenu;
-        EnableBackButton();
+        UpdateCurrentScreen(levelSelectScreen);
         levelMenuManager.SetDefaultLevel();
-    }
-
-    private void EnableBackButton()
-    {
-        backButton.gameObject.SetActive(true);
-    }
-
-    private void DisableBackButton()
-    {
-        backButton.gameObject.SetActive(false);
     }
 }

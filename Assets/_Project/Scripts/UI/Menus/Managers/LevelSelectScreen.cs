@@ -6,8 +6,11 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
-public class LevelSelectorMenuManager : MonoBehaviour
+public class LevelSelectScreen : MonoBehaviour
 {
+    [Header("Level Screen")]
+    // Add additional screens here
+
     [Header("Buttons")]
     [SerializeField] private Button playLevelButton;
     [SerializeField] private Button newGameButton;
@@ -15,9 +18,6 @@ public class LevelSelectorMenuManager : MonoBehaviour
     [SerializeField] private Button continueButton;
 
     [Header("Other Level Selection UI")]
-    [SerializeField] private Image levelPreviewImage;
-    [SerializeField] private TextMeshProUGUI levelTitleText;
-    [SerializeField] private TextMeshProUGUI levelDescriptionText;
     [SerializeField] private TextMeshProUGUI playButtonText;
 
     [Header("Components")]
@@ -25,6 +25,7 @@ public class LevelSelectorMenuManager : MonoBehaviour
 
     // Private Variables
     private LevelData currentLevelToLoad;
+    private LevelSelector lastSelectedLevel;
     private string defaultPlayButtonMessage = "Select A Level";
 
     private void Awake()
@@ -37,17 +38,14 @@ public class LevelSelectorMenuManager : MonoBehaviour
             carouselMenu.OnPageChangedEvent.AddListener(SelectLevel);
         }
     }
-    private void Start()
-    {
-        //SelectLevel();
-    }
 
     private void InitializeButtons()
     {
         if (playLevelButton != null) playLevelButton.onClick.AddListener(OnPlayLevelButtonClicked);
-        //if (newGameButton != null) newGameButton.onClick.AddListener(OnNewGameButtonClicked);
-        //if (loadGameButton != null) loadGameButton.onClick.AddListener(OnLoadGameButtonClicked);
-        //if (continueButton != null) continueButton.onClick.AddListener(OnContinueButtonClicked);
+        //RegisterButton(playLevelButton, OnPlayLevelButtonClicked);
+        //RegisterButton(continueButton, OnContinueButtonClicked);
+        //RegisterButton(newGameButton, OnNewGameButtonClicked);
+        //RegisterButton(loadGameButton, OnLoadGameButtonClicked);
     }
 
     private void SelectLevel()
@@ -55,7 +53,17 @@ public class LevelSelectorMenuManager : MonoBehaviour
         Transform currentPageObject = carouselMenu.GetCurrentPageObject();
         if (currentPageObject == null) return;
 
-        LevelData currentLevelData = currentPageObject.GetComponent<LevelSelector>().levelData;
+        LevelSelector selectedLevel = currentPageObject.GetComponent<LevelSelector>();
+        selectedLevel.Select();
+
+        if(lastSelectedLevel != null)
+        {
+            lastSelectedLevel.Deselect();
+        }
+
+        lastSelectedLevel = selectedLevel;
+
+        LevelData currentLevelData = selectedLevel.levelData;
         if (currentLevelData != null)
         {
             UpdateLevelPreview(currentLevelData);
@@ -67,7 +75,11 @@ public class LevelSelectorMenuManager : MonoBehaviour
         Transform defaultPage = carouselMenu.GetDefaultPage();
         Debug.Log(defaultPage.gameObject.name);
 
-        LevelData defaultLevelData = carouselMenu.GetDefaultPage().GetComponent<LevelSelector>().levelData;
+        LevelSelector selectedLevel = defaultPage.GetComponent<LevelSelector>();
+        selectedLevel.Select();
+        lastSelectedLevel = selectedLevel;
+
+        LevelData defaultLevelData = selectedLevel.GetComponent<LevelSelector>().levelData;
 
         if (defaultLevelData != null) UpdateLevelPreview(defaultLevelData);
     }
@@ -109,10 +121,5 @@ public class LevelSelectorMenuManager : MonoBehaviour
     private void OnNewGameButtonClicked()
     {
         Debug.Log("New game clicked");
-    }
-
-    private void OnLevelSelected(LevelSelector selected)
-    {
-        //UpdateLevelPreview(selected);
     }
 }

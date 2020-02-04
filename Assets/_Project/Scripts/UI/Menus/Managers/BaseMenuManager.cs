@@ -13,10 +13,8 @@ public abstract class BaseMenuManager : MonoBehaviour
     [SerializeField] private RectTransform defaultScreen;
 
     // Private Variables
-    [SerializeField] protected RectTransform previousScreen = null;
-    [SerializeField] private RectTransform nextPreviousPage = null;
-    [SerializeField] private RectTransform currentScreen;
-    [SerializeField] private List<Button> registeredButtons = new List<Button>();
+    private RectTransform currentScreen;
+    private List<Button> registeredButtons = new List<Button>();
 
     // Events
 
@@ -41,7 +39,10 @@ public abstract class BaseMenuManager : MonoBehaviour
 
     protected virtual void InitializeButtons()
     {
-        RegisterButton(backButton, OnBackButtonClicked);
+        if(backButton != null)
+        {
+            RegisterButton(backButton, OnBackButtonClicked);
+        }
     }
 
     protected void OverrideBackButton(Button newButton)
@@ -105,7 +106,6 @@ public abstract class BaseMenuManager : MonoBehaviour
         }
 
         currentScreen = defaultScreen;
-        previousScreen = null;
         Screens.Clear();
     }
 
@@ -184,13 +184,13 @@ public abstract class BaseMenuManager : MonoBehaviour
 }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(PauseMenuManager))]
+[CustomEditor(typeof(MainMenuManager))]
 public class StackPreview : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        var baseMenu = (PauseMenuManager)target;
+        var baseMenu = (MainMenuManager)target;
         var stack = baseMenu.Screens;
 
         var bold = new GUIStyle();

@@ -837,12 +837,12 @@ PrefabInstance:
     - target: {fileID: 4025094711982872699, guid: cdfc0ae272002be479dadef4dca214b4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000091552734
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4025094712567261250, guid: cdfc0ae272002be479dadef4dca214b4,
         type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4025094713068746490, guid: cdfc0ae272002be479dadef4dca214b4,
         type: 3}
@@ -926,8 +926,13 @@ PrefabInstance:
     - target: {fileID: 631887206706444063, guid: cd701d0427388b2409dde9eb6393ee94,
         type: 3}
       propertyPath: defaultPageIndex
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 631887206706444063, guid: cd701d0427388b2409dde9eb6393ee94,
+        type: 3}
+      propertyPath: content
+      value: 
+      objectReference: {fileID: 5142133460986454402}
     - target: {fileID: 1292245873587715104, guid: cd701d0427388b2409dde9eb6393ee94,
         type: 3}
       propertyPath: m_text
@@ -1036,6 +1041,11 @@ PrefabInstance:
     - target: {fileID: 2142396507163816360, guid: cd701d0427388b2409dde9eb6393ee94,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203530816882784291, guid: cd701d0427388b2409dde9eb6393ee94,
+        type: 3}
+      propertyPath: UseTimeScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2372759537329716245, guid: cd701d0427388b2409dde9eb6393ee94,
@@ -1750,7 +1760,7 @@ PrefabInstance:
     - target: {fileID: 8690545417804184124, guid: cd701d0427388b2409dde9eb6393ee94,
         type: 3}
       propertyPath: m_Name
-      value: CarouselMenu_Options
+      value: CarouselMenu_Options Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd701d0427388b2409dde9eb6393ee94, type: 3}

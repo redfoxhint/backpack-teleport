@@ -135,12 +135,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c02b28f66926cbc458b576f717f95685, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 39d1a314853bc5348866ba6d46019f71, type: 3}
+  m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -162,9 +162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPreviewImage: {fileID: 7747565334796508890}
-  borderImage: {fileID: 7747565334905985821}
-  unlockedSprite: {fileID: 21300000, guid: 8dc92ec876bf9e1498c480ba2402b0c4, type: 3}
-  lockedSprite: {fileID: 21300000, guid: 910262052f994cb48bd2b95c664037f2, type: 3}
+  backgroundImage: {fileID: 7747565334905985821}
+  selectedSprite: {fileID: 21300000, guid: c6110b49e0606af43b622248e065c8ac, type: 3}
   levelData: {fileID: 11400000, guid: dc7c8099c89d5bd419748c1e88ba444e, type: 2}
 --- !u!114 &1199365778820613401
 MonoBehaviour:
@@ -194,8 +193,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 53e16a93cbcf77541a7382fe5c4313b9,
-      type: 3}
+    m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}

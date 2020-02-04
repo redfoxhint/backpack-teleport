@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class OptionsMenuManager : MonoBehaviour
+public class OptionsScreen : MonoBehaviour
 {
     [Header("Option Tabs")]
     [SerializeField] private RectTransform gameplayTab;

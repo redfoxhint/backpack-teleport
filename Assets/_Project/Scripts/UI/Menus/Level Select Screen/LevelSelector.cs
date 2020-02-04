@@ -9,13 +9,17 @@ public class LevelSelector : MonoBehaviour
 {
     [Header("Selector UI")]
     [SerializeField] private Image levelPreviewImage;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Sprite selectedSprite;
 
     public LevelData levelData;
     private bool selected;
+    private Sprite originalBackgroundImage;
 
     private void Awake()
     {
         Initialize();
+        originalBackgroundImage = backgroundImage.sprite;
     }
 
     public void Initialize()
@@ -41,5 +45,15 @@ public class LevelSelector : MonoBehaviour
         if (levelData == null) return;
 
         levelData.levelLocked = true;
+    }
+
+    public void Select()
+    {
+        backgroundImage.sprite = selectedSprite;
+    }
+
+    public void Deselect()
+    {
+        backgroundImage.sprite = originalBackgroundImage;
     }
 }

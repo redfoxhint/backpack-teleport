@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool GamePaused { get; set; }
+
+    public void PauseGame()
     {
-        
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        GamePaused = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResumeGame()
     {
-        
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        GamePaused = false;
     }
 }

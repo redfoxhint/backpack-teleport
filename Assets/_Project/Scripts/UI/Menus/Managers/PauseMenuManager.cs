@@ -10,6 +10,7 @@ public class PauseMenuManager : BaseMenuManager
     [SerializeField] private RectTransform saveScreen;
     [SerializeField] private RectTransform loadScreen;
     [SerializeField] private RectTransform optionsScreen;
+    [SerializeField] private RectTransform menu;
 
     [Header("Buttons")]
     [SerializeField] private Button resumeButton;
@@ -19,6 +20,21 @@ public class PauseMenuManager : BaseMenuManager
     [SerializeField] private Button mainMenuButton;
 
     // Private Variables
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(!GameManager.Instance.GamePaused)
+            {
+                Pause();
+            }
+            else
+            {
+                Unpause();
+            }
+        }
+    }
 
     protected override void InitializeButtons()
     {
@@ -47,10 +63,24 @@ public class PauseMenuManager : BaseMenuManager
 
     private void OnResumeButtonClicked()
     {
-        Debug.Log("Game resumed.");
+        Unpause();
     }
     private void OnMainMenuButtonClicked()
     {
-        Debug.Log("Returned to main menu.");
+        FindObjectOfType<SceneLoader>().LoadLevelByIndex(0);
+        Unpause();
+        Cursor.visible = true;
+    }
+
+    private void Pause()
+    {
+        GameManager.Instance.PauseGame();
+        menu.gameObject.SetActive(true);
+    }
+
+    private void Unpause()
+    {
+        GameManager.Instance.ResumeGame();
+        menu.gameObject.SetActive(false);
     }
 }
