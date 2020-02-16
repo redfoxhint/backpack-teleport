@@ -12,25 +12,13 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		[Space]
 		[SerializeField] private float maxThrowDistance = 300f;
 		[SerializeField] private KeyCode throwKey = KeyCode.Mouse1;
+		[SerializeField] private Transform playerCenter;
+		[SerializeField] private GameObject teleportEffect;
 
 		[Header("Area of Effect Damage Settings")]
 		[Space]
 		[SerializeField] private float areaDamageAmount = 3f;
 		[SerializeField] private float areaDamageRadius = 4f;
-
-		[Header("Events")]
-		[Space]
-		[SerializeField] private VoidEvent onTeleportEvent;
-		[SerializeField] private VoidEvent onThrowEvent;
-		[SerializeField] private StatEvent onTakeDamage;
-		[SerializeField] private StatEvent onTeleportStatEvent;
-
-		[Header("Other")]
-		[Space]
-		[SerializeField] private Transform playerCenter;
-		[SerializeField] private GameObject teleportEffect;
-		[SerializeField] private Stat healthStat;
-		[SerializeField] private Stat energyStat;
 
 		// Private Variables
 		private Vector2 pointA;
@@ -76,8 +64,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			isAimingBackpack = false;
 			trailRenderer.enabled = false;
-
-			TestNonMonoUpdate testMono = new TestNonMonoUpdate();
 		}
 
 		private void Update()
@@ -122,13 +108,12 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		public override void TakeDamage(GameObject dealer, float amount)
 		{
 			this.RecalculateHealth(amount);
-			onTakeDamage.Raise(healthStat);
-
 		}
 
 		public override void RecalculateHealth(float amount)
 		{
-			healthStat.runtimeStatValue -= amount;
+			// TODO: Implement health system
+			//healthStat.runtimeStatValue -= amount;
 		}
 
 		private IEnumerator AimBackpack()
@@ -155,7 +140,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			if (calculatedBackpackTravelDistance <= maxThrowDistance)
 			{
 				isAimingBackpack = false;
-				onThrowEvent.Raise();
 				backpack.Launch(pointB);
 				backpack.InitializeState(BackpackStates.INFLIGHT);
 				playerAnimations.TriggerThrowing(cc2D.FacingDirection);
@@ -177,18 +161,12 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		public void Teleport(Vector2 pos)
 		{
 			transform.position = pos;
-            //FindObjectOfType<GhostingEffect>().ShowGhost();
-            onTeleportEvent.Raise();
 			trailRenderer.enabled = true;
 
 			GameObject newTeleportEffect = Instantiate(teleportEffect, pos, teleportEffect.transform.rotation);
 			Destroy(newTeleportEffect, 2f);
 
 			AreaOfEffectDamage();
-
-			// Update UI
-			energyStat.runtimeStatValue = 0;
-			//onTeleportStatEvent.Raise(energyStat);
 
 			Invoke("TurnTrailRendererOff", 0.5f);
 		}
