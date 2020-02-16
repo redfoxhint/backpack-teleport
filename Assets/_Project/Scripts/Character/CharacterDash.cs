@@ -29,9 +29,10 @@ public class CharacterDash : MonoBehaviour
         ghostingEffect = new GhostingEffect(gameObject, trailColor, fadeColor, ghostInterval, fadeTime);
     }
 
-    public void Dash(Vector2 direction, Rigidbody2D rBody)
+    public void Dash(Vector2 direction, Rigidbody2D rBody, float amount)
     {
-        if (!CanDash(direction)) return;
+        //if (!CanDash(direction)) return;
+        if (isDashing) return;
 
         this.rBody = rBody;
         startDrag = rBody.drag;
@@ -54,7 +55,7 @@ public class CharacterDash : MonoBehaviour
                 break;
         }
 
-        rBody.AddForce(dashDirection.normalized * dashSpeed);
+        rBody.AddForce(dashDirection.normalized * amount, ForceMode2D.Impulse);
         StartCoroutine(DashWait());
     }
 
@@ -65,7 +66,7 @@ public class CharacterDash : MonoBehaviour
 
     IEnumerator DashWait()
     {
-        ghostingEffect.ShowGhost();
+        //ghostingEffect.ShowGhost();
         StartCoroutine(GroundDash());
         DOVirtual.Float(14, startDrag, 0.8f, SetRigidbodyDrag);
         isDashing = true;

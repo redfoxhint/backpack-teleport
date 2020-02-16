@@ -4,7 +4,7 @@ using BackpackTeleport.Character.Enemy;
 
 namespace BackpackTeleport.Character.PlayerCharacter
 {
-	[RequireComponent(typeof(AimingAnimation), typeof(PlayerMovement))]
+	[RequireComponent(typeof(AimingAnimation))]
 	public class Player : BaseCharacter
 	{
 		// Inspector Fields
@@ -45,9 +45,9 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		// Components
 		private Backpack backpack;
 		private PlayerAnimations playerAnimations;
-		private PlayerMovement characterMovement;
+		private CharacterController2D cc2D;
 		private AimingAnimation aimingAnimation;
-		private MeleeAttack attackManager;
+		private AttackManager attackManager;
 		private DottedLine dottedLine;
 		private TrailRenderer trailRenderer;
 		private Animator animator;
@@ -59,10 +59,10 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			backpack = FindObjectOfType<Backpack>();
 			animator = GetComponent<Animator>();
-			characterMovement = GetComponent<PlayerMovement>();
+			cc2D = GetComponent<CharacterController2D>();
 			aimingAnimation = GetComponent<AimingAnimation>();
 			playerAnimations = GetComponent<PlayerAnimations>();
-			attackManager = GetComponent<MeleeAttack>();
+			attackManager = GetComponent<AttackManager>();
 			trailRenderer = GetComponent<TrailRenderer>();
 			RBody2D = GetComponent<Rigidbody2D>();
 
@@ -124,9 +124,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			this.RecalculateHealth(amount);
 			onTakeDamage.Raise(healthStat);
 
-			characterMovement.ApplyKnockback(dealer.transform, 10f);
-
-			//knockback.ApplyKnockback(damageDirection, damageColor);
 		}
 
 		public override void RecalculateHealth(float amount)
@@ -161,7 +158,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 				onThrowEvent.Raise();
 				backpack.Launch(pointB);
 				backpack.InitializeState(BackpackStates.INFLIGHT);
-				playerAnimations.TriggerThrowing(characterMovement.FacingDirection);
+				playerAnimations.TriggerThrowing(cc2D.FacingDirection);
 				yield break;
 			}
 			else
@@ -191,7 +188,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			// Update UI
 			energyStat.runtimeStatValue = 0;
-			onTeleportStatEvent.Raise(energyStat);
+			//onTeleportStatEvent.Raise(energyStat);
 
 			Invoke("TurnTrailRendererOff", 0.5f);
 		}
@@ -224,9 +221,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		private void Attack()
 		{
-			attackManager.Attack(this, animator, characterMovement.LastVelocity);
-			CustomTestEventData data = new CustomTestEventData(transform);
-			GameEvents.testEvent.Invoke(data);
+			attackManager.Attack();
 		}
 
 		private void OnDrawGizmos()

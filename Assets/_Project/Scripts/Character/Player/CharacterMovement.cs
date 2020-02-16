@@ -25,7 +25,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float movementDampingAmount = 15f;
 
     // Private Variables
-    private float currentSpeed;
     private Vector2 smoothedVelocity; // Smoothed movement direction
 
     // Properties
@@ -59,6 +58,11 @@ public class CharacterMovement : MonoBehaviour
     protected virtual void Update()
     {
         
+    }
+
+    protected virtual void FixedUpdated()
+    {
+
     }
 
     public void Move(Vector2 moveDirection)
@@ -103,7 +107,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void SetFacingDirection(float newDirection)
     {
-        if (newDirection < 0 || newDirection > 7) return; // In case a number which is a direction is passed in.
+        if (newDirection < 0 || newDirection > 7) return; // In case a number which is not a direction is passed in.
         FacingDirection = newDirection;
     }
 

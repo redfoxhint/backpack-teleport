@@ -13,6 +13,9 @@ public class PlayerMovement : CharacterMovement
 
     // Components
     private CharacterDash characterDash;
+    private float defaultDashAmount = 5f;
+
+    private Vector2 vel;
 
     protected override void Awake()
     {
@@ -22,26 +25,29 @@ public class PlayerMovement : CharacterMovement
     }
     protected override void Update()
     {
-        Movement();
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Dash(MovementVector);
-        }
+        GetMovementInput();
     }
-    private void Movement()
+
+    private void FixedUpdate()
+    {
+        rBody.MovePosition(rBody.position + vel * MoveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void GetMovementInput()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector2 vel = new Vector2(horizontal, vertical);
+        vel = new Vector2(horizontal, vertical);
         vel = Vector2.ClampMagnitude(vel, 1);
-
-        Move(vel);
     }
 
     private void Dash(Vector2 direction)
     {
-        characterDash.Dash(direction, rBody);
+        characterDash.Dash(direction, rBody, defaultDashAmount);
+    }
+
+    public void DashInLastMovementDirection(float amount)
+    {
+        characterDash.Dash(LastVelocity, rBody, amount);
     }
 }

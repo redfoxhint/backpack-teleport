@@ -248,17 +248,17 @@ public class OptionsScreen : MonoBehaviour
     #region Sound Region
     private void SetMasterVolume(float value)
     {
-        Debug.Log($"Master Volume: {value}");
+        //Debug.Log($"Master Volume: {value}");
     }
 
     private void SetMusicVolume(float value)
     {
-        Debug.Log($"Music Volume: {value}");
+        //Debug.Log($"Music Volume: {value}");
     }
 
     private void SetSoundVolume(float value)
     {
-        Debug.Log($"Sound Volume: {value}");
+        //Debug.Log($"Sound Volume: {value}");
     }
 
     #endregion

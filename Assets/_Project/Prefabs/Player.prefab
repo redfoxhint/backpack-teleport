@@ -742,7 +742,6 @@ GameObject:
   - component: {fileID: 7424613241372326530}
   - component: {fileID: 119930650}
   - component: {fileID: 119930651}
-  - component: {fileID: 1884888590}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -1127,18 +1126,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackAmount: 20
   knockbackTime: 0.5
---- !u!114 &1884888590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7424613241372326536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c2bb464d21ee549b66ee7dfa079b78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraMount: {fileID: 0}
-  arrow: {fileID: 2450190895447753683}
-  attack: {fileID: 2133986838}
