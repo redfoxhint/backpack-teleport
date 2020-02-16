@@ -38,6 +38,8 @@ public class BaseCharacterMovement : MonoBehaviour
 
     private void Movement(Vector2 movement)
     {
+        if (movement == Vector2.zero) return;
+
         float distance = movement.magnitude;
 
         if (distance > minMoveDistance)
@@ -57,11 +59,11 @@ public class BaseCharacterMovement : MonoBehaviour
             }
         }
 
-        rBody.MovePosition(rBody.position + movement.normalized * distance);
+        Vector2 targetPosition = rBody.position + movement.normalized * distance;
+        Debug.Log(targetPosition);
+
+        rBody.MovePosition(targetPosition);
     }
 
-    protected virtual void CalculateMovement()
-    {
-
-    }
+    protected virtual void CalculateMovement() {  }
 }

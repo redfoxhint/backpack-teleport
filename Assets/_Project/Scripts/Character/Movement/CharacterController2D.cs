@@ -27,7 +27,7 @@ public class CharacterController2D : BaseCharacterMovement, IActivator
     private Animator animator;
     private Vector2 previousVelocity;
 
-    public float FacingDirecton { get => facingDirection; private set { } }
+    public float FacingDirection { get => facingDirection; private set { } }
 
     protected override void Awake()
     {
@@ -41,10 +41,11 @@ public class CharacterController2D : BaseCharacterMovement, IActivator
         float verticalInput = Input.GetAxisRaw("Vertical");
 
         Vector2 input = new Vector2(horizontalInput, verticalInput);
+        input = Vector2.ClampMagnitude(input, 1); // Clamps the magnitude to 1 so directional movement speed is consistent in every direction.
         targetVelocity = input * maxSpeed;
 
         SetFacingDirection(targetVelocity.normalized);
-        SetAnimatorParameters(horizontalInput, verticalInput, targetVelocity, FacingDirection);
+        SetAnimatorParameters(horizontalInput, verticalInput, targetVelocity, facingDirection);
     }
 
     #region Animator Stuff
@@ -58,8 +59,6 @@ public class CharacterController2D : BaseCharacterMovement, IActivator
     [HideInInspector] public Vector2 downright = new Vector2(1f, -1f);
     [HideInInspector] public Vector2 upleft = new Vector2(-1f, 1f);
     [HideInInspector] public Vector2 downleft = new Vector2(-1f, -1f);
-
-    public float FacingDirection { get => facingDirection; set => facingDirection = value; }
 
     public void SetFacingDirection(Vector2 moveDir)
     {
@@ -82,7 +81,7 @@ public class CharacterController2D : BaseCharacterMovement, IActivator
     public void SetFacingDirection(float newDirection)
     {
         if (newDirection < 0 || newDirection > 7) return; // In case a number which is not a direction is passed in.
-        FacingDirection = newDirection;
+        facingDirection = newDirection;
     }
 
     private void SetAnimatorParameters(float horizontal, float vertical, Vector2 movement, float facingDir)
