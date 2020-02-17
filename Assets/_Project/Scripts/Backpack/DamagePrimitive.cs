@@ -70,7 +70,7 @@ public class DamagePrimitive : MonoBehaviour
 
 		ClearMesh();
 		backpackChaining.ResetChain();
-		backpack.InitializeState(BackpackStates.RETURNING);
+		backpack.stateMachine.ChangeState(new Backpack_State_Returning(backpack));
 		lr.enabled = false;
 		Destroy(gameObject);
 		yield break;

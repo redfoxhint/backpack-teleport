@@ -17,7 +17,7 @@ using UnityEngine;
  */
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class CharacterController2D : BaseCharacterMovement, IActivator
+public class PlayerMovementController : BaseObjectMovement, IActivator
 {
     [SerializeField] private float maxSpeed = 9;
     [SerializeField] private float acceleration = 75f;

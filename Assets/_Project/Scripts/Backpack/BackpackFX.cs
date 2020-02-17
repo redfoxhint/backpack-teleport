@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BackpackTeleport.Character.PlayerCharacter;
 
-public class BackpackAnimation : MonoBehaviour
+public class BackpackFX : MonoBehaviour
 {
 	// Components
 	private SpriteRenderer spriteRenderer;

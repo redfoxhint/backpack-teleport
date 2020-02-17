@@ -31,7 +31,7 @@ public class BackpackChaining : MonoBehaviour
 	// Components
 	private Camera cam;
 	private Backpack backpack;
-	private BackpackAnimation backpackAnimation;
+	private BackpackFX backpackAnimation;
 
 	// Tasks
 	private Task chainingTask;
@@ -40,7 +40,7 @@ public class BackpackChaining : MonoBehaviour
 	{
 		cam = Camera.main;
 		backpack = GetComponent<Backpack>();
-		backpackAnimation = GetComponent<BackpackAnimation>();
+		backpackAnimation = GetComponent<BackpackFX>();
 	}
 
 	private void Start()
@@ -162,7 +162,8 @@ public class BackpackChaining : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.R))
 			{
 				ResetChain();
-				backpack.InitializeState(BackpackStates.RETURNING);
+				backpack.stateMachine.ChangeState(new Backpack_State_Returning(backpack));
+				//backpack.InitializeState(BackpackStates.RETURNING);
 
 				yield break;
 			}
@@ -171,7 +172,8 @@ public class BackpackChaining : MonoBehaviour
 			{
 				if (teleportsLeft >= maxAmountOfMarkers)
 				{
-					backpack.InitializeState(BackpackStates.INHAND);
+					backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
+					//backpack.InitializeState(BackpackStates.INHAND);
 					teleportsLeft -= 1;
 					Vector2 nextBackpackPosition = GetNextPosition();
 					backpack.Owner.Teleport(nextBackpackPosition);
@@ -197,7 +199,8 @@ public class BackpackChaining : MonoBehaviour
 		}
 
 		ResetChain();
-		backpack.InitializeState(BackpackStates.RETURNING);
+		backpack.stateMachine.ChangeState(new Backpack_State_Returning(backpack));
+		//backpack.InitializeState(BackpackStates.RETURNING);
 
 		yield break;
 	}

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class StateMachineUnit : MonoBehaviour
 {
-    private StateMachine stateMachine = new StateMachine();
+    public readonly StateMachine stateMachine = new StateMachine();
 
-    private void Start()
+    protected virtual void Start()
     {
         stateMachine.ChangeState(new VoidState(this));
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         stateMachine.Update();
     }

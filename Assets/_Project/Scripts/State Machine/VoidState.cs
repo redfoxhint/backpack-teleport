@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class VoidState : IState
 {
-    StateMachineUnit owner;
+    private StateMachineUnit owner;
     
     public VoidState(StateMachineUnit _owner)
     {

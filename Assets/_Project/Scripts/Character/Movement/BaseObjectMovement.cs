@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BaseCharacterMovement : MonoBehaviour
+public class BaseObjectMovement : MonoBehaviour
 {
     // Protected Variables
     protected Vector2 targetVelocity;

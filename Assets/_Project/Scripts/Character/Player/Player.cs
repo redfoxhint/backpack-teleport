@@ -33,7 +33,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		// Components
 		private Backpack backpack;
 		private PlayerAnimations playerAnimations;
-		private CharacterController2D cc2D;
+		private PlayerMovementController movement;
 		private AimingAnimation aimingAnimation;
 		private AttackManager attackManager;
 		private DottedLine dottedLine;
@@ -47,7 +47,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			backpack = FindObjectOfType<Backpack>();
 			animator = GetComponent<Animator>();
-			cc2D = GetComponent<CharacterController2D>();
+			movement = GetComponent<PlayerMovementController>();
 			aimingAnimation = GetComponent<AimingAnimation>();
 			playerAnimations = GetComponent<PlayerAnimations>();
 			attackManager = GetComponent<AttackManager>();
@@ -70,7 +70,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		{
 			if (ThrowBackPack() && backpack.CanBeAimed)
 			{
-				backpack.InitializeState(BackpackStates.AIMING);
+				backpack.stateMachine.ChangeState(new Backpack_State_Aiming(backpack));
 				isAimingBackpack = true;
 				StartCoroutine(AimBackpack());
 			}
@@ -125,7 +125,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 				if (Input.GetKeyDown(KeyCode.R))
 				{
-					backpack.InitializeState(BackpackStates.INHAND);
+					backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
+					//backpack.InitializeState(BackpackStates.INHAND);
 					isAimingBackpack = false;
 					yield break;
 				}
@@ -141,21 +142,23 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			{
 				isAimingBackpack = false;
 				backpack.Launch(pointB);
-				backpack.InitializeState(BackpackStates.INFLIGHT);
-				playerAnimations.TriggerThrowing(cc2D.FacingDirection);
+				backpack.stateMachine.ChangeState(new Backpack_State_Inflight(backpack));
+				//backpack.InitializeState(BackpackStates.INFLIGHT);
+				playerAnimations.TriggerThrowing(movement.FacingDirection);
 				yield break;
 			}
 			else
 			{
 				isAimingBackpack = false;
-				backpack.InitializeState(BackpackStates.INHAND);
+				backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
+				//backpack.InitializeState(BackpackStates.INHAND);
 				yield break;
 			}
 		}
 
 		private bool ThrowBackPack()
 		{
-			return Input.GetKeyDown(throwKey) && backpack.currentState == BackpackStates.INHAND;
+			return Input.GetKeyDown(throwKey) && backpack.CurrentState == BackpackStates.INHAND;
 		}
 
 		public void Teleport(Vector2 pos)

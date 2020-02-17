@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -25385,53 +25385,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
         type: 3}
-      propertyPath: movementCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[0].inSlope
-      value: 0.5429342
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[0].outSlope
-      value: 0.5429342
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
       propertyPath: backpackMovementSpeed
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[0].outWeight
-      value: 0.20416667
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[1].inSlope
-      value: -0.17130074
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[1].outSlope
-      value: -0.17130074
-      objectReference: {fileID: 0}
-    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
-        type: 3}
-      propertyPath: movementCurve.m_Curve.Array.data[1].inWeight
-      value: 0.31666666
       objectReference: {fileID: 0}
     - target: {fileID: 4548468800056194583, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
         type: 3}
