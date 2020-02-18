@@ -7,7 +7,7 @@ public class BackpackFX : MonoBehaviour
 {
 	// Components
 	private SpriteRenderer spriteRenderer;
-	private BoxCollider2D boxCollider;
+	private CapsuleCollider2D boxCollider;
 	private Animator animator;
 	private Animator playerAnimator;
 	private TrailRenderer trailRenderer;
@@ -17,7 +17,7 @@ public class BackpackFX : MonoBehaviour
 	void Awake()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		boxCollider = GetComponent<BoxCollider2D>();
+		boxCollider = GetComponent<CapsuleCollider2D>();
 		animator = GetComponent<Animator>();
 		trailRenderer = GetComponent<TrailRenderer>();
 		playerAnimator = FindObjectOfType<Player>().GetComponent<Animator>();

@@ -29,6 +29,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		// Properties
 		public Rigidbody2D RBody2D { get; private set; }
+		public Transform PlayerCenter { get => playerCenter; }
+		public PlayerAnimations PlayerAnimations { get => playerAnimations; }
 
 		// Components
 		private Backpack backpack;
@@ -64,45 +66,15 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			isAimingBackpack = false;
 			trailRenderer.enabled = false;
+			GameEvents.onBackpackThrownEvent.AddListener(OnBackpackThrown);
 		}
 
 		private void Update()
 		{
-			if (ThrowBackPack() && backpack.CanBeAimed)
-			{
-				backpack.stateMachine.ChangeState(new Backpack_State_Aiming(backpack));
-				isAimingBackpack = true;
-				StartCoroutine(AimBackpack());
-			}
-
-			if (isAimingBackpack)
-			{
-				HandleBackpackAimingUI();
-				aimingAnimation.DrawDottedLineAndArrow(pointA, pointB);
-				aimingAnimation.IsAiming = true;
-			}
-			else
-			{
-				aimingAnimation.IsAiming = false;
-			}
-
 			if(Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				Attack();
 			}
-		}
-
-		private void HandleBackpackAimingUI()
-		{
-			if (calculatedBackpackTravelDistance <= maxThrowDistance)
-				aimingAnimation.UpdateUI(calculatedBackpackTravelDistance, Color.white);
-			else
-				aimingAnimation.UpdateUI(calculatedBackpackTravelDistance, Color.red);
-
-			if (aimingAnimation.AimAngle > 90f || aimingAnimation.AimAngle < -90f)
-				aimingAnimation.RotateText(-180f);
-			else
-				aimingAnimation.RotateText(0f);
 		}
 
 		public override void TakeDamage(GameObject dealer, float amount)
@@ -116,49 +88,10 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			//healthStat.runtimeStatValue -= amount;
 		}
 
-		private IEnumerator AimBackpack()
+		// Gets raised from the Aiming state of the backpack
+		private void OnBackpackThrown(Backpack backpack)
 		{
-			while (Input.GetKey(throwKey))
-			{
-				pointA = playerCenter.transform.position;
-				pointB = cam.ScreenToWorldPoint(Input.mousePosition);
-
-				if (Input.GetKeyDown(KeyCode.R))
-				{
-					backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
-					//backpack.InitializeState(BackpackStates.INHAND);
-					isAimingBackpack = false;
-					yield break;
-				}
-
-				calculatedBackpackTravelDistance = (pointB - pointA).sqrMagnitude;
-
-				yield return new WaitForSeconds(Time.deltaTime);
-			}
-
-			// Throw the bag only if we have enough force points and strength.
-
-			if (calculatedBackpackTravelDistance <= maxThrowDistance)
-			{
-				isAimingBackpack = false;
-				backpack.Launch(pointB);
-				backpack.stateMachine.ChangeState(new Backpack_State_Inflight(backpack));
-				//backpack.InitializeState(BackpackStates.INFLIGHT);
-				playerAnimations.TriggerThrowing(movement.FacingDirection);
-				yield break;
-			}
-			else
-			{
-				isAimingBackpack = false;
-				backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
-				//backpack.InitializeState(BackpackStates.INHAND);
-				yield break;
-			}
-		}
-
-		private bool ThrowBackPack()
-		{
-			return Input.GetKeyDown(throwKey) && backpack.CurrentState == BackpackStates.INHAND;
+			playerAnimations.TriggerThrowing(movement.FacingDirection);
 		}
 
 		public void Teleport(Vector2 pos)

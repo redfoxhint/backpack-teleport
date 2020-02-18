@@ -176,7 +176,7 @@ public class BackpackChaining : MonoBehaviour
 					//backpack.InitializeState(BackpackStates.INHAND);
 					teleportsLeft -= 1;
 					Vector2 nextBackpackPosition = GetNextPosition();
-					backpack.Owner.Teleport(nextBackpackPosition);
+					backpack.Player.Teleport(nextBackpackPosition);
 					currentPositionIndex += 1;
 					backpackAnimation.RippleEffect(transform.position);
 
@@ -187,7 +187,7 @@ public class BackpackChaining : MonoBehaviour
 					teleportsLeft -= 1;
 					Vector2 nextBackpackPosition = GetNextPosition();
 					DestroyMarker(currentPositionIndex);
-					backpack.Owner.Teleport(nextBackpackPosition);
+					backpack.Player.Teleport(nextBackpackPosition);
 					currentPositionIndex += 1;
 					backpackAnimation.RippleEffect(transform.position);
 				}

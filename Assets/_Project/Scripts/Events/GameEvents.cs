@@ -6,10 +6,12 @@ using UnityEngine.Events;
 public class GameEvents
 {
     public static CustomTestEvent testEvent = new CustomTestEvent();
+    public static UnityEventOnBackpackThrown onBackpackThrownEvent = new UnityEventOnBackpackThrown();
 }
 
 public class CustomTestEvent : UnityEvent<CustomTestEventData> { }
 public class UnityEventLevelData : UnityEvent<LevelData> { }
+public class UnityEventOnBackpackThrown : UnityEvent<Backpack> { }
 
 public class CustomTestEventData
 {
@@ -20,3 +22,5 @@ public class CustomTestEventData
         this.pos = pos;
     }
 }
+
+

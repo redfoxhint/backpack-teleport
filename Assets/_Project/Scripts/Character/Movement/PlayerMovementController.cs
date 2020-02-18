@@ -16,7 +16,7 @@ using UnityEngine;
 
  */
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class PlayerMovementController : BaseObjectMovement, IActivator
 {
     [SerializeField] private float maxSpeed = 9;
@@ -25,6 +25,7 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
     [SerializeField] private float facingDirection;
 
     private Animator animator;
+    private CapsuleCollider2D boxCollider2D;
     private Vector2 previousVelocity;
 
     public float FacingDirection { get => facingDirection; private set { } }
@@ -33,6 +34,8 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
     {
         base.Awake();
         animator = GetComponent<Animator>();
+        boxCollider2D = GetComponent<CapsuleCollider2D>();
+        careAboutAnimator = true;
     }
 
     protected override void CalculateMovement()
@@ -43,9 +46,13 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
         Vector2 input = new Vector2(horizontalInput, verticalInput);
         input = Vector2.ClampMagnitude(input, 1); // Clamps the magnitude to 1 so directional movement speed is consistent in every direction.
         targetVelocity = input * maxSpeed;
+        FixPosition();
 
-        SetFacingDirection(targetVelocity.normalized);
-        SetAnimatorParameters(horizontalInput, verticalInput, targetVelocity, facingDirection);
+        if (careAboutAnimator)
+        {
+            SetFacingDirection(targetVelocity.normalized);
+            SetAnimatorParameters(horizontalInput, verticalInput, targetVelocity, facingDirection);
+        }
     }
 
     #region Animator Stuff
@@ -82,6 +89,7 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
     {
         if (newDirection < 0 || newDirection > 7) return; // In case a number which is not a direction is passed in.
         facingDirection = newDirection;
+        animator.SetFloat("facingDirection", newDirection);
     }
 
     private void SetAnimatorParameters(float horizontal, float vertical, Vector2 movement, float facingDir)
@@ -91,7 +99,6 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
             animator.SetFloat("Horizontal", Mathf.RoundToInt(horizontal));
             animator.SetFloat("Vertical", Mathf.RoundToInt(vertical));
             animator.SetFloat("Speed", movement.sqrMagnitude);
-            animator.SetFloat("facingDirection", facingDir);
         }
     }
     #endregion

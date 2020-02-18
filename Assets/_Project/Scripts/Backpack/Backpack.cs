@@ -8,41 +8,81 @@ public enum BackpackStates
     AIMING, INFLIGHT, IDLE, RETURNING, INHAND
 }
 
-[RequireComponent(typeof(BackpackFX), typeof(Rigidbody2D))]
+[RequireComponent(typeof(BackpackFX), typeof(BackpackMovement), typeof(Rigidbody2D))]
 public class Backpack : StateMachineUnit, IActivator
 {
     // Public Variables
-    [SerializeField] private float backpackMovementSpeed;
-    public AnimationCurve movementCurve;
+    [SerializeField] private KeyCode aimKey;
+    public KeyCode AimKey { get => aimKey; }
 
-    // Properties
-    public bool CanBeAimed { get; set; }
-    public bool ChainReady { get; set; }
-    public float MovementSpeed { get; private set; }
-    public Vector2 TeleportDestination { get; private set; }
-    public Player Owner { get; private set; }
-    public BackpackFX BackpackFX { get; private set; }
-    public BackpackChaining Chaining { get; private set; }
-    public Task LaunchTask { get; private set; }
-    public Task ReturningTask { get; set; }
-    public Camera Cam { get; private set; }
-    public BackpackStates CurrentState { get; set; }
-  
+    [SerializeField] private float maxThrowDistance = 300f;
+    public float MaxThrowDistance = 300f;
+
+    [SerializeField] private bool canBeAimed;
+    public bool CanBeAimed { get => canBeAimed; set => canBeAimed = value; }
+
+    [SerializeField] private bool chainReady;
+    public bool ChainReady { get => chainReady; set => chainReady = value; }
+
+    [SerializeField] private bool isAiming;
+    public bool IsAiming { get => isAiming; set => isAiming = value; }
+
+    [SerializeField] private float movementSpeed;
+    public float MovementSpeed { get => movementSpeed; }
+
+    [SerializeField] private Vector2 teleportDestination;
+    public Vector2 TeleportDestination { get => teleportDestination; }
+
+    [SerializeField] private BackpackStates currentState;
+    public BackpackStates CurrentState { get => currentState; set => currentState = value; }
+
+    // Private Variables
+    private float calculatedBackpackTravelDistance;
+    public float CalculatedTravelDistance { get => calculatedBackpackTravelDistance; set => calculatedBackpackTravelDistance = value; }
+
+    private Vector2 pointA;
+    public Vector2 PointA { get => pointA; set => pointA = value; }
+
+    private Vector2 pointB;
+    public Vector2 PointB { get => pointB; set => pointB = value; }
+
+    // Components
+    private Player player;
+    public Player Player { get => player; }
+
+    private BackpackFX backpackFX;
+    public BackpackFX BackpackFX { get => backpackFX; }
+
+    private BackpackChaining backpackChaining;
+    public BackpackChaining BackpackChaining { get => backpackChaining; }
+
+    private BackpackMovement backpackMovement;
+    public BackpackMovement BackpackMovement { get => backpackMovement; }
+
+    private AimingAnimation aimingAnimation;
+    public AimingAnimation AimingAnimation { get => aimingAnimation; }
+
+    private Camera cam;
+    public Camera Cam { get => cam; }
+
     private Rigidbody2D rBody;
+    public Rigidbody2D RBody { get => rBody; }
 
     void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
-        Owner = FindObjectOfType<Player>();
-        BackpackFX = GetComponent<BackpackFX>();
-        Chaining = GetComponent<BackpackChaining>();
-        Cam = Camera.main;
+        player = FindObjectOfType<Player>();
+        backpackFX = GetComponent<BackpackFX>();
+        backpackChaining = GetComponent<BackpackChaining>();
+        backpackMovement = GetComponent<BackpackMovement>();
+        aimingAnimation = player.GetComponent<AimingAnimation>();
+        cam = Camera.main;
     }
 
     protected override void Start()
     {
         stateMachine.ChangeState(new Backpack_State_Inhand(this));
-        CanBeAimed = true;
+        canBeAimed = true;
     }
 
     protected override void Update()
@@ -52,52 +92,12 @@ public class Backpack : StateMachineUnit, IActivator
 
     public void Launch(Vector2 pos)
     {
-        if (LaunchTask != null)
-        {
-            LaunchTask.Stop();
-        }
-
-        LaunchTask = new Task(MoveToPointWithCurve(backpackMovementSpeed, pos, movementCurve));
-        LaunchTask.Start();
-
-        TeleportDestination = pos;
-        rBody.position = Owner.RBody2D.position; // Set the position of the backpack to the players location so it looks like it spawns from the players center.
+        teleportDestination = pos;
+        rBody.position = player.RBody2D.position; // Set the position of the backpack to the players location so it looks like it spawns from the players center.
     }
 
-    private IEnumerator MoveToPointWithCurve(float speed, Vector3 target, AnimationCurve animCurve)
+    public void UpdateTeleportationDestination(Vector2 pos)
     {
-        Vector2 startPoint = rBody.position;
-        float animationTimePosition = 0;
-        target.z = 0;
-
-        while (transform.position != target)
-        {
-            animationTimePosition += speed * Time.deltaTime;
-            transform.position = Vector3.Lerp(startPoint, target, animCurve.Evaluate(animationTimePosition));
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-            yield return null;
-        }
-
-        stateMachine.ChangeState(new Backpack_State_Idle(this));
-
-        yield break;
-    }
-
-    public IEnumerator ReturnToPlayerWithCurve(float speed, AnimationCurve animCurve)
-    {
-        Vector2 startPoint = rBody.position;
-        float animationTimePosition = 0;
-
-        while (Vector3.Distance(Owner.RBody2D.position, rBody.position) > 2f)
-        {
-            animationTimePosition += speed * Time.deltaTime;
-            transform.position = Vector3.Lerp(startPoint, Owner.RBody2D.position, animCurve.Evaluate(animationTimePosition));
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-            yield return null;
-        }
-
-        stateMachine.ChangeState(new Backpack_State_Inhand(this));
-
-        yield break;
+        teleportDestination = pos;
     }
 }

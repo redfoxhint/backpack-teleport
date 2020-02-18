@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 2141890925293650167}
   - component: {fileID: 5076565585277407811}
   - component: {fileID: 863325714}
-  - component: {fileID: 1078158835}
   - component: {fileID: 1052738819}
   - component: {fileID: 863325715}
+  - component: {fileID: 1609438671}
+  - component: {fileID: 1683038926934181231}
   m_Layer: 10
   m_Name: backpack
   m_TagString: Backpack
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1597723733
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1585465061617009156, guid: fb43fda06f89fc64c901b226a07dff63,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,9 +98,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4548468800056194583}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 35
@@ -108,7 +109,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &2141890925293650167
 MonoBehaviour:
@@ -122,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05c5496a8f54a04a8b19866e4f67491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpackMovementSpeed: 30
+  backpackMovementSpeed: 2
   movementCurve:
     serializedVersion: 2
     m_Curve:
@@ -147,7 +148,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  currentState: 4
 --- !u!114 &5076565585277407811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,32 +178,6 @@ MonoBehaviour:
   damagePrimitivePrefab: {fileID: 3294463816123340922, guid: ac0d39b1052165d4c9672be55caf1613,
     type: 3}
   maxAmountOfMarkers: 3
---- !u!61 &1078158835
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4548468800056194583}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.042289376, y: -0.02883339}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5309732, y: 0.6885967}
-  m_EdgeRadius: 0
 --- !u!96 &1052738819
 TrailRenderer:
   serializedVersion: 2
@@ -329,3 +303,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1609438671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4548468800056194583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ead351fa1cada64f9118b95262a48f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionFilter:
+    serializedVersion: 2
+    m_Bits: 32055
+  moveSpeed: 0.4
+--- !u!70 &1683038926934181231
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4548468800056194583}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.07089448, y: 0.12084484}
+  m_Size: {x: 0.7537718, y: 0.7537718}
+  m_Direction: 0

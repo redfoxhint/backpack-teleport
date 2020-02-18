@@ -3,17 +3,15 @@ using UnityEngine;
 
 public class Backpack_State_Idle : IState
 {
-    private StateMachineUnit owner;
     private Backpack backpack;
     private BackpackFX backpackFX;
     private BackpackChaining chaining;
 
-    public Backpack_State_Idle(StateMachineUnit _owner)
+    public Backpack_State_Idle(Backpack _backpack)
     {
-        owner = _owner;
-        backpack = _owner.GetComponent<Backpack>();
-        backpackFX = backpack.GetComponent<BackpackFX>();
-        chaining = backpack.Chaining;
+        backpack = _backpack;
+        backpackFX = backpack.BackpackFX;
+        chaining = backpack.BackpackChaining;
     }
 
     public void Initialize()
@@ -35,7 +33,7 @@ public class Backpack_State_Idle : IState
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            backpack.Owner.Teleport(backpack.TeleportDestination);
+            backpack.Player.Teleport(backpack.TeleportDestination);
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
         }
 

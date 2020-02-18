@@ -3,18 +3,15 @@ using UnityEngine;
 
 public class Backpack_State_Inhand : IState
 {
-    private StateMachineUnit owner;
-
     private Backpack backpack;
     private BackpackFX backpackFX;
     private Rigidbody2D rBody;
 
-    public Backpack_State_Inhand(StateMachineUnit _owner)
+    public Backpack_State_Inhand(Backpack _backpack)
     {
-        owner = _owner;
-        backpack = _owner.GetComponent<Backpack>();
-        backpackFX = backpack.GetComponent<BackpackFX>();
-        rBody = backpack.GetComponent<Rigidbody2D>();
+        backpack = _backpack;
+        backpackFX = backpack.BackpackFX;
+        rBody = backpack.RBody;
     }
 
     public void Initialize()
@@ -24,15 +21,23 @@ public class Backpack_State_Inhand : IState
         backpackFX.SwitchHasBackback(true);
         backpackFX.RippleEffect(backpack.transform.position);
         backpackFX.HideBackpack();
+
+        backpack.IsAiming = false;
     }
 
     public void Update()
     {
-        rBody.position = backpack.Owner.RBody2D.position;
+        rBody.position = backpack.Player.RBody2D.position;
+
+        if (Input.GetKeyDown(backpack.AimKey) && backpack.CanBeAimed)
+        {
+            backpack.stateMachine.ChangeState(new Backpack_State_Aiming(backpack));
+        }
     }
 
     public void Exit()
     {
 
     }
+
 }

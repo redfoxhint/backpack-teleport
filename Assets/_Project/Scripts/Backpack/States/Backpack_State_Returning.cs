@@ -3,19 +3,17 @@ using UnityEngine;
 
 public class Backpack_State_Returning : IState
 {
-    private StateMachineUnit owner;
     private Backpack backpack;
 
-    public Backpack_State_Returning(StateMachineUnit _owner)
+    public Backpack_State_Returning(Backpack _backpack)
     {
-        owner = _owner;
-        backpack = _owner.GetComponent<Backpack>();
+        backpack = _backpack;
     }
 
     public void Initialize()
     {
         backpack.CurrentState = BackpackStates.RETURNING;
-        backpack.ReturningTask = new Task(backpack.ReturnToPlayerWithCurve(backpack.MovementSpeed * 2, backpack.movementCurve));
+        backpack.BackpackMovement.MoveToPoint(backpack.Player.RBody2D.position, OnMoveCompleted);
     }
 
     public void Update()
@@ -26,5 +24,10 @@ public class Backpack_State_Returning : IState
     public void Exit()
     {
 
+    }
+
+    private void OnMoveCompleted()
+    {
+        backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
     }
 }

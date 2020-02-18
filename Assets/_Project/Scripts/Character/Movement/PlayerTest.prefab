@@ -429,7 +429,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6325790658579071165}
   - component: {fileID: 6325790658579071164}
-  - component: {fileID: 6325790658579071160}
   - component: {fileID: 2915299147042475042}
   - component: {fileID: 6325790658579071166}
   - component: {fileID: 6325790658579071118}
@@ -439,6 +438,8 @@ GameObject:
   - component: {fileID: 5169428764226488166}
   - component: {fileID: 451601643369308394}
   - component: {fileID: 3075051057239256242}
+  - component: {fileID: 1185635294863362042}
+  - component: {fileID: 1185635294863362032}
   m_Layer: 9
   m_Name: PlayerTest
   m_TagString: Player
@@ -514,32 +515,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6325790658579071160
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6325790658579071153}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.090518236, y: -0.08548188}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.688889, y: 5.688889}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.53618765, y: 0.71082664}
-  m_EdgeRadius: 0
 --- !u!50 &2915299147042475042
 Rigidbody2D:
   serializedVersion: 4
@@ -592,6 +567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0984dcfa4778e7a41bb3e7ba07688dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionFilter:
+    serializedVersion: 2
+    m_Bits: 31543
   maxSpeed: 7
   acceleration: 100
   deceleration: 85
@@ -650,18 +628,11 @@ MonoBehaviour:
   damageColor: {r: 0, g: 0, b: 0, a: 0}
   maxThrowDistance: 300
   throwKey: 324
-  areaDamageAmount: 3
-  areaDamageRadius: 4
-  onTeleportEvent: {fileID: 11400000, guid: 6af0b5a39d05d7840943e6d479785fc1, type: 2}
-  onThrowEvent: {fileID: 11400000, guid: e88fb11e5a095cd4daf009ae3b574e41, type: 2}
-  onTakeDamage: {fileID: 11400000, guid: 83c338f5e96339942b1657ca61b69927, type: 2}
-  onTeleportStatEvent: {fileID: 11400000, guid: 2e7fa94d9c18832458ff5f42c8f77f41,
-    type: 2}
   playerCenter: {fileID: 6325790659427882978}
   teleportEffect: {fileID: 7122859376419664860, guid: f295ed500d8eff2499df044475070b10,
     type: 3}
-  healthStat: {fileID: 11400000, guid: 665b84a3dfc3fee45908eff16fd2e2ed, type: 2}
-  energyStat: {fileID: 11400000, guid: 2ca3fbb9c08135a46a332ffcc72911a1, type: 2}
+  areaDamageAmount: 3
+  areaDamageRadius: 4
 --- !u!96 &5169428764226488166
 TrailRenderer:
   serializedVersion: 2
@@ -793,6 +764,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 256823aae69445d4ca78e06f30f4cbee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!70 &1185635294863362042
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325790658579071153}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08656514, y: -0.065234184}
+  m_Size: {x: 0.5349481, y: 0.8396964}
+  m_Direction: 0
+--- !u!114 &1185635294863362032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325790658579071153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef7530f9687ea44ca5142efb3bb0e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6325790659427882977

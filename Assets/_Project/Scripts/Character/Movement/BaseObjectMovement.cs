@@ -6,6 +6,8 @@ using UnityEngine;
 public class BaseObjectMovement : MonoBehaviour
 {
     // Protected Variables
+    [SerializeField] protected LayerMask collisionFilter;
+    protected bool careAboutAnimator;
     protected Vector2 targetVelocity;
     protected Vector2 velocity;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
@@ -18,10 +20,13 @@ public class BaseObjectMovement : MonoBehaviour
     // Components
     protected Rigidbody2D rBody;
     protected ContactFilter2D contactFilter;
+    protected Collider2D col2D;
 
     protected virtual void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
+        col2D = GetComponent<Collider2D>();
+        contactFilter.SetLayerMask(collisionFilter);
     }
 
     protected virtual void Update()
@@ -60,9 +65,31 @@ public class BaseObjectMovement : MonoBehaviour
         }
 
         Vector2 targetPosition = rBody.position + movement.normalized * distance;
-        Debug.Log(targetPosition);
 
         rBody.MovePosition(targetPosition);
+    }
+
+    protected Vector2 FixPosition()
+    {
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, col2D.bounds.size, 0, collisionFilter);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit == col2D)
+            {
+                continue;
+            }
+
+            ColliderDistance2D colliderDistance = hit.Distance(col2D);
+            if (colliderDistance.isOverlapped)
+            {
+                Vector2 fixedPoint = colliderDistance.pointA - colliderDistance.pointB;
+                transform.Translate(fixedPoint);
+                return fixedPoint;
+            }
+        }
+
+        return transform.position;
     }
 
     protected virtual void CalculateMovement() {  }
