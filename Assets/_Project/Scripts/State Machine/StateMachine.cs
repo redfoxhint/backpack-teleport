@@ -1,9 +1,10 @@
 ﻿using System;
+using UnityEngine;
 
 [Serializable]
 public class StateMachine
 {
-    private IState currentState;
+    [SerializeField] private IState currentState;
 
     public void ChangeState(IState newState)
     {

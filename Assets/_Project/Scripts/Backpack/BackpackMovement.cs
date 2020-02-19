@@ -18,9 +18,11 @@ public class BackpackMovement : BaseObjectMovement, IActivator
         backpack = GetComponent<Backpack>();
     }
 
-    public void MoveToPoint(Vector2 target, TweenCallback onMoveFinishedCallback = null)
+    public void MoveToPoint(Vector2 target, bool useDefaultSpeed, float speed = 0, TweenCallback onMoveFinishedCallback = null)
     {
-        rBody.DOMove(target, moveSpeed, false).OnComplete(onMoveFinishedCallback);
+        float spd = useDefaultSpeed ? moveSpeed : speed;
+
+        rBody.DOMove(target, spd, false).OnComplete(onMoveFinishedCallback);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -32,7 +34,7 @@ public class BackpackMovement : BaseObjectMovement, IActivator
     {
         rBody.DOKill(true);
         rBody.velocity = Vector2.zero;
-        backpack.UpdateTeleportationDestination(backpack.transform.position);
+        //backpack.UpdateTeleportationDestination(backpack.transform.position);
         FixPosition();
     }
 }

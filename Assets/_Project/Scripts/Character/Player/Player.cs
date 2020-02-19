@@ -7,33 +7,18 @@ namespace BackpackTeleport.Character.PlayerCharacter
 	[RequireComponent(typeof(AimingAnimation))]
 	public class Player : BaseCharacter
 	{
-		// Inspector Fields
-		[Header("Backpack Settings")]
-		[Space]
-		[SerializeField] private float maxThrowDistance = 300f;
-		[SerializeField] private KeyCode throwKey = KeyCode.Mouse1;
+		// Public Fields
 		[SerializeField] private Transform playerCenter;
+		public Transform PlayerCenter { get => playerCenter; }
+
 		[SerializeField] private GameObject teleportEffect;
-
-		[Header("Area of Effect Damage Settings")]
-		[Space]
-		[SerializeField] private float areaDamageAmount = 3f;
-		[SerializeField] private float areaDamageRadius = 4f;
-
-		// Private Variables
-		private Vector2 pointA;
-		private Vector2 pointB;
-
-		private bool isAimingBackpack;
-		private float calculatedBackpackTravelDistance;
 
 		// Properties
 		public Rigidbody2D RBody2D { get; private set; }
-		public Transform PlayerCenter { get => playerCenter; }
+		
 		public PlayerAnimations PlayerAnimations { get => playerAnimations; }
 
 		// Components
-		private Backpack backpack;
 		private PlayerAnimations playerAnimations;
 		private PlayerMovementController movement;
 		private AimingAnimation aimingAnimation;
@@ -47,7 +32,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		{
 			base.Awake();
 
-			backpack = FindObjectOfType<Backpack>();
 			animator = GetComponent<Animator>();
 			movement = GetComponent<PlayerMovementController>();
 			aimingAnimation = GetComponent<AimingAnimation>();
@@ -64,9 +48,13 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		{
 			base.Start();
 
-			isAimingBackpack = false;
 			trailRenderer.enabled = false;
 			GameEvents.onBackpackThrownEvent.AddListener(OnBackpackThrown);
+		}
+
+		private void OnDisable()
+		{
+			GameEvents.onBackpackThrownEvent.RemoveAllListeners();
 		}
 
 		private void Update()
@@ -102,7 +90,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			GameObject newTeleportEffect = Instantiate(teleportEffect, pos, teleportEffect.transform.rotation);
 			Destroy(newTeleportEffect, 2f);
 
-			AreaOfEffectDamage();
+			GameEvents.onTeleportedEvent.Invoke(pos);
 
 			Invoke("TurnTrailRendererOff", 0.5f);
 		}
@@ -112,38 +100,41 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			trailRenderer.enabled = false;
 		}
 
-		private void AreaOfEffectDamage()
-		{
-			Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(transform.position, areaDamageRadius);
-
-			if (collidersInRadius.Length > 0)
-			{
-				foreach (Collider2D col in collidersInRadius)
-				{
-					BaseEnemy enemy = col.GetComponent<BaseEnemy>();
-
-					if (enemy != null)
-					{
-						Vector2 dir = col.transform.position - transform.position;
-						enemy.GetComponent<IDamageable>().TakeDamage(gameObject, areaDamageAmount);
-						GameObject effect = Instantiate(teleportEffect, transform.position, Quaternion.identity);
-						Debug.Log("Enemy damaged");
-					}
-				}
-			}
-		}
-
 		private void Attack()
 		{
 			attackManager.Attack();
 		}
-
-		private void OnDrawGizmos()
-		{
-			Gizmos.color = Color.magenta;
-			Gizmos.DrawWireSphere(transform.position, areaDamageRadius);
-		}
 	}
 }
 
+
+// For aoe damage.
+// TODO: Move this to its own class or in the attack manager.
+
+//[Header("Area of Effect Damage Settings")]
+//[Space]
+//[SerializeField] private float areaDamageAmount = 3f;
+//[SerializeField] private float areaDamageRadius = 4f;
+
+
+//private void AreaOfEffectDamage()
+//{
+//	Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(transform.position, areaDamageRadius);
+
+//	if (collidersInRadius.Length > 0)
+//	{
+//		foreach (Collider2D col in collidersInRadius)
+//		{
+//			BaseEnemy enemy = col.GetComponent<BaseEnemy>();
+
+//			if (enemy != null)
+//			{
+//				Vector2 dir = col.transform.position - transform.position;
+//				enemy.GetComponent<IDamageable>().TakeDamage(gameObject, areaDamageAmount);
+//				GameObject effect = Instantiate(teleportEffect, transform.position, Quaternion.identity);
+//				Debug.Log("Enemy damaged");
+//			}
+//		}
+//	}
+//}
 

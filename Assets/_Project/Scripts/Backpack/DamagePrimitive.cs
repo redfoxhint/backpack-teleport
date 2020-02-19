@@ -12,7 +12,7 @@ public class DamagePrimitive : MonoBehaviour
 
 	// Components
 	private LineRenderer lr;
-	private BackpackChaining backpackChaining;
+	//private BackpackChaining backpackChaining;
 	private Backpack backpack;
 	private MeshRenderer meshRenderer;
 	private MeshFilter meshFilter;
@@ -26,7 +26,7 @@ public class DamagePrimitive : MonoBehaviour
 		lr = GetComponent<LineRenderer>();
 		meshRenderer = GetComponent<MeshRenderer>();
 		meshFilter = GetComponent<MeshFilter>();
-		backpackChaining = FindObjectOfType<BackpackChaining>();
+		//backpackChaining = FindObjectOfType<BackpackChaining>();
 		backpack = FindObjectOfType<Backpack>();
 	}
 
@@ -69,7 +69,7 @@ public class DamagePrimitive : MonoBehaviour
 		yield return new WaitForSeconds(0.2f);
 
 		ClearMesh();
-		backpackChaining.ResetChain();
+		//backpackChaining.ResetChain();
 		backpack.stateMachine.ChangeState(new Backpack_State_Returning(backpack));
 		lr.enabled = false;
 		Destroy(gameObject);

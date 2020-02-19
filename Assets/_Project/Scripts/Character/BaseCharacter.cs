@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace BackpackTeleport.Character
 {
-	[RequireComponent(typeof(Knockback))]
 	public abstract class BaseCharacter : MonoBehaviour, IDamageable, IActivator
 	{
 		// Inspector Fields
@@ -20,13 +19,9 @@ namespace BackpackTeleport.Character
 		public BaseCharacterData BaseCharacterData { set { baseCharacterData = value; } }
 		public Color DamageColor { set { damageColor = value; } }
 
-		// Components
-		protected Knockback knockback;
-
 		protected virtual void Awake()
 		{
 			healthBar = GetComponentInChildren<Image>();
-			knockback = GetComponent<Knockback>();
 		}
 
 		protected virtual void Start()

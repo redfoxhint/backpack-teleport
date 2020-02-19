@@ -13,7 +13,7 @@ public class Backpack_State_Returning : IState
     public void Initialize()
     {
         backpack.CurrentState = BackpackStates.RETURNING;
-        backpack.BackpackMovement.MoveToPoint(backpack.Player.RBody2D.position, OnMoveCompleted);
+        backpack.BackpackMovement.MoveToPoint(backpack.Player.RBody2D.position, true, 0f, OnMoveCompleted);
     }
 
     public void Update()

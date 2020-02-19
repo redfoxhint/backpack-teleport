@@ -22,7 +22,7 @@ public class Backpack_State_Inflight : IState
         backpackFX.SwitchHasBackback(false);
         backpackFX.ShowBackpack();
 
-        backpack.BackpackMovement.MoveToPoint(backpack.TeleportDestination, OnMoveCompleted);
+        backpack.BackpackMovement.MoveToPoint(backpack.TeleportDestination, true, 0f, OnMoveCompleted);
     }
 
     public void Update()

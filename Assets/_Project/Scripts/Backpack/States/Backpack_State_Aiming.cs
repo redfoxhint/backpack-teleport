@@ -14,7 +14,6 @@ public class Backpack_State_Aiming : IState
     {
         backpack.CurrentState = BackpackStates.AIMING;
         backpack.IsAiming = true;
-        Debug.Log("Backpack has entered the aiming state");
     }
 
     public void Update()
@@ -34,18 +33,18 @@ public class Backpack_State_Aiming : IState
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
         }
 
-
         if(Input.GetKeyUp(backpack.AimKey) && backpack.IsAiming)
         {
             if(backpack.CalculatedTravelDistance <= backpack.MaxThrowDistance)
             {
                 backpack.Launch(backpack.PointB);
-                backpack.stateMachine.ChangeState(new Backpack_State_Inflight(backpack));
-                //backpack.Player.ThrowBackpack();
-                if(GameEvents.onBackpackThrownEvent != null)
+
+                if (GameEvents.onBackpackThrownEvent != null)
                 {
                     GameEvents.onBackpackThrownEvent.Invoke(backpack);
                 }
+
+                backpack.stateMachine.ChangeState(new Backpack_State_Inflight(backpack));
             }
             else
             {

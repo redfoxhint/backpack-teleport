@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BackpackTeleport.Character.PlayerCharacter;
+using UnityEditor;
 
 public enum BackpackStates
 {
-    AIMING, INFLIGHT, IDLE, RETURNING, INHAND
+    AIMING, INFLIGHT, IDLE, RETURNING, INHAND, CHAINING, CHAINING_SETUP
 }
 
 [RequireComponent(typeof(BackpackFX), typeof(BackpackMovement), typeof(Rigidbody2D))]
@@ -18,8 +19,15 @@ public class Backpack : StateMachineUnit, IActivator
     [SerializeField] private float maxThrowDistance = 300f;
     public float MaxThrowDistance = 300f;
 
-    [SerializeField] private bool canBeAimed;
-    public bool CanBeAimed { get => canBeAimed; set => canBeAimed = value; }
+    [SerializeField] private float movementSpeed;
+    public float MovementSpeed { get => movementSpeed; }
+
+    [Header("Chaining Configuration")]
+    [SerializeField] private int maxMarkerPositions = 2;
+    public int MaxMarkerPositions { get => maxMarkerPositions; }
+
+    [SerializeField] private GameObject markerPrefab;
+    public GameObject MarkerPrefab { get => markerPrefab; }
 
     [SerializeField] private bool chainReady;
     public bool ChainReady { get => chainReady; set => chainReady = value; }
@@ -27,14 +35,19 @@ public class Backpack : StateMachineUnit, IActivator
     [SerializeField] private bool isAiming;
     public bool IsAiming { get => isAiming; set => isAiming = value; }
 
-    [SerializeField] private float movementSpeed;
-    public float MovementSpeed { get => movementSpeed; }
-
     [SerializeField] private Vector2 teleportDestination;
     public Vector2 TeleportDestination { get => teleportDestination; }
 
     [SerializeField] private BackpackStates currentState;
-    public BackpackStates CurrentState { get => currentState; set => currentState = value; }
+    public BackpackStates CurrentState 
+    { 
+        get => currentState; 
+        set
+        {
+            currentState = value;
+            //Debug.Log($"Backpack entered: <color=red>{value}</color>");
+        }
+    }
 
     // Private Variables
     private float calculatedBackpackTravelDistance;
@@ -46,15 +59,16 @@ public class Backpack : StateMachineUnit, IActivator
     private Vector2 pointB;
     public Vector2 PointB { get => pointB; set => pointB = value; }
 
+    // Chaining Variables
+    private Vector2 nextTeleportLocation;
+    public Vector2 NextTeleportLocation { get => nextTeleportLocation; set => nextTeleportLocation = value; }
+
     // Components
     private Player player;
     public Player Player { get => player; }
 
     private BackpackFX backpackFX;
     public BackpackFX BackpackFX { get => backpackFX; }
-
-    private BackpackChaining backpackChaining;
-    public BackpackChaining BackpackChaining { get => backpackChaining; }
 
     private BackpackMovement backpackMovement;
     public BackpackMovement BackpackMovement { get => backpackMovement; }
@@ -67,13 +81,13 @@ public class Backpack : StateMachineUnit, IActivator
 
     private Rigidbody2D rBody;
     public Rigidbody2D RBody { get => rBody; }
+    
 
     void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Player>();
         backpackFX = GetComponent<BackpackFX>();
-        backpackChaining = GetComponent<BackpackChaining>();
         backpackMovement = GetComponent<BackpackMovement>();
         aimingAnimation = player.GetComponent<AimingAnimation>();
         cam = Camera.main;
@@ -82,7 +96,6 @@ public class Backpack : StateMachineUnit, IActivator
     protected override void Start()
     {
         stateMachine.ChangeState(new Backpack_State_Inhand(this));
-        canBeAimed = true;
     }
 
     protected override void Update()
@@ -94,10 +107,5 @@ public class Backpack : StateMachineUnit, IActivator
     {
         teleportDestination = pos;
         rBody.position = player.RBody2D.position; // Set the position of the backpack to the players location so it looks like it spawns from the players center.
-    }
-
-    public void UpdateTeleportationDestination(Vector2 pos)
-    {
-        teleportDestination = pos;
     }
 }

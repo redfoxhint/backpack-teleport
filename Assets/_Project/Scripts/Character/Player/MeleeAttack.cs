@@ -16,7 +16,6 @@ public class MeleeAttack : MonoBehaviour
     private void Awake()
     {
         attack.onColliderHit = i => Damage(i);
-        GameEvents.testEvent.AddListener(Test);
     }
 
     public void Attack(Player player, Animator anim, Vector2 vel)
@@ -49,8 +48,4 @@ public class MeleeAttack : MonoBehaviour
         other.GetComponent<IDamageable>().TakeDamage(gameObject, 1f);
     }
 
-    private void Test(CustomTestEventData pos)
-    {
-        //Debug.Log(pos.pos.position.x);
-    }
 }

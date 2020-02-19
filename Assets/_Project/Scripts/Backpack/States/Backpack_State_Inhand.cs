@@ -29,7 +29,7 @@ public class Backpack_State_Inhand : IState
     {
         rBody.position = backpack.Player.RBody2D.position;
 
-        if (Input.GetKeyDown(backpack.AimKey) && backpack.CanBeAimed)
+        if (Input.GetKeyDown(backpack.AimKey))
         {
             backpack.stateMachine.ChangeState(new Backpack_State_Aiming(backpack));
         }

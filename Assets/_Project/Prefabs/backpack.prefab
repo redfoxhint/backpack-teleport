@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4675831795884061219}
   - component: {fileID: 2141890925293650167}
   - component: {fileID: 5076565585277407811}
-  - component: {fileID: 863325714}
   - component: {fileID: 1052738819}
   - component: {fileID: 863325715}
   - component: {fileID: 1609438671}
@@ -107,9 +106,9 @@ Rigidbody2D:
   m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &2141890925293650167
 MonoBehaviour:
@@ -123,31 +122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05c5496a8f54a04a8b19866e4f67491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpackMovementSpeed: 2
-  movementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.5429342
-      outSlope: 0.5429342
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.20416667
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.17130074
-      outSlope: -0.17130074
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.31666666
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  aimKey: 324
+  maxThrowDistance: 300
+  MaxThrowDistance: 300
+  movementSpeed: 0
+  maxMarkerPositions: 2
+  markerPrefab: {fileID: 9006511983901279946, guid: d5e81d6fe7929fd43a64f963c60eb207,
+    type: 3}
+  chainReady: 0
+  isAiming: 0
+  teleportDestination: {x: 0, y: 0}
+  currentState: 0
 --- !u!114 &5076565585277407811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,24 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abfab1ed174f4da439f49920ba0e0dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &863325714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4548468800056194583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf91f7caa053cd44783c901d02ef6603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onPlaceMarker: {fileID: 11400000, guid: d43663c789d69b141a9b6cc64e737c46, type: 2}
-  positionMarkerPrefab: {fileID: 9006511983901279946, guid: d5e81d6fe7929fd43a64f963c60eb207,
-    type: 3}
-  damagePrimitivePrefab: {fileID: 3294463816123340922, guid: ac0d39b1052165d4c9672be55caf1613,
-    type: 3}
-  maxAmountOfMarkers: 3
 --- !u!96 &1052738819
 TrailRenderer:
   serializedVersion: 2
