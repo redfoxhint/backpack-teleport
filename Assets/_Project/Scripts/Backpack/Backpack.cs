@@ -98,11 +98,6 @@ public class Backpack : StateMachineUnit, IActivator
         stateMachine.ChangeState(new Backpack_State_Inhand(this));
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     public void Launch(Vector2 pos)
     {
         teleportDestination = pos;
