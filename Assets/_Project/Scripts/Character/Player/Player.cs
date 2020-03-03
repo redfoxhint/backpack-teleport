@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using BackpackTeleport.Character.Enemy;
+using UnityEngine.InputSystem;
 
 namespace BackpackTeleport.Character.PlayerCharacter
 {
@@ -23,6 +24,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		private PlayerMovementController movement;
 		private AimingAnimation aimingAnimation;
 		private AttackManager attackManager;
+		private InputManager inputManager;
 		private DottedLine dottedLine;
 		private TrailRenderer trailRenderer;
 		private Animator animator;
@@ -42,6 +44,9 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			dottedLine = DottedLine.Instance;
 			cam = Camera.main;
+			inputManager = InputManager.Instance;
+
+			inputManager.InputActions.Player.BasicAttack.performed += Attack;
 		}
 
 		protected override void Start()
@@ -59,10 +64,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		private void Update()
 		{
-			if(Input.GetKeyDown(KeyCode.Mouse0))
-			{
-				Attack();
-			}
+			
 		}
 
 		public override void TakeDamage(GameObject dealer, float amount)
@@ -100,7 +102,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			trailRenderer.enabled = false;
 		}
 
-		private void Attack()
+		private void Attack(InputAction.CallbackContext value)
 		{
 			attackManager.Attack();
 		}

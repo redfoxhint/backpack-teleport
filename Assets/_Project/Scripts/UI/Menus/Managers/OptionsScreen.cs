@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Samples.RebindUI;
+
+/*
+ * TODO: AUTOMATICALLY GENERATE REBIND BUTTONS IN CONTROLS MENU
+ */
 
 public class OptionsScreen : MonoBehaviour
 {
@@ -19,6 +25,8 @@ public class OptionsScreen : MonoBehaviour
     [SerializeField] private Button saveButton;
     [SerializeField] private GameObject keybindOptionPrefab;
     [SerializeField] private Transform keybindParent;
+    [SerializeField] private GameObject rebindOverlay;
+    [SerializeField] private Text rebindOverlayText;
 
     [Space]
 
@@ -34,6 +42,7 @@ public class OptionsScreen : MonoBehaviour
     [SerializeField] private Slider testSlider;
 
     [Header("Control Options")]
+    [SerializeField] private GameObject rebindKeyPrefab;
 
 
     [Header("Sound Options")]
@@ -51,6 +60,12 @@ public class OptionsScreen : MonoBehaviour
         CreateResolutionOptions();
         CreateKeyBindOptions();
         LoadOptions();
+    }
+
+    private void Start()
+    {
+        //Debug.Log(inputActions.asset.actionMaps.Count);
+        //CreateRebindButtons();
     }
 
     private void InitializeButtons()
@@ -192,6 +207,33 @@ public class OptionsScreen : MonoBehaviour
     #endregion
 
     #region Controls Region
+
+    private void CreateRebindButtons()
+    {
+        InputActions input = InputManager.Instance.InputActions;
+        List<InputActionMap> actionsMaps = new List<InputActionMap>(input.asset.actionMaps);
+
+        foreach (InputActionMap map in actionsMaps)
+        {
+            List<InputAction> inputActions = new List<InputAction>(map.actions);
+            foreach (InputAction action in inputActions)
+            {
+                InputActionReference actionReference = InputActionReference.Create(action);
+                GenerateRebindButton(actionReference);
+            }
+        }
+    }
+
+    private void GenerateRebindButton(InputActionReference action)
+    {
+        RebindActionUI rebindPrefab = Instantiate(rebindKeyPrefab, keybindParent).GetComponent<RebindActionUI>();
+        rebindPrefab.actionReference = action;
+        rebindPrefab.bindingText.text = action.action.GetBindingDisplayString();
+        rebindPrefab.rebindOverlay = rebindOverlay;
+        rebindPrefab.rebindPrompt = rebindOverlayText;
+        //Debug.Log(action.GetBindingDisplayString());
+    }
+
 
     private void CreateKeyBindOptions()
     {

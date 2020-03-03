@@ -40,10 +40,12 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
 
     protected override void CalculateMovement()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
+        Vector2 input = Vector2.zero;
 
-        Vector2 input = new Vector2(horizontalInput, verticalInput);
+        float horizontalInput = InputManager.Instance.wasdInput.x;
+        float verticalInput = InputManager.Instance.wasdInput.y;
+
+        input = new Vector2(horizontalInput, verticalInput);
         input = Vector2.ClampMagnitude(input, 1); // Clamps the magnitude to 1 so directional movement speed is consistent in every direction.
         targetVelocity = input * maxSpeed;
         FixPosition();

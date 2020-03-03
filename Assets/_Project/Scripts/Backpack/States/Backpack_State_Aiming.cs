@@ -1,9 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Backpack_State_Aiming : IState
 {
     private Backpack backpack;
+    private bool isReturning = false;
 
     public Backpack_State_Aiming(Backpack _backpack)
     {
@@ -14,6 +16,9 @@ public class Backpack_State_Aiming : IState
     {
         backpack.CurrentState = BackpackStates.AIMING;
         backpack.IsAiming = true;
+
+        InputManager.Instance.InputActions.Backpack.Return.performed += OnReturnKeyPressed;
+        InputManager.Instance.InputActions.Backpack.Aim.canceled += OnAimKeyReleased;
     }
 
     public void Update()
@@ -28,12 +33,13 @@ public class Backpack_State_Aiming : IState
         HandleBackpackAimingUI();
         backpack.AimingAnimation.DrawDottedLineAndArrow(backpack.PointA, backpack.PointB);
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if(isReturning)
         {
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
+            return;
         }
 
-        if(Input.GetKeyUp(backpack.AimKey) && backpack.IsAiming)
+        if(!backpack.IsAiming)
         {
             if(backpack.CalculatedTravelDistance <= backpack.MaxThrowDistance)
             {
@@ -56,6 +62,8 @@ public class Backpack_State_Aiming : IState
     public void Exit()
     {
         backpack.IsAiming = false;
+        InputManager.Instance.InputActions.Backpack.Return.performed -= OnReturnKeyPressed;
+        InputManager.Instance.InputActions.Backpack.Aim.canceled -= OnAimKeyReleased;
     }
 
     private void HandleBackpackAimingUI()
@@ -69,5 +77,15 @@ public class Backpack_State_Aiming : IState
             backpack.AimingAnimation.RotateText(-180f);
         else
             backpack.AimingAnimation.RotateText(0f);
+    }
+
+    private void OnReturnKeyPressed(InputAction.CallbackContext value)
+    {
+        isReturning = true;
+    }
+
+    private void OnAimKeyReleased(InputAction.CallbackContext value)
+    {
+        backpack.IsAiming = false;
     }
 }
