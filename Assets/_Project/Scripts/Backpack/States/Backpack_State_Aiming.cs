@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 public class Backpack_State_Aiming : IState
 {
     private Backpack backpack;
+    private InputActions inputActions;
     private bool isReturning = false;
 
     public Backpack_State_Aiming(Backpack _backpack)
     {
         backpack = _backpack;
+        inputActions = InputManager.Instance.InputActions;
     }
 
     public void Initialize()
@@ -17,8 +19,8 @@ public class Backpack_State_Aiming : IState
         backpack.CurrentState = BackpackStates.AIMING;
         backpack.IsAiming = true;
 
-        InputManager.Instance.InputActions.Backpack.Return.performed += OnReturnKeyPressed;
         InputManager.Instance.InputActions.Backpack.Aim.canceled += OnAimKeyReleased;
+        backpack.AimingAnimation.RadiusCircleController.Activate();
     }
 
     public void Update()
@@ -26,14 +28,14 @@ public class Backpack_State_Aiming : IState
         backpack.RBody.MovePosition(backpack.Player.RBody2D.position);
 
         backpack.PointA = backpack.Player.PlayerCenter.position;
-        backpack.PointB = backpack.Cam.ScreenToWorldPoint(Input.mousePosition);
+        backpack.PointB = backpack.GameCursor.transform.position;
 
         backpack.CalculatedTravelDistance = (backpack.PointB - backpack.PointA).sqrMagnitude;
 
-        HandleBackpackAimingUI();
+        //HandleBackpackAimingUI();
         backpack.AimingAnimation.DrawDottedLineAndArrow(backpack.PointA, backpack.PointB);
 
-        if(isReturning)
+        if(inputActions.Backpack.Return.triggered)
         {
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
             return;
@@ -41,6 +43,12 @@ public class Backpack_State_Aiming : IState
 
         if(!backpack.IsAiming)
         {
+            if(backpack.AimingAnimation.IsOverlappingObstacle(backpack.PointA, backpack.PointB))
+            {
+                backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
+                return;
+            }
+
             if(backpack.CalculatedTravelDistance <= backpack.MaxThrowDistance)
             {
                 backpack.Launch(backpack.PointB);
@@ -62,8 +70,8 @@ public class Backpack_State_Aiming : IState
     public void Exit()
     {
         backpack.IsAiming = false;
-        InputManager.Instance.InputActions.Backpack.Return.performed -= OnReturnKeyPressed;
         InputManager.Instance.InputActions.Backpack.Aim.canceled -= OnAimKeyReleased;
+        backpack.AimingAnimation.RadiusCircleController.Deactivate();
     }
 
     private void HandleBackpackAimingUI()
@@ -79,10 +87,6 @@ public class Backpack_State_Aiming : IState
             backpack.AimingAnimation.RotateText(0f);
     }
 
-    private void OnReturnKeyPressed(InputAction.CallbackContext value)
-    {
-        isReturning = true;
-    }
 
     private void OnAimKeyReleased(InputAction.CallbackContext value)
     {

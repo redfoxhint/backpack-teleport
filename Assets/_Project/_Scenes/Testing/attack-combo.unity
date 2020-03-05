@@ -1409,7 +1409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &403305589
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1441,6 +1441,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40de0b0ace1c2214ebd2dbe4968e4a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDistance: 0
+  cursorMoveSpeed: 5
+  circle: {fileID: 0}
 --- !u!114 &403305591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1487,7 +1490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 406112328}
   - component: {fileID: 406112330}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1715,7 +1718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 493712076}
   - component: {fileID: 493712078}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1929,7 +1932,7 @@ GameObject:
   - component: {fileID: 529639514}
   - component: {fileID: 529639516}
   - component: {fileID: 529639515}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2588,6 +2591,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667392151}
   m_CullTransparentMesh: 0
+--- !u!21 &674594819
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CircleMaterial (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: -6465566751694194690, guid: e29bbfcd2c10e4c4e878c922ac15a2b1,
+    type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_6259448: 1
+    - Vector1_F9EB683C: 0.05
+    - _EnableExternalAlpha: 0
+    - _Radius: 1
+    - _Thickness: 0.01
+    m_Colors:
+    - Color_424EEEAB: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ScrollingSpeed: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &738996274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,7 +2649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 738996275}
   - component: {fileID: 738996277}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2913,7 +2964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 819071029}
   - component: {fileID: 819071030}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3173,7 +3224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1045774265}
   - component: {fileID: 1045774266}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24595,7 +24646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1289379042}
   - component: {fileID: 1289379044}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24838,7 +24889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1360715651}
   - component: {fileID: 1360715652}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24921,7 +24972,7 @@ GameObject:
   - component: {fileID: 1409743951}
   - component: {fileID: 1409743953}
   - component: {fileID: 1409743952}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25459,7 +25510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1576796586}
   - component: {fileID: 1576796587}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25617,7 +25668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1588902118}
   - component: {fileID: 1588902120}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26315,6 +26366,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1251084008}
     m_Modifications:
+    - target: {fileID: 2141890925293650167, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
+        type: 3}
+      propertyPath: currentState
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4548468800056194583, guid: c13bd6a52d49e2c4e864d90f6c6c969f,
         type: 3}
       propertyPath: m_Name
@@ -26387,7 +26443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1809562215}
   - component: {fileID: 1809562216}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26897,7 +26953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2032898263}
   - component: {fileID: 2032898264}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27257,7 +27313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2136015883}
   - component: {fileID: 2136015885}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: environmental_11 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27336,6 +27392,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 662349672, guid: babc72d47a55dd042a4ba747a51f9550, type: 3}
+      propertyPath: circleThickness
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101924332, guid: babc72d47a55dd042a4ba747a51f9550, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 674594819}
     - target: {fileID: 6325790658579071153, guid: babc72d47a55dd042a4ba747a51f9550,
         type: 3}
       propertyPath: m_Name
@@ -27349,7 +27413,7 @@ PrefabInstance:
     - target: {fileID: 6325790658579071165, guid: babc72d47a55dd042a4ba747a51f9550,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.36
+      value: 8.96
       objectReference: {fileID: 0}
     - target: {fileID: 6325790658579071165, guid: babc72d47a55dd042a4ba747a51f9550,
         type: 3}

@@ -6,49 +6,43 @@ using UnityEngine.InputSystem;
 
 public class InputManager : PersistentSingleton<InputManager>
 {
-    public Keybinds keybinds;
-
-    public Vector2 wasdInput;
     public InputActions InputActions { get; private set; }
+
+    public Vector2 MovementInput { get; private set; }
+    public Vector2 JoystickInput { get; private set; }
 
     private void OnEnable()
     {
-        keybinds = Resources.Load<ScriptableObject>("Keybinds") as Keybinds;
-        keybinds.InitializeKeys();
-
-        InputActions = new InputActions();
-        InputActions.Player.Movement.performed += OnMovement;
-        InputActions.Player.Movement.canceled -= OnMovement;
-        InputActions.Player.BasicAttack.performed += OnBasicAttack;
-        InputActions.Enable();
+        InitalizeInput();
     }
 
     private void OnDisable()
     {
-        InputActions.Disable();
+        // Clean up subcribed inputs
         InputActions.Player.Movement.canceled -= OnMovement;
-        InputActions.Player.BasicAttack.performed -= OnBasicAttack;
+        InputActions.Player.CursorControl.canceled -= OnCursor;
+
+        InputActions.Disable();
     }
 
-    public bool KeyDown(string key)
+    private void InitalizeInput()
     {
-        if (Input.GetKeyDown(keybinds.CheckKey(key)))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        InputActions = new InputActions();
+
+        // Subscribe to input actions
+        InputActions.Player.Movement.performed += OnMovement;
+        InputActions.Player.CursorControl.performed += OnCursor;
+
+        InputActions.Enable();
     }
 
     public void OnMovement(InputAction.CallbackContext value)
     {
-        wasdInput = value.ReadValue<Vector2>();
+        MovementInput = value.ReadValue<Vector2>();
     }
 
-    public void OnBasicAttack(InputAction.CallbackContext value)
+    public void OnCursor(InputAction.CallbackContext value)
     {
-        Debug.Log("Attacked");
+        JoystickInput = value.ReadValue<Vector2>();
     }
 }

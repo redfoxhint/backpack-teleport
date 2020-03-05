@@ -29,11 +29,13 @@ public abstract class Interactable : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(isInRange && InputManager.Instance.KeyDown("interact"))
-        {
-            Interact();
-            OnOutOfRange();
-        }
+        // TODO: Convert to use new input system
+
+        //if(isInRange && InputManager.Instance.KeyDown("interact"))
+        //{
+        //    Interact();
+        //    OnOutOfRange();
+        //}
     }
 
     public abstract void Interact();

@@ -8,6 +8,14 @@
                 {
                     "name": "Movement",
                     "type": "PassThrough",
+                    "id": "ddd4dc62-a1dc-4a95-a547-e68af0e2118e",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CursorControl",
+                    "type": "PassThrough",
                     "id": "9b98cf0a-eafc-431c-b88c-eac472b48ad4",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -41,6 +49,14 @@
                     "name": "TogglePauseMenu",
                     "type": "Button",
                     "id": "df1a4726-d3b8-4b00-af35-5c06b56dbde9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "a12b2e74-9e92-4b6d-9f70-96a031fbef58",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -103,97 +119,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Joystick",
-                    "id": "140ceec6-4ca7-402f-afec-1ec955ea37d4",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "ee023b70-cea0-42dd-b509-cf4937eca1cd",
-                    "path": "<Joystick>/stick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "ee25f295-0a75-487b-bd7d-73bd31a3db9e",
-                    "path": "<Joystick>/stick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "15869b56-308b-4fa3-a444-71c696d69455",
-                    "path": "<Joystick>/stick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "4a1db329-030b-49e7-820a-3630f37830fc",
-                    "path": "<Joystick>/stick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "2f2f8acf-29b1-4ce2-98e1-33670bc0d159",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BasicAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1b7e1b47-9741-4e7a-aee4-c3e15bcf59b9",
-                    "path": "<HID::Logitech Logitech Dual Action>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BasicAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "304e78ba-d13e-4f0b-a1ea-99b4e8f84daf",
-                    "path": "<HID::Logitech Logitech Dual Action>/button4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BasicAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "68455b52-8367-4ee2-a853-27f4b69086ff",
-                    "path": "<HID::Logitech Logitech Dual Action>/button3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -214,41 +142,8 @@
                 },
                 {
                     "name": "",
-                    "id": "7aa81a80-ab47-4064-8aae-b4b4c0ec1ece",
-                    "path": "<HID::Logitech Logitech Dual Action>/button6",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DashAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4444081b-6d23-425f-ae4c-23dd5925a69a",
-                    "path": "<HID::Logitech Logitech Dual Action>/button5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DashAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8656d377-94d4-407e-9816-6ec61f810e73",
                     "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleInventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "36eb4301-ad18-4e05-92af-fec3afbd5e66",
-                    "path": "<HID::Logitech Logitech Dual Action>/button9",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -268,13 +163,68 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "4cf926a3-bbbc-48ef-85e5-3239dca5d364",
-                    "path": "<HID::Logitech Logitech Dual Action>/button10",
+                    "name": "Stick",
+                    "id": "7412c716-f16a-4c75-a3fc-d45691361496",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TogglePauseMenu",
+                    "action": "CursorControl",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "e5fd33bd-0e91-4a1d-8878-c6d52704ded0",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorControl",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "242b2263-d89f-4d21-8d29-dcf3afdd82f2",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorControl",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "a2e6f73f-3ea2-490f-8bc5-35c4c48eee3a",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorControl",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "21a347d1-2bfe-483a-9e39-de7c366f57d4",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorControl",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "687a4a9b-4539-4a28-bec8-40d6c372865d",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -288,7 +238,7 @@
                     "name": "Aim",
                     "type": "Button",
                     "id": "f5d5f785-11a1-400b-929c-c852a5c7f868",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
@@ -299,14 +249,6 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Throw",
-                    "type": "Button",
-                    "id": "1c24e76a-ec9a-4a48-88a9-7ad85ac679a1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -314,7 +256,7 @@
                     "name": "",
                     "id": "0e43e368-8a81-4d38-874f-1c5e45c50a0b",
                     "path": "<HID::Logitech Logitech Dual Action>/button8",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
@@ -340,17 +282,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Return",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "69347cf4-bb07-407e-95f5-a193d0822dd2",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

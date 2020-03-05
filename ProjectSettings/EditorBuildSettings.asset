@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/_Scenes/Testing/attack-combo.unity
     guid: 79f8b72b1b32e4d40a5b7385e0eefa45
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: f15284a963056294590182272bfae3a5,
+      type: 2}

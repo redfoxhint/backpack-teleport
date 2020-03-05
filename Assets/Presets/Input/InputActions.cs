@@ -21,6 +21,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Movement"",
                     ""type"": ""PassThrough"",
+                    ""id"": ""ddd4dc62-a1dc-4a95-a547-e68af0e2118e"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""CursorControl"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""9b98cf0a-eafc-431c-b88c-eac472b48ad4"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
@@ -54,6 +62,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": ""TogglePauseMenu"",
                     ""type"": ""Button"",
                     ""id"": ""df1a4726-d3b8-4b00-af35-5c06b56dbde9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""a12b2e74-9e92-4b6d-9f70-96a031fbef58"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -116,97 +132,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Joystick"",
-                    ""id"": ""140ceec6-4ca7-402f-afec-1ec955ea37d4"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""ee023b70-cea0-42dd-b509-cf4937eca1cd"",
-                    ""path"": ""<Joystick>/stick/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""ee25f295-0a75-487b-bd7d-73bd31a3db9e"",
-                    ""path"": ""<Joystick>/stick/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""15869b56-308b-4fa3-a444-71c696d69455"",
-                    ""path"": ""<Joystick>/stick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""4a1db329-030b-49e7-820a-3630f37830fc"",
-                    ""path"": ""<Joystick>/stick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""2f2f8acf-29b1-4ce2-98e1-33670bc0d159"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BasicAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1b7e1b47-9741-4e7a-aee4-c3e15bcf59b9"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BasicAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""304e78ba-d13e-4f0b-a1ea-99b4e8f84daf"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/button4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BasicAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""68455b52-8367-4ee2-a853-27f4b69086ff"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/button3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -227,41 +155,8 @@ public class @InputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7aa81a80-ab47-4064-8aae-b4b4c0ec1ece"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/button6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DashAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4444081b-6d23-425f-ae4c-23dd5925a69a"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/button5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DashAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8656d377-94d4-407e-9816-6ec61f810e73"",
                     ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleInventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""36eb4301-ad18-4e05-92af-fec3afbd5e66"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/button9"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -281,13 +176,68 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""4cf926a3-bbbc-48ef-85e5-3239dca5d364"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/button10"",
+                    ""name"": ""Stick"",
+                    ""id"": ""7412c716-f16a-4c75-a3fc-d45691361496"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TogglePauseMenu"",
+                    ""action"": ""CursorControl"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e5fd33bd-0e91-4a1d-8878-c6d52704ded0"",
+                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CursorControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""242b2263-d89f-4d21-8d29-dcf3afdd82f2"",
+                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CursorControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a2e6f73f-3ea2-490f-8bc5-35c4c48eee3a"",
+                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CursorControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""21a347d1-2bfe-483a-9e39-de7c366f57d4"",
+                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CursorControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""687a4a9b-4539-4a28-bec8-40d6c372865d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -301,7 +251,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""f5d5f785-11a1-400b-929c-c852a5c7f868"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -312,14 +262,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""Throw"",
-                    ""type"": ""Button"",
-                    ""id"": ""1c24e76a-ec9a-4a48-88a9-7ad85ac679a1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -327,7 +269,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""0e43e368-8a81-4d38-874f-1c5e45c50a0b"",
                     ""path"": ""<HID::Logitech Logitech Dual Action>/button8"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Aim"",
@@ -355,17 +297,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""Return"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""69347cf4-bb07-407e-95f5-a193d0822dd2"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Throw"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -375,15 +306,16 @@ public class @InputActions : IInputActionCollection, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_CursorControl = m_Player.FindAction("CursorControl", throwIfNotFound: true);
         m_Player_BasicAttack = m_Player.FindAction("BasicAttack", throwIfNotFound: true);
         m_Player_DashAttack = m_Player.FindAction("DashAttack", throwIfNotFound: true);
         m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
         m_Player_TogglePauseMenu = m_Player.FindAction("TogglePauseMenu", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // Backpack
         m_Backpack = asset.FindActionMap("Backpack", throwIfNotFound: true);
         m_Backpack_Aim = m_Backpack.FindAction("Aim", throwIfNotFound: true);
         m_Backpack_Return = m_Backpack.FindAction("Return", throwIfNotFound: true);
-        m_Backpack_Throw = m_Backpack.FindAction("Throw", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -434,19 +366,23 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_CursorControl;
     private readonly InputAction m_Player_BasicAttack;
     private readonly InputAction m_Player_DashAttack;
     private readonly InputAction m_Player_ToggleInventory;
     private readonly InputAction m_Player_TogglePauseMenu;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
         public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @CursorControl => m_Wrapper.m_Player_CursorControl;
         public InputAction @BasicAttack => m_Wrapper.m_Player_BasicAttack;
         public InputAction @DashAttack => m_Wrapper.m_Player_DashAttack;
         public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
         public InputAction @TogglePauseMenu => m_Wrapper.m_Player_TogglePauseMenu;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -459,6 +395,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @CursorControl.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCursorControl;
+                @CursorControl.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCursorControl;
+                @CursorControl.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCursorControl;
                 @BasicAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBasicAttack;
                 @BasicAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBasicAttack;
                 @BasicAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBasicAttack;
@@ -471,6 +410,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TogglePauseMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTogglePauseMenu;
                 @TogglePauseMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTogglePauseMenu;
                 @TogglePauseMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTogglePauseMenu;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -478,6 +420,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @CursorControl.started += instance.OnCursorControl;
+                @CursorControl.performed += instance.OnCursorControl;
+                @CursorControl.canceled += instance.OnCursorControl;
                 @BasicAttack.started += instance.OnBasicAttack;
                 @BasicAttack.performed += instance.OnBasicAttack;
                 @BasicAttack.canceled += instance.OnBasicAttack;
@@ -490,6 +435,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TogglePauseMenu.started += instance.OnTogglePauseMenu;
                 @TogglePauseMenu.performed += instance.OnTogglePauseMenu;
                 @TogglePauseMenu.canceled += instance.OnTogglePauseMenu;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -500,14 +448,12 @@ public class @InputActions : IInputActionCollection, IDisposable
     private IBackpackActions m_BackpackActionsCallbackInterface;
     private readonly InputAction m_Backpack_Aim;
     private readonly InputAction m_Backpack_Return;
-    private readonly InputAction m_Backpack_Throw;
     public struct BackpackActions
     {
         private @InputActions m_Wrapper;
         public BackpackActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Aim => m_Wrapper.m_Backpack_Aim;
         public InputAction @Return => m_Wrapper.m_Backpack_Return;
-        public InputAction @Throw => m_Wrapper.m_Backpack_Throw;
         public InputActionMap Get() { return m_Wrapper.m_Backpack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -523,9 +469,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Return.started -= m_Wrapper.m_BackpackActionsCallbackInterface.OnReturn;
                 @Return.performed -= m_Wrapper.m_BackpackActionsCallbackInterface.OnReturn;
                 @Return.canceled -= m_Wrapper.m_BackpackActionsCallbackInterface.OnReturn;
-                @Throw.started -= m_Wrapper.m_BackpackActionsCallbackInterface.OnThrow;
-                @Throw.performed -= m_Wrapper.m_BackpackActionsCallbackInterface.OnThrow;
-                @Throw.canceled -= m_Wrapper.m_BackpackActionsCallbackInterface.OnThrow;
             }
             m_Wrapper.m_BackpackActionsCallbackInterface = instance;
             if (instance != null)
@@ -536,9 +479,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Return.started += instance.OnReturn;
                 @Return.performed += instance.OnReturn;
                 @Return.canceled += instance.OnReturn;
-                @Throw.started += instance.OnThrow;
-                @Throw.performed += instance.OnThrow;
-                @Throw.canceled += instance.OnThrow;
             }
         }
     }
@@ -546,15 +486,16 @@ public class @InputActions : IInputActionCollection, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnCursorControl(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnDashAttack(InputAction.CallbackContext context);
         void OnToggleInventory(InputAction.CallbackContext context);
         void OnTogglePauseMenu(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IBackpackActions
     {
         void OnAim(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
-        void OnThrow(InputAction.CallbackContext context);
     }
 }

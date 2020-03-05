@@ -7,6 +7,10 @@ public class AimingAnimation : MonoBehaviour
 {
 	[SerializeField] private GameObject arrow;
 	[SerializeField] private TextMeshProUGUI distanceText;
+	[SerializeField] private LayerMask aimFilter;
+
+	private CircularBoundaryVisualization radiusCircleController;
+	
 
 	public float AimAngle
 	{
@@ -24,6 +28,8 @@ public class AimingAnimation : MonoBehaviour
 		}
 	}
 
+	public CircularBoundaryVisualization RadiusCircleController { get => radiusCircleController; }
+
 	// Private Variables
 	private float aimAngle;
 	private bool isAiming;
@@ -36,6 +42,8 @@ public class AimingAnimation : MonoBehaviour
 	{
 		dottedLine = DottedLine.Instance;
 		cam = Camera.main;
+
+		radiusCircleController = GetComponent<CircularBoundaryVisualization>();
 	}
 
 	private void Start()
@@ -76,5 +84,20 @@ public class AimingAnimation : MonoBehaviour
 	public void RotateText(float newRotation)
 	{
 		distanceText.rectTransform.localRotation = Quaternion.Euler(0f, 0f, newRotation);
+	}
+
+	public bool IsOverlappingObstacle(Vector3 startPoint, Vector3 endPoint)
+	{
+		Vector3 direction = startPoint.DirectionTo(endPoint);
+
+		RaycastHit2D hit = Physics2D.Raycast(startPoint, direction, Mathf.Infinity, aimFilter);
+		Debug.DrawRay(startPoint, direction);
+
+		if (hit)
+		{
+			return true;
+		}
+
+		return false;
 	}
 }

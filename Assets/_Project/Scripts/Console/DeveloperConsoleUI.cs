@@ -37,15 +37,17 @@ public class DeveloperConsoleUI : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.Instance.KeyDown("toggleConsole"))
-        {
-            ToggleVisibility();
-        }
+        // TODO: Convert this to use new input system
 
-        if (InputManager.Instance.KeyDown("confirm"))
-        {
-            RunCommand();
-        }
+        //if (InputManager.Instance.KeyDown("toggleConsole"))
+        //{
+        //    ToggleVisibility();
+        //}
+
+        //if (InputManager.Instance.KeyDown("confirm"))
+        //{
+        //    RunCommand();
+        //}
     }
 
     private void HandleUnityMessage(string condition, string stackTrace, LogType type)

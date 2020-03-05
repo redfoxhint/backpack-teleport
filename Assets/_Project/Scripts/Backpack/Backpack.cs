@@ -81,12 +81,16 @@ public class Backpack : StateMachineUnit, IActivator
 
     private Rigidbody2D rBody;
     public Rigidbody2D RBody { get => rBody; }
+
+    private GameCursor gameCursor;
+    public GameCursor GameCursor { get => gameCursor; }
     
 
     void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Player>();
+        gameCursor = FindObjectOfType<GameCursor>();
         backpackFX = GetComponent<BackpackFX>();
         backpackMovement = GetComponent<BackpackMovement>();
         aimingAnimation = player.GetComponent<AimingAnimation>();

@@ -15,7 +15,7 @@ namespace UnityEngine.UI.Extensions
         [System.Serializable]
         public class EnterSubmitEvent : UnityEvent<string>
         {
-
+            
         }
 
         public EnterSubmitEvent EnterSubmit;

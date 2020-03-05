@@ -42,8 +42,8 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
     {
         Vector2 input = Vector2.zero;
 
-        float horizontalInput = InputManager.Instance.wasdInput.x;
-        float verticalInput = InputManager.Instance.wasdInput.y;
+        float horizontalInput = InputManager.Instance.MovementInput.x;
+        float verticalInput = InputManager.Instance.MovementInput.y;
 
         input = new Vector2(horizontalInput, verticalInput);
         input = Vector2.ClampMagnitude(input, 1); // Clamps the magnitude to 1 so directional movement speed is consistent in every direction.

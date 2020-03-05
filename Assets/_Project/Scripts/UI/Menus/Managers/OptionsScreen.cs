@@ -237,18 +237,18 @@ public class OptionsScreen : MonoBehaviour
 
     private void CreateKeyBindOptions()
     {
-        Keybinds keybinds = InputManager.Instance.keybinds;
+        //Keybinds keybinds = InputManager.Instance.keybinds;
 
-        foreach (KeyValuePair<string, Keybind> key in keybinds.keys)
-        {
-            GameObject newKey = Instantiate(keybindOptionPrefab, keybindParent);
-            KeybindUI bindButton = newKey.GetComponentInChildren<KeybindUI>();
+        //foreach (KeyValuePair<string, Keybind> key in keybinds.keys)
+        //{
+        //    GameObject newKey = Instantiate(keybindOptionPrefab, keybindParent);
+        //    KeybindUI bindButton = newKey.GetComponentInChildren<KeybindUI>();
 
-            bindButton.functionText.SetText(key.Value.keybindName);
-            bindButton.bindText.SetText(key.Value.associatedKey.ToString());
+        //    bindButton.functionText.SetText(key.Value.keybindName);
+        //    bindButton.bindText.SetText(key.Value.associatedKey.ToString());
 
-            bindButton.keyBindButton.onClick.AddListener(delegate { ChangeKey(key.Value, bindButton.bindText); });
-        }
+        //    bindButton.keyBindButton.onClick.AddListener(delegate { ChangeKey(key.Value, bindButton.bindText); });
+        //}
     }
 
     private void ChangeKey(Keybind key, TextMeshProUGUI bindText)
@@ -282,7 +282,7 @@ public class OptionsScreen : MonoBehaviour
 
         key.associatedKey = inputToKey;
         bindText.SetText(inputString.ToUpper());
-        InputManager.Instance.keybinds.UpdateKey(key);
+        //InputManager.Instance.keybinds.UpdateKey(key);
     }
 
     #endregion
