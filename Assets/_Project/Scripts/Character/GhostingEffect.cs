@@ -13,10 +13,10 @@ public class GhostingEffect
 	[SerializeField] private Color trailColor;
 	[SerializeField] private Color fadeColor;
 	[SerializeField] private float ghostInterval;
-	[SerializeField] private float ghostAmount;
 	[SerializeField] private float fadeTime;
+	[SerializeField] private int ghostAmount;
 
-	public GhostingEffect(GameObject owner, Color trailColor, Color fadeColor, float ghostInterval, float fadeTime, float ghostAmount)
+	public GhostingEffect(GameObject owner, Color trailColor, Color fadeColor, float ghostInterval, float fadeTime, int ghostAmount)
 	{
 		this.owner = owner;
 		spriteRenderer = owner.GetComponent<SpriteRenderer>();
@@ -86,5 +86,10 @@ public class GhostingEffect
 	{
 		GameObject.Destroy(ghostParent);
 		//ghostParent.SetActive(false);
+	}
+
+	public static GhostingEffect CreateEffect(GameObject _owner, Color _trailColor, Color _fadeColor, float _ghostInterval, float _fadeTime, int _ghostAmount)
+	{
+		return new GhostingEffect(_owner, _trailColor, _fadeColor, _ghostInterval, _fadeTime, _ghostAmount);
 	}
 }

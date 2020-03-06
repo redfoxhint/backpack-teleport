@@ -5,13 +5,13 @@ using UnityEngine;
 public class AttackBehaviour : StateMachineBehaviour
 {
     private AttackManager attackManager;
-    private PlayerMovementController playerMovement;
+    private PhysicsCharacterController playerMovement;
 
      //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         attackManager = animator.GetComponent<AttackManager>();
-        playerMovement = animator.GetComponent<PlayerMovementController>();
+        playerMovement = animator.GetComponent<PhysicsCharacterController>();
         attackManager.CanAttack = false;
     }
 

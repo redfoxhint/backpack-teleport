@@ -21,7 +21,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		// Components
 		private PlayerAnimations playerAnimations;
-		private PlayerMovementController movement;
 		private AimingAnimation aimingAnimation;
 		private AttackManager attackManager;
 		private InputManager inputManager;
@@ -35,7 +34,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			base.Awake();
 
 			animator = GetComponent<Animator>();
-			movement = GetComponent<PlayerMovementController>();
 			aimingAnimation = GetComponent<AimingAnimation>();
 			playerAnimations = GetComponent<PlayerAnimations>();
 			attackManager = GetComponent<AttackManager>();
@@ -81,7 +79,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		// Gets raised from the Aiming state of the backpack
 		private void OnBackpackThrown(Backpack backpack)
 		{
-			playerAnimations.TriggerThrowing(movement.FacingDirection);
+			playerAnimations.TriggerThrowing();
 		}
 
 		public void Teleport(Vector2 pos)

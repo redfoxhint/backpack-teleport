@@ -10,7 +10,7 @@ public class DashAbility : MonoBehaviour
     [SerializeField] private Color ghostFadeColor;
     [SerializeField] private float ghostInterval;
     [SerializeField] private float ghostFadeTime;
-    [SerializeField] private float ghostAmount;
+    [SerializeField] private int ghostAmount;
 
     [Header("Dash Configuration")]
     [SerializeField] private float dashTime = 1f; // The amount of time it will take to complete the dash (dash speed).
@@ -23,74 +23,20 @@ public class DashAbility : MonoBehaviour
     // Dependencies
     private GhostingEffect ghostingEffect;
 
-    public void Dash(BaseObjectMovement baseObjectMovement, System.Action OnDashCompleteCallback)
+    public void Dash(Rigidbody2D rBody, Vector2 dashDirection, float dashAmount, LayerMask dashFilter)
     {
-        if (isDashing) return;
+        Vector2 dashPosition = (Vector2)transform.position + dashDirection * dashAmount;
 
-        StartCoroutine(DashRoutine(baseObjectMovement, OnDashCompleteCallback));
-    }
-
-    //public void Dash(BaseObjectMovement baseObjectMovement, System.Action OnDashCompleteCallback)
-    //{
-    //    if (isDashing) return;
-
-    //    // Show the ghosting effect
-    //    ghostingEffect = new GhostingEffect(this.gameObject, ghostTrailColor, ghostFadeColor, ghostInterval, ghostFadeTime, ghostAmount);
-    //    ghostingEffect.ShowGhost();
-
-    //    isDashing = true;
-
-    //    Vector2 dashDirection = new Vector2(Mathf.RoundToInt(baseObjectMovement.Velocity.x), Mathf.RoundToInt(baseObjectMovement.Velocity.y)).normalized;
-    //    dash = dashDirection * dashAmount;
-    //    Debug.Log(dash);
-    //    Vector2 beforeDashPos = transform.position;
-
-    //    DOTween.To(() => dash, x => dash = x, Vector2.zero, dashTime).OnComplete(
-    //        () => 
-    //        { 
-    //            isDashing = false;
-    //            Vector2 afterDashPos = transform.position;
-    //            //DashTest(beforeDashPos, afterDashPos);
-    //            OnDashCompleteCallback(); 
-    //            ghostingEffect = null; 
-    //        });
-
-    //    baseObjectMovement.TargetVelocity = dash;
-    //}
-
-    private IEnumerator DashRoutine(BaseObjectMovement baseObjectMovement, System.Action OnDashCompleteCallback)
-    {
-        isDashing = true;
-        float elapsedTime = 0;
-
-        // Show the ghosting effect
-        ghostingEffect = new GhostingEffect(this.gameObject, ghostTrailColor, ghostFadeColor, ghostInterval, ghostFadeTime, ghostAmount);
-        ghostingEffect.ShowGhost();
-
-        Vector2 dashDirection = new Vector2(Mathf.RoundToInt(baseObjectMovement.Velocity.x), Mathf.RoundToInt(baseObjectMovement.Velocity.y)).normalized;
-        dash = dashDirection * dashAmount;
-
-        Vector2 beforeDashPos = transform.position;
-
-        while (elapsedTime < dashTime)
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, dashDirection, dashAmount, dashFilter);
+        if (raycastHit2D.collider != null)
         {
-            baseObjectMovement.TargetVelocity = dash;
-            elapsedTime += Time.deltaTime;
-
-            yield return null;
+            dashPosition = raycastHit2D.point;
         }
 
-        Vector2 afterDashPos = transform.position;
-        DashTest(beforeDashPos, afterDashPos);
+        // Do Dash Effect here
+        ghostingEffect = GhostingEffect.CreateEffect(this.gameObject, ghostTrailColor, ghostFadeColor, ghostFadeTime, ghostInterval, ghostAmount);
+        ghostingEffect.ShowGhost();
 
-        OnDashCompleteCallback();
-        isDashing = false;
-        yield break;
-    }
-
-    private void DashTest(Vector2 beforeDashPos, Vector2 afterDashPos)
-    {
-        float distanceTravelled = Vector2.Distance(beforeDashPos, afterDashPos);
-        Debug.Log($"Distance travelled after dashing: {distanceTravelled}");
+        rBody.MovePosition(dashPosition);
     }
 }

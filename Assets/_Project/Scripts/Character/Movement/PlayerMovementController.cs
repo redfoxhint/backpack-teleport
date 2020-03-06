@@ -82,7 +82,7 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
     {
         //TargetVelocity = Vector2.zero;
         DoMovement = false;
-        dashAbility.Dash(this, OnDashFinished);
+        //dashAbility.Dash(this, OnDashFinished);
     }
 
     private void OnDashFinished()

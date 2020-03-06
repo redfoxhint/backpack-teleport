@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 public class AttackManager : MonoBehaviour
 {
     [SerializeField] private float nextAttackTime = 1; // The time between attacks before the combo is reset.
@@ -14,14 +13,14 @@ public class AttackManager : MonoBehaviour
 
     public bool CanAttack { get; set; }
 
-    private PlayerMovementController playerMovement;
+    private PhysicsCharacterController characterController;
 
     private void Awake()
     {
         inCombo = false;
         CanAttack = true;
         animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovementController>();
+        characterController = GetComponent<PhysicsCharacterController>();
 
         animator.SetFloat("ComboIndex", comboIndex);
     }
@@ -45,7 +44,7 @@ public class AttackManager : MonoBehaviour
     public void Attack()
     {
         if (!CanAttack) return;
-        playerMovement.DoMovement = false;
+        characterController.DoMovement = false;
 
         if (!inCombo)
         {
@@ -84,7 +83,7 @@ public class AttackManager : MonoBehaviour
 
         if(doDashAttack)
         {
-            playerMovement.Dash();
+            characterController.Dash();
         }
     }
 

@@ -23,7 +23,7 @@ public class PlayerAnimations : MonoBehaviour
 		animator.SetBool("hasBackpack", true);
 	}
 
-	public void TriggerThrowing(float facingDirection)
+	public void TriggerThrowing()
 	{
 		animator.SetTrigger("Throw");
 	}
