@@ -13,9 +13,10 @@ public class GhostingEffect
 	[SerializeField] private Color trailColor;
 	[SerializeField] private Color fadeColor;
 	[SerializeField] private float ghostInterval;
+	[SerializeField] private float ghostAmount;
 	[SerializeField] private float fadeTime;
 
-	public GhostingEffect(GameObject owner, Color trailColor, Color fadeColor, float ghostInterval, float fadeTime)
+	public GhostingEffect(GameObject owner, Color trailColor, Color fadeColor, float ghostInterval, float fadeTime, float ghostAmount)
 	{
 		this.owner = owner;
 		spriteRenderer = owner.GetComponent<SpriteRenderer>();
@@ -24,6 +25,12 @@ public class GhostingEffect
 		this.fadeColor = fadeColor;
 		this.ghostInterval = ghostInterval;
 		this.fadeTime = fadeTime;
+		this.ghostAmount = ghostAmount;
+
+		if(this.ghostAmount < 3)
+		{
+			this.ghostAmount = 3;
+		}
 
 		Init();
 	}
@@ -34,13 +41,15 @@ public class GhostingEffect
 		ghostParent.transform.parent = GameObject.Find("_Dynamic").transform;
 		ghostParent.transform.position = Vector3.zero;
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < ghostAmount; i++)
 		{
 			GameObject ghostCopy = new GameObject("GhostCopy");
 			ghostCopy.transform.parent = ghostParent.transform;
 			ghostCopy.transform.localPosition = Vector3.zero;
 
 			SpriteRenderer spr = ghostCopy.AddComponent<SpriteRenderer>();
+			Material newMat = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default"));
+			spr.material = newMat;
 			spr.sortingLayerName = "Player";
 			spr.sortingOrder = 1;
 		}
@@ -59,7 +68,8 @@ public class GhostingEffect
 
 			s.AppendCallback(() => currentGhost.position = owner.transform.position);
 			s.AppendCallback(() => ghostRenderer.sprite = spriteRenderer.sprite);
-			s.Append(ghostRenderer.material.DOColor(trailColor, 0));
+			s.Append(ghostRenderer.DOColor(trailColor, 0));
+			//s.Append(ghostRenderer.material.DOColor(trailColor, 0));
 			s.AppendCallback(() => FadeSprite(ghostRenderer));
 			s.AppendInterval(ghostInterval);
 			s.onComplete += delegate { OnEffectComplete(); };
@@ -74,6 +84,7 @@ public class GhostingEffect
 
 	private void OnEffectComplete()
 	{
-		ghostParent.SetActive(false);
+		GameObject.Destroy(ghostParent);
+		//ghostParent.SetActive(false);
 	}
 }

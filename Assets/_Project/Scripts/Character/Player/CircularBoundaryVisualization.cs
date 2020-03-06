@@ -52,15 +52,16 @@ public class CircularBoundaryVisualization : MonoBehaviour
 
 	private void SetProperties()
 	{
-		circleMaterial.SetFloat("_Radius", circleRadius);
-		circleMaterial.SetFloat("_Thickness", circleThickness);
-		circleMaterial.SetColor("_Color", circleColor);
+		SetRadius(circleRadius);
+		SetThickness(circleThickness);
+		SetColor(circleColor);
 	}
 
 	[ContextMenu("Activate Circle")]
 	public void Activate()
 	{
 		if (isActive) return;
+		SetColor(circleColor);
 
 		circle.SetActive(true);
 		cursorUI.gameObject.SetActive(true);
@@ -74,11 +75,27 @@ public class CircularBoundaryVisualization : MonoBehaviour
 		if (!isActive) return;
 
 		DOTween.To(() => circleRadius, x => circleRadius = x, 0f, circleAnimateTime).OnComplete(
-		() => {
-			circle.SetActive(false);
-			isActive = false;
-			cursorUI.gameObject.SetActive(false);
-		});
+			() =>
+			{
+				circle.SetActive(false);
+				isActive = false;
+				cursorUI.gameObject.SetActive(false);
 
+			});
+	}
+
+	public void SetColor(Color newColor)
+	{
+		circleMaterial.SetColor("_Color", newColor);
+	}
+
+	public void SetThickness(float newThickness)
+	{
+		circleMaterial.SetFloat("_Thickness", newThickness);
+	}
+
+	public void SetRadius(float newRadius)
+	{
+		circleMaterial.SetFloat("_Radius", newRadius);
 	}
 }

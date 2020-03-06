@@ -8,8 +8,6 @@ public class BaseObjectMovement : MonoBehaviour
     // Protected Variables
     [SerializeField] protected LayerMask collisionFilter;
     protected bool careAboutAnimator;
-    protected Vector2 targetVelocity;
-    protected Vector2 velocity;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
 
@@ -22,6 +20,9 @@ public class BaseObjectMovement : MonoBehaviour
     protected ContactFilter2D contactFilter;
     protected Collider2D col2D;
 
+    public Vector2 Velocity { get; private set; } // Current object velocity
+    public Vector2 TargetVelocity { get; set; }
+
     protected virtual void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
@@ -31,14 +32,14 @@ public class BaseObjectMovement : MonoBehaviour
 
     protected virtual void Update()
     {
-        targetVelocity = Vector2.zero;
+        TargetVelocity = Vector2.zero;
         CalculateMovement();
     }
 
     private void FixedUpdate()
     {
-        velocity = targetVelocity;
-        Movement(velocity * Time.fixedDeltaTime);
+        Velocity = TargetVelocity;
+        Movement(Velocity * Time.fixedDeltaTime);
     }
 
     private void Movement(Vector2 movement)

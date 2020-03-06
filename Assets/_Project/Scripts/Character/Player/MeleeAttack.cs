@@ -39,7 +39,7 @@ public class MeleeAttack : MonoBehaviour
         Vector2 attackDirRounded = new Vector2(Mathf.RoundToInt(attackDir.x), Mathf.RoundToInt(attackDir.y));
         //Debug.Log(attackDirRounded);
 
-        player.GetComponent<PlayerMovement>().SetFacingDirection(attackDirRounded);
+        //player.GetComponent<PlayerMovement>().SetFacingDirection(attackDirRounded);
         anim.SetTrigger("Attack");
     }
 

@@ -26,16 +26,37 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
 
     private Animator animator;
     private CapsuleCollider2D boxCollider2D;
+    private InputActions inputActions;
+    private DashAbility dashAbility;
     private Vector2 previousVelocity;
 
+
     public float FacingDirection { get => facingDirection; private set { } }
+
+    public bool DoMovement { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
         animator = GetComponent<Animator>();
         boxCollider2D = GetComponent<CapsuleCollider2D>();
+        inputActions = InputManager.Instance.InputActions;
         careAboutAnimator = true;
+        dashAbility = GetComponent<DashAbility>();
+        DoMovement = true;
+    }
+
+    protected override void Update()
+    {
+        if(DoMovement)
+        {
+            base.Update();
+        }
+
+        if(inputActions.Player.DashAttack.triggered)
+        {
+            Dash();
+        }
     }
 
     protected override void CalculateMovement()
@@ -47,14 +68,26 @@ public class PlayerMovementController : BaseObjectMovement, IActivator
 
         input = new Vector2(horizontalInput, verticalInput);
         input = Vector2.ClampMagnitude(input, 1); // Clamps the magnitude to 1 so directional movement speed is consistent in every direction.
-        targetVelocity = input * maxSpeed;
+        TargetVelocity = input * maxSpeed;
         FixPosition();
 
         if (careAboutAnimator)
         {
-            SetFacingDirection(targetVelocity.normalized);
-            SetAnimatorParameters(horizontalInput, verticalInput, targetVelocity, facingDirection);
+            SetFacingDirection(TargetVelocity.normalized);
+            SetAnimatorParameters(horizontalInput, verticalInput, TargetVelocity, facingDirection);
         }
+    }
+
+    public void Dash()
+    {
+        //TargetVelocity = Vector2.zero;
+        DoMovement = false;
+        dashAbility.Dash(this, OnDashFinished);
+    }
+
+    private void OnDashFinished()
+    {
+        DoMovement = true;
     }
 
     #region Animator Stuff

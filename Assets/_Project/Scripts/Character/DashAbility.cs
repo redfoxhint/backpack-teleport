@@ -1,69 +1,96 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum DashState
-{
-    READY,
-    DASHING,
-    COOLDOWN
-}
+using DG.Tweening;
 
 public class DashAbility : MonoBehaviour
 {
-    [SerializeField] private DashState dashState;
-    [SerializeField] private float dashTimer;
-    [SerializeField] private float maxDash = 20f;
-    [SerializeField] private Vector2 savedVelocity;
+    [Header("Ghost Effect Configuration")]
+    [SerializeField] private Color ghostTrailColor;
+    [SerializeField] private Color ghostFadeColor;
+    [SerializeField] private float ghostInterval;
+    [SerializeField] private float ghostFadeTime;
+    [SerializeField] private float ghostAmount;
 
-    private Rigidbody2D rBody;
+    [Header("Dash Configuration")]
+    [SerializeField] private float dashTime = 1f; // The amount of time it will take to complete the dash (dash speed).
+    [SerializeField] private float dashAmount = 5f;
 
-    private void Awake()
+    // Private Variables
+    private Vector2 dash;
+    private bool isDashing = false;
+
+    // Dependencies
+    private GhostingEffect ghostingEffect;
+
+    public void Dash(BaseObjectMovement baseObjectMovement, System.Action OnDashCompleteCallback)
     {
-        rBody = GetComponent<Rigidbody2D>();
+        if (isDashing) return;
+
+        StartCoroutine(DashRoutine(baseObjectMovement, OnDashCompleteCallback));
     }
 
-    private void Update()
+    //public void Dash(BaseObjectMovement baseObjectMovement, System.Action OnDashCompleteCallback)
+    //{
+    //    if (isDashing) return;
+
+    //    // Show the ghosting effect
+    //    ghostingEffect = new GhostingEffect(this.gameObject, ghostTrailColor, ghostFadeColor, ghostInterval, ghostFadeTime, ghostAmount);
+    //    ghostingEffect.ShowGhost();
+
+    //    isDashing = true;
+
+    //    Vector2 dashDirection = new Vector2(Mathf.RoundToInt(baseObjectMovement.Velocity.x), Mathf.RoundToInt(baseObjectMovement.Velocity.y)).normalized;
+    //    dash = dashDirection * dashAmount;
+    //    Debug.Log(dash);
+    //    Vector2 beforeDashPos = transform.position;
+
+    //    DOTween.To(() => dash, x => dash = x, Vector2.zero, dashTime).OnComplete(
+    //        () => 
+    //        { 
+    //            isDashing = false;
+    //            Vector2 afterDashPos = transform.position;
+    //            //DashTest(beforeDashPos, afterDashPos);
+    //            OnDashCompleteCallback(); 
+    //            ghostingEffect = null; 
+    //        });
+
+    //    baseObjectMovement.TargetVelocity = dash;
+    //}
+
+    private IEnumerator DashRoutine(BaseObjectMovement baseObjectMovement, System.Action OnDashCompleteCallback)
     {
-        switch(dashState)
+        isDashing = true;
+        float elapsedTime = 0;
+
+        // Show the ghosting effect
+        ghostingEffect = new GhostingEffect(this.gameObject, ghostTrailColor, ghostFadeColor, ghostInterval, ghostFadeTime, ghostAmount);
+        ghostingEffect.ShowGhost();
+
+        Vector2 dashDirection = new Vector2(Mathf.RoundToInt(baseObjectMovement.Velocity.x), Mathf.RoundToInt(baseObjectMovement.Velocity.y)).normalized;
+        dash = dashDirection * dashAmount;
+
+        Vector2 beforeDashPos = transform.position;
+
+        while (elapsedTime < dashTime)
         {
-            case DashState.READY:
+            baseObjectMovement.TargetVelocity = dash;
+            elapsedTime += Time.deltaTime;
 
-                bool isDashKeyDown = Input.GetKeyDown(KeyCode.Space);
-                if(isDashKeyDown)
-                {
-                    savedVelocity = rBody.velocity;
-                    rBody.velocity = new Vector2(rBody.velocity.x * 5f, rBody.velocity.y);
-                    dashState = DashState.DASHING;
-                }
-
-                break;
-
-            case DashState.DASHING:
-
-                dashTimer += Time.deltaTime * 3f;
-
-                if(dashTimer >= maxDash)
-                {
-                    dashTimer = maxDash;
-                    rBody.velocity = savedVelocity;
-                    dashState = DashState.COOLDOWN;
-                }
-
-                break;
-
-            case DashState.COOLDOWN:
-
-                dashTimer -= Time.deltaTime;
-
-                if(dashTimer <= 0)
-                {
-                    dashTimer = 0;
-                    dashState = DashState.READY;
-                    Debug.Log("Cooldown Finished");
-                }
-
-                break;
+            yield return null;
         }
+
+        Vector2 afterDashPos = transform.position;
+        DashTest(beforeDashPos, afterDashPos);
+
+        OnDashCompleteCallback();
+        isDashing = false;
+        yield break;
+    }
+
+    private void DashTest(Vector2 beforeDashPos, Vector2 afterDashPos)
+    {
+        float distanceTravelled = Vector2.Distance(beforeDashPos, afterDashPos);
+        Debug.Log($"Distance travelled after dashing: {distanceTravelled}");
     }
 }

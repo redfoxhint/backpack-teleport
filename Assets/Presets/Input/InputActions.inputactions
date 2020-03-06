@@ -227,6 +227,61 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Stick",
+                    "id": "1b571946-c310-4784-90d8-42e86abb9d39",
+                    "path": "2DVector(mode=1)",
+                    "interactions": "",
+                    "processors": "Clamp(max=1)",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "debeab54-4714-4bf0-95db-24f435a99dc3",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "9a1a094d-1994-4e96-b20c-599f136d3b53",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c61d7cb3-bd0c-40c5-9b08-b682f820f646",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "6635dec8-1333-4c35-afb8-773910fdb0d8",
+                    "path": "<HID::Logitech Logitech Dual Action>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

@@ -27392,14 +27392,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 662349672, guid: babc72d47a55dd042a4ba747a51f9550, type: 3}
-      propertyPath: circleThickness
-      value: 0.01
+    - target: {fileID: 387809082, guid: babc72d47a55dd042a4ba747a51f9550, type: 3}
+      propertyPath: dashTime
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1101924332, guid: babc72d47a55dd042a4ba747a51f9550, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 674594819}
+    - target: {fileID: 451601643369308394, guid: babc72d47a55dd042a4ba747a51f9550,
+        type: 3}
+      propertyPath: doDashAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6325790658579071153, guid: babc72d47a55dd042a4ba747a51f9550,
         type: 3}
       propertyPath: m_Name

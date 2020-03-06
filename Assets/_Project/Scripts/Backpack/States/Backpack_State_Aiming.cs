@@ -41,7 +41,7 @@ public class Backpack_State_Aiming : IState
             return;
         }
 
-        if(!backpack.IsAiming)
+        if (!backpack.IsAiming)
         {
             if(backpack.AimingAnimation.IsOverlappingObstacle(backpack.PointA, backpack.PointB))
             {

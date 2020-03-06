@@ -12,14 +12,16 @@ public class AttackManager : MonoBehaviour
     private float currentComboTime = 0;
     private bool inCombo = false;
 
-    private PlayerMovement playerMovement;
+    public bool CanAttack { get; set; }
+
+    private PlayerMovementController playerMovement;
 
     private void Awake()
     {
         inCombo = false;
-
+        CanAttack = true;
         animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<PlayerMovementController>();
 
         animator.SetFloat("ComboIndex", comboIndex);
     }
@@ -42,6 +44,9 @@ public class AttackManager : MonoBehaviour
 
     public void Attack()
     {
+        if (!CanAttack) return;
+        playerMovement.DoMovement = false;
+
         if (!inCombo)
         {
             StartCombo();
@@ -79,7 +84,7 @@ public class AttackManager : MonoBehaviour
 
         if(doDashAttack)
         {
-            playerMovement.DashInLastMovementDirection(dashAmount);
+            playerMovement.Dash();
         }
     }
 

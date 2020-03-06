@@ -201,7 +201,7 @@ public class OptionsScreen : MonoBehaviour
 
     private void SetTestSlider(float value)
     {
-        Debug.Log($"Test Slider: {value}");
+        //Debug.Log($"Test Slider: {value}");
     }
 
     #endregion
