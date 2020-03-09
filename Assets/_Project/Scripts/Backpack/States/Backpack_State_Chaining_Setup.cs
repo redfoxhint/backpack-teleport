@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Backpack_State_Chaining_Setup : IState
 {
@@ -18,41 +19,56 @@ public class Backpack_State_Chaining_Setup : IState
         backpack.CurrentState = BackpackStates.CHAINING_SETUP;
 
         backpackChainData.markerPositions.Enqueue(backpack.gameObject);
+        backpack.AimingAnimation.RadiusCircleController.Activate();
+
+        InputManager.Instance.InputActions.Backpack.Aim.canceled += OnChainingCanceled;
+        InputManager.Instance.InputActions.Backpack.PlaceMarker.started += PlaceMarker;
     }
 
     public void Update()
     {
-        PlaceMarkerAtPosition();
+        //PlaceMarkerAtPosition();
 
-        if(Input.GetKeyUp(KeyCode.LeftShift))
+        if (backpackChainData.currentAmountOfMarkers == backpack.MaxMarkerPositions)
         {
-            backpackChainData.DeleteAllMarkers();
-            backpack.stateMachine.ChangeState(new Backpack_State_Idle(backpack));
+            // TODO: Implement Damage Primitive
+            backpack.stateMachine.ChangeState(new Backpack_State_Chaining(backpack, backpackChainData));
         }
+    }
+
+    public void FixedUpdate()
+    {
+
     }
 
     public void Exit()
     {
-        
+        backpack.AimingAnimation.RadiusCircleController.Deactivate();
+
+        InputManager.Instance.InputActions.Backpack.Aim.canceled -= OnChainingCanceled;
+        InputManager.Instance.InputActions.Backpack.PlaceMarker.started -= PlaceMarker;
     }
 
-    private void PlaceMarkerAtPosition()
+    private void OnChainingCanceled(InputAction.CallbackContext value)
     {
-        Vector2 markerPosition = backpack.Cam.ScreenToWorldPoint(Input.mousePosition);
+        if(backpackChainData != null)
+        {
+            backpackChainData.DeleteAllMarkers();
+        }
+
+        backpack.stateMachine.ChangeState(new Backpack_State_Idle(backpack));
+    }
+
+    private void PlaceMarker(InputAction.CallbackContext value)
+    {
+        Vector2 markerPosition = backpack.GameCursor.transform.position;
 
         if (backpackChainData.currentAmountOfMarkers < backpack.MaxMarkerPositions)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                GameObject positionMarker = GameObject.Instantiate(backpack.MarkerPrefab, markerPosition, Quaternion.identity);
-                backpackChainData.markerPositions.Enqueue(positionMarker);
-                backpackChainData.currentAmountOfMarkers += 1;
-            }
-        }
-        else if (backpackChainData.currentAmountOfMarkers == backpack.MaxMarkerPositions)
-        {
-            // TODO: Implement Damage Primitive
-            backpack.stateMachine.ChangeState(new Backpack_State_Chaining(backpack, backpackChainData));
+            GameObject positionMarker = GameObject.Instantiate(backpack.MarkerPrefab, markerPosition, Quaternion.identity);
+            backpackChainData.markerPositions.Enqueue(positionMarker);
+            backpackChainData.currentAmountOfMarkers += 1;
+            Debug.Log("Marker Placed");
         }
     }
 }
@@ -74,6 +90,10 @@ public class BackpackChainData
         {
             DeleteMarker(marker);
         }
+
+        markerPositions.Clear();
+        markerPositions = null;
+        currentAmountOfMarkers = 0;
     }
 
     public void DeleteMarker(GameObject marker)

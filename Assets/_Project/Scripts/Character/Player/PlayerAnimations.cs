@@ -16,6 +16,7 @@ public class PlayerAnimations : MonoBehaviour
 	private void Awake()
 	{
         animator = GetComponent<Animator>();
+		GameEvents.onBackpackThrownEvent.AddListener(TriggerThrowing);
 	}
 
     public void SwitchHasBackback(bool hasBackpack)

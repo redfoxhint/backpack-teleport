@@ -16,4 +16,9 @@ public class StateMachineUnit : MonoBehaviour
     {
         stateMachine.Update();
     }
+
+    protected virtual void FixedUpdate()
+    {
+        stateMachine.FixedUpdate();
+    }
 }

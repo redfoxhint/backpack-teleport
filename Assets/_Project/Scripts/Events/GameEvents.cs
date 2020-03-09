@@ -9,7 +9,7 @@ public class GameEvents
     public static UnityOnTeleportedEvent onTeleportedEvent = new UnityOnTeleportedEvent();
 }
 
-public class UnityEventOnBackpackThrown : UnityEvent<Backpack> { }
+public class UnityEventOnBackpackThrown : UnityEvent { }
 public class UnityOnTeleportedEvent : UnityEvent<Vector2> { }
 
 

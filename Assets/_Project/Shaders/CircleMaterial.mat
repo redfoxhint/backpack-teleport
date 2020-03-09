@@ -40,7 +40,7 @@ Material:
     - Vector1_6259448: 1
     - Vector1_F9EB683C: 0.05
     - _EnableExternalAlpha: 0
-    - _Radius: 0.51
+    - _Radius: 0.5
     - _Thickness: 0.01
     m_Colors:
     - Color_424EEEAB: {r: 1, g: 1, b: 1, a: 1}

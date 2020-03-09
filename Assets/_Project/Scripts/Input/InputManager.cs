@@ -10,6 +10,9 @@ public class InputManager : PersistentSingleton<InputManager>
 
     public Vector2 MovementInput { get; private set; }
     public Vector2 JoystickInput { get; private set; }
+    public bool UseGamepad { get; set; }
+
+    public Action<InputDevice, InputDeviceChange> OnInputDeviceChangeDetected;
 
     private void OnEnable()
     {
@@ -34,6 +37,7 @@ public class InputManager : PersistentSingleton<InputManager>
         InputActions.Player.CursorControl.performed += OnCursor;
 
         InputActions.Enable();
+        UseGamepad = true;
     }
 
     public void OnMovement(InputAction.CallbackContext value)
@@ -44,5 +48,17 @@ public class InputManager : PersistentSingleton<InputManager>
     public void OnCursor(InputAction.CallbackContext value)
     {
         JoystickInput = value.ReadValue<Vector2>();
+    }
+
+    public bool IsGamepadConnected()
+    {
+        var connectedGamepad = Gamepad.current;
+
+        if(connectedGamepad != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

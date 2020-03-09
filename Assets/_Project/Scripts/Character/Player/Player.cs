@@ -16,15 +16,10 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 		// Properties
 		public Rigidbody2D RBody2D { get; private set; }
-		
-		public PlayerAnimations PlayerAnimations { get => playerAnimations; }
 
 		// Components
-		private PlayerAnimations playerAnimations;
-		private AimingAnimation aimingAnimation;
 		private AttackManager attackManager;
 		private InputManager inputManager;
-		private DottedLine dottedLine;
 		private TrailRenderer trailRenderer;
 		private Animator animator;
 		private Camera cam;
@@ -34,13 +29,10 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			base.Awake();
 
 			animator = GetComponent<Animator>();
-			aimingAnimation = GetComponent<AimingAnimation>();
-			playerAnimations = GetComponent<PlayerAnimations>();
 			attackManager = GetComponent<AttackManager>();
 			trailRenderer = GetComponent<TrailRenderer>();
 			RBody2D = GetComponent<Rigidbody2D>();
 
-			dottedLine = DottedLine.Instance;
 			cam = Camera.main;
 			inputManager = InputManager.Instance;
 
@@ -52,7 +44,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			base.Start();
 
 			trailRenderer.enabled = false;
-			GameEvents.onBackpackThrownEvent.AddListener(OnBackpackThrown);
 		}
 
 		private void OnDisable()
@@ -74,12 +65,6 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		{
 			// TODO: Implement health system
 			//healthStat.runtimeStatValue -= amount;
-		}
-
-		// Gets raised from the Aiming state of the backpack
-		private void OnBackpackThrown(Backpack backpack)
-		{
-			playerAnimations.TriggerThrowing();
 		}
 
 		public void Teleport(Vector2 pos)

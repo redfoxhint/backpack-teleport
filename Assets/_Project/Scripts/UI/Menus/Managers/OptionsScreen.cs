@@ -23,27 +23,18 @@ public class OptionsScreen : MonoBehaviour
 
     [Header("Menu Elements")]
     [SerializeField] private Button saveButton;
-    [SerializeField] private GameObject keybindOptionPrefab;
-    [SerializeField] private Transform keybindParent;
-    [SerializeField] private GameObject rebindOverlay;
-    [SerializeField] private Text rebindOverlayText;
 
     [Space]
 
     [Header("Gameplay Options")]
-    [SerializeField] private Toggle doGodModeToggle;  // FOR TESTING
-    [SerializeField] private Toggle doSuperSpeedToggle; // FOR TESTING
-    [SerializeField] private Toggle doNoStaminaToggle; // FOR TESTING
+    [SerializeField] private Toggle useGamepadToggle;
 
     [Header("Graphics Options")]
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private Toggle vSyncToggle;
-    [SerializeField] private Slider testSlider;
 
-    [Header("Control Options")]
-    [SerializeField] private GameObject rebindKeyPrefab;
-
+    //[Header("Control Options")]
 
     [Header("Sound Options")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -58,7 +49,6 @@ public class OptionsScreen : MonoBehaviour
     {
         InitializeButtons();
         CreateResolutionOptions();
-        CreateKeyBindOptions();
         LoadOptions();
     }
 
@@ -74,15 +64,12 @@ public class OptionsScreen : MonoBehaviour
         if (saveButton != null) saveButton.onClick.AddListener(OnSaveClicked);
 
         // Gameplay Options
-        if (doGodModeToggle != null) doGodModeToggle.onValueChanged.AddListener(delegate { SetGodMode(doGodModeToggle.isOn); });
-        if (doSuperSpeedToggle != null) doSuperSpeedToggle.onValueChanged.AddListener(delegate { SetSuperSpeed(doSuperSpeedToggle.isOn); });
-        if (doNoStaminaToggle != null) doNoStaminaToggle.onValueChanged.AddListener(delegate { SetNoStamina(doNoStaminaToggle.isOn); });
+        if (useGamepadToggle != null) useGamepadToggle.onValueChanged.AddListener(delegate { SetUseGamepad(useGamepadToggle, useGamepadToggle.isOn); });
 
         // Graphics Options
         if (resolutionDropdown != null) resolutionDropdown.onValueChanged.AddListener(delegate { SetResolution(resolutionDropdown.value); });
         if (fullscreenToggle != null) fullscreenToggle.onValueChanged.AddListener(delegate { SetFullscreen(fullscreenToggle.isOn); });
         if (vSyncToggle != null) vSyncToggle.onValueChanged.AddListener(delegate { ToggleVsync(vSyncToggle.isOn); });
-        if (testSlider != null) testSlider.onValueChanged.AddListener(delegate { SetTestSlider(testSlider.value); });
 
         // Control Options
 
@@ -97,12 +84,9 @@ public class OptionsScreen : MonoBehaviour
     {
         OptionsData options = new OptionsData
             (
-                doGodModeToggle.isOn,
-                doSuperSpeedToggle.isOn,
-                doNoStaminaToggle.isOn,
+                useGamepadToggle.isOn,
                 fullscreenToggle.isOn,
                 vSyncToggle.isOn,
-                testSlider.value,
                 masterVolumeSlider.value,
                 soundVolumeSlider.value,
                 musicVolumeSlider.value
@@ -117,12 +101,9 @@ public class OptionsScreen : MonoBehaviour
 
         if (options != null)
         {
-            doGodModeToggle.isOn = options.godMode;
-            doSuperSpeedToggle.isOn = options.superSpeed;
-            doNoStaminaToggle.isOn = options.noStamina;
+            useGamepadToggle.isOn = options.useGamepad;
             fullscreenToggle.isOn = options.fullScreen;
             vSyncToggle.isOn = options.vSync;
-            testSlider.value = options.testValue;
             masterVolumeSlider.value = options.masterVolumeValue;
             soundVolumeSlider.value = options.soundVolumeValue;
             musicVolumeSlider.value = options.musicVolumeValue;
@@ -138,19 +119,21 @@ public class OptionsScreen : MonoBehaviour
     #endregion
 
     #region Gameplay Region
-    private void SetGodMode(bool value)
+    private void SetUseGamepad(Toggle toggle, bool value)
     {
-        Debug.Log($"God mode now {value}.");
-    }
+        bool gamepadConnected = InputManager.Instance.IsGamepadConnected();
 
-    private void SetSuperSpeed(bool value)
-    {
-        Debug.Log($"Super Speed now {value}.");
-    }
-
-    private void SetNoStamina(bool value)
-    {
-        Debug.Log($"No Stamina now {value}.");
+        if(gamepadConnected)
+        {
+            InputManager.Instance.UseGamepad = value;
+            Debug.Log("Now using gamepad.");
+        }
+        else
+        {
+            useGamepadToggle.isOn = false;
+            InputManager.Instance.UseGamepad = false;
+            Debug.Log("Gamepad not found, using keyboard and mouse input instead.");
+        }
     }
 
     #endregion
@@ -207,83 +190,6 @@ public class OptionsScreen : MonoBehaviour
     #endregion
 
     #region Controls Region
-
-    private void CreateRebindButtons()
-    {
-        InputActions input = InputManager.Instance.InputActions;
-        List<InputActionMap> actionsMaps = new List<InputActionMap>(input.asset.actionMaps);
-
-        foreach (InputActionMap map in actionsMaps)
-        {
-            List<InputAction> inputActions = new List<InputAction>(map.actions);
-            foreach (InputAction action in inputActions)
-            {
-                InputActionReference actionReference = InputActionReference.Create(action);
-                GenerateRebindButton(actionReference);
-            }
-        }
-    }
-
-    private void GenerateRebindButton(InputActionReference action)
-    {
-        RebindActionUI rebindPrefab = Instantiate(rebindKeyPrefab, keybindParent).GetComponent<RebindActionUI>();
-        rebindPrefab.actionReference = action;
-        rebindPrefab.bindingText.text = action.action.GetBindingDisplayString();
-        rebindPrefab.rebindOverlay = rebindOverlay;
-        rebindPrefab.rebindPrompt = rebindOverlayText;
-        //Debug.Log(action.GetBindingDisplayString());
-    }
-
-
-    private void CreateKeyBindOptions()
-    {
-        //Keybinds keybinds = InputManager.Instance.keybinds;
-
-        //foreach (KeyValuePair<string, Keybind> key in keybinds.keys)
-        //{
-        //    GameObject newKey = Instantiate(keybindOptionPrefab, keybindParent);
-        //    KeybindUI bindButton = newKey.GetComponentInChildren<KeybindUI>();
-
-        //    bindButton.functionText.SetText(key.Value.keybindName);
-        //    bindButton.bindText.SetText(key.Value.associatedKey.ToString());
-
-        //    bindButton.keyBindButton.onClick.AddListener(delegate { ChangeKey(key.Value, bindButton.bindText); });
-        //}
-    }
-
-    private void ChangeKey(Keybind key, TextMeshProUGUI bindText)
-    {
-        StartCoroutine(ChangeKeyRoutine(key, bindText));
-    }
-
-    private IEnumerator ChangeKeyRoutine(Keybind key, TextMeshProUGUI bindText)
-    {
-        while (true)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                yield break;
-            }
-
-            if (Input.anyKeyDown)
-            {
-                Debug.Log(Input.inputString);
-                UpdateKeyBind(key, bindText, Input.inputString);
-                yield break;
-            }
-
-            yield return null;
-        }
-    }
-
-    private void UpdateKeyBind(Keybind key, TextMeshProUGUI bindText, string inputString)
-    {
-        KeyCode inputToKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), inputString.ToUpper());
-
-        key.associatedKey = inputToKey;
-        bindText.SetText(inputString.ToUpper());
-        //InputManager.Instance.keybinds.UpdateKey(key);
-    }
 
     #endregion
 

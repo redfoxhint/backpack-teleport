@@ -16,6 +16,12 @@ public class VoidState : IState
     {
         
     }
+
+    public void FixedUpdate()
+    {
+
+    }
+
     public void Exit()
     {
         

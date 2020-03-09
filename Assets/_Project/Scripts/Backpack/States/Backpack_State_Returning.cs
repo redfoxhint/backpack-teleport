@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using DG.Tweening;
 
 public class Backpack_State_Returning : IState
 {
@@ -13,10 +14,15 @@ public class Backpack_State_Returning : IState
     public void Initialize()
     {
         backpack.CurrentState = BackpackStates.RETURNING;
-        backpack.BackpackMovement.MoveToPoint(backpack.Player.RBody2D.position, true, 0f, OnMoveCompleted);
+        backpack.RBody.DOMove(backpack.Player.transform.position, backpack.MovementTime / 2f, false).OnComplete(OnMoveCompleted);
     }
 
     public void Update()
+    {
+        
+    }
+
+    public void FixedUpdate()
     {
 
     }

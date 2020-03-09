@@ -25,4 +25,12 @@ public class StateMachine
             currentState.Update();
         }
     }
+
+    public void FixedUpdate()
+    {
+        if(currentState != null)
+        {
+            currentState.FixedUpdate();
+        }
+    }
 }

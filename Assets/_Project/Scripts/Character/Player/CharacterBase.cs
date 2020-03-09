@@ -52,7 +52,6 @@ public class CharacterBase : MonoBehaviour
     {
         if (newDirection < 0 || newDirection > 7) return; // In case a number which is not a direction is passed in.
         CharacterAnimator.SetFloat("facingDirection", newDirection);
-        Debug.Log(newDirection);
     }
 
     public void SetDirection(Vector2 moveDir)

@@ -21,50 +21,38 @@ public class Backpack_State_Aiming : IState
 
         InputManager.Instance.InputActions.Backpack.Aim.canceled += OnAimKeyReleased;
         backpack.AimingAnimation.RadiusCircleController.Activate();
+
+        backpack.RBody.MovePosition(backpack.Player.RBody2D.position);
     }
 
     public void Update()
     {
-        backpack.RBody.MovePosition(backpack.Player.RBody2D.position);
-
         backpack.PointA = backpack.Player.PlayerCenter.position;
         backpack.PointB = backpack.GameCursor.transform.position;
 
-        backpack.CalculatedTravelDistance = (backpack.PointB - backpack.PointA).sqrMagnitude;
+        DrawAimingUI();
 
-        //HandleBackpackAimingUI();
-        backpack.AimingAnimation.DrawDottedLineAndArrow(backpack.PointA, backpack.PointB);
-
-        if(inputActions.Backpack.Return.triggered)
+        if(!backpack.IsAiming)
         {
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
-            return;
         }
 
-        if (!backpack.IsAiming)
+        if(InputManager.Instance.InputActions.Backpack.ThrowBackpack.triggered)
         {
-            if(backpack.AimingAnimation.IsOverlappingObstacle(backpack.PointA, backpack.PointB))
+            backpack.Launch(backpack.PointB);
+
+            if (GameEvents.onBackpackThrownEvent != null)
             {
-                backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
-                return;
+                GameEvents.onBackpackThrownEvent.Invoke();
             }
 
-            if(backpack.CalculatedTravelDistance <= backpack.MaxThrowDistance)
-            {
-                backpack.Launch(backpack.PointB);
-
-                if (GameEvents.onBackpackThrownEvent != null)
-                {
-                    GameEvents.onBackpackThrownEvent.Invoke(backpack);
-                }
-
-                backpack.stateMachine.ChangeState(new Backpack_State_Inflight(backpack));
-            }
-            else
-            {
-                backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
-            }
+            backpack.stateMachine.ChangeState(new Backpack_State_Inflight(backpack));
         }
+    }
+
+    public void FixedUpdate()
+    {
+
     }
 
     public void Exit()
@@ -72,24 +60,17 @@ public class Backpack_State_Aiming : IState
         backpack.IsAiming = false;
         InputManager.Instance.InputActions.Backpack.Aim.canceled -= OnAimKeyReleased;
         backpack.AimingAnimation.RadiusCircleController.Deactivate();
+        backpack.AimingAnimation.DisableArrow();
     }
-
-    private void HandleBackpackAimingUI()
-    {
-        if (backpack.CalculatedTravelDistance <= backpack.MaxThrowDistance)
-            backpack.AimingAnimation.UpdateUI(backpack.CalculatedTravelDistance, Color.white);
-        else
-            backpack.AimingAnimation.UpdateUI(backpack.CalculatedTravelDistance, Color.red);
-
-        if (backpack.AimingAnimation.AimAngle > 90f || backpack.AimingAnimation.AimAngle < -90f)
-            backpack.AimingAnimation.RotateText(-180f);
-        else
-            backpack.AimingAnimation.RotateText(0f);
-    }
-
 
     private void OnAimKeyReleased(InputAction.CallbackContext value)
     {
         backpack.IsAiming = false;
+        Debug.Log("aim button released");
+    }
+
+    private void DrawAimingUI()
+    {
+        backpack.AimingAnimation.DrawDottedLineAndArrow(backpack.PointA, backpack.PointB);
     }
 }

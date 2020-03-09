@@ -5,14 +5,11 @@ using UnityEngine;
 public class OptionsData
 {
     // Gameplay Options
-    public bool godMode;
-    public bool superSpeed;
-    public bool noStamina;
+    public bool useGamepad;
 
     // Graphics Options
     public bool fullScreen;
     public bool vSync;
-    public float testValue;
     public Resolution[] resolutions;
 
     // Controls Options
@@ -22,14 +19,11 @@ public class OptionsData
     public float soundVolumeValue;
     public float musicVolumeValue;
 
-    public OptionsData(bool godMode, bool superSpeed, bool noStamina, bool fullScreen, bool vSync, float testValue, float masterVolumeValue, float soundVolumeValue, float musicVolumeValue)
+    public OptionsData(bool useGamepad, bool fullScreen, bool vSync, float masterVolumeValue, float soundVolumeValue, float musicVolumeValue)
     {
-        this.godMode = godMode;
-        this.superSpeed = superSpeed;
-        this.noStamina = noStamina;
+        this.useGamepad = useGamepad;
         this.fullScreen = fullScreen;
         this.vSync = vSync;
-        this.testValue = testValue;
         this.masterVolumeValue = masterVolumeValue;
         this.soundVolumeValue = soundVolumeValue;
         this.musicVolumeValue = musicVolumeValue;

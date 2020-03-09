@@ -2,37 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class AimingAnimation : MonoBehaviour
 {
 	[SerializeField] private GameObject arrow;
-	[SerializeField] private TextMeshProUGUI distanceText;
 	[SerializeField] private LayerMask aimFilter;
 
 	private CircularBoundaryVisualization radiusCircleController;
-	
-
-	public float AimAngle
-	{
-		get
-		{
-			return aimAngle;
-		}
-	}
-
-	public bool IsAiming
-	{
-		set
-		{
-			isAiming = value;
-		}
-	}
+	private GameCursor gameCursor;
 
 	public CircularBoundaryVisualization RadiusCircleController { get => radiusCircleController; }
-
-	// Private Variables
-	private float aimAngle;
-	private bool isAiming;
 
 	// Components
 	private DottedLine dottedLine;
@@ -44,46 +24,35 @@ public class AimingAnimation : MonoBehaviour
 		cam = Camera.main;
 
 		radiusCircleController = GetComponent<CircularBoundaryVisualization>();
-	}
-
-	private void Start()
-	{
-        isAiming = false;
-	}
-
-	private void Update()
-	{
-		if (isAiming) arrow.SetActive(true); else arrow.SetActive(false);
+		gameCursor = FindObjectOfType<GameCursor>();
 	}
 
 	public void DrawDottedLineAndArrow(Vector2 startPoint, Vector2 endPoint)
 	{
 		dottedLine.DrawDottedLine(startPoint, endPoint);
+		PointArrowAt(gameCursor.gameObject);
+	}
+
+	private void PointArrowAt(GameObject objectToPointTo)
+	{
 		arrow.SetActive(true);
 
-		Vector2 arrowPos = cam.WorldToScreenPoint(startPoint);
-		arrowPos = (Vector2)Input.mousePosition - arrowPos;
+		Vector3 directionToTarget = transform.position.DirectionTo(objectToPointTo.transform.position);
+		directionToTarget.z = 0f;
 
-		aimAngle = Mathf.Atan2(arrowPos.y, arrowPos.x) * Mathf.Rad2Deg;
+		Vector3 targetPos = transform.position + directionToTarget;
+		targetPos.z = 0;
 
-		arrowPos = Quaternion.AngleAxis(aimAngle, Vector3.forward) * (Vector2.right * 1.2f);
-		arrow.transform.position = startPoint + arrowPos;
-		arrow.transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
+		float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+		Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+		arrow.transform.position = targetPos;
+		arrow.transform.rotation = rotation;
 	}
 
-	public void UpdateUI(float newText, Color newColor)
+	public void DisableArrow()
 	{
-		distanceText.SetText(newText.ToString());
-		distanceText.color = newColor;
-		dottedLine.dotColor = newColor;
-
-		Vector2 centerOfLine = dottedLine.GetCenterOfLine(); // +1.5 units on the y so the text is above the line.
-		distanceText.rectTransform.position = new Vector2(centerOfLine.x, centerOfLine.y + 1.5f);
-	}
-
-	public void RotateText(float newRotation)
-	{
-		distanceText.rectTransform.localRotation = Quaternion.Euler(0f, 0f, newRotation);
+		arrow.SetActive(false);
 	}
 
 	public bool IsOverlappingObstacle(Vector3 startPoint, Vector3 endPoint)

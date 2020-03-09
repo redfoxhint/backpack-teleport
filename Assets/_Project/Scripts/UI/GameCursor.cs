@@ -5,12 +5,11 @@ using UnityEngine.InputSystem;
 
 public class GameCursor : MonoBehaviour
 {
-    [SerializeField] private float maxDistance = 10f;
-
     [Header("Cursor Setup")]
 
     [Header("Gamepad Configuration")]
     [SerializeField] private float cursorMoveSpeed = 5f;
+    [SerializeField] private bool useGamepad;
 
     // Private Variables
 
@@ -31,61 +30,44 @@ public class GameCursor : MonoBehaviour
 
     private void Update()
     {
-        MoveCursorWithMouse();
+        MoveCursor();
+         
+        //MoveCursorWithMouse();
         //MoveCursorWithGamepad();
     }
 
-    private void MoveCursorWithGamepad()
+    private void MoveCursor()
     {
-        Vector3 center = circle.gameObject.transform.position;
-        center.z = 0;
-
-        Vector2 movement = Vector2.zero;
-        movement = new Vector2(inputManager.JoystickInput.x, inputManager.JoystickInput.y);
-
-        Vector2 moveDelta = movement * cursorMoveSpeed * Time.deltaTime;
-
-        maxDistance = circle.CircleRadius * 10f;
-        float actualDistance = Vector2.Distance(center, moveDelta);
-
-        if (actualDistance > maxDistance)
+        if(inputManager.UseGamepad)
         {
-            Vector3 centerToPosition = (Vector3)moveDelta - center;
-            centerToPosition.z = 0;
-            centerToPosition.Normalize();
-            moveDelta = center + centerToPosition * maxDistance;
-            transform.position = moveDelta;
+            Vector2 cursorInput = Vector2.zero;
+            cursorInput = new Vector2(inputManager.JoystickInput.x, inputManager.JoystickInput.y);
+
+            Vector2 cursorMoveDelta = cursorInput * cursorMoveSpeed * Time.deltaTime;
+            transform.Translate(cursorMoveDelta);
         }
         else
         {
-            transform.Translate(moveDelta, Space.World);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            transform.position = mousePos;
         }
+
+        ClampToRadius();
     }
 
-    private void MoveCursorWithMouse()
+    private void ClampToRadius()
     {
         Vector3 center = circle.gameObject.transform.position;
         center.z = 0;
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        mousePos.z = 0;
+        float maxDistance = circle.CircleRadius * 10f;
+        float currentDistanceToCenter = Vector2.Distance(center, transform.position);
 
-        maxDistance = circle.CircleRadius * 10f;
-
-        float actualDistance = Vector2.Distance(center, mousePos);
-
-        if (actualDistance > maxDistance)
+        if(currentDistanceToCenter > maxDistance)
         {
-            Vector3 centerToPosition = mousePos - center;
+            Vector3 centerToPosition = center.DirectionTo(transform.position);
             centerToPosition.z = 0;
-            centerToPosition.Normalize();
-            mousePos = center + centerToPosition * maxDistance;
-            transform.position = mousePos;
-        }
-
-        else
-        {
-            transform.position = mousePos;
+            transform.position = center + centerToPosition * maxDistance;
         }
     }
 }

@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5076565585277407811}
   - component: {fileID: 1052738819}
   - component: {fileID: 863325715}
-  - component: {fileID: 1609438671}
   - component: {fileID: 1683038926934181231}
   m_Layer: 10
   m_Name: backpack
@@ -97,18 +96,18 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4548468800056194583}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 35
-  m_AngularDrag: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 1
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &2141890925293650167
 MonoBehaviour:
@@ -122,17 +121,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05c5496a8f54a04a8b19866e4f67491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimKey: 324
-  maxThrowDistance: 300
-  MaxThrowDistance: 300
-  movementSpeed: 0
-  maxMarkerPositions: 2
+  movementTime: 0.5
+  maxMarkerPositions: 5
   markerPrefab: {fileID: 9006511983901279946, guid: d5e81d6fe7929fd43a64f963c60eb207,
     type: 3}
   chainReady: 0
   isAiming: 0
   teleportDestination: {x: 0, y: 0}
-  currentState: 0
+  currentState: 4
 --- !u!114 &5076565585277407811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,22 +266,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1609438671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4548468800056194583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ead351fa1cada64f9118b95262a48f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionFilter:
-    serializedVersion: 2
-    m_Bits: 32055
-  moveSpeed: 0.4
 --- !u!70 &1683038926934181231
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

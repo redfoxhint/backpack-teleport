@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using DG.Tweening;
 
 public class Backpack_State_Inflight : IState
 {
@@ -22,22 +23,22 @@ public class Backpack_State_Inflight : IState
         backpackFX.SwitchHasBackback(false);
         backpackFX.ShowBackpack();
 
-        backpack.BackpackMovement.MoveToPoint(backpack.TeleportDestination, true, 0f, OnMoveCompleted);
+        backpack.RBody.DOMove(backpack.TeleportDestination, backpack.MovementTime, false).OnComplete(OnMoveCompleted);
     }
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if (InputManager.Instance.InputActions.Backpack.Teleport.triggered)
         {
+            backpack.RBody.DOKill();
+
             backpack.Player.Teleport(backpack.transform.position);
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
         }
     }
 
-    public void Exit()
-    {
-        backpackMovement.CancelMovement();
-    }
+    public void FixedUpdate() { }
+    public void Exit() { }
 
     private void OnMoveCompleted()
     {

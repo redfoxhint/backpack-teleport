@@ -144,8 +144,41 @@ public class @InputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""fa3885de-533c-4083-b82a-8f9f12451d6c"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BasicAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9e4b35e1-2ed7-48c9-93af-4aba69e2fbec"",
                     ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47c26c9c-97eb-445e-82f6-69361cea7111"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1eb5517d-29da-4a6e-836b-7d554ccc6c0f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -166,8 +199,30 @@ public class @InputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""eb83a45c-bbad-486d-8db0-dfa4504a2c0e"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""e7ba7384-96d3-4acc-85a6-77a1ff1f52d3"",
                     ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3256a3bd-724b-4b86-bd8e-375f9bdaf0b0"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -189,7 +244,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""e5fd33bd-0e91-4a1d-8878-c6d52704ded0"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/up"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -200,7 +255,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""242b2263-d89f-4d21-8d29-dcf3afdd82f2"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/down"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -211,7 +266,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""a2e6f73f-3ea2-490f-8bc5-35c4c48eee3a"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/left"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -222,7 +277,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""21a347d1-2bfe-483a-9e39-de7c366f57d4"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/right"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -234,6 +289,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""687a4a9b-4539-4a28-bec8-40d6c372865d"",
                     ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""597fe5cb-6163-4ac4-9bd0-6f2db0a08d17"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -255,7 +321,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""debeab54-4714-4bf0-95db-24f435a99dc3"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/up"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -266,7 +332,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""9a1a094d-1994-4e96-b20c-599f136d3b53"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/down"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -277,7 +343,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""c61d7cb3-bd0c-40c5-9b08-b682f820f646"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/left"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -288,7 +354,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""6635dec8-1333-4c35-afb8-773910fdb0d8"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/stick/right"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -317,13 +383,37 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PlaceMarker"",
+                    ""type"": ""Button"",
+                    ""id"": ""c7944641-8114-4f70-a492-12a395b29102"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Teleport"",
+                    ""type"": ""Button"",
+                    ""id"": ""b8d536c2-db9f-4e70-91e3-eb4356151faa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ThrowBackpack"",
+                    ""type"": ""Button"",
+                    ""id"": ""48065590-68da-4025-9a8e-d2247b18e267"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""0e43e368-8a81-4d38-874f-1c5e45c50a0b"",
-                    ""path"": ""<HID::Logitech Logitech Dual Action>/button8"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -345,11 +435,77 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b5b47dd7-4a66-4710-8167-574dba370e9c"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e06a780-5d1e-44f5-8d5d-26b38e85bc2c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceMarker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""347c4f89-53db-4d02-aae0-b1872d3186ad"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceMarker"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a922bda-226d-4bac-a289-b45f6fda8bae"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Teleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f823da7-eacf-421c-8532-a21514c7e74b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Teleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f95f2ebf-e908-435c-83e1-11a5a4d2697c"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowBackpack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ce4914e-184b-4e5a-94c9-8a58479d0f45"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowBackpack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -371,6 +527,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Backpack = asset.FindActionMap("Backpack", throwIfNotFound: true);
         m_Backpack_Aim = m_Backpack.FindAction("Aim", throwIfNotFound: true);
         m_Backpack_Return = m_Backpack.FindAction("Return", throwIfNotFound: true);
+        m_Backpack_PlaceMarker = m_Backpack.FindAction("PlaceMarker", throwIfNotFound: true);
+        m_Backpack_Teleport = m_Backpack.FindAction("Teleport", throwIfNotFound: true);
+        m_Backpack_ThrowBackpack = m_Backpack.FindAction("ThrowBackpack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -503,12 +662,18 @@ public class @InputActions : IInputActionCollection, IDisposable
     private IBackpackActions m_BackpackActionsCallbackInterface;
     private readonly InputAction m_Backpack_Aim;
     private readonly InputAction m_Backpack_Return;
+    private readonly InputAction m_Backpack_PlaceMarker;
+    private readonly InputAction m_Backpack_Teleport;
+    private readonly InputAction m_Backpack_ThrowBackpack;
     public struct BackpackActions
     {
         private @InputActions m_Wrapper;
         public BackpackActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Aim => m_Wrapper.m_Backpack_Aim;
         public InputAction @Return => m_Wrapper.m_Backpack_Return;
+        public InputAction @PlaceMarker => m_Wrapper.m_Backpack_PlaceMarker;
+        public InputAction @Teleport => m_Wrapper.m_Backpack_Teleport;
+        public InputAction @ThrowBackpack => m_Wrapper.m_Backpack_ThrowBackpack;
         public InputActionMap Get() { return m_Wrapper.m_Backpack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -524,6 +689,15 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Return.started -= m_Wrapper.m_BackpackActionsCallbackInterface.OnReturn;
                 @Return.performed -= m_Wrapper.m_BackpackActionsCallbackInterface.OnReturn;
                 @Return.canceled -= m_Wrapper.m_BackpackActionsCallbackInterface.OnReturn;
+                @PlaceMarker.started -= m_Wrapper.m_BackpackActionsCallbackInterface.OnPlaceMarker;
+                @PlaceMarker.performed -= m_Wrapper.m_BackpackActionsCallbackInterface.OnPlaceMarker;
+                @PlaceMarker.canceled -= m_Wrapper.m_BackpackActionsCallbackInterface.OnPlaceMarker;
+                @Teleport.started -= m_Wrapper.m_BackpackActionsCallbackInterface.OnTeleport;
+                @Teleport.performed -= m_Wrapper.m_BackpackActionsCallbackInterface.OnTeleport;
+                @Teleport.canceled -= m_Wrapper.m_BackpackActionsCallbackInterface.OnTeleport;
+                @ThrowBackpack.started -= m_Wrapper.m_BackpackActionsCallbackInterface.OnThrowBackpack;
+                @ThrowBackpack.performed -= m_Wrapper.m_BackpackActionsCallbackInterface.OnThrowBackpack;
+                @ThrowBackpack.canceled -= m_Wrapper.m_BackpackActionsCallbackInterface.OnThrowBackpack;
             }
             m_Wrapper.m_BackpackActionsCallbackInterface = instance;
             if (instance != null)
@@ -534,6 +708,15 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Return.started += instance.OnReturn;
                 @Return.performed += instance.OnReturn;
                 @Return.canceled += instance.OnReturn;
+                @PlaceMarker.started += instance.OnPlaceMarker;
+                @PlaceMarker.performed += instance.OnPlaceMarker;
+                @PlaceMarker.canceled += instance.OnPlaceMarker;
+                @Teleport.started += instance.OnTeleport;
+                @Teleport.performed += instance.OnTeleport;
+                @Teleport.canceled += instance.OnTeleport;
+                @ThrowBackpack.started += instance.OnThrowBackpack;
+                @ThrowBackpack.performed += instance.OnThrowBackpack;
+                @ThrowBackpack.canceled += instance.OnThrowBackpack;
             }
         }
     }
@@ -552,5 +735,8 @@ public class @InputActions : IInputActionCollection, IDisposable
     {
         void OnAim(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
+        void OnPlaceMarker(InputAction.CallbackContext context);
+        void OnTeleport(InputAction.CallbackContext context);
+        void OnThrowBackpack(InputAction.CallbackContext context);
     }
 }

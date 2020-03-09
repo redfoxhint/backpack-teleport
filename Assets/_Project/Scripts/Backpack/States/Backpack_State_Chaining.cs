@@ -28,7 +28,7 @@ public class Backpack_State_Chaining : IState
     {
         if(teleportsLeft > 0)
         {
-            if(Input.GetKeyDown(KeyCode.Mouse1))
+            if(InputManager.Instance.InputActions.Backpack.Teleport.triggered)
             {
                 TeleportToNextMarker();
                 backpack.BackpackFX.RippleEffect(backpack.transform.position);
@@ -39,6 +39,11 @@ public class Backpack_State_Chaining : IState
         {
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
         }
+    }
+
+    public void FixedUpdate()
+    {
+
     }
 
     public void Exit()

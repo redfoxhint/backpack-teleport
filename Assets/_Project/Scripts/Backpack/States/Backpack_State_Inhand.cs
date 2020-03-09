@@ -40,6 +40,11 @@ public class Backpack_State_Inhand : IState
         }
     }
 
+    public void FixedUpdate()
+    {
+
+    }
+
     public void Exit()
     {
         InputManager.Instance.InputActions.Backpack.Aim.performed -= OnAimKeyPressed;

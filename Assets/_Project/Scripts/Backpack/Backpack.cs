@@ -9,18 +9,13 @@ public enum BackpackStates
     AIMING, INFLIGHT, IDLE, RETURNING, INHAND, CHAINING, CHAINING_SETUP
 }
 
-[RequireComponent(typeof(BackpackFX), typeof(BackpackMovement), typeof(Rigidbody2D))]
+[RequireComponent(typeof(BackpackFX), typeof(Rigidbody2D))]
 public class Backpack : StateMachineUnit, IActivator
 {
     // Public Variables
-    [SerializeField] private KeyCode aimKey;
-    public KeyCode AimKey { get => aimKey; }
-
-    [SerializeField] private float maxThrowDistance = 300f;
-    public float MaxThrowDistance = 300f;
-
-    [SerializeField] private float movementSpeed;
-    public float MovementSpeed { get => movementSpeed; }
+    [Tooltip("How long it takes for the backpack to reach its destination after being thrown.")]
+    [SerializeField] private float movementTime;
+    public float MovementTime { get => movementTime; }
 
     [Header("Chaining Configuration")]
     [SerializeField] private int maxMarkerPositions = 2;
@@ -50,9 +45,6 @@ public class Backpack : StateMachineUnit, IActivator
     }
 
     // Private Variables
-    private float calculatedBackpackTravelDistance;
-    public float CalculatedTravelDistance { get => calculatedBackpackTravelDistance; set => calculatedBackpackTravelDistance = value; }
-
     private Vector2 pointA;
     public Vector2 PointA { get => pointA; set => pointA = value; }
 

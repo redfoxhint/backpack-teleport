@@ -23,7 +23,7 @@ public class PauseMenuManager : BaseMenuManager
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(InputManager.Instance.InputActions.Player.TogglePauseMenu.triggered)
         {
             if(!GameManager.Instance.GamePaused)
             {
