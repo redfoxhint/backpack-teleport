@@ -140,7 +140,7 @@ public class DamagePrimitive : MonoBehaviour
 		{
 			Vector2 dir = transform.position - other.transform.position;
 
-			other.GetComponent<IDamageable>().TakeDamage(gameObject, 1f);
+			other.GetComponent<IDamageable>().TakeDamage(gameObject.transform, 1f);
 			Debug.Log("Collided with IDamageable Object");
 		}
 	}

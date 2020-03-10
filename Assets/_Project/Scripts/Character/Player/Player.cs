@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace BackpackTeleport.Character.PlayerCharacter
 {
 	[RequireComponent(typeof(AimingAnimation))]
-	public class Player : BaseCharacter
+	public class Player : MonoBehaviour
 	{
 		// Public Fields
 		[SerializeField] private Transform playerCenter;
@@ -24,10 +24,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		private Animator animator;
 		private Camera cam;
 
-		protected override void Awake()
+		private void Awake()
 		{
-			base.Awake();
-
 			animator = GetComponent<Animator>();
 			attackManager = GetComponent<AttackManager>();
 			trailRenderer = GetComponent<TrailRenderer>();
@@ -36,35 +34,17 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			cam = Camera.main;
 			inputManager = InputManager.Instance;
 
-			inputManager.InputActions.Player.BasicAttack.performed += Attack;
+			inputManager.InputActions.Player.BasicAttack.started += Attack;
 		}
 
-		protected override void Start()
+		private void Start()
 		{
-			base.Start();
-
 			trailRenderer.enabled = false;
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.onBackpackThrownEvent.RemoveAllListeners();
-		}
-
-		private void Update()
-		{
-			
-		}
-
-		public override void TakeDamage(GameObject dealer, float amount)
-		{
-			this.RecalculateHealth(amount);
-		}
-
-		public override void RecalculateHealth(float amount)
-		{
-			// TODO: Implement health system
-			//healthStat.runtimeStatValue -= amount;
 		}
 
 		public void Teleport(Vector2 pos)

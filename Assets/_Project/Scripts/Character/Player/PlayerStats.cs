@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 		knockback = GetComponent<Knockback>();
 	}
 
-	public void TakeDamage(GameObject dealer, float amount)
+	public void TakeDamage(Transform dealer, float amount)
 	{
 		healthStat.SetOldValue();
 		healthStat.runtimeStatValue -= amount;

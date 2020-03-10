@@ -14,8 +14,12 @@ public class AttackBehaviour : StateMachineBehaviour
         attackManager = animator.GetComponent<AttackManager>();
         playerMovement = animator.GetComponent<PhysicsCharacterController>();
         attackManager.CanAttack = false;
-        InputSystem.ResumeHaptics();
-        Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+
+        if(Gamepad.current != null)
+        {
+            InputSystem.ResumeHaptics();
+            Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -27,11 +31,14 @@ public class AttackBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("Finished attack");
         attackManager.CanAttack = true;
         playerMovement.DoMovement = true;
-        InputSystem.PauseHaptics();
-        Gamepad.current.SetMotorSpeeds(0f, 0f);
+
+        if(Gamepad.current != null)
+        {
+            InputSystem.PauseHaptics();
+            Gamepad.current.SetMotorSpeeds(0f, 0f);
+        }
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

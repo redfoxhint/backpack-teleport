@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +20,10 @@ public class Knockback : MonoBehaviour
 
 	// Componenents
 	private Rigidbody2D rBody;
-	private SpriteRenderer spriteRenderer;
+
+	// Events
+	public Action OnKnockbackStarted;
+	public Action OnKnockbackFinished;
 
 	public float KnockbackCounter => knockbackCounter;
 	public float KnockbackAmount { get { return knockbackAmount; } set { knockbackAmount = value; } }
@@ -28,7 +32,6 @@ public class Knockback : MonoBehaviour
 	private void Awake()
 	{
 		rBody = GetComponent<Rigidbody2D>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 
@@ -41,7 +44,7 @@ public class Knockback : MonoBehaviour
 		else if (knockbackCounter <= 0 && knockbackTimerStart)
 		{
 			knockbackTimerStart = false;
-			spriteRenderer.color = Color.white;
+			OnKnockbackFinished?.Invoke();
 		}
 	}
 
@@ -49,18 +52,24 @@ public class Knockback : MonoBehaviour
 	{
 		if (doKnockback)
 		{
-			rBody.AddForce(knockbackDirection.normalized * knockbackAmount, ForceMode2D.Impulse);
+			rBody.AddForce(knockbackDirection * knockbackAmount, ForceMode2D.Impulse);
 			doKnockback = false;
 		}
 	}
 
-	public void ApplyKnockback(Vector2 direction, Color damageColor)
+	public void ApplyKnockback(Transform from)
 	{
 		rBody.velocity = Vector2.zero;
 		doKnockback = true;
 		knockbackCounter = knockbackTime;
 		knockbackTimerStart = true;
-		knockbackDirection = direction;
-		spriteRenderer.color = damageColor;
+		knockbackDirection = CalculateKnockbackDirection(from);
+		OnKnockbackStarted?.Invoke();
+	}
+
+	private Vector2 CalculateKnockbackDirection(Transform origin)
+	{
+		Vector3 direction = origin.position.DirectionTo(transform.position);
+		return direction;
 	}
 }

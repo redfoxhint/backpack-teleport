@@ -45,7 +45,7 @@ public class MeleeAttack : MonoBehaviour
 
     private void Damage(GameObject other)
     {
-        other.GetComponent<IDamageable>().TakeDamage(gameObject, 1f);
+        other.GetComponent<IDamageable>().TakeDamage(gameObject.transform, 1f);
     }
 
 }

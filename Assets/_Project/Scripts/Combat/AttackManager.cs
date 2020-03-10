@@ -1,7 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
+    [Header("Attack Configuration")]
+    [SerializeField] private float attackRange;
+    [SerializeField] private float damageAmount;
+    [SerializeField] private float dashAttackDamageDelay;
+    [SerializeField] private float knockbackAmount;
+    [SerializeField] private LayerMask enemyFilter;
+
+    [Header("Attack Locations")]
+    [SerializeField] private Transform attackUpLocation;
+    [SerializeField] private Transform attackDownLocation;
+    [SerializeField] private Transform attackLeftLocation;
+    [SerializeField] private Transform attackRightLocation;
+
     [SerializeField] private float nextAttackTime = 1; // The time between attacks before the combo is reset.
     [SerializeField] private float dashAmount;
     [SerializeField] private bool doDashAttack = true;
@@ -13,7 +27,10 @@ public class AttackManager : MonoBehaviour
 
     public bool CanAttack { get; set; }
 
+    // Components
     private PhysicsCharacterController characterController;
+    private CharacterBase characterBase;
+
 
     private void Awake()
     {
@@ -21,6 +38,7 @@ public class AttackManager : MonoBehaviour
         CanAttack = true;
         animator = GetComponent<Animator>();
         characterController = GetComponent<PhysicsCharacterController>();
+        characterBase = GetComponent<CharacterBase>();
 
         animator.SetFloat("ComboIndex", comboIndex);
     }
@@ -46,6 +64,10 @@ public class AttackManager : MonoBehaviour
         if (!CanAttack) return;
         characterController.DoMovement = false;
 
+        // Deal damage here
+        DealDamage();
+        Debug.Log("Attacked");
+
         if (!inCombo)
         {
             StartCombo();
@@ -54,7 +76,7 @@ public class AttackManager : MonoBehaviour
 
         comboIndex += 1;
 
-        if(comboIndex == 3)
+        if (comboIndex == 3)
         {
             SetAttack(comboIndex);
             ResetCombo();
@@ -62,8 +84,45 @@ public class AttackManager : MonoBehaviour
         }
 
         SetAttack(comboIndex);
-
         currentComboTime = nextAttackTime;
+    }
+
+    private void DealDamage()
+    {
+        Transform attackLocation = CalculateAttackDirection();
+        if (attackLocation == null) return;
+
+        StartCoroutine(DealDelayedDamagedRoutine(attackLocation, dashAttackDamageDelay));
+    }
+
+    private IEnumerator DealDelayedDamagedRoutine(Transform damageColliderPos, float applyDamageDelay)
+    {
+        bool finished = false;
+
+        while(!finished)
+        {
+            yield return new WaitForSeconds(applyDamageDelay);
+
+            Collider2D[] detectedDamageables = Physics2D.OverlapCircleAll(damageColliderPos.position, attackRange, enemyFilter);
+
+            if (detectedDamageables.Length > 0)
+            {
+                for (int i = 0; i < detectedDamageables.Length; i++)
+                {
+                    IDamageable damageable = detectedDamageables[i].GetComponent<IDamageable>();
+
+                    if (damageable != null)
+                    {
+                        damageable.TakeDamage(this.gameObject.transform, damageAmount);
+                    }
+                }
+            }
+
+            finished = true;
+            yield return null;
+        }
+
+        
     }
 
     private void StartCombo()
@@ -81,7 +140,7 @@ public class AttackManager : MonoBehaviour
         animator.SetFloat("ComboIndex", index);
         animator.SetTrigger("Attack");
 
-        if(doDashAttack)
+        if (doDashAttack)
         {
             characterController.Dash();
         }
@@ -92,5 +151,35 @@ public class AttackManager : MonoBehaviour
         inCombo = false;
         currentComboTime = 0;
         comboIndex = 0;
+    }
+
+    private Transform CalculateAttackDirection()
+    {
+        float attackDirection = characterBase.FacingDirection;
+        Transform attackLocation = null;
+
+        switch (attackDirection)
+        {
+            case 0:
+                attackLocation = attackDownLocation;
+                break;
+
+            case 1:
+                attackLocation = attackRightLocation;
+                break;
+
+            case 2:
+                attackLocation = attackLeftLocation;
+                break;
+
+            case 4:
+                attackLocation = attackUpLocation;
+                break;
+
+            default:
+                return null;
+        }
+
+        return attackLocation;
     }
 }

@@ -20,6 +20,7 @@ using UnityEngine;
 public class CharacterBase : MonoBehaviour
 {
     public Animator CharacterAnimator { get; private set; }
+    public int FacingDirection { get; private set; }
 
     private void Awake()
     {
@@ -52,6 +53,7 @@ public class CharacterBase : MonoBehaviour
     {
         if (newDirection < 0 || newDirection > 7) return; // In case a number which is not a direction is passed in.
         CharacterAnimator.SetFloat("facingDirection", newDirection);
+        FacingDirection = Mathf.RoundToInt(newDirection);
     }
 
     public void SetDirection(Vector2 moveDir)

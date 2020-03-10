@@ -8,6 +8,7 @@ public class PhysicsCharacterController : MonoBehaviour
     [Header("Character Controller Configuration")]
     [SerializeField] private LayerMask dashFilter;
     [SerializeField] private float moveSpeed = 60f;
+    [SerializeField] private ParticleSystem dustParticles;
 
     [Header("Dash Configuration")]
     [SerializeField] private float dashAmount;
