@@ -6,6 +6,8 @@ using TMPro;
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Samples.RebindUI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Experimental.Rendering.Universal;
 
 /*
  * TODO: AUTOMATICALLY GENERATE REBIND BUTTONS IN CONTROLS MENU
@@ -28,6 +30,7 @@ public class OptionsScreen : MonoBehaviour
 
     [Header("Gameplay Options")]
     [SerializeField] private Toggle useGamepadToggle;
+    [SerializeField] private Toggle toggleNightModeToggle;
 
     [Header("Graphics Options")]
     [SerializeField] private TMP_Dropdown resolutionDropdown;
@@ -50,6 +53,8 @@ public class OptionsScreen : MonoBehaviour
         InitializeButtons();
         CreateResolutionOptions();
         LoadOptions();
+
+        InputManager.Instance.InputActions.Debug.ResetLevel.started += ResetLevel;
     }
 
     private void Start()
@@ -65,6 +70,7 @@ public class OptionsScreen : MonoBehaviour
 
         // Gameplay Options
         if (useGamepadToggle != null) useGamepadToggle.onValueChanged.AddListener(delegate { SetUseGamepad(useGamepadToggle, useGamepadToggle.isOn); });
+        if (toggleNightModeToggle != null) toggleNightModeToggle.onValueChanged.AddListener(delegate { ToggleNightMode(toggleNightModeToggle); });
 
         // Graphics Options
         if (resolutionDropdown != null) resolutionDropdown.onValueChanged.AddListener(delegate { SetResolution(resolutionDropdown.value); });
@@ -77,6 +83,12 @@ public class OptionsScreen : MonoBehaviour
         if (masterVolumeSlider != null) masterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(masterVolumeSlider.value); });
         if (soundVolumeSlider != null) soundVolumeSlider.onValueChanged.AddListener(delegate { SetSoundVolume(soundVolumeSlider.value); });
         if (musicVolumeSlider != null) musicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(musicVolumeSlider.value); });
+    }
+
+    private void ResetLevel(InputAction.CallbackContext value)
+    {
+        if (Application.isEditor) return;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     #region Saving & Loading
@@ -133,6 +145,23 @@ public class OptionsScreen : MonoBehaviour
             useGamepadToggle.isOn = false;
             InputManager.Instance.UseGamepad = false;
             Debug.Log("Gamepad not found, using keyboard and mouse input instead.");
+        }
+    }
+
+    private void ToggleNightMode(Toggle toggle)
+    {
+        Light2D dayLight = GameObject.FindGameObjectWithTag("DayLight").GetComponent<Light2D>();
+        Light2D nightLight = GameObject.FindGameObjectWithTag("NightLight").GetComponent<Light2D>();
+
+        if(toggle.isOn)
+        {
+            dayLight.enabled = false ;
+            nightLight.enabled = true;
+        }
+        else
+        {
+            nightLight.enabled = false;
+            dayLight.enabled = true;
         }
     }
 

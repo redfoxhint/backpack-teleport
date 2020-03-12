@@ -79,7 +79,7 @@ public class GhostingEffect
 	private void FadeSprite(SpriteRenderer current)
 	{
 		current.material.DOKill();
-		current.material.DOColor(fadeColor, fadeTime);
+		current.DOColor(fadeColor, fadeTime);
 	}
 
 	private void OnEffectComplete()

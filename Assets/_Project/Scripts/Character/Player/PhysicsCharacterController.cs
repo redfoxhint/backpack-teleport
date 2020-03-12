@@ -31,6 +31,7 @@ public class PhysicsCharacterController : MonoBehaviour
         characterBase = GetComponent<CharacterBase>();
         dashAbility = GetComponent<DashAbility>();
         input = InputManager.Instance;
+        DoMovement = true;
     }
 
     private void Update()

@@ -2,6 +2,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum EntityType
+{
+	ENEMY_SPIDER,
+	ENTITY_PLAYER
+}
 
 namespace BackpackTeleport.Character
 {
@@ -13,6 +18,8 @@ namespace BackpackTeleport.Character
 		[SerializeField] protected float maxHealth = 10f; 
 		[SerializeField] protected Color damageBlipColor = Color.red;
 		[SerializeField] protected BaseCharacterData baseCharacterData;
+		[SerializeField] private ParticleSystem damageParticle;
+		[SerializeField] private EntityType entityType;
 
 		// Private Variables
 		protected float currentHealth;
@@ -54,6 +61,7 @@ namespace BackpackTeleport.Character
 			if (applyKnockbackAfterDamaged)
 			{
 				ApplyKnockback(damageDealer);
+				damageParticle.Play();
 			}
 		}
 
@@ -64,7 +72,7 @@ namespace BackpackTeleport.Character
 			if(newHealth <= 0)
 			{
 				// Kill the character here
-				Destroy(gameObject);
+				Kill();
 				return;
 			}
 
@@ -95,6 +103,12 @@ namespace BackpackTeleport.Character
 		private void OnKnockbackFinished()
 		{
 			spriteRenderer.color = Color.white;
+		}
+
+		private void Kill()
+		{
+			GameEvents.onEntityKilled.Invoke(entityType);
+			Destroy(gameObject);
 		}
 	}
 }

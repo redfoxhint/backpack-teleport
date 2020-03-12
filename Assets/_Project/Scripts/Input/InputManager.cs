@@ -14,10 +14,22 @@ public class InputManager : PersistentSingleton<InputManager>
 
     public Action<InputDevice, InputDeviceChange> OnInputDeviceChangeDetected;
 
-    private void OnEnable()
+    public override void Awake()
     {
+        base.Awake();
+
         InitalizeInput();
+
+        if(IsGamepadConnected())
+        {
+            UseGamepad = true;
+        }
     }
+
+    //private void OnEnable()
+    //{
+    //    InitalizeInput();
+    //}
 
     private void OnDisable()
     {

@@ -51,7 +51,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ToggleInventory"",
+                    ""name"": ""ToggleQuestTracker"",
                     ""type"": ""Button"",
                     ""id"": ""2f85bda1-32b1-42b6-b31e-9ebd07f0acd7"",
                     ""expectedControlType"": """",
@@ -193,7 +193,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleInventory"",
+                    ""action"": ""ToggleQuestTracker"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -204,7 +204,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleInventory"",
+                    ""action"": ""ToggleQuestTracker"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -510,6 +510,33 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""2496fecd-396e-4b56-8cb2-6318e0ea8118"",
+            ""actions"": [
+                {
+                    ""name"": ""ResetLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""111c54be-99fe-4be3-a7b7-83a169a920ce"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f20bd8b5-616b-4aba-85cb-4ff86b649818"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -520,7 +547,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Player_CursorControl = m_Player.FindAction("CursorControl", throwIfNotFound: true);
         m_Player_BasicAttack = m_Player.FindAction("BasicAttack", throwIfNotFound: true);
         m_Player_DashAttack = m_Player.FindAction("DashAttack", throwIfNotFound: true);
-        m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
+        m_Player_ToggleQuestTracker = m_Player.FindAction("ToggleQuestTracker", throwIfNotFound: true);
         m_Player_TogglePauseMenu = m_Player.FindAction("TogglePauseMenu", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // Backpack
@@ -530,6 +557,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Backpack_PlaceMarker = m_Backpack.FindAction("PlaceMarker", throwIfNotFound: true);
         m_Backpack_Teleport = m_Backpack.FindAction("Teleport", throwIfNotFound: true);
         m_Backpack_ThrowBackpack = m_Backpack.FindAction("ThrowBackpack", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_ResetLevel = m_Debug.FindAction("ResetLevel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -583,7 +613,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_CursorControl;
     private readonly InputAction m_Player_BasicAttack;
     private readonly InputAction m_Player_DashAttack;
-    private readonly InputAction m_Player_ToggleInventory;
+    private readonly InputAction m_Player_ToggleQuestTracker;
     private readonly InputAction m_Player_TogglePauseMenu;
     private readonly InputAction m_Player_Interact;
     public struct PlayerActions
@@ -594,7 +624,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @CursorControl => m_Wrapper.m_Player_CursorControl;
         public InputAction @BasicAttack => m_Wrapper.m_Player_BasicAttack;
         public InputAction @DashAttack => m_Wrapper.m_Player_DashAttack;
-        public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
+        public InputAction @ToggleQuestTracker => m_Wrapper.m_Player_ToggleQuestTracker;
         public InputAction @TogglePauseMenu => m_Wrapper.m_Player_TogglePauseMenu;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -618,9 +648,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @DashAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashAttack;
                 @DashAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashAttack;
                 @DashAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashAttack;
-                @ToggleInventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleInventory;
-                @ToggleInventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleInventory;
-                @ToggleInventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleInventory;
+                @ToggleQuestTracker.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleQuestTracker;
+                @ToggleQuestTracker.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleQuestTracker;
+                @ToggleQuestTracker.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleQuestTracker;
                 @TogglePauseMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTogglePauseMenu;
                 @TogglePauseMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTogglePauseMenu;
                 @TogglePauseMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTogglePauseMenu;
@@ -643,9 +673,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @DashAttack.started += instance.OnDashAttack;
                 @DashAttack.performed += instance.OnDashAttack;
                 @DashAttack.canceled += instance.OnDashAttack;
-                @ToggleInventory.started += instance.OnToggleInventory;
-                @ToggleInventory.performed += instance.OnToggleInventory;
-                @ToggleInventory.canceled += instance.OnToggleInventory;
+                @ToggleQuestTracker.started += instance.OnToggleQuestTracker;
+                @ToggleQuestTracker.performed += instance.OnToggleQuestTracker;
+                @ToggleQuestTracker.canceled += instance.OnToggleQuestTracker;
                 @TogglePauseMenu.started += instance.OnTogglePauseMenu;
                 @TogglePauseMenu.performed += instance.OnTogglePauseMenu;
                 @TogglePauseMenu.canceled += instance.OnTogglePauseMenu;
@@ -721,13 +751,46 @@ public class @InputActions : IInputActionCollection, IDisposable
         }
     }
     public BackpackActions @Backpack => new BackpackActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_ResetLevel;
+    public struct DebugActions
+    {
+        private @InputActions m_Wrapper;
+        public DebugActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ResetLevel => m_Wrapper.m_Debug_ResetLevel;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @ResetLevel.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnResetLevel;
+                @ResetLevel.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnResetLevel;
+                @ResetLevel.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnResetLevel;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ResetLevel.started += instance.OnResetLevel;
+                @ResetLevel.performed += instance.OnResetLevel;
+                @ResetLevel.canceled += instance.OnResetLevel;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnCursorControl(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnDashAttack(InputAction.CallbackContext context);
-        void OnToggleInventory(InputAction.CallbackContext context);
+        void OnToggleQuestTracker(InputAction.CallbackContext context);
         void OnTogglePauseMenu(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
     }
@@ -738,5 +801,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnPlaceMarker(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
         void OnThrowBackpack(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnResetLevel(InputAction.CallbackContext context);
     }
 }

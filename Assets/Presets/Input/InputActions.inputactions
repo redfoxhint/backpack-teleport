@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ToggleInventory",
+                    "name": "ToggleQuestTracker",
                     "type": "Button",
                     "id": "2f85bda1-32b1-42b6-b31e-9ebd07f0acd7",
                     "expectedControlType": "",
@@ -180,7 +180,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleInventory",
+                    "action": "ToggleQuestTracker",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -191,7 +191,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleInventory",
+                    "action": "ToggleQuestTracker",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -493,6 +493,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "ThrowBackpack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Debug",
+            "id": "2496fecd-396e-4b56-8cb2-6318e0ea8118",
+            "actions": [
+                {
+                    "name": "ResetLevel",
+                    "type": "Button",
+                    "id": "111c54be-99fe-4be3-a7b7-83a169a920ce",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f20bd8b5-616b-4aba-85cb-4ff86b649818",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetLevel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

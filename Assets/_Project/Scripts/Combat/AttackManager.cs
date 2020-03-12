@@ -1,14 +1,43 @@
-﻿using System.Collections;
+﻿using BackpackTeleport.Character;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
+    public struct AttackData
+    {
+        public float damageDealt; // Not implemented. Meant for getting how much damage the attack would deal. The damage amount calculation would probably happen in a seperate damage class to make damage reuseable.
+        public float dashKnockbackAmount; // For storing how much the last attack knocked back the enemy. This cna also be randomized in a seperate knockback class.
+        public List<BaseDamageable> baseDamageablesDetectedInLastHit; // Base Damageables detected from last attack.
+
+        public float lastAttackDirection; // The last floating point direction we last attacked in.
+        public Transform lastAttackLocation; // The last "collider direction" that was used to detect damageables;
+
+        public AttackData(float _damageDealt, float _dashKnockbackAmount, List<BaseDamageable> _baseDamageablesDetected, Transform _lastAttackLocation, float _lastAttackDirection)
+        {
+            damageDealt = _damageDealt;
+            dashKnockbackAmount = _dashKnockbackAmount;
+            baseDamageablesDetectedInLastHit = _baseDamageablesDetected;
+            lastAttackLocation = _lastAttackLocation;
+            lastAttackDirection = _lastAttackDirection;
+        }
+    }
+
     [Header("Attack Configuration")]
     [SerializeField] private float attackRange;
     [SerializeField] private float damageAmount;
     [SerializeField] private float dashAttackDamageDelay;
     [SerializeField] private float knockbackAmount;
     [SerializeField] private LayerMask enemyFilter;
+    [SerializeField] private bool debug;
+    [SerializeField] private float attackAnimationTime = 1; // How long the attack lasts
+
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem attackParticleUp;
+    [SerializeField] private ParticleSystem attackParticleDown;
+    [SerializeField] private ParticleSystem attackParticleRight;
+    [SerializeField] private ParticleSystem attackParticleLeft;
 
     [Header("Attack Locations")]
     [SerializeField] private Transform attackUpLocation;
@@ -16,7 +45,7 @@ public class AttackManager : MonoBehaviour
     [SerializeField] private Transform attackLeftLocation;
     [SerializeField] private Transform attackRightLocation;
 
-    [SerializeField] private float nextAttackTime = 1; // The time between attacks before the combo is reset.
+    [SerializeField] private float comboResetTime = 1; // The time between attacks before the combo is reset.
     [SerializeField] private float dashAmount;
     [SerializeField] private bool doDashAttack = true;
     private Animator animator;
@@ -30,7 +59,8 @@ public class AttackManager : MonoBehaviour
     // Components
     private PhysicsCharacterController characterController;
     private CharacterBase characterBase;
-
+    private Camera cam;
+    private float nextAttackDirection;
 
     private void Awake()
     {
@@ -39,8 +69,6 @@ public class AttackManager : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<PhysicsCharacterController>();
         characterBase = GetComponent<CharacterBase>();
-
-        animator.SetFloat("ComboIndex", comboIndex);
     }
 
     private void Update()
@@ -82,9 +110,13 @@ public class AttackManager : MonoBehaviour
             ResetCombo();
             return;
         }
-
-        SetAttack(comboIndex);
-        currentComboTime = nextAttackTime;
+        else
+        {
+            SetAttack(comboIndex);
+            currentComboTime = comboResetTime;
+        }
+        
+        Utils.ShakeCameraPosition(Camera.main.transform, 0.6f, 0.08f, 15, 0f, false);
     }
 
     private void DealDamage()
@@ -98,8 +130,10 @@ public class AttackManager : MonoBehaviour
     private IEnumerator DealDelayedDamagedRoutine(Transform damageColliderPos, float applyDamageDelay)
     {
         bool finished = false;
+        ParticleSystem attackParticle = GetAttackParticle(nextAttackDirection);
+        attackParticle.Play();
 
-        while(!finished)
+        while (!finished)
         {
             yield return new WaitForSeconds(applyDamageDelay);
 
@@ -132,7 +166,7 @@ public class AttackManager : MonoBehaviour
 
         SetAttack(comboIndex);
 
-        currentComboTime = nextAttackTime;
+        currentComboTime = comboResetTime;
     }
 
     private void SetAttack(float index)
@@ -151,11 +185,13 @@ public class AttackManager : MonoBehaviour
         inCombo = false;
         currentComboTime = 0;
         comboIndex = 0;
+        animator.SetFloat("ComboIndex", 0f);
     }
 
     private Transform CalculateAttackDirection()
     {
         float attackDirection = characterBase.FacingDirection;
+        nextAttackDirection = attackDirection;
         Transform attackLocation = null;
 
         switch (attackDirection)
@@ -182,4 +218,46 @@ public class AttackManager : MonoBehaviour
 
         return attackLocation;
     }
+
+    private ParticleSystem GetAttackParticle(float attackDirection)
+    {
+        switch(attackDirection)
+        {
+            case 0:
+                return attackParticleDown;
+
+            case 1:
+                return attackParticleRight;
+
+            case 2:
+                return attackParticleLeft;
+
+            case 4:
+                return attackParticleUp;
+
+            default:
+                return null;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(Application.isPlaying && debug)
+        {
+            // Attack location
+
+            Gizmos.color = Color.red;
+            Transform circleLocation = CalculateAttackDirection();
+
+            if (circleLocation == null) return;
+
+            Gizmos.DrawSphere(circleLocation.position, attackRange);
+
+            // Attack Range
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(circleLocation.position, attackRange);
+        }
+    }
 }
+
+

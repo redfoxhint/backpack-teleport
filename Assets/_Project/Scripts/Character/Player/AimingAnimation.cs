@@ -27,6 +27,11 @@ public class AimingAnimation : MonoBehaviour
 		gameCursor = FindObjectOfType<GameCursor>();
 	}
 
+	private void Start()
+	{
+		DisableArrow();
+	}
+
 	public void DrawDottedLineAndArrow(Vector2 startPoint, Vector2 endPoint)
 	{
 		dottedLine.DrawDottedLine(startPoint, endPoint);
