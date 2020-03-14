@@ -1,0 +1,1723 @@
+fileFormatVersion: 2
+guid: 56a07b44822c4f042af8520328c31499
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8454177348974400167
+    second: arti_attackCombo1_noBackopack_full_0
+  - first:
+      213: -7750748472990647696
+    second: arti_attackCombo1_noBackopack_full_1
+  - first:
+      213: 5941982107025984557
+    second: arti_attackCombo1_noBackopack_full_2
+  - first:
+      213: -8062445820223718937
+    second: arti_attackCombo1_noBackopack_full_3
+  - first:
+      213: 4058825920228659542
+    second: arti_attackCombo1_noBackopack_full_4
+  - first:
+      213: -92574490020658135
+    second: arti_attackCombo1_noBackopack_full_5
+  - first:
+      213: 6259305438410907978
+    second: arti_attackCombo1_noBackopack_full_6
+  - first:
+      213: -2062152892814163961
+    second: arti_attackCombo1_noBackopack_full_7
+  - first:
+      213: 2685166774047759339
+    second: arti_attackCombo1_noBackopack_full_8
+  - first:
+      213: 3484622285889862732
+    second: arti_attackCombo1_noBackopack_full_9
+  - first:
+      213: 4460971813097431434
+    second: arti_attackCombo1_noBackopack_full_10
+  - first:
+      213: 1463771705585395743
+    second: arti_attackCombo1_noBackopack_full_11
+  - first:
+      213: 8545044728244313889
+    second: arti_attackCombo1_noBackopack_full_12
+  - first:
+      213: -3982115386872105665
+    second: arti_attackCombo1_noBackopack_full_13
+  - first:
+      213: -9004898981488146022
+    second: arti_attackCombo1_noBackopack_full_14
+  - first:
+      213: -4318422006977224203
+    second: arti_attackCombo1_noBackopack_full_15
+  - first:
+      213: 6308624676834807017
+    second: arti_attackCombo1_noBackopack_full_16
+  - first:
+      213: 1318175936387311739
+    second: arti_attackCombo1_noBackopack_full_17
+  - first:
+      213: 6772538480085875571
+    second: arti_attackCombo1_noBackopack_full_18
+  - first:
+      213: -7216488364781407101
+    second: arti_attackCombo1_noBackopack_full_19
+  - first:
+      213: 1568325526046885934
+    second: arti_attackCombo1_noBackopack_full_20
+  - first:
+      213: -817047030868813242
+    second: arti_attackCombo1_noBackopack_full_21
+  - first:
+      213: 4447958925284295458
+    second: arti_attackCombo1_noBackopack_full_22
+  - first:
+      213: 4695401451053231444
+    second: arti_attackCombo1_noBackopack_full_23
+  - first:
+      213: -5233873431842613430
+    second: arti_attackCombo1_noBackopack_full_24
+  - first:
+      213: -3045819183664962073
+    second: arti_attackCombo1_noBackopack_full_25
+  - first:
+      213: 5475677074630746606
+    second: arti_attackCombo1_noBackopack_full_26
+  - first:
+      213: 6736947699377730696
+    second: arti_attackCombo1_noBackopack_full_27
+  - first:
+      213: -3070483859498182252
+    second: arti_attackCombo1_noBackopack_full_28
+  - first:
+      213: -4283556345506317549
+    second: arti_attackCombo1_noBackopack_full_29
+  - first:
+      213: -5388915075451268366
+    second: arti_attackCombo1_noBackopack_full_30
+  - first:
+      213: 7766978008461258883
+    second: arti_attackCombo1_noBackopack_full_31
+  - first:
+      213: 7603139338033888820
+    second: arti_attackCombo1_noBackopack_full_32
+  - first:
+      213: 3343287836576510179
+    second: arti_attackCombo1_noBackopack_full_33
+  - first:
+      213: -6783238540726302170
+    second: arti_attackCombo1_noBackopack_full_34
+  - first:
+      213: 5340117473906245713
+    second: arti_attackCombo1_noBackopack_full_35
+  - first:
+      213: -416980697574618409
+    second: arti_attackCombo1_noBackopack_full_36
+  - first:
+      213: -1622142870640669499
+    second: arti_attackCombo1_noBackopack_full_37
+  - first:
+      213: 8082642174986029937
+    second: arti_attackCombo1_noBackopack_full_38
+  - first:
+      213: -3388465221736201284
+    second: arti_attackCombo1_noBackopack_full_39
+  - first:
+      213: -2904331518937662640
+    second: arti_attackCombo1_noBackopack_full_40
+  - first:
+      213: 5280900131928037533
+    second: arti_attackCombo1_noBackopack_full_41
+  - first:
+      213: 1089798391253440290
+    second: arti_attackCombo1_noBackopack_full_42
+  - first:
+      213: -3013875604971428835
+    second: arti_attackCombo1_noBackopack_full_43
+  - first:
+      213: 8514040611133668722
+    second: arti_attackCombo1_noBackopack_full_44
+  - first:
+      213: 7089480447578799507
+    second: arti_attackCombo1_noBackopack_full_45
+  - first:
+      213: 8483346810220823360
+    second: arti_attackCombo1_noBackopack_full_46
+  - first:
+      213: -306179676299825977
+    second: arti_attackCombo1_noBackopack_full_47
+  - first:
+      213: -1081871598240329845
+    second: arti_attackCombo1_noBackopack_full_48
+  - first:
+      213: 1331253432290288900
+    second: arti_attackCombo1_noBackopack_full_49
+  - first:
+      213: -3642086061049512554
+    second: arti_attackCombo1_noBackopack_full_50
+  - first:
+      213: 3505563674093420187
+    second: arti_attackCombo1_noBackopack_full_51
+  - first:
+      213: 467211382294283342
+    second: arti_attackCombo1_noBackopack_full_52
+  - first:
+      213: 5360173593758938686
+    second: arti_attackCombo1_noBackopack_full_53
+  - first:
+      213: 842497884669869962
+    second: arti_attackCombo1_noBackopack_full_54
+  - first:
+      213: -421263981879413128
+    second: arti_attackCombo1_noBackopack_full_55
+  - first:
+      213: -5486785844224266401
+    second: arti_attackCombo1_noBackopack_full_56
+  - first:
+      213: 3104217816302500274
+    second: arti_attackCombo1_noBackopack_full_57
+  - first:
+      213: 3714778002628171741
+    second: arti_attackCombo1_noBackopack_full_58
+  - first:
+      213: -4398672927423985671
+    second: arti_attackCombo1_noBackopack_full_59
+  - first:
+      213: 2081754976438106959
+    second: arti_attackCombo1_noBackopack_full_60
+  - first:
+      213: -8814143818697377743
+    second: arti_attackCombo1_noBackopack_full_61
+  - first:
+      213: 6970369751383926387
+    second: arti_attackCombo1_noBackopack_full_62
+  - first:
+      213: -3044419394722773103
+    second: arti_attackCombo1_noBackopack_full_63
+  - first:
+      213: 7929402829419234127
+    second: arti_attackCombo1_noBackopack_full_64
+  - first:
+      213: -8633577460398353838
+    second: arti_attackCombo1_noBackopack_full_65
+  - first:
+      213: -5152988047335966849
+    second: arti_attackCombo1_noBackopack_full_66
+  - first:
+      213: -7843857171446314882
+    second: arti_attackCombo1_noBackopack_full_67
+  - first:
+      213: -2697522298808639238
+    second: arti_attackCombo1_noBackopack_full_68
+  - first:
+      213: -2051382449200761027
+    second: arti_attackCombo1_noBackopack_full_69
+  - first:
+      213: 6793341564735276631
+    second: arti_attackCombo1_noBackopack_full_70
+  - first:
+      213: -8966879291831656432
+    second: arti_attackCombo1_noBackopack_full_71
+  - first:
+      213: -6885165594098686612
+    second: arti_attackCombo1_noBackopack_full_72
+  - first:
+      213: -4503949548825186770
+    second: arti_attackCombo1_noBackopack_full_73
+  - first:
+      213: 1614337865027750031
+    second: arti_attackCombo1_noBackopack_full_74
+  - first:
+      213: 9130931638590203303
+    second: arti_attackCombo1_noBackopack_full_75
+  - first:
+      213: 3945871347862603652
+    second: arti_attackCombo1_noBackopack_full_76
+  - first:
+      213: 8733771498783125741
+    second: arti_attackCombo1_noBackopack_full_77
+  - first:
+      213: -3659648166814584475
+    second: arti_attackCombo1_noBackopack_full_78
+  - first:
+      213: -6723499045436773976
+    second: arti_attackCombo1_noBackopack_full_79
+  - first:
+      213: 1568249341306056230
+    second: arti_attackCombo1_noBackopack_full_80
+  - first:
+      213: 7903126783300876581
+    second: arti_attackCombo1_noBackopack_full_81
+  - first:
+      213: -7701275613607464631
+    second: arti_attackCombo1_noBackopack_full_82
+  - first:
+      213: -3623671152208866985
+    second: arti_attackCombo1_noBackopack_full_83
+  - first:
+      213: 298712056895185919
+    second: arti_attackCombo1_noBackopack_full_84
+  - first:
+      213: 2802194957945014301
+    second: arti_attackCombo1_noBackopack_full_85
+  - first:
+      213: 6343275128771049260
+    second: arti_attackCombo1_noBackopack_full_86
+  - first:
+      213: -4121385132537083897
+    second: arti_attackCombo1_noBackopack_full_87
+  - first:
+      213: 223724355893873563
+    second: arti_attackCombo1_noBackopack_full_88
+  - first:
+      213: -4796034184477390339
+    second: arti_attackCombo1_noBackopack_full_89
+  - first:
+      213: -1801128355925513235
+    second: arti_attackCombo1_noBackopack_full_90
+  - first:
+      213: 7951167183472023843
+    second: arti_attackCombo1_noBackopack_full_91
+  - first:
+      213: -1343377040657367540
+    second: arti_attackCombo1_noBackopack_full_92
+  - first:
+      213: 1452877462346846563
+    second: arti_attackCombo1_noBackopack_full_93
+  - first:
+      213: 2039117335942218187
+    second: arti_attackCombo1_noBackopack_full_94
+  - first:
+      213: 7447078733089632346
+    second: arti_attackCombo1_noBackopack_full_95
+  - first:
+      213: -7388365680150642608
+    second: arti_attackCombo1_noBackopack_full_96
+  - first:
+      213: 1103428259249434567
+    second: arti_attackCombo1_noBackopack_full_97
+  - first:
+      213: 7319829687802070595
+    second: arti_attackCombo1_noBackopack_full_98
+  - first:
+      213: -3562798429035127089
+    second: arti_attackCombo1_noBackopack_full_99
+  - first:
+      213: 407279283274288152
+    second: arti_attackCombo1_noBackopack_full_100
+  - first:
+      213: -7748002878844612727
+    second: arti_attackCombo1_noBackopack_full_101
+  - first:
+      213: -8364298865660467738
+    second: arti_attackCombo1_noBackopack_full_102
+  - first:
+      213: 4162444242754097695
+    second: arti_attackCombo1_noBackopack_full_103
+  - first:
+      213: 6492634596671583078
+    second: arti_attackCombo1_noBackopack_full_104
+  - first:
+      213: 7355003876316765419
+    second: arti_attackCombo1_noBackopack_full_105
+  - first:
+      213: 8385202594643979060
+    second: arti_attackCombo1_noBackopack_full_106
+  - first:
+      213: -8956230274552582101
+    second: arti_attackCombo1_noBackopack_full_107
+  - first:
+      213: -7209912371280811062
+    second: arti_attackCombo1_noBackopack_full_108
+  - first:
+      213: -7124279761456176088
+    second: arti_attackCombo1_noBackopack_full_109
+  - first:
+      213: -7945992387071899569
+    second: arti_attackCombo1_noBackopack_full_110
+  - first:
+      213: -7735303115432175994
+    second: arti_attackCombo1_noBackopack_full_111
+  - first:
+      213: -3845487903958992662
+    second: arti_attackCombo1_noBackopack_full_112
+  - first:
+      213: -7807548345222759756
+    second: arti_attackCombo1_noBackopack_full_113
+  - first:
+      213: 5803175208024932749
+    second: arti_attackCombo1_noBackopack_full_114
+  - first:
+      213: -7618509225483218975
+    second: arti_attackCombo1_noBackopack_full_115
+  - first:
+      213: -220771532694206880
+    second: arti_attackCombo1_noBackopack_full_116
+  - first:
+      213: -6224659022809091767
+    second: arti_attackCombo1_noBackopack_full_117
+  - first:
+      213: -1579409527289158877
+    second: arti_attackCombo1_noBackopack_full_118
+  - first:
+      213: -6951702224087582283
+    second: arti_attackCombo1_noBackopack_full_119
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 12
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a2d5c9b185435570800000000000000
+      internalID: 8454177348974400167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07abdfb345fcf6490800000000000000
+      internalID: -7750748472990647696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2cc20f8e39267250800000000000000
+      internalID: 5941982107025984557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e97bb04e307c1090800000000000000
+      internalID: -8062445820223718937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 651906c7ba8d35830800000000000000
+      internalID: 4058825920228659542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9244e07edfb17bef0800000000000000
+      internalID: -92574490020658135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a41272d02258dd650800000000000000
+      internalID: 6259305438410907978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7008447aed2c163e0800000000000000
+      internalID: -2062152892814163961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: beb5cc154f0a34520800000000000000
+      internalID: 2685166774047759339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4cffd6b18ddb5030800000000000000
+      internalID: 3484622285889862732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a81e3b09a3e88ed30800000000000000
+      internalID: 4460971813097431434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f186faf5c9c505410800000000000000
+      internalID: 1463771705585395743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12f93d028e8169670800000000000000
+      internalID: 8545044728244313889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f35fede572facb8c0800000000000000
+      internalID: -3982115386872105665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a994f1a161c280380800000000000000
+      internalID: -9004898981488146022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1a4eb8012e114c0800000000000000
+      internalID: -4318422006977224203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ec800418bcbc8750800000000000000
+      internalID: 6308624676834807017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_17
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7865d7b70a1b4210800000000000000
+      internalID: 1318175936387311739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_18
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37bbe2d7dd3ecfd50800000000000000
+      internalID: 6772538480085875571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_19
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 384f67b1112e9db90800000000000000
+      internalID: -7216488364781407101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e28c330b1cfc3c510800000000000000
+      internalID: 1568325526046885934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_21
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64ad648ed0449a4f0800000000000000
+      internalID: -817047030868813242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_22
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 223491583135abd30800000000000000
+      internalID: 4447958925284295458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_23
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45da1ef0eba692140800000000000000
+      internalID: 4695401451053231444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_24
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a479aaf08db8d57b0800000000000000
+      internalID: -5233873431842613430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e5649307931bb5d0800000000000000
+      internalID: -3045819183664962073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_26
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee1ad1ab9438dfb40800000000000000
+      internalID: 5475677074630746606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_27
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8847bcb1d327e7d50800000000000000
+      internalID: 6736947699377730696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_28
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4995a0aa2337365d0800000000000000
+      internalID: -3070483859498182252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_29
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31bb9b2f230cd84c0800000000000000
+      internalID: -4283556345506317549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f2daf26a4ab635b0800000000000000
+      internalID: -5388915075451268366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_31
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380ba94f859d9cb60800000000000000
+      internalID: 7766978008461258883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_32
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43efe4dd1f6c38960800000000000000
+      internalID: 7603139338033888820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_33
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e0f609e29eb56e20800000000000000
+      internalID: 3343287836576510179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_34
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62a05418c781dd1a0800000000000000
+      internalID: -6783238540726302170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 150c903ac88eb1a40800000000000000
+      internalID: 5340117473906245713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_36
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dacedac346963af0800000000000000
+      internalID: -416980697574618409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_37
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ccc78457adfc79e0800000000000000
+      internalID: -1622142870640669499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_38
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17b02a60c305b2070800000000000000
+      internalID: 8082642174986029937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_39
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb306ac65d0c9f0d0800000000000000
+      internalID: -3388465221736201284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05bffbf0fddb1b7d0800000000000000
+      internalID: -2904331518937662640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_41
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9852e9c0b6894940800000000000000
+      internalID: 5280900131928037533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_42
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2271473ecddbf1f00800000000000000
+      internalID: 1089798391253440290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_43
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1466700b109c26d0800000000000000
+      internalID: -3013875604971428835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_44
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27d3fd593d2f72670800000000000000
+      internalID: 8514040611133668722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39df208c7e4e26260800000000000000
+      internalID: 7089480447578799507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_46
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 043c7a92af6eab570800000000000000
+      internalID: 8483346810220823360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_47
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cc64b4e43b30cbf0800000000000000
+      internalID: -306179676299825977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_48
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8f0d4e638b6cf0f0800000000000000
+      internalID: -1081871598240329845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_49
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 405aea181ff897210800000000000000
+      internalID: 1331253432290288900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69dfdb92606b47dc0800000000000000
+      internalID: -3642086061049512554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_51
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9ef9db969346a030800000000000000
+      internalID: 3505563674093420187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_52
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e448bacd64edb7600800000000000000
+      internalID: 467211382294283342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_53
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e363e6eeb79236a40800000000000000
+      internalID: 5360173593758938686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_54
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8ff3c3cc5721bb00800000000000000
+      internalID: 842497884669869962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_55
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8763963f3ae572af0800000000000000
+      internalID: -421263981879413128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_56
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5fee5c48550bd3b0800000000000000
+      internalID: -5486785844224266401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_57
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b9362638a5641b20800000000000000
+      internalID: 3104217816302500274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_58
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd7561269ea8d8330800000000000000
+      internalID: 3714778002628171741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arti_attackCombo1_noBackopack_full_59
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f704c51746c4f2c0800000000000000
+      internalID: -4398672927423985671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

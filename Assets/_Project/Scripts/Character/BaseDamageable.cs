@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public enum EntityType
 {
@@ -18,12 +19,12 @@ namespace BackpackTeleport.Character
 		[SerializeField] protected float maxHealth = 10f; 
 		[SerializeField] protected Color damageBlipColor = Color.red;
 		[SerializeField] protected BaseCharacterData baseCharacterData;
-		[SerializeField] private ParticleSystem damageParticle;
-		[SerializeField] private EntityType entityType;
+		[SerializeField] protected ParticleSystem damageParticle;
+		[SerializeField] protected EntityType entityType;
 
 		// Private Variables
 		protected float currentHealth;
-		private bool applyKnockbackAfterDamaged = true;
+		protected bool applyKnockbackAfterDamaged = true;
 
 		// Properties
 		public BaseCharacterData BaseCharacterData { set { baseCharacterData = value; } }
@@ -31,12 +32,12 @@ namespace BackpackTeleport.Character
 
 		// Components
 		[SerializeField] protected Image healthBar;
-		private Knockback knockback;
-		private SpriteRenderer spriteRenderer;
+		protected Knockback knockback;
+		protected SpriteRenderer spriteRenderer;
 
-		private void Awake()
+		protected virtual void Awake()
 		{
-			healthBar = GetComponentInChildren<Image>();
+			//healthBar = GetComponentInChildren<Image>();
 			knockback = GetComponent<Knockback>();
 			spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -48,7 +49,7 @@ namespace BackpackTeleport.Character
 			knockback.OnKnockbackFinished -= OnKnockbackFinished;
 		}
 
-		private void Start()
+		protected virtual void Start()
 		{
 			currentHealth = maxHealth;
 			UpdateHealthbar(currentHealth);
@@ -65,7 +66,7 @@ namespace BackpackTeleport.Character
 			}
 		}
 
-		public void RecalculateHealth(float amount)
+		public virtual void RecalculateHealth(float amount)
 		{
 			float newHealth = currentHealth - amount;
 
@@ -80,32 +81,46 @@ namespace BackpackTeleport.Character
 			UpdateHealthbar(newHealth);
 		}
 
-		public void UpdateHealthbar(float newHealth)
+		public virtual void AddHealth(float amount)
+		{
+			float newHealth = currentHealth + amount;
+			currentHealth = newHealth;
+
+			if(currentHealth > maxHealth)
+			{
+				currentHealth = maxHealth;
+			}
+
+			UpdateHealthbar(currentHealth);
+		}
+
+		public virtual void UpdateHealthbar(float newHealth)
 		{
 			if(healthBar != null)
 			{
 				healthBar.fillAmount = newHealth / maxHealth;
+				Debug.Log($"New health ratio: {newHealth / maxHealth}");
 			}
 		}
 
-		public void IncreaseMaxHealth(float newMaxHealth)
+		public virtual void IncreaseMaxHealth(float newMaxHealth)
 		{
 			maxHealth = newMaxHealth;
 			UpdateHealthbar(currentHealth);
 		}
 
-		private void ApplyKnockback(Transform damageDealer)
+		protected virtual void ApplyKnockback(Transform damageDealer)
 		{
 			knockback.ApplyKnockback(damageDealer);
 			spriteRenderer.color = damageBlipColor;
 		}
 
-		private void OnKnockbackFinished()
+		protected virtual void OnKnockbackFinished()
 		{
 			spriteRenderer.color = Color.white;
 		}
 
-		private void Kill()
+		protected virtual void Kill()
 		{
 			GameEvents.onEntityKilled.Invoke(entityType);
 			Destroy(gameObject);

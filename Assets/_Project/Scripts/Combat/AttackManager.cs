@@ -24,26 +24,26 @@ public class AttackManager : MonoBehaviour
         }
     }
 
+    [System.Serializable]
+    public struct AttackDirectionData
+    {
+        public Vector2 attackDirectionColliderSize;
+        public Transform attackLocation;
+        public ParticleSystem attackParticle;
+        public float colliderAngle;
+    }
+
     [Header("Attack Configuration")]
+    [SerializeField] private bool debug;
     [SerializeField] private float attackRange;
     [SerializeField] private float damageAmount;
     [SerializeField] private float dashAttackDamageDelay;
     [SerializeField] private float knockbackAmount;
-    [SerializeField] private LayerMask enemyFilter;
-    [SerializeField] private bool debug;
     [SerializeField] private float attackAnimationTime = 1; // How long the attack lasts
+    [SerializeField] private LayerMask enemyFilter;
 
-    [Header("Particles")]
-    [SerializeField] private ParticleSystem attackParticleUp;
-    [SerializeField] private ParticleSystem attackParticleDown;
-    [SerializeField] private ParticleSystem attackParticleRight;
-    [SerializeField] private ParticleSystem attackParticleLeft;
-
-    [Header("Attack Locations")]
-    [SerializeField] private Transform attackUpLocation;
-    [SerializeField] private Transform attackDownLocation;
-    [SerializeField] private Transform attackLeftLocation;
-    [SerializeField] private Transform attackRightLocation;
+    [Header("Attack Data")]
+    [SerializeField] private List<AttackDirectionData> attackDirectionData;
 
     [SerializeField] private float comboResetTime = 1; // The time between attacks before the combo is reset.
     [SerializeField] private float dashAmount;
@@ -60,7 +60,7 @@ public class AttackManager : MonoBehaviour
     private PhysicsCharacterController characterController;
     private CharacterBase characterBase;
     private Camera cam;
-    private float nextAttackDirection;
+    private AttackDirectionData nextAttackDirection;
 
     private void Awake()
     {
@@ -121,33 +121,36 @@ public class AttackManager : MonoBehaviour
 
     private void DealDamage()
     {
-        Transform attackLocation = CalculateAttackDirection();
-        if (attackLocation == null) return;
+        AttackDirectionData attackData = GetAttackData();
 
-        StartCoroutine(DealDelayedDamagedRoutine(attackLocation, dashAttackDamageDelay));
+        StartCoroutine(DealDelayedDamagedRoutine(attackData, dashAttackDamageDelay));
     }
 
-    private IEnumerator DealDelayedDamagedRoutine(Transform damageColliderPos, float applyDamageDelay)
+    private IEnumerator DealDelayedDamagedRoutine(AttackDirectionData attackData, float applyDamageDelay)
     {
         bool finished = false;
-        ParticleSystem attackParticle = GetAttackParticle(nextAttackDirection);
+        ParticleSystem attackParticle = attackData.attackParticle;
         attackParticle.Play();
 
         while (!finished)
         {
             yield return new WaitForSeconds(applyDamageDelay);
 
-            Collider2D[] detectedDamageables = Physics2D.OverlapCircleAll(damageColliderPos.position, attackRange, enemyFilter);
+            //Collider2D[] detectedDamageables = Physics2D.OverlapCircleAll(damageColliderPos.position, attackRange, enemyFilter);
+            Collider2D[] detectedDamageables = Physics2D.OverlapBoxAll(attackData.attackLocation.position, attackData.attackDirectionColliderSize, enemyFilter);
 
             if (detectedDamageables.Length > 0)
             {
                 for (int i = 0; i < detectedDamageables.Length; i++)
                 {
-                    IDamageable damageable = detectedDamageables[i].GetComponent<IDamageable>();
-
-                    if (damageable != null)
+                    if (detectedDamageables[i].gameObject != gameObject)
                     {
-                        damageable.TakeDamage(this.gameObject.transform, damageAmount);
+                        IDamageable damageable = detectedDamageables[i].GetComponent<IDamageable>();
+
+                        if (damageable != null)
+                        {
+                            damageable.TakeDamage(this.gameObject.transform, damageAmount);
+                        }
                     }
                 }
             }
@@ -155,8 +158,6 @@ public class AttackManager : MonoBehaviour
             finished = true;
             yield return null;
         }
-
-        
     }
 
     private void StartCombo()
@@ -188,56 +189,13 @@ public class AttackManager : MonoBehaviour
         animator.SetFloat("ComboIndex", 0f);
     }
 
-    private Transform CalculateAttackDirection()
+    private AttackDirectionData GetAttackData()
     {
         float attackDirection = characterBase.FacingDirection;
-        nextAttackDirection = attackDirection;
-        Transform attackLocation = null;
+        AttackDirectionData attackData = attackDirectionData[(int)attackDirection];
+        nextAttackDirection = attackData;
 
-        switch (attackDirection)
-        {
-            case 0:
-                attackLocation = attackDownLocation;
-                break;
-
-            case 1:
-                attackLocation = attackRightLocation;
-                break;
-
-            case 2:
-                attackLocation = attackLeftLocation;
-                break;
-
-            case 4:
-                attackLocation = attackUpLocation;
-                break;
-
-            default:
-                return null;
-        }
-
-        return attackLocation;
-    }
-
-    private ParticleSystem GetAttackParticle(float attackDirection)
-    {
-        switch(attackDirection)
-        {
-            case 0:
-                return attackParticleDown;
-
-            case 1:
-                return attackParticleRight;
-
-            case 2:
-                return attackParticleLeft;
-
-            case 4:
-                return attackParticleUp;
-
-            default:
-                return null;
-        }
+        return attackData;
     }
 
     private void OnDrawGizmos()
@@ -247,15 +205,13 @@ public class AttackManager : MonoBehaviour
             // Attack location
 
             Gizmos.color = Color.red;
-            Transform circleLocation = CalculateAttackDirection();
 
-            if (circleLocation == null) return;
-
-            Gizmos.DrawSphere(circleLocation.position, attackRange);
+            //Gizmos.DrawSphere(circleLocation.position, attackRange);
+            Gizmos.DrawCube(nextAttackDirection.attackLocation.position, new Vector2(1.166171f, 1.638526f));
 
             // Attack Range
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(circleLocation.position, attackRange);
+            Gizmos.DrawCube(nextAttackDirection.attackLocation.position, new Vector2(1.166171f, 1.638526f));
         }
     }
 }

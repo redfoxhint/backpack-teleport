@@ -51,6 +51,5 @@ public class QuestTracker : MonoBehaviour
             GameManager.Instance.ResumeGame();
             Cursor.visible = false;
         }
-
     }
 }
