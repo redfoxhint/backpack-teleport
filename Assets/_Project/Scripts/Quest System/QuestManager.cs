@@ -38,6 +38,9 @@ public class QuestManager : MonoBehaviour
 
         GameEvents.onQuestAssigned.Invoke(newQuest);
 
+        Notification onQuestAssignedNotification = new Notification("New Quest Added To Quest Tracker!", NotificationType.TEXT);
+        GameEvents.onNotificationCreated.Invoke(onQuestAssignedNotification);
+
         Debug.Log($"<color=blue>New Quest Assigned: {newQuest.QuestName}</color>");
     }
 }

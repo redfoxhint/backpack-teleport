@@ -17,11 +17,17 @@ public class QuestTrackerItem : MonoBehaviour
         SetItemTitle(quest.QuestName);
         associatedQuest = quest;
         itemButton.onClick.AddListener(() => _questManagerUI.SetDescriptionPanel(quest));
+        GameEvents.onQuestCompleted.AddListener(SetCompleted);
     }
 
     private void SetItemTitle(string newTitle)
     {
         itemText.SetText(newTitle);
+    }
+
+    private void SetCompleted(Quest quest)
+    {
+        itemText.fontStyle = FontStyles.Strikethrough; 
     }
 
 }

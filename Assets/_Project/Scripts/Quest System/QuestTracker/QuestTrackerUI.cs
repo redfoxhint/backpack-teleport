@@ -44,10 +44,11 @@ public class QuestTrackerUI : MonoBehaviour
         CalculateProgressValue(currentValue, requiredValue);
     }
 
-    //public void UpdateQuest()
-    //{
-    //    SetDescriptionPanel(associatedQuest);
-    //}
+    public void UpdateQuest(Quest quest)
+    {
+        associatedQuest = quest;
+        SetDescriptionPanel(associatedQuest);
+    }
 
     private void CalculateProgressValue(int currentValue, int requiredValue)
     {

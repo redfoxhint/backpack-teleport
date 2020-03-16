@@ -8,8 +8,6 @@ using UnityEngine.InputSystem;
 public class PlayerDamageable : BaseDamageable
 {
     [SerializeField] private Image energyBar;
-    private const float HEALTH_BAR_INCREMENT_SIZE = 0.14f;
-    private const float ENERGY_BAR_INCREMENT_SIZE = 0.5f;
 
     private float maxEnergy = 2;
     private float currentEnergy;
@@ -18,68 +16,69 @@ public class PlayerDamageable : BaseDamageable
     {
         base.Start();
         currentEnergy = maxEnergy;
-        UpdateEnergyBar(currentEnergy);
+        UpdateStatBar(energyBar, currentEnergy, maxEnergy);
     }
 
     private void Update()
     {
-        if(Keyboard.current.mKey.wasPressedThisFrame)
+        if(Keyboard.current.vKey.wasPressedThisFrame)
         {
             AddHealth(1f);
-            //AddEnergy(1f);
         }
 
-        if (Keyboard.current.kKey.wasPressedThisFrame)
+        if (Keyboard.current.bKey.wasPressedThisFrame)
         {
-            RecalculateHealth(1f);
-            //RemoveEnergy(1f);
+            TakeDamage(this.transform, 1f);
+        }
+
+        if (Keyboard.current.nKey.wasPressedThisFrame)
+        {
+            AddEnergy(1f);
+        }
+
+        if (Keyboard.current.mKey.wasPressedThisFrame)
+        {
+            RemoveEnergy(1f);
         }
     }
 
-    public override void UpdateHealthbar(float newHealth)
+    public override void TakeDamage(Transform damageDealer, float amount)
     {
-        if (healthBar != null)
-        {
-            float ratio = newHealth / maxHealth;
-            float ratioInt = (ratio * 10);
-
-            Debug.Log(ratioInt);
-            healthBar.fillAmount = HEALTH_BAR_INCREMENT_SIZE * ratioInt;
-        }
-    }
-
-    public void UpdateEnergyBar(float newEnergy)
-    {
-        if (energyBar != null)
-        {
-            float ratio = newEnergy / maxEnergy;
-            energyBar.fillAmount = ratio;
-        }
+        base.TakeDamage(damageDealer, amount);
+        Utils.ShakeCameraPosition(Camera.main.transform, 0.6f, 0.11f, 15, 0f, false);
     }
 
     public void AddEnergy(float amount)
     {
         float newEnergy = currentEnergy + amount;
         currentEnergy = newEnergy;
-        UpdateEnergyBar(currentEnergy);
 
-        if (currentEnergy > maxEnergy)
+        if(currentEnergy > maxEnergy)
         {
             currentEnergy = maxEnergy;
-            UpdateHealthbar(currentEnergy);
         }
+
+        UpdateStatBar(energyBar, currentEnergy, maxEnergy);
     }
 
     public void RemoveEnergy(float amount)
     {
         float newEnergy = currentEnergy - amount;
         currentEnergy = newEnergy;
-        UpdateHealthbar(currentEnergy);
 
-        if (currentEnergy < maxEnergy)
+        if(currentEnergy <= 0)
         {
-            currentEnergy = maxEnergy;
-            UpdateHealthbar(currentEnergy);
+            currentEnergy = 0;
         }
+
+        UpdateStatBar(energyBar, currentEnergy, maxEnergy);
+    }
+
+    public void IncreaseMaxEnergy(float amount)
+    {
+        float newMax = maxEnergy + amount;
+        maxEnergy = newMax;
+
+        UpdateStatBar(energyBar, currentEnergy, maxEnergy);
     }
 }

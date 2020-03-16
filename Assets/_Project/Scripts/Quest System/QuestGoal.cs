@@ -30,6 +30,7 @@ public class QuestGoal
     public void Complete()
     {
         Completed = true;
+        GameEvents.onQuestCompleted.Invoke(Quest);
         Quest.CheckGoals();
         Debug.Log("Quest Complete");
     }

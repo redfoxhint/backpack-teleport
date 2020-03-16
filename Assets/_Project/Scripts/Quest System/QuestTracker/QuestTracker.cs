@@ -20,7 +20,7 @@ public class QuestTracker : MonoBehaviour
         questsInTracker = new List<QuestTrackerItem>();
 
         GameEvents.onQuestAssigned.AddListener(AddQuest);
-        //GameEvents.onQuestUpdated.AddListener(UpdateQuest);
+        GameEvents.onQuestUpdated.AddListener(UpdateQuest);
     }
 
     public void AddQuest(Quest quest)
@@ -28,13 +28,13 @@ public class QuestTracker : MonoBehaviour
         trackerUI.AddQuest(quest, questsInTracker);
     }
 
-    //public void UpdateQuest(Quest quest)
-    //{
-    //    foreach(QuestTrackerItem _quest in questsInTracker)
-    //    {
-    //        trackerUI.UpdateQuest();
-    //    }
-    //}
+    public void UpdateQuest(Quest quest)
+    {
+        foreach (QuestTrackerItem _quest in questsInTracker)
+        {
+            trackerUI.UpdateQuest(quest);
+        }
+    }
 
     public void ToggleTracker(InputAction.CallbackContext value)
     {

@@ -28,7 +28,7 @@ public class QuestNotification : MonoBehaviour
     private void Awake()
     {
         TurnOffNotificationBox();
-        GameEvents.onQuestAssigned.AddListener(OnQuestAssigned);
+        //GameEvents.onQuestAssigned.AddListener(OnQuestAssigned);
     }
 
     private void Update()

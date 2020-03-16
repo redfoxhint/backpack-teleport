@@ -2,21 +2,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum EntityType
 {
 	ENEMY_SPIDER,
+	ENEMY_SPIDER_NEST,
 	ENTITY_PLAYER
 }
 
 namespace BackpackTeleport.Character
 {
-	[RequireComponent(typeof(Knockback))]
 	public class BaseDamageable : MonoBehaviour, IDamageable, IActivator
 	{
 		// Inspector Fields
 		[Header("Damageable Character Configuration")]
-		[SerializeField] protected float maxHealth = 10f; 
+		[SerializeField] protected float maxHealth; 
 		[SerializeField] protected Color damageBlipColor = Color.red;
 		[SerializeField] protected BaseCharacterData baseCharacterData;
 		[SerializeField] protected ParticleSystem damageParticle;
@@ -24,7 +25,8 @@ namespace BackpackTeleport.Character
 
 		// Private Variables
 		protected float currentHealth;
-		protected bool applyKnockbackAfterDamaged = true;
+		[SerializeField] protected bool applyKnockbackAfterDamaged = true;
+		[SerializeField] private bool isDead = false;
 
 		// Properties
 		public BaseCharacterData BaseCharacterData { set { baseCharacterData = value; } }
@@ -34,12 +36,13 @@ namespace BackpackTeleport.Character
 		[SerializeField] protected Image healthBar;
 		protected Knockback knockback;
 		protected SpriteRenderer spriteRenderer;
+		protected Animator animator;
 
 		protected virtual void Awake()
 		{
-			//healthBar = GetComponentInChildren<Image>();
 			knockback = GetComponent<Knockback>();
 			spriteRenderer = GetComponent<SpriteRenderer>();
+			animator = GetComponent<Animator>();
 
 			knockback.OnKnockbackFinished += OnKnockbackFinished;
 		}
@@ -52,12 +55,15 @@ namespace BackpackTeleport.Character
 		protected virtual void Start()
 		{
 			currentHealth = maxHealth;
-			UpdateHealthbar(currentHealth);
+			UpdateStatBar(healthBar, currentHealth, maxHealth);
 		}
 
 		public virtual void TakeDamage(Transform damageDealer, float amount)
 		{
-			RecalculateHealth(amount);
+			if (isDead) return;
+
+			RemoveHealth(amount);
+			animator.SetTrigger("hit");
 
 			if (applyKnockbackAfterDamaged)
 			{
@@ -66,19 +72,19 @@ namespace BackpackTeleport.Character
 			}
 		}
 
-		public virtual void RecalculateHealth(float amount)
+		public virtual void RemoveHealth(float amount)
 		{
 			float newHealth = currentHealth - amount;
 
-			if(newHealth <= 0)
+			currentHealth = newHealth;
+			UpdateStatBar(healthBar, currentHealth, maxHealth);
+
+			if (newHealth <= 0)
 			{
 				// Kill the character here
 				Kill();
 				return;
 			}
-
-			currentHealth = newHealth;
-			UpdateHealthbar(newHealth);
 		}
 
 		public virtual void AddHealth(float amount)
@@ -86,27 +92,26 @@ namespace BackpackTeleport.Character
 			float newHealth = currentHealth + amount;
 			currentHealth = newHealth;
 
-			if(currentHealth > maxHealth)
+			if (currentHealth > maxHealth)
 			{
 				currentHealth = maxHealth;
 			}
 
-			UpdateHealthbar(currentHealth);
+			UpdateStatBar(healthBar, currentHealth, maxHealth);
 		}
 
-		public virtual void UpdateHealthbar(float newHealth)
+		public virtual void UpdateStatBar(Image barToUpdate, float current, float max)
 		{
-			if(healthBar != null)
+			if(barToUpdate != null)
 			{
-				healthBar.fillAmount = newHealth / maxHealth;
-				Debug.Log($"New health ratio: {newHealth / maxHealth}");
+				barToUpdate.fillAmount = current / max;
 			}
 		}
 
 		public virtual void IncreaseMaxHealth(float newMaxHealth)
 		{
 			maxHealth = newMaxHealth;
-			UpdateHealthbar(currentHealth);
+			UpdateStatBar(healthBar, currentHealth, maxHealth);
 		}
 
 		protected virtual void ApplyKnockback(Transform damageDealer)
@@ -123,6 +128,13 @@ namespace BackpackTeleport.Character
 		protected virtual void Kill()
 		{
 			GameEvents.onEntityKilled.Invoke(entityType);
+			animator.SetTrigger("kill");
+			isDead = true;
+		}
+
+		// Animation event
+		protected void Die()
+		{
 			Destroy(gameObject);
 		}
 	}

@@ -10,6 +10,8 @@ public class GameEvents
     public static UnityOnEntityKilledEvent onEntityKilled = new UnityOnEntityKilledEvent();
     public static UnityOnQuestAssigned onQuestAssigned = new UnityOnQuestAssigned();
     public static UnityOnQuestUpdated onQuestUpdated = new UnityOnQuestUpdated();
+    public static UnityOnQuestCompleted onQuestCompleted = new UnityOnQuestCompleted();
+    public static UnityOnNotificationCreated onNotificationCreated = new UnityOnNotificationCreated();
 }
 
 public class UnityEventOnBackpackThrown : UnityEvent { }
@@ -17,5 +19,7 @@ public class UnityOnTeleportedEvent : UnityEvent<Vector2> { }
 public class UnityOnEntityKilledEvent : UnityEvent<EntityType> { }
 public class UnityOnQuestAssigned : UnityEvent<Quest> { }
 public class UnityOnQuestUpdated : UnityEvent<Quest> { }
+public class UnityOnQuestCompleted : UnityEvent<Quest> { }
+public class UnityOnNotificationCreated : UnityEvent<Notification> { }
 
 

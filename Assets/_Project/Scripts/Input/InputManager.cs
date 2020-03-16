@@ -26,11 +26,6 @@ public class InputManager : PersistentSingleton<InputManager>
         }
     }
 
-    //private void OnEnable()
-    //{
-    //    InitalizeInput();
-    //}
-
     private void OnDisable()
     {
         // Clean up subcribed inputs
