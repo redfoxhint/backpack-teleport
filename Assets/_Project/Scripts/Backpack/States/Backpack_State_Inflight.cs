@@ -5,13 +5,11 @@ using DG.Tweening;
 public class Backpack_State_Inflight : IState
 {
     private Backpack backpack;
-    private BackpackMovement backpackMovement;
     private BackpackFX backpackFX;
 
     public Backpack_State_Inflight(Backpack _backpack)
     {
         backpack = _backpack;
-        backpackMovement = backpack.BackpackMovement;
         backpackFX = backpack.BackpackFX;
     }
 

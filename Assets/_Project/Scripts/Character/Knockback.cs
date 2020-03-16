@@ -6,14 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Knockback : MonoBehaviour
 {
-	[Header("Knocback Setup")]
-	[Tooltip("The amount of force used to knockback.")]
-	[SerializeField] private float knockbackAmount;
-	[Tooltip("How long the character will be knockbacked for.")]
-	[SerializeField] private float knockbackTime;
-
 	// Private Variables
+
 	private Vector2 knockbackDirection;
+	private float knockbackDuration;
+	private float knockbackAmount;
 	private float knockbackCounter;
 	private bool knockbackTimerStart = false;
 	private bool doKnockback;
@@ -27,7 +24,7 @@ public class Knockback : MonoBehaviour
 
 	public float KnockbackCounter => knockbackCounter;
 	public float KnockbackAmount { get { return knockbackAmount; } set { knockbackAmount = value; } }
-	public float KnockbackTime { get { return knockbackTime; } set { knockbackTime = value; } }
+	public float KnockbackTime { get { return knockbackDuration; } set { knockbackDuration = value; } }
 
 	private void Awake()
 	{
@@ -57,11 +54,12 @@ public class Knockback : MonoBehaviour
 		}
 	}
 
-	public void ApplyKnockback(Transform from)
+	public void ApplyKnockback(Transform from, float duration, float amount)
 	{
 		rBody.velocity = Vector2.zero;
 		doKnockback = true;
-		knockbackCounter = knockbackTime;
+		knockbackCounter = duration;
+		knockbackAmount = amount;
 		knockbackTimerStart = true;
 		knockbackDirection = CalculateKnockbackDirection(from);
 		OnKnockbackStarted?.Invoke();

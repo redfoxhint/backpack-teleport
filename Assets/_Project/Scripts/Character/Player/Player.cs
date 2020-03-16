@@ -35,6 +35,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			inputManager = InputManager.Instance;
 
 			inputManager.InputActions.Player.BasicAttack.started += Attack;
+			GameEvents.onBackpackThrownEvent.AddListener(TriggerThrowing);
 		}
 
 		private void Start()
@@ -69,37 +70,16 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		{
 			attackManager.Attack();
 		}
+
+		public void SwitchHasBackback(bool hasBackpack)
+		{
+			animator.SetBool("hasBackpack", true);
+		}
+
+		public void TriggerThrowing()
+		{
+			animator.SetTrigger("Throw");
+		}
 	}
 }
-
-
-// For aoe damage.
-// TODO: Move this to its own class or in the attack manager.
-
-//[Header("Area of Effect Damage Settings")]
-//[Space]
-//[SerializeField] private float areaDamageAmount = 3f;
-//[SerializeField] private float areaDamageRadius = 4f;
-
-
-//private void AreaOfEffectDamage()
-//{
-//	Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(transform.position, areaDamageRadius);
-
-//	if (collidersInRadius.Length > 0)
-//	{
-//		foreach (Collider2D col in collidersInRadius)
-//		{
-//			BaseEnemy enemy = col.GetComponent<BaseEnemy>();
-
-//			if (enemy != null)
-//			{
-//				Vector2 dir = col.transform.position - transform.position;
-//				enemy.GetComponent<IDamageable>().TakeDamage(gameObject, areaDamageAmount);
-//				GameObject effect = Instantiate(teleportEffect, transform.position, Quaternion.identity);
-//				Debug.Log("Enemy damaged");
-//			}
-//		}
-//	}
-//}
 

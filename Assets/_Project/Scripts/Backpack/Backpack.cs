@@ -62,9 +62,6 @@ public class Backpack : StateMachineUnit, IActivator
     private BackpackFX backpackFX;
     public BackpackFX BackpackFX { get => backpackFX; }
 
-    private BackpackMovement backpackMovement;
-    public BackpackMovement BackpackMovement { get => backpackMovement; }
-
     private AimingAnimation aimingAnimation;
     public AimingAnimation AimingAnimation { get => aimingAnimation; }
 
@@ -84,7 +81,6 @@ public class Backpack : StateMachineUnit, IActivator
         player = FindObjectOfType<Player>();
         gameCursor = FindObjectOfType<GameCursor>();
         backpackFX = GetComponent<BackpackFX>();
-        backpackMovement = GetComponent<BackpackMovement>();
         aimingAnimation = player.GetComponent<AimingAnimation>();
         cam = Camera.main;
     }

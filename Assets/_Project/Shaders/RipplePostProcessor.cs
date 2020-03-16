@@ -5,7 +5,7 @@ using UnityEngine;
 public class RipplePostProcessor : MonoBehaviour
 {
 	public Material rippleMaterial;
-	public float MaxAmount = 50f;
+	public float MaxAmount = 100f;
 
 	[Range(0, 1)]
 	public float Friction = .9f;

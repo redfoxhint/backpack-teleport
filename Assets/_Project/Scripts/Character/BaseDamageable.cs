@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public enum EntityType
 {
@@ -18,10 +19,14 @@ namespace BackpackTeleport.Character
 		// Inspector Fields
 		[Header("Damageable Character Configuration")]
 		[SerializeField] protected float maxHealth; 
+		[SerializeField] private float damageDuration;
 		[SerializeField] protected Color damageBlipColor = Color.red;
 		[SerializeField] protected BaseCharacterData baseCharacterData;
 		[SerializeField] protected ParticleSystem damageParticle;
 		[SerializeField] protected EntityType entityType;
+
+		[Header("Knockback Configuration")]
+		[SerializeField] private float knockbackAmount = 35f;
 
 		// Private Variables
 		protected float currentHealth;
@@ -43,13 +48,6 @@ namespace BackpackTeleport.Character
 			knockback = GetComponent<Knockback>();
 			spriteRenderer = GetComponent<SpriteRenderer>();
 			animator = GetComponent<Animator>();
-
-			knockback.OnKnockbackFinished += OnKnockbackFinished;
-		}
-
-		private void OnDestroy()
-		{
-			knockback.OnKnockbackFinished -= OnKnockbackFinished;
 		}
 
 		protected virtual void Start()
@@ -64,10 +62,11 @@ namespace BackpackTeleport.Character
 
 			RemoveHealth(amount);
 			animator.SetTrigger("hit");
+			DamageSequence(damageDuration);
 
 			if (applyKnockbackAfterDamaged)
 			{
-				ApplyKnockback(damageDealer);
+				ApplyKnockback(damageDealer , damageDuration, knockbackAmount);
 				damageParticle.Play();
 			}
 		}
@@ -114,15 +113,20 @@ namespace BackpackTeleport.Character
 			UpdateStatBar(healthBar, currentHealth, maxHealth);
 		}
 
-		protected virtual void ApplyKnockback(Transform damageDealer)
+		protected virtual void ApplyKnockback(Transform damageDealer, float duration, float amount)
 		{
-			knockback.ApplyKnockback(damageDealer);
-			spriteRenderer.color = damageBlipColor;
+			knockback.ApplyKnockback(damageDealer, duration, amount);
 		}
 
-		protected virtual void OnKnockbackFinished()
+		protected virtual void DamageSequence(float duration)
 		{
-			spriteRenderer.color = Color.white;
+			Sequence damageSequence = DOTween.Sequence();
+			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", true));
+			damageSequence.AppendCallback(() => spriteRenderer.color = damageBlipColor);
+			damageSequence.AppendInterval(duration);
+			
+			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", false));
+			damageSequence.AppendCallback(() => spriteRenderer.color = Color.white);
 		}
 
 		protected virtual void Kill()
