@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 2263481917744730695}
   - component: {fileID: 2263481917744730694}
   - component: {fileID: 2263481917744730713}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: spider_nest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,18 +272,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02123332, y: -0.91305065}
+  m_Offset: {x: 0.0034384727, y: -0.3169217}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 3.8333333}
+    oldSize: {x: 3.5, y: 3.75}
     newSize: {x: 0.6, y: 0.45}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1526647, y: 2.0072317}
+  m_Size: {x: 2.500185, y: 1.6928549}
   m_EdgeRadius: 0
 --- !u!95 &2263481917744730712
 Animator:
@@ -357,7 +357,7 @@ MonoBehaviour:
     type: 3}
   entityType: 1
   knockbackAmount: 35
-  applyKnockbackAfterDamaged: 1
+  applyKnockbackAfterDamaged: 0
   isDead: 0
   healthBar: {fileID: 2263481917860795381}
 --- !u!1 &2263481917860795383

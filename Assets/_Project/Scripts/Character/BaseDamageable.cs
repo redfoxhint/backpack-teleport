@@ -134,6 +134,7 @@ namespace BackpackTeleport.Character
 			GameEvents.onEntityKilled.Invoke(entityType);
 			animator.SetTrigger("kill");
 			isDead = true;
+			Die();
 		}
 
 		// Animation event
