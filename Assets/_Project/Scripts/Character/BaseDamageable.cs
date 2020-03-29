@@ -43,6 +43,9 @@ namespace BackpackTeleport.Character
 		protected SpriteRenderer spriteRenderer;
 		protected Animator animator;
 
+		// Events
+		public Action onTookDamage;
+
 		protected virtual void Awake()
 		{
 			knockback = GetComponent<Knockback>();
@@ -84,6 +87,8 @@ namespace BackpackTeleport.Character
 				Kill();
 				return;
 			}
+
+			onTookDamage?.Invoke();
 		}
 
 		public virtual void AddHealth(float amount)

@@ -44804,7 +44804,6 @@ GameObject:
   - component: {fileID: 7316752588422890812}
   - component: {fileID: 7316752588422890804}
   - component: {fileID: 7316752588422890814}
-  - component: {fileID: 7316752588422890813}
   - component: {fileID: 7316752588422890810}
   - component: {fileID: 7316752588422890809}
   - component: {fileID: 7316752588422890808}
@@ -44812,6 +44811,7 @@ GameObject:
   - component: {fileID: 7316752588422890805}
   - component: {fileID: 1387507718}
   - component: {fileID: 1387507732}
+  - component: {fileID: 6698592759781982453}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -45066,24 +45066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa2214aa16bcac41a1806d8a4437976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7316752588422890813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7316752588422890755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22afe204974b8cb44a53ca7042af27ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashFilter:
-    serializedVersion: 2
-    m_Bits: 6144
-  moveSpeed: 9
-  dustParticles: {fileID: 1961293279}
-  dashAmount: 1
 --- !u!114 &7316752588422890810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45223,11 +45205,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 7
+  damageDuration: 0
   damageBlipColor: {r: 1, g: 0, b: 0, a: 1}
   baseCharacterData: {fileID: 0}
   damageParticle: {fileID: 7918909594592417696, guid: 88b84de83d1bf9d469bbf3a0637075e9,
     type: 3}
   entityType: 0
+  knockbackAmount: 35
   applyKnockbackAfterDamaged: 1
   isDead: 0
   healthBar: {fileID: 7957442374191748638}
@@ -45244,8 +45228,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a590e545baa6b44a9b31b4bfc4da6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackAmount: 0
-  knockbackTime: 0
+--- !u!114 &6698592759781982453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7316752588422890755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31236d4f5da68641a3b0819dd9ca198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 9
+  dashFilter:
+    serializedVersion: 2
+    m_Bits: 38912
+  dustParticles: {fileID: 1961293279}
+  dashAmount: 2
 --- !u!1 &7550600837223803961
 GameObject:
   m_ObjectHideFlags: 0
