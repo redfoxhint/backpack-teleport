@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementTime: 0.5
-  maxMarkerPositions: 5
+  maxMarkerPositions: 3
   markerPrefab: {fileID: 9006511983901279946, guid: d5e81d6fe7929fd43a64f963c60eb207,
     type: 3}
   chainReady: 0
