@@ -13,7 +13,8 @@ public class CreateNewScene : EditorWindow
     /* Template Paths*/
     // Default Template Path 
     private const string templateFilePaths = "Assets/_Project/_Scenes/";
-    private string defaultTemplatePath = $"{templateFilePaths}template.unity";
+    private string defaultTemplateDayPath = $"{templateFilePaths}templateDay.unity";
+    private string defaultTemplateNightPath = $"{templateFilePaths}templateNight.unity";
 
     private string sceneName = "New Scene";
 
@@ -22,7 +23,7 @@ public class CreateNewScene : EditorWindow
 
     const int spacerSize = 5;
 
-    enum SceneTemplate { DEFAULT };
+    enum SceneTemplate { DEFAULTDAY, DEFAULTNIGHT };
     private SceneTemplate currentTemplate;
 
     [MenuItem("Adrian's Tools/Create New Scene")]
@@ -96,16 +97,24 @@ public class CreateNewScene : EditorWindow
 
         string savePath = $"{newPath}/{sceneName + "_Scene"}{sceneName}.unity";
 
+        // Save the currently open scene.
+        Scene currentOpenScene = EditorSceneManager.GetActiveScene();
+        EditorSceneManager.SaveScene(currentOpenScene);
+
         Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         EditorSceneManager.SaveScene(scene, savePath);
 
         switch(currentTemplate)
         {
-            case SceneTemplate.DEFAULT:
-                File.Copy(defaultTemplatePath, savePath, true);
+            case SceneTemplate.DEFAULTDAY:
+                File.Copy(defaultTemplateDayPath, savePath, true);
+                break;
+            case SceneTemplate.DEFAULTNIGHT:
+                File.Copy(defaultTemplateNightPath, savePath, true);
                 break;
         }
-        
+
+        EditorSceneManager.OpenScene(savePath, OpenSceneMode.Single);
         AssetDatabase.SaveAssets();
 
         LogUtils.Log("Scene created!");
