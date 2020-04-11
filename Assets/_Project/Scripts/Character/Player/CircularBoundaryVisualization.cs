@@ -33,7 +33,6 @@ public class CircularBoundaryVisualization : MonoBehaviour
 	private void Awake()
 	{
 		circleMaterial = cursorSpriteRenderer.material;
-
 		cursorUI = FindObjectOfType<GameCursor>();
 	}
 

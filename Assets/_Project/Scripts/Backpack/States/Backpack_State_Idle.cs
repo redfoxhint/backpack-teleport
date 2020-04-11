@@ -27,7 +27,7 @@ public class Backpack_State_Idle : IState
     {
         if (InputManager.Instance.InputActions.Backpack.Teleport.triggered)
         {
-            backpack.Player.Teleport(backpack.transform.position);
+            GameManager.Instance.Player.Teleport(backpack.transform.position);
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
         }
 

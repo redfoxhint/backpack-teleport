@@ -34,9 +34,9 @@ public class Backpack : StateMachineUnit, IActivator
     public Vector2 TeleportDestination { get => teleportDestination; }
 
     [SerializeField] private BackpackStates currentState;
-    public BackpackStates CurrentState 
-    { 
-        get => currentState; 
+    public BackpackStates CurrentState
+    {
+        get => currentState;
         set
         {
             currentState = value;
@@ -57,7 +57,20 @@ public class Backpack : StateMachineUnit, IActivator
 
     // Components
     private Player player;
-    public Player Player { get => player; }
+    public Player Player
+    {
+        get
+        {
+            if (GameManager.Instance.Player == null)
+            {
+                LogUtils.LogError("No reference to the player.");
+                return null;
+            }
+
+            return player;
+        }
+    }
+
 
     private BackpackFX backpackFX;
     public BackpackFX BackpackFX { get => backpackFX; }
@@ -73,7 +86,7 @@ public class Backpack : StateMachineUnit, IActivator
 
     private GameCursor gameCursor;
     public GameCursor GameCursor { get => gameCursor; }
-    
+
 
     void Awake()
     {

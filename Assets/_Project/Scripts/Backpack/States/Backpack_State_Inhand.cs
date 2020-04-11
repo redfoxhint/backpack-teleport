@@ -32,9 +32,17 @@ public class Backpack_State_Inhand : IState
 
     public void Update()
     {
+        if(GameManager.Instance.Player == null)
+        {
+            return;
+        }
+
         if(rBody == null) backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
 
-        rBody.position = backpack.Player.RBody2D.position;
+        if(backpack.Player != null)
+        {
+            rBody.position = GameManager.Instance.Player.RBody2D.position;
+        }
 
         if (isAiming)
         {
