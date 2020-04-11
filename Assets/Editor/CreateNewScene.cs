@@ -10,7 +10,6 @@ public class CreateNewScene : EditorWindow
 {
     private static string assetFilePath = "Assets/_Project/_Scenes/Generated";
 
-
     /* Template Paths*/
     // Default Template Path 
     private const string templateFilePaths = "Assets/_Project/_Scenes/";
@@ -30,7 +29,8 @@ public class CreateNewScene : EditorWindow
     private static void Init()
     {
         CreateNewScene window = (CreateNewScene)GetWindow(typeof(CreateNewScene));
-        window.minSize = new Vector2(300, 200);
+        window.minSize = new Vector2(300, 10);
+        window.titleContent.text = "Create New Scene";
         window.Show();
     }
 
@@ -87,11 +87,28 @@ public class CreateNewScene : EditorWindow
                     LogUtils.LogError("Unrecognized option. Scene creation failed.");
                     break;
             }
-
-            //LogUtils.Log($"{sceneName} has been created!");
-
-            //CreateScene();
         }
+    }
+
+    private void CreateScene()
+    {
+        InitializeFolder();
+
+        string savePath = $"{newPath}/{sceneName + "_Scene"}{sceneName}.unity";
+
+        Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        EditorSceneManager.SaveScene(scene, savePath);
+
+        switch(currentTemplate)
+        {
+            case SceneTemplate.DEFAULT:
+                File.Copy(defaultTemplatePath, savePath, true);
+                break;
+        }
+        
+        AssetDatabase.SaveAssets();
+
+        LogUtils.Log("Scene created!");
     }
 
     private bool CanCreateScene()
@@ -106,20 +123,5 @@ public class CreateNewScene : EditorWindow
             EditorUtility.DisplayDialog("Scene Creation Error", "Cannot create scene. Make sure all fields are filled.", "Continue");
             return false;
         }
-    }
-
-    private void CreateScene()
-    {
-        InitializeFolder();
-
-        string savePath = $"{newPath}/{sceneName + "_Scene"}{sceneName}.unity";
-
-        Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-        EditorSceneManager.SaveScene(scene, savePath);
-
-        File.Copy(defaultTemplatePath, savePath, true);
-        AssetDatabase.SaveAssets();
-
-        LogUtils.Log("Scene created!");
     }
 }
