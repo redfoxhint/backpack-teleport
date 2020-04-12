@@ -33,7 +33,7 @@ public static class LogUtils
     }
 
     /// <summary>
-    /// Logs an error the console.
+    /// Logs an error to the console.
     /// </summary>
     /// <param name="message"></param>
     /// <param name="pause">Set to true to pause the editor when an error is logged.</param>
