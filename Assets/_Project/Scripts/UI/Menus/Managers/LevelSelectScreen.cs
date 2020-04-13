@@ -6,10 +6,18 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class LevelSelectorData
+{
+    public int testInt = 0;
+}
+
 public class LevelSelectScreen : MonoBehaviour
 {
     [Header("Level Screen")]
     // Add additional screens here
+    [SerializeField] private Transform slotParent;
+    [SerializeField] private GameObject levelSlotPrefab;
 
     [Header("Buttons")]
     [SerializeField] private Button playLevelButton;
@@ -22,6 +30,8 @@ public class LevelSelectScreen : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private CarouselMenu carouselMenu;
+
+    public List<LevelSelectorData> levelSelectorDatas = new List<LevelSelectorData>();
 
     // Private Variables
     private LevelData currentLevelToLoad;
@@ -68,6 +78,13 @@ public class LevelSelectScreen : MonoBehaviour
         {
             UpdateLevelPreview(currentLevelData);
         }
+    }
+
+    public void AddNewLevel(LevelData levelData)
+    {
+        LevelSelector levelSelector = Instantiate(levelSlotPrefab, slotParent).GetComponent<LevelSelector>();
+        LogUtils.LogWarning(levelSelector.name);
+        levelSelector.levelData = levelData;
     }
 
     public void SetDefaultLevel()

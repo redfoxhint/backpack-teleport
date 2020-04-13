@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
@@ -16,15 +17,23 @@ public class CreateNewScene : EditorWindow
     private string defaultTemplateDayPath = $"{templateFilePaths}templateDay.unity";
     private string defaultTemplateNightPath = $"{templateFilePaths}templateNight.unity";
 
+    /* Custom Fields */
     private string sceneName = "New Scene";
+    private SceneTemplate currentTemplate;
+    private bool addToBuildIndex;
+
+    // Level Data Config
+    private string levelName = "Default Name";
+    private string levelSlug = "ex: level_demo_one";
+    private string levelDescription = "Default Description";
+    private Sprite levelSelectPreview;
+    private bool levelLockedByDefault;
 
     private string folderName = "New Folder";
     private string newPath;
-
     const int spacerSize = 5;
-
     enum SceneTemplate { DEFAULTDAY, DEFAULTNIGHT };
-    private SceneTemplate currentTemplate;
+    private LevelData sceneLevelData;
 
     [MenuItem("Adrian's Tools/Create New Scene")]
     private static void Init()
@@ -62,8 +71,24 @@ public class CreateNewScene : EditorWindow
         EditorGUILayout.LabelField("New Scene Configuration", EditorStyles.boldLabel);
         EditorGUILayout.Space(spacerSize);
 
-        sceneName = EditorGUILayout.TextField("Enter New Scene Name", sceneName);
+        sceneName = EditorGUILayout.TextField("Scene Name", sceneName);
         currentTemplate = (SceneTemplate)EditorGUILayout.EnumPopup("Choose Template", currentTemplate);
+
+        EditorGUILayout.Space(spacerSize);
+
+        addToBuildIndex = EditorGUILayout.BeginToggleGroup("Add to build settings?", addToBuildIndex);
+        levelName = EditorGUILayout.TextField("Level Name", levelName);
+        levelSlug = EditorGUILayout.TextField("Level Slug", levelSlug);
+        EditorGUILayout.LabelField("Level Description");
+        levelDescription = EditorGUILayout.TextArea(levelDescription, GUILayout.Height(150f));
+        EditorGUILayout.Space(spacerSize);
+        levelSelectPreview = (Sprite)EditorGUILayout.ObjectField(levelSelectPreview, typeof(Sprite), true);
+        levelLockedByDefault = EditorGUILayout.Toggle("Level Starts Locked", levelLockedByDefault);
+        EditorGUILayout.EndToggleGroup();
+
+        EditorGUILayout.Space(spacerSize);
+
+        //addToBuildIndex = EditorGUILayout.Toggle("Add to build settings?", addToBuildIndex);
 
         if (GUILayout.Button("Create New Scene") && CanCreateScene())
         {
@@ -88,6 +113,11 @@ public class CreateNewScene : EditorWindow
                     LogUtils.LogError("Unrecognized option. Scene creation failed.");
                     break;
             }
+        }
+
+        if (GUILayout.Button("Test"))
+        {
+            AddSceneToLevelSelector();
         }
     }
 
@@ -114,10 +144,34 @@ public class CreateNewScene : EditorWindow
                 break;
         }
 
+        if(addToBuildIndex)
+        {
+            AddSceneToBuildIndex(savePath);
+        }
+
         EditorSceneManager.OpenScene(savePath, OpenSceneMode.Single);
         AssetDatabase.SaveAssets();
 
         LogUtils.Log("Scene created!");
+    }
+
+    private void AddSceneToBuildIndex(string scenePath)
+    {
+        List<EditorBuildSettingsScene> scenes = EditorBuildSettings.scenes.ToList();
+        scenes.Add(new EditorBuildSettingsScene(scenePath, true));
+
+        EditorBuildSettings.scenes = scenes.ToArray();
+
+        LevelData levelData = CreateLevelData();
+        levelData.levelBuildIndex = EditorBuildSettings.scenes.Length - 1;
+    }
+
+    private LevelData CreateLevelData()
+    {
+        sceneLevelData = ScriptableObject.CreateInstance<LevelData>();
+        AssetDatabase.CreateAsset(sceneLevelData, $"{newPath}/{sceneName}_Scene.asset");
+
+        return sceneLevelData;
     }
 
     private bool CanCreateScene()
@@ -132,5 +186,33 @@ public class CreateNewScene : EditorWindow
             EditorUtility.DisplayDialog("Scene Creation Error", "Cannot create scene. Make sure all fields are filled.", "Continue");
             return false;
         }
+    }
+
+    private void AddSceneToLevelSelector()
+    {
+        string assetPath = "Assets/_Project/Prefabs/UI Elements/Main Menu/Resources/Prefabs/pfbMainMenu.prefab";
+
+        GameObject levelMenuPrefab = PrefabUtility.LoadPrefabContents(assetPath);
+
+        GameObject asset = (GameObject)AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject));
+        GameObject prefabInstance = PrefabUtility.InstantiatePrefab(asset) as GameObject;
+        LevelSelectScreen levelSelectAScreen = prefabInstance.GetComponent<LevelSelectScreen>();
+        List<AddedComponent> components = PrefabUtility.GetAddedComponents(prefabInstance);
+
+        foreach(AddedComponent component in components)
+        {
+            if(component.instanceComponent.GetComponent<LevelSelectScreen>())
+            {
+                LevelSelectScreen selectComponent = component.instanceComponent.GetComponent<LevelSelectScreen>();
+                selectComponent.levelSelectorDatas.Add(new LevelSelectorData());
+            }
+        }
+
+        levelSelectAScreen.AddNewLevel(sceneLevelData);
+        LogUtils.Log("Successful");
+        
+        PrefabUtility.SaveAsPrefabAssetAndConnect(prefabInstance, assetPath, InteractionMode.UserAction);
+        DestroyImmediate(prefabInstance);
+        AssetDatabase.SaveAssets();
     }
 }

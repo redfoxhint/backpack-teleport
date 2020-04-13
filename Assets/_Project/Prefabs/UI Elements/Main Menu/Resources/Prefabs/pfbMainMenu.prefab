@@ -1325,7 +1325,7 @@ GameObject:
   - component: {fileID: 1512590955337817001}
   - component: {fileID: 1512590955337817000}
   m_Layer: 0
-  m_Name: MainMenu_Prefab
+  m_Name: pfbMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1383,6 +1383,7 @@ MonoBehaviour:
   soundTab: {fileID: 1207549982265216202}
   saveButton: {fileID: 1512590956352333834}
   useGamepadToggle: {fileID: 3846288913956333141}
+  toggleNightModeToggle: {fileID: 0}
   resolutionDropdown: {fileID: 3311575218508668517}
   fullscreenToggle: {fileID: 7814138790348629041}
   vSyncToggle: {fileID: 7814138790191190128}
@@ -1401,12 +1402,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e45604550ceaba4fa494a095c940800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotParent: {fileID: 4938284237066232406}
+  levelSlotPrefab: {fileID: 6922858859974378592, guid: 73f3c1c07739f8a4f987d0570f03799c,
+    type: 3}
   playLevelButton: {fileID: 2505287665608645617}
   newGameButton: {fileID: 0}
   loadGameButton: {fileID: 0}
   continueButton: {fileID: 0}
   playButtonText: {fileID: 1344524091527385942}
   carouselMenu: {fileID: 8409687346247736456}
+  count: 0
 --- !u!1 &1512590955844232509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,7 +2670,7 @@ PrefabInstance:
         type: 3}
       propertyPath: backgroundImage
       value: 
-      objectReference: {fileID: 2895511247470926993}
+      objectReference: {fileID: 0}
     - target: {fileID: 4504275322185975056, guid: 0c99df60f769558448a161570b8c36b8,
         type: 3}
       propertyPath: selectedSprite
@@ -2702,21 +2707,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c205a4bd5bf9ce245aee2c0e1791604f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1512590956376368040 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 166993675511609899, guid: 0c99df60f769558448a161570b8c36b8,
+--- !u!224 &4938284237066232406 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5919073446866549717, guid: 0c99df60f769558448a161570b8c36b8,
     type: 3}
   m_PrefabInstance: {fileID: 1633833223313365379}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2895511247470926993 stripped
+--- !u!114 &1512590956376368040 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4504275322185975058, guid: 0c99df60f769558448a161570b8c36b8,
+  m_CorrespondingSourceObject: {fileID: 166993675511609899, guid: 0c99df60f769558448a161570b8c36b8,
     type: 3}
   m_PrefabInstance: {fileID: 1633833223313365379}
   m_PrefabAsset: {fileID: 0}
@@ -2733,6 +2732,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1512590956126237597}
     m_Modifications:
+    - target: {fileID: 6339198300467130456, guid: 1fb9bd9723eb91744833603c29473318,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339198300467130456, guid: 1fb9bd9723eb91744833603c29473318,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339198300467130456, guid: 1fb9bd9723eb91744833603c29473318,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339198300467130456, guid: 1fb9bd9723eb91744833603c29473318,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6339198301572382494, guid: 1fb9bd9723eb91744833603c29473318,
         type: 3}
       propertyPath: m_Name
