@@ -46,6 +46,16 @@ public class CreateNewScene : EditorWindow
 
     private void InitializeFolder()
     {
+        if (!Directory.Exists(assetFilePath))
+        {
+            Directory.CreateDirectory(assetFilePath);
+            LogUtils.LogWarning("Asset save path folder [Generated] was not found. Folder generated.");
+        }
+        else
+        {
+            LogUtils.LogWarning("Asset save path folder [Generated] was found.");
+        }
+
         folderName = sceneName + "_Scene";
         newPath = $"{assetFilePath}/{folderName}";
 
@@ -114,11 +124,6 @@ public class CreateNewScene : EditorWindow
                     break;
             }
         }
-
-        if (GUILayout.Button("Test"))
-        {
-            AddSceneToLevelSelector();
-        }
     }
 
     private void CreateScene()
@@ -164,6 +169,8 @@ public class CreateNewScene : EditorWindow
 
         LevelData levelData = CreateLevelData();
         levelData.levelBuildIndex = EditorBuildSettings.scenes.Length - 1;
+
+        SelectMainMenuPrefab();
     }
 
     private LevelData CreateLevelData()
@@ -188,31 +195,11 @@ public class CreateNewScene : EditorWindow
         }
     }
 
-    private void AddSceneToLevelSelector()
+    private void SelectMainMenuPrefab()
     {
         string assetPath = "Assets/_Project/Prefabs/UI Elements/Main Menu/Resources/Prefabs/pfbMainMenu.prefab";
-
-        GameObject levelMenuPrefab = PrefabUtility.LoadPrefabContents(assetPath);
-
         GameObject asset = (GameObject)AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject));
-        GameObject prefabInstance = PrefabUtility.InstantiatePrefab(asset) as GameObject;
-        LevelSelectScreen levelSelectAScreen = prefabInstance.GetComponent<LevelSelectScreen>();
-        List<AddedComponent> components = PrefabUtility.GetAddedComponents(prefabInstance);
-
-        foreach(AddedComponent component in components)
-        {
-            if(component.instanceComponent.GetComponent<LevelSelectScreen>())
-            {
-                LevelSelectScreen selectComponent = component.instanceComponent.GetComponent<LevelSelectScreen>();
-                selectComponent.levelSelectorDatas.Add(new LevelSelectorData());
-            }
-        }
-
-        levelSelectAScreen.AddNewLevel(sceneLevelData);
-        LogUtils.Log("Successful");
-        
-        PrefabUtility.SaveAsPrefabAssetAndConnect(prefabInstance, assetPath, InteractionMode.UserAction);
-        DestroyImmediate(prefabInstance);
-        AssetDatabase.SaveAssets();
+        EditorGUIUtility.PingObject(asset);
+        Selection.activeObject = asset;
     }
 }

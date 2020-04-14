@@ -15,11 +15,17 @@ EditorBuildSettings:
     path: Assets/_Project/_Scenes/Testing/physics-movement.unity
     guid: 3b4b532dcaed74643901956dde5f32dc
   - enabled: 1
-    path: 
-    guid: a7382147c81d7df4cbb545b303cf25fc
+    path: Assets/_Project/_Scenes/Generated/TestDemo_Scene/TestDemo_SceneTestDemo.unity
+    guid: 9b262232ffe50834ea3739c89cad62de
   - enabled: 1
-    path: Assets/_Project/_Scenes/Generated/New Scene_Scene/New Scene_SceneNew Scene.unity
-    guid: 67256023e2665104daddc51d0eb5e6d6
+    path: Assets/_Project/_Scenes/Generated/MyNewLevel_Scene/MyNewLevel_SceneMyNewLevel.unity
+    guid: bc8c133e988d48540afdc921de94a76a
+  - enabled: 1
+    path: Assets/_Project/_Scenes/Generated/MyNewLevel_Scene/MyNewLevel_SceneMyNewLevel.unity
+    guid: bc8c133e988d48540afdc921de94a76a
+  - enabled: 1
+    path: Assets/_Project/_Scenes/Generated/TestScene2_Scene/TestScene2_SceneTestScene2.unity
+    guid: 0168314311c36c645b5d9fd9c286abab
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f15284a963056294590182272bfae3a5,
       type: 2}
