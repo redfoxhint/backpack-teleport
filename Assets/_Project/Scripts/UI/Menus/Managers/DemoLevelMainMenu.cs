@@ -13,6 +13,7 @@ public class DemoLevelMainMenu : MonoBehaviour
     [SerializeField] private RectTransform titleImage;
     [SerializeField] private Image anyKeyImage;
     [SerializeField] private TextMeshProUGUI anyKeyText;
+    [SerializeField] private ArtiCutsceneClone artiClone;
 
     // Sequence Settings
     [SerializeField] private float titleMoveTime = 1f;
@@ -76,8 +77,8 @@ public class DemoLevelMainMenu : MonoBehaviour
         titleImage.GetComponent<Image>().DOColor(new Color(1f, 1f, 1f, 0f), 1f);
         anyKeyImage.DOColor(new Color(1f, 1f, 1f, 0f), 1f);
         anyKeyText.DOColor(new Color(1f, 1f, 1f, 0f), 1f);
+        artiClone.StartGame();
 
-        GameManager.Instance.PlayerControl = true;
         canStart = false;
     }
 
