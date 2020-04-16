@@ -56,7 +56,9 @@ public class CreateNewScene : EditorWindow
             LogUtils.LogWarning("Asset save path folder [Generated] was found.");
         }
 
-        folderName = $"Scene_{sceneName}";
+        string fileName = sceneName.Replace(' ', '_');
+
+        folderName = $"Scene_{fileName}";
         newPath = $"{assetFilePath}/{folderName}"; // Sets the save folder to the newly created one.
 
         if (!AssetDatabase.IsValidFolder(newPath))
@@ -76,6 +78,7 @@ public class CreateNewScene : EditorWindow
     private void OnGUI()
     {
         GUI.backgroundColor = Color.grey;
+        CreateNewScene window = (CreateNewScene)GetWindow(typeof(CreateNewScene));
 
         DrawSceneConfigSection();
 
@@ -99,6 +102,7 @@ public class CreateNewScene : EditorWindow
                 // Create button
                 case 0:
                     CreateScene();
+                    window.Close();
                     break;
                 // Cancel button
                 case 1:
@@ -144,7 +148,8 @@ public class CreateNewScene : EditorWindow
     {
         InitializeFolder();
 
-        string savePath = $"{newPath}/{sceneName + "_Scene"}{sceneName}.unity";
+        string fileName = sceneName.Replace(' ', '_');
+        string savePath = $"{newPath}/{fileName + "_Scene"}.unity";
 
         // Save the currently open scene.
         Scene currentOpenScene = EditorSceneManager.GetActiveScene();

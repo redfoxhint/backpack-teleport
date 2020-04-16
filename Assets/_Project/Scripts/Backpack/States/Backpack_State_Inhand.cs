@@ -62,6 +62,8 @@ public class Backpack_State_Inhand : IState
 
     private void OnAimKeyPressed(InputAction.CallbackContext value)
     {
+        if (!GameManager.Instance.PlayerControl) return;
+
         isAiming = true;
     }
 

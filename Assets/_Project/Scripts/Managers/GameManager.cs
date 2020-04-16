@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
+    public bool PlayerControl { get; set; } 
     public bool GamePaused { get; set; }
     public Player Player
     {
@@ -33,6 +34,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private void Start()
     {
         player = Player;
+        PlayerControl = false;
     }
 
     public void PauseGame()

@@ -44813,7 +44813,7 @@ GameObject:
   - component: {fileID: 1387507732}
   - component: {fileID: 6698592759781982453}
   m_Layer: 9
-  m_Name: Player
+  m_Name: pfbPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45259,7 +45259,7 @@ GameObject:
   - component: {fileID: 4026080118658638473}
   - component: {fileID: 218383508150973818}
   m_Layer: 13
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
