@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57990f64ca69d99458c5f85d4163efba, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  levelBuildIndex: 1
+  levelBuildIndex: 2
   levelName: Demo 1
   levelSlug: level_demo_one
   levelDescription: 'Resolution possession discovered surrounded advantages has but

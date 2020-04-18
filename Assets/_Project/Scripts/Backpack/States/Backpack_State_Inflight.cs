@@ -30,7 +30,7 @@ public class Backpack_State_Inflight : IState
         {
             backpack.RBody.DOKill();
 
-            backpack.Player.Teleport(backpack.transform.position);
+            GameManager.Instance.Player.Teleport(backpack.transform.position);
             backpack.stateMachine.ChangeState(new Backpack_State_Inhand(backpack));
         }
     }

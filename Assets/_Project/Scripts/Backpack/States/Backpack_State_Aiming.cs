@@ -22,12 +22,14 @@ public class Backpack_State_Aiming : IState
         InputManager.Instance.InputActions.Backpack.Aim.canceled += OnAimKeyReleased;
         backpack.AimingAnimation.RadiusCircleController.Activate();
 
-        backpack.RBody.MovePosition(backpack.Player.RBody2D.position);
+        backpack.RBody.MovePosition(GameManager.Instance.Player.RBody2D.position);
     }
 
     public void Update()
     {
-        backpack.PointA = backpack.Player.PlayerCenter.position;
+        if (GameManager.Instance.Player == null) return;
+
+        backpack.PointA = GameManager.Instance.Player.PlayerCenter.position;
         backpack.PointB = backpack.GameCursor.transform.position;
 
         DrawAimingUI();

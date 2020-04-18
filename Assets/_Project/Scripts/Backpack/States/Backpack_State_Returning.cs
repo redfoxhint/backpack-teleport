@@ -14,7 +14,7 @@ public class Backpack_State_Returning : IState
     public void Initialize()
     {
         backpack.CurrentState = BackpackStates.RETURNING;
-        backpack.RBody.DOMove(backpack.Player.transform.position, backpack.MovementTime / 2f, false).OnComplete(OnMoveCompleted);
+        backpack.RBody.DOMove(GameManager.Instance.Player.transform.position, backpack.MovementTime / 2f, false).OnComplete(OnMoveCompleted);
     }
 
     public void Update()

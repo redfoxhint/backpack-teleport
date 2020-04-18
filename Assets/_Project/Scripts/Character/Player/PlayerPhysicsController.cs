@@ -21,6 +21,8 @@ public class PlayerPhysicsController : PhysicsCharacterController
 
     protected override void Update()
     {
+        if (!GameManager.Instance.PlayerControl) return;
+
         moveDirection = Vector2.zero;
         GetPlayerInput();
         characterBase.SetAnimatorParameters(moveDirection);

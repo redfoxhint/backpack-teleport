@@ -5,11 +5,17 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using Malee;
+
+[System.Serializable]
+public class LevelSelectDataList : ReorderableArray<LevelData> { }
 
 public class LevelSelectScreen : MonoBehaviour
 {
     [Header("Level Screen")]
     // Add additional screens here
+    [SerializeField] private Transform slotParent;
+    [SerializeField] private GameObject levelSlotPrefab;
 
     [Header("Buttons")]
     [SerializeField] private Button playLevelButton;
@@ -22,6 +28,9 @@ public class LevelSelectScreen : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private CarouselMenu carouselMenu;
+
+    [Reorderable(elementNameProperty = "levelName")] 
+    public LevelSelectDataList levelSelectorDatas;
 
     // Private Variables
     private LevelData currentLevelToLoad;
@@ -37,6 +46,8 @@ public class LevelSelectScreen : MonoBehaviour
         {
             carouselMenu.OnPageChangedEvent.AddListener(SelectLevel);
         }
+
+        InitLevels();
     }
 
     private void InitializeButtons()
@@ -67,6 +78,16 @@ public class LevelSelectScreen : MonoBehaviour
         if (currentLevelData != null)
         {
             UpdateLevelPreview(currentLevelData);
+        }
+    }
+
+    private void InitLevels()
+    {
+        foreach (LevelData x in levelSelectorDatas)
+        {
+            LevelSelector levelSelector = Instantiate(levelSlotPrefab, slotParent).GetComponent<LevelSelector>();
+            levelSelector.levelData = x;
+            LogUtils.LogWarning($"{levelSelector.levelData.levelName} was added.");
         }
     }
 

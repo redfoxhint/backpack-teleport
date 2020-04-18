@@ -40,7 +40,7 @@ public class PhysicsCharacterController : MonoBehaviour
     
     protected virtual bool CanMove()
     {
-        return DoMovement;
+        return DoMovement && GameManager.Instance.PlayerControl;
     }
 
     

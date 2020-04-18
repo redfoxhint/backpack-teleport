@@ -89,7 +89,9 @@ public class AttackManager : MonoBehaviour
 
     public void Attack()
     {
-        if (!CanAttack) return;
+        if (characterController == null) return;
+
+        if (!CanAttack || !GameManager.Instance.PlayerControl) return;
         characterController.DoMovement = false;
 
         // Deal damage here
