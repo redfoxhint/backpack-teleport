@@ -10,7 +10,7 @@ public enum BackpackStates
 }
 
 [RequireComponent(typeof(BackpackFX), typeof(Rigidbody2D))]
-public class Backpack : StateMachineUnit, IActivator
+public class Backpack : StateMachineUnit
 {
     // Public Variables
     [Tooltip("How long it takes for the backpack to reach its destination after being thrown.")]

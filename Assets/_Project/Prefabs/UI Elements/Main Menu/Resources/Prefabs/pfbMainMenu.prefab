@@ -1414,8 +1414,6 @@ MonoBehaviour:
   levelSelectorDatas:
     array:
     - {fileID: 11400000, guid: dc7c8099c89d5bd419748c1e88ba444e, type: 2}
-    - {fileID: 11400000, guid: 4cd1aa410ba80224293e19ff5885cbe0, type: 2}
-    - {fileID: 11400000, guid: 81f9d1ddd26394b4d971507069a94c2b, type: 2}
 --- !u!1 &1512590955844232509
 GameObject:
   m_ObjectHideFlags: 0

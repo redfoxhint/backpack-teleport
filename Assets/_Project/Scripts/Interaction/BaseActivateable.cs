@@ -5,14 +5,14 @@ using UnityEngine;
 public abstract class BaseActivateable : MonoBehaviour, IActivateable
 {
     // Private Variables
-    protected bool activated;
+    public bool Activated { get; set; }
 
     public virtual void Activate()
     {
-        activated = true;
+        Activated = true;
     }
     public virtual void Deactivate()
     {
-        activated = false;
+        Activated = false;
     }
 }
