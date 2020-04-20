@@ -159,9 +159,9 @@ MonoBehaviour:
   doorMode: 0
   door: {fileID: 5031511163738548625}
   isLocked: 0
-  doorSpriteRenderer: {fileID: 5031511163738548626}
   resetPlate: {fileID: 0}
-  sequenceResetTime: 0
+  sequenceResetTime: 2
+  doorSpriteRenderer: {fileID: 5031511163738548626}
   pressurePlates:
   - {fileID: 8973661042707612598}
   - {fileID: 8973661043366895155}
@@ -185,6 +185,28 @@ PrefabInstance:
       propertyPath: objectToActivate
       value: 
       objectReference: {fileID: 5031511163855834456}
+    - target: {fileID: 8973661044586364389, guid: 53b7ca48853148b4a8ffe17b72730bb8,
+        type: 3}
+      propertyPath: activatedPlateSprite
+      value: 
+      objectReference: {fileID: 8393176543138369888, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 8973661044586364389, guid: 53b7ca48853148b4a8ffe17b72730bb8,
+        type: 3}
+      propertyPath: deactivatedPlateSprite
+      value: 
+      objectReference: {fileID: 1994710701197188399, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 8973661044586364389, guid: 53b7ca48853148b4a8ffe17b72730bb8,
+        type: 3}
+      propertyPath: plateSpr
+      value: 
+      objectReference: {fileID: 8973661042707612597}
+    - target: {fileID: 8973661044586364389, guid: 53b7ca48853148b4a8ffe17b72730bb8,
+        type: 3}
+      propertyPath: runeSpr
+      value: 
+      objectReference: {fileID: 699536701}
     - target: {fileID: 8973661044586364391, guid: 53b7ca48853148b4a8ffe17b72730bb8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -253,6 +275,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1879965267}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &8973661042707612597 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8973661044586364390, guid: 53b7ca48853148b4a8ffe17b72730bb8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1879965267}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8973661042707612598 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8973661044586364389, guid: 53b7ca48853148b4a8ffe17b72730bb8,
@@ -265,6 +293,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfd9198b8e7cbf42bdf2900b4a83df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &699536701 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1505749870, guid: 53b7ca48853148b4a8ffe17b72730bb8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1879965267}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2332184994026872457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -337,11 +371,62 @@ PrefabInstance:
       propertyPath: objectToActivate
       value: 
       objectReference: {fileID: 5031511163855834456}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: activatedPlateSprite
+      value: 
+      objectReference: {fileID: 8393176543138369888, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: runeGraphics.deactivatedRuneSprite
+      value: 
+      objectReference: {fileID: -1874330322624415011, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: runeGraphics.activatedRuneSprite
+      value: 
+      objectReference: {fileID: 6124606917936436131, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: runeGraphics.pressedRuneSprite
+      value: 
+      objectReference: {fileID: 1110732309755920915, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: deactivatedPlateSprite
+      value: 
+      objectReference: {fileID: 1994710701197188399, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: runeSpr
+      value: 
+      objectReference: {fileID: 5130424}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: plateSpr
+      value: 
+      objectReference: {fileID: 8973661043366895152}
+    - target: {fileID: 6689337251724443834, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+        type: 3}
+      propertyPath: plateColor
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9387ec6f2ff642b4b8fa0ead76814f87, type: 3}
 --- !u!4 &8973661043366895153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6689337251724443832, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+    type: 3}
+  m_PrefabInstance: {fileID: 2332184994026872457}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8973661043366895152 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6689337251724443833, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
     type: 3}
   m_PrefabInstance: {fileID: 2332184994026872457}
   m_PrefabAsset: {fileID: 0}
@@ -357,6 +442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfd9198b8e7cbf42bdf2900b4a83df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &5130424 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2332184994022790705, guid: 9387ec6f2ff642b4b8fa0ead76814f87,
+    type: 3}
+  m_PrefabInstance: {fileID: 2332184994026872457}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8048847282647815897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -429,11 +520,62 @@ PrefabInstance:
       propertyPath: objectToActivate
       value: 
       objectReference: {fileID: 5031511163855834456}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: plateSpr
+      value: 
+      objectReference: {fileID: 8973661042839837617}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: runeSpr
+      value: 
+      objectReference: {fileID: 567381305}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: activatedPlateSprite
+      value: 
+      objectReference: {fileID: 8393176543138369888, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: deactivatedPlateSprite
+      value: 
+      objectReference: {fileID: 1994710701197188399, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: runeGraphics.deactivatedRuneSprite
+      value: 
+      objectReference: {fileID: 311622421693761399, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: runeGraphics.activatedRuneSprite
+      value: 
+      objectReference: {fileID: -3117028139642919042, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: runeGraphics.pressedRuneSprite
+      value: 
+      objectReference: {fileID: -6720860345522260675, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 1385955134133865835, guid: 3845f747986b9284696fe8fb378cf3c7,
+        type: 3}
+      propertyPath: plateColor
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3845f747986b9284696fe8fb378cf3c7, type: 3}
 --- !u!4 &8973661042839837616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1385955134133865833, guid: 3845f747986b9284696fe8fb378cf3c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8048847282647815897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8973661042839837617 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1385955134133865832, guid: 3845f747986b9284696fe8fb378cf3c7,
     type: 3}
   m_PrefabInstance: {fileID: 8048847282647815897}
   m_PrefabAsset: {fileID: 0}
@@ -449,6 +591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfd9198b8e7cbf42bdf2900b4a83df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &567381305 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8048847282088893408, guid: 3845f747986b9284696fe8fb378cf3c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8048847282647815897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8938596339951381321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -461,6 +609,51 @@ PrefabInstance:
       propertyPath: objectToActivate
       value: 
       objectReference: {fileID: 5031511163855834456}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: runeSpr
+      value: 
+      objectReference: {fileID: 1454917110}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: plateSpr
+      value: 
+      objectReference: {fileID: 8973661044804359038}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: activatedPlateSprite
+      value: 
+      objectReference: {fileID: 8393176543138369888, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: deactivatedPlateSprite
+      value: 
+      objectReference: {fileID: 1994710701197188399, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: runeGraphics.deactivatedRuneSprite
+      value: 
+      objectReference: {fileID: 1878668220139177577, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: runeGraphics.activatedRuneSprite
+      value: 
+      objectReference: {fileID: 3968499626965203979, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: runeGraphics.pressedRuneSprite
+      value: 
+      objectReference: {fileID: 7657365921882688447, guid: 9e7106c7cfe663540991052fbbb7caa8,
+        type: 3}
+    - target: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
+        type: 3}
+      propertyPath: plateColor
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 37329724614883382, guid: 4989c3406d134d84a877839056b19135,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -529,6 +722,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8938596339951381321}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &8973661044804359038 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 37329724614883383, guid: 4989c3406d134d84a877839056b19135,
+    type: 3}
+  m_PrefabInstance: {fileID: 8938596339951381321}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8973661044804359037 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 37329724614883380, guid: 4989c3406d134d84a877839056b19135,
@@ -541,3 +740,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfd9198b8e7cbf42bdf2900b4a83df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &1454917110 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8938596340864183999, guid: 4989c3406d134d84a877839056b19135,
+    type: 3}
+  m_PrefabInstance: {fileID: 8938596339951381321}
+  m_PrefabAsset: {fileID: 0}
