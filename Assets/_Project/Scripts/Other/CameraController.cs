@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float followSpeed;
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if (target != null)
         {
