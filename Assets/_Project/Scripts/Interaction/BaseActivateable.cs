@@ -1,18 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ActivateableMode { SINGLE, SEQUENCE }
+
 public abstract class BaseActivateable : MonoBehaviour, IActivateable
 {
-    // Private Variables
-    public bool Activated { get; set; }
+    [SerializeField] protected ActivateableMode activationType;
+    public Action<BaseActivateable> OnActuatedEvent;
 
-    public virtual void Activate()
+    // Private Variables
+    public bool Actuated { get; set; }
+
+    public virtual void Actuate()
     {
-        Activated = true;
+        Actuated = true;
     }
+
     public virtual void Deactivate()
     {
-        Activated = false;
+        Actuated = false;
     }
 }

@@ -58,9 +58,6 @@ public class PressurePlateActivateable : BaseActivateable
     private bool isDisabled;
     private ActivateableMode activateableMode = ActivateableMode.SINGLE;
 
-    // Events
-    public Action<PressurePlateActivateable> OnActivatedEvent;
-
     private void Awake()
     {
         InitPlate();
@@ -83,9 +80,9 @@ public class PressurePlateActivateable : BaseActivateable
         }
     }
 
-    public override void Activate()
+    public override void Actuate()
     {
-        if (Activated) return;
+        if (Actuated) return;
 
         switch (activateableMode)
         {
@@ -114,15 +111,15 @@ public class PressurePlateActivateable : BaseActivateable
     private void ActivateModeSequence()
     {
         SwitchGraphics(true);
-        OnActivatedEvent?.Invoke(this);
-        Activated = true;
+        OnActuatedEvent?.Invoke(this);
+        Actuated = true;
     }
 
     private void ActivateModeSingle()
     {
         SwitchGraphics(true);
-        OnActivatedEvent?.Invoke(this);
-        Activated = true;
+        OnActuatedEvent?.Invoke(this);
+        Actuated = true;
 
         if (objectToActivate != null)
         {
@@ -133,7 +130,7 @@ public class PressurePlateActivateable : BaseActivateable
     private void DeactivateModeSingle()
     {
         SwitchGraphics(false);
-        Activated = false;
+        Actuated = false;
     }
 
     private void DeactivateModeSequence()
@@ -152,7 +149,7 @@ public class PressurePlateActivateable : BaseActivateable
                 currentActivators.Add(activator);
             }
 
-            Activate();
+            Actuate();
         }
     }
 
@@ -185,7 +182,7 @@ public class PressurePlateActivateable : BaseActivateable
                 currentActivators.Add(activator);
             }
 
-            Activate();
+            Actuate();
         }
     }
 
@@ -238,7 +235,7 @@ public class PressurePlateActivateable : BaseActivateable
 
     public void Reset()
     {
-        Activated = false;
+        Actuated = false;
         SwitchGraphics(false);
     }
 }

@@ -1,22 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using MyBox;
 using Malee;
 using System.Linq;
 
-public enum ActivateableMode { SINGLE, SEQUENCE }
-
 [System.Serializable]
-public class DoorActivatorsList : ReorderableArray<PressurePlateActivateable> { }
+public class DoorActivatorsList : ReorderableArray<BaseActivateable> { }
 
 public class DoorActivateable : BaseActivateable
 {
     // Inspector Fields
-    [SerializeField] private ActivateableMode doorMode;
-    [SerializeField] private GameObject door;
-    [SerializeField] private bool isLocked = true;
+    [SerializeField] private GameObject doorObject; // This is actually the sprite for the door.
 
     [Header("Sequence Config")]
     [SerializeField] private PressurePlateActivateable resetPlate = null;
@@ -27,45 +22,39 @@ public class DoorActivateable : BaseActivateable
 
     [Separator]
 
-    [SerializeField] private List<PressurePlateActivateable> pressurePlates;
+    [SerializeField] private List<BaseActivateable> pressurePlates;
     [Reorderable(elementNameOverride = "Plate")] public DoorActivatorsList doorActivators;
 
     // Private Variables
-    [SerializeField] private List<PressurePlateActivateable> sequencePlates = new List<PressurePlateActivateable>();
+    [SerializeField] private List<BaseActivateable> sequencePlates = new List<BaseActivateable>();
     private bool sequenceStarted = false;
 
     private void Awake()
     {
         foreach (PressurePlateActivateable plate in pressurePlates)
         {
-            plate.OnActivatedEvent += OnPlateActivated;
+            plate.OnActuatedEvent += OnPlatePressed;
             plate.IsPartOfSequence = true;
+        }
+
+        if(resetPlate != null)
+        {
+            resetPlate.OnActuatedEvent += OnResetPlatePressed;
         }
     }
 
-    private void OnPlateActivated(PressurePlateActivateable plate)
+    private void OnPlatePressed(BaseActivateable plate)
     {
+        PressurePlateActivateable pressurePlate = plate as PressurePlateActivateable;
+        if (pressurePlate.IsDefault) return;
+
         if (!sequenceStarted)
         {
             sequenceStarted = true;
             StartCoroutine(PlateSequenceRoutine());
         }
 
-        if(plate.IsDefault)
-        {
-            Reset();
-            Activate();
-        }
-        else
-        {
-            sequencePlates.Add(plate);
-        }
-
-        //if (plate.IsDefault)
-        //{
-        //    CheckIfSequenceCorrect();
-        //    return;
-        //}
+        sequencePlates.Add(plate);
     }
 
     private IEnumerator PlateSequenceRoutine()
@@ -105,7 +94,7 @@ public class DoorActivateable : BaseActivateable
         {
             LogUtils.Log("SEQUENCE CORRECT!");
             Deactivate();
-            //Reset();
+
             return true;
         }
 
@@ -115,15 +104,21 @@ public class DoorActivateable : BaseActivateable
         return false;
     }
 
-    public override void Activate()
+    private void OnResetPlatePressed(BaseActivateable baseActivateable)
     {
-        base.Activate();
-        door.SetActive(true);
+        Reset();
+        Actuate();
+    }
+
+    public override void Actuate()
+    {
+        base.Actuate();
+        doorObject.SetActive(true);
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
-        door.SetActive(false);
+        doorObject.SetActive(false);
     }
 }

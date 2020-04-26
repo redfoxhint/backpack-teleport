@@ -88,13 +88,13 @@ TextureImporter:
     second: environmental-1_27
   - first:
       213: 7600947703854189936
-    second: environmental-1_28
+    second: door_left_up
   - first:
       213: 5412922911688526114
-    second: environmental-1_29
+    second: door_up_left
   - first:
       213: -7907458184321354338
-    second: environmental-1_30
+    second: door_up_right
   - first:
       213: -7219714088899559904
     second: environmental-1_0
@@ -167,6 +167,39 @@ TextureImporter:
   - first:
       213: -3545334098293294367
     second: environmental-1_23
+  - first:
+      213: 7218503632368557038
+    second: environmental-1_24
+  - first:
+      213: 2025364591935343626
+    second: environmental-1_25
+  - first:
+      213: 4403015603284912902
+    second: environmental-1_26
+  - first:
+      213: -8117281327260446343
+    second: environmental-1_27
+  - first:
+      213: -8683661299358990644
+    second: door_right_up
+  - first:
+      213: -1099360765375331659
+    second: door_left_mid
+  - first:
+      213: 6354512767125834473
+    second: door_up_down
+  - first:
+      213: 6169415980005467976
+    second: door_up_down2
+  - first:
+      213: -148375052970198919
+    second: door_right_mid
+  - first:
+      213: -5247815803708527740
+    second: door_left_down
+  - first:
+      213: 7539060040987271727
+    second: door_right_down
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -769,8 +802,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c33e5bd8d58a36390800000000000000
-      internalID: -7826226607676857540
+      spriteID: eebd131fec64d2460800000000000000
+      internalID: 7218503632368557038
       vertices: []
       indices: 
       edges: []
@@ -790,8 +823,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbcda67f5ee7f3100800000000000000
-      internalID: 89930043734285503
+      spriteID: a0cc5f29d5a8b1c10800000000000000
+      internalID: 2025364591935343626
       vertices: []
       indices: 
       edges: []
@@ -811,8 +844,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c10c306af1c6abb80800000000000000
-      internalID: -8378265273584336868
+      spriteID: 60bac4eec57aa1d30800000000000000
+      internalID: 4403015603284912902
       vertices: []
       indices: 
       edges: []
@@ -832,8 +865,218 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61334f84b8a987b10800000000000000
-      internalID: 1979501959244428054
+      spriteID: 971dabad3af995f80800000000000000
+      internalID: -8117281327260446343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_left_up
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07dcc844aadfb7960800000000000000
+      internalID: 7600947703854189936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_up_left
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22984c395b09e1b40800000000000000
+      internalID: 5412922911688526114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_up_right
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9535474da0134290800000000000000
+      internalID: -7907458184321354338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_right_up
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cce76e56e007d7780800000000000000
+      internalID: -8683661299358990644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_left_mid
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b24dc365394eb0f0800000000000000
+      internalID: -1099360765375331659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_up_down
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ea483da1b3cf2850800000000000000
+      internalID: 6354512767125834473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_up_down2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84728d7952b2e9550800000000000000
+      internalID: 6169415980005467976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_right_mid
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9787e2aecadd0fdf0800000000000000
+      internalID: -148375052970198919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_left_down
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ba545a4530c27b0800000000000000
+      internalID: -5247815803708527740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_right_down
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f226363e92f10a860800000000000000
+      internalID: 7539060040987271727
       vertices: []
       indices: 
       edges: []
