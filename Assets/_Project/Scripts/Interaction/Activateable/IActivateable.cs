@@ -1,5 +1,5 @@
 ﻿public interface IActivateable
 {
-    void Actuate();
+    void Activate();
     void Deactivate();
 }

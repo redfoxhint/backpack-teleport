@@ -68,7 +68,6 @@ public class Backpack_State_Aiming : IState
     private void OnAimKeyReleased(InputAction.CallbackContext value)
     {
         backpack.IsAiming = false;
-        Debug.Log("aim button released");
     }
 
     private void DrawAimingUI()

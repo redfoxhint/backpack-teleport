@@ -91,8 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8973661044586364391}
   - component: {fileID: 8973661044586364390}
-  - component: {fileID: 8973661044586364389}
   - component: {fileID: 8973661044586364388}
+  - component: {fileID: 4877635819712736871}
   m_Layer: 14
   m_Name: pfbPressurePlate_Grey
   m_TagString: Untagged
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8973661044586364392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.464, y: 0, z: 0}
+  m_LocalPosition: {x: 6.87, y: -5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1505749869}
@@ -166,30 +166,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8973661044586364389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8973661044586364392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dfd9198b8e7cbf42bdf2900b4a83df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activatedPlateSprite: {fileID: 8393176543138369888, guid: 9e7106c7cfe663540991052fbbb7caa8,
-    type: 3}
-  deactivatedPlateSprite: {fileID: 1994710701197188399, guid: 9e7106c7cfe663540991052fbbb7caa8,
-    type: 3}
-  runeGraphics:
-    deactivatedRuneSprite: {fileID: 0}
-    activatedRuneSprite: {fileID: 0}
-    pressedRuneSprite: {fileID: 0}
-  isRuneless: 1
-  objectToActivate: {fileID: 0}
-  plateSpr: {fileID: 8973661044586364390}
-  runeSpr: {fileID: 1505749870}
 --- !u!61 &8973661044586364388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -216,3 +192,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7592901, y: 0.76488805}
   m_EdgeRadius: 0
+--- !u!114 &4877635819712736871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973661044586364392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e45edadb384d9945ae0235cc11fde18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDisabled: 0
+  activatedSprite: {fileID: 8393176543138369888, guid: 9e7106c7cfe663540991052fbbb7caa8,
+    type: 3}
+  deactivatedSprite: {fileID: 1994710701197188399, guid: 9e7106c7cfe663540991052fbbb7caa8,
+    type: 3}
+  actuatorSpriteRenderer: {fileID: 8973661044586364390}
+  plateGraphics:
+    deactivatedRuneSprite: {fileID: -1874330322624415011, guid: 9e7106c7cfe663540991052fbbb7caa8,
+      type: 3}
+    activatedRuneSprite: {fileID: 6124606917936436131, guid: 9e7106c7cfe663540991052fbbb7caa8,
+      type: 3}
+    pressedRuneSprite: {fileID: 1110732309755920915, guid: 9e7106c7cfe663540991052fbbb7caa8,
+      type: 3}
+  runeSpriteRenderer: {fileID: 1505749870}
+  hasNoRune: 0
