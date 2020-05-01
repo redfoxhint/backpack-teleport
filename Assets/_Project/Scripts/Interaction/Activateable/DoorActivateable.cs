@@ -11,13 +11,14 @@ public class DoorSequenceList : ReorderableArray<BaseActuator> { }
 public class DoorActivateable : BaseActivateable
 {
     // Inspector Fields
-    [Header("Activateable Configuration")]
+    [Header("Door Activateable Configuration")]
     [SerializeField] private GameObject doorObject; // This is actually the sprite for the door.
     [SerializeField] private List<BaseActuator> actuators; // This list is for storing the activators used to activate the door.
     [SerializeField] private BaseActuator resetActuator = null;
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer doorSpriteRenderer;
+
 
     [Separator]
 
@@ -107,6 +108,8 @@ public class DoorActivateable : BaseActivateable
 
     public override void OnResetActivatorActuated(BaseActuator actuator)
     {
+        if (!IsUnlocked) return;
+
         Reset();
         Activate();
     }
@@ -114,14 +117,16 @@ public class DoorActivateable : BaseActivateable
     public override void Activate()
     {
         base.Activate();
-        doorObject.SetActive(true);
+        anim.SetTrigger("closeDoor");
+        colliderToDisable.enabled = true;
         IsUnlocked = false;
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
-        doorObject.SetActive(false);
+        anim.SetTrigger("openDoor");
+        colliderToDisable.enabled = false;
         IsUnlocked = true;
     }
 }

@@ -12,6 +12,8 @@ public abstract class BaseActivateable : MonoBehaviour, IActivateable
     [SerializeField] protected ActivateableMode activationMode;
     [SerializeField] protected bool isGated;
     [SerializeField] protected List<BaseActivateable> gates = new List<BaseActivateable>();
+    [SerializeField] protected BoxCollider2D colliderToDisable;
+    [SerializeField] protected Animator anim;
 
     // Events
     public Action<BaseActivateable> OnActuatedEvent;

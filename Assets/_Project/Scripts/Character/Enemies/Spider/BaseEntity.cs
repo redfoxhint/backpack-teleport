@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PolyNav;
 
 [RequireComponent(typeof(BaseDamageable), typeof(Rigidbody2D), typeof(PolyNav.PolyNavAgent))]
 public class BaseEntity : StateMachineUnit
@@ -14,13 +15,13 @@ public class BaseEntity : StateMachineUnit
 
     // Components
     public BaseDamageable baseDamageable { get; private set; }
-    public PolyNav.PolyNavAgent agent { get; private set; }
+    public PolyNavAgent agent { get; private set; }
     public EntityPhysicsController controller { get; private set; }
 
     private void Awake()
     {
         baseDamageable = GetComponent<BaseDamageable>();
-        agent = GetComponent<PolyNav.PolyNavAgent>();
+        agent = GetComponent<PolyNavAgent>();
         controller = GetComponent<EntityPhysicsController>();
 
         polyNav = agent.map;
@@ -44,7 +45,7 @@ public class BaseEntity : StateMachineUnit
 
     public void OnTookDamage()
     {
-        stateMachine.ChangeState(new BaseEntity_State_TakingDamage(this));
+        //stateMachine.ChangeState(new BaseEntity_State_TakingDamage(this));
     }
 }
 

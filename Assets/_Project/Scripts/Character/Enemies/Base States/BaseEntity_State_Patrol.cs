@@ -13,7 +13,7 @@ public class BaseEntity_State_Patrol : IState
     public BaseEntity_State_Patrol(BaseEntity _entity)
     {
         entity = _entity;
-        player = GameObject.FindObjectOfType<PlayerDamageable>();
+        player = GameManager.Instance.Player.GetComponent<PlayerDamageable>();
         polyNav = this.entity.agent.map;
     }
 
