@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7497712571139662840}
   - component: {fileID: 2156021232742973888}
+  - component: {fileID: 2774245935605505935}
   m_Layer: 0
   m_Name: pfbTreeVar3
   m_TagString: Untagged
@@ -80,4 +81,30 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!61 &2774245935605505935
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6823986052921236498}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.43}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.4373231, y: 0.16068034}
+    oldSize: {x: 7.2727275, y: 10.909091}
+    newSize: {x: 7.2727275, y: 10.909091}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7917099, y: 1.349186}
+  m_EdgeRadius: 0
