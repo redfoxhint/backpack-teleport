@@ -61,6 +61,7 @@ public class OptionsScreen : MonoBehaviour
     {
         //Debug.Log(inputActions.asset.actionMaps.Count);
         //CreateRebindButtons();
+        SetUseGamepad();
     }
 
     private void InitializeButtons()
@@ -133,7 +134,7 @@ public class OptionsScreen : MonoBehaviour
     #region Gameplay Region
     private void SetUseGamepad(Toggle toggle, bool value)
     {
-        bool gamepadConnected = InputManager.Instance.IsGamepadConnected();
+        bool gamepadConnected = CheckGamepadEnabled();
 
         if(gamepadConnected)
         {
@@ -147,6 +148,30 @@ public class OptionsScreen : MonoBehaviour
             Debug.Log("Gamepad not found, using keyboard and mouse input instead.");
         }
     }
+
+    private void SetUseGamepad()
+    {
+        bool gamepadConnected = CheckGamepadEnabled();
+
+        if (gamepadConnected)
+        {
+            InputManager.Instance.UseGamepad = true;
+            Debug.Log("Now using gamepad.");
+        }
+        else
+        {
+            useGamepadToggle.isOn = false;
+            InputManager.Instance.UseGamepad = false;
+            Debug.Log("Gamepad not found, using keyboard and mouse input instead.");
+        }
+    }
+
+
+    private bool CheckGamepadEnabled()
+    {
+        bool gamepadConnected = InputManager.Instance.IsGamepadConnected();
+        return gamepadConnected;
+    }    
 
     private void ToggleNightMode(Toggle toggle)
     {
