@@ -6,17 +6,13 @@ using Cinemachine;
 
 public class CameraFunctions : Singleton<CameraFunctions>
 {
-    [Header("Camera Zoom Configuration")]
-    [SerializeField] private float zoomSpeed;
-    [SerializeField] private float zoomAmount;
-
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private CinemachineVirtualCamera virtualCam;
 
     private Transform followTarget;
-    private float originalCameraSize;
-    private bool isCameraZoomed = false;
-    
+    private float originalZoomAmount;
+    private const float defaultZoomAmount = 15f;
+    private const float defaultZoomSpeed = 1f;
+    private bool isZoomedOut = false;
     public Transform FollowTarget
     {
         set
@@ -26,22 +22,42 @@ public class CameraFunctions : Singleton<CameraFunctions>
         }
     }
 
-    public void ZoomCamera()
+    private void Awake()
     {
-        
+        originalZoomAmount = virtualCam.m_Lens.OrthographicSize;
     }
 
-    private void ZoomCameraIn()
+    public void ZoomCamera(float amount = defaultZoomAmount, float zoomSpeed = defaultZoomSpeed)
     {
-        DOVirtual.Float(virtualCam.m_Lens.OrthographicSize, originalCameraSize, zoomSpeed, (x) =>
+        isZoomedOut = !isZoomedOut;
+
+        if (!isZoomedOut)
+        {
+            ResetZoom(zoomSpeed);
+        }
+        else
+        {
+            ZoomOut(amount, zoomSpeed);
+        }
+    }
+
+    public void SetZoomImmediate(float amount)
+    {
+        virtualCam.m_Lens.OrthographicSize = amount;
+        isZoomedOut = false;
+    }
+
+    private void ZoomOut(float zoomAmount, float zoomSpeed)
+    {
+        DOVirtual.Float(virtualCam.m_Lens.OrthographicSize, zoomAmount, zoomSpeed, (x) =>
         {
             virtualCam.m_Lens.OrthographicSize = x;
         });
     }
 
-    private void ZoomCameraOut()
+    public void ResetZoom(float zoomSpeed = defaultZoomSpeed)
     {
-        DOVirtual.Float(virtualCam.m_Lens.OrthographicSize, originalCameraSize, zoomSpeed, (x) =>
+        DOVirtual.Float(virtualCam.m_Lens.OrthographicSize, originalZoomAmount, zoomSpeed, (x) =>
         {
             virtualCam.m_Lens.OrthographicSize = x;
         });

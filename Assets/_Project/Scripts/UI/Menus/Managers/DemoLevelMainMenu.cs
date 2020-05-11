@@ -45,6 +45,7 @@ public class DemoLevelMainMenu : MonoBehaviour
     private void Start()
     {
         //GameManager.Instance.PixelPerfectCamera.SetZoomImmediate(2);
+        CameraFunctions.Instance.SetZoomImmediate(5f);
     }
 
     private void Update()

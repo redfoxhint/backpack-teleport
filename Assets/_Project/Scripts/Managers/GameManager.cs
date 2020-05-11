@@ -59,7 +59,6 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         player = Player;
         mainCam = Camera.main;
-        pixelPerfectCamera = PixelPerfectCamera;
         PlayerControl = false;
     }
 

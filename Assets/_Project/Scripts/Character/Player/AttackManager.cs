@@ -41,6 +41,7 @@ public class AttackManager : MonoBehaviour
     [SerializeField] private float knockbackAmount;
     [SerializeField] private float attackAnimationTime = 1; // How long the attack lasts
     [SerializeField] private LayerMask enemyFilter;
+    [SerializeField] private AudioClip attackAudio;
 
     [Header("Attack Data")]
     [SerializeField] private List<AttackDirectionData> attackDirectionData;
@@ -96,6 +97,7 @@ public class AttackManager : MonoBehaviour
 
         // Deal damage here
         DealDamage();
+        AudioManager.Instance.Play("sfxPlayerAttack1");
         Debug.Log("Attacked");
 
         if (!inCombo)

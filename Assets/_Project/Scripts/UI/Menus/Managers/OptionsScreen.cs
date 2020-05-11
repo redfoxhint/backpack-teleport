@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Samples.RebindUI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Audio;
 
 /*
  * TODO: AUTOMATICALLY GENERATE REBIND BUTTONS IN CONTROLS MENU
@@ -43,6 +44,9 @@ public class OptionsScreen : MonoBehaviour
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider soundVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private AudioMixer masterMixer;
+    [SerializeField] private AudioMixerGroup musicGroup;
+    [SerializeField] private AudioMixerGroup soundGroup;
 
     private int pageIndex = 0;
 
@@ -55,6 +59,9 @@ public class OptionsScreen : MonoBehaviour
         LoadOptions();
 
         InputManager.Instance.InputActions.Debug.ResetLevel.started += ResetLevel;
+        masterVolumeSlider.value = 1f;
+        soundVolumeSlider.value = 1f;
+        musicVolumeSlider.value = 1f;
     }
 
     private void Start()
@@ -250,17 +257,21 @@ public class OptionsScreen : MonoBehaviour
     #region Sound Region
     private void SetMasterVolume(float value)
     {
-        //Debug.Log($"Master Volume: {value}");
+        float optimizedValue = Mathf.Log10(value) * 20;
+
+        masterMixer.SetFloat("MasterVolume", optimizedValue);
     }
 
     private void SetMusicVolume(float value)
     {
-        //Debug.Log($"Music Volume: {value}");
+        float optimizedValue = Mathf.Log10(value) * 20;
+        musicGroup.audioMixer.SetFloat("MusicVolume", optimizedValue);
     }
 
     private void SetSoundVolume(float value)
     {
-        //Debug.Log($"Sound Volume: {value}");
+        float optimizedValue = Mathf.Log10(value) * 20;
+        soundGroup.audioMixer.SetFloat("SoundVolume", optimizedValue);
     }
 
     #endregion

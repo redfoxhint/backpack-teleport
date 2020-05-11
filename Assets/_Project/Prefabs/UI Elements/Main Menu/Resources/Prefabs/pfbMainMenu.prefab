@@ -1390,6 +1390,11 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 9098923967161489849}
   soundVolumeSlider: {fileID: 9098923965889508014}
   musicVolumeSlider: {fileID: 9098923966127317952}
+  masterMixer: {fileID: 24100000, guid: 3e157de98b484c74983dc4270435a0ca, type: 2}
+  musicGroup: {fileID: 8851461459959351680, guid: 3e157de98b484c74983dc4270435a0ca,
+    type: 2}
+  soundGroup: {fileID: -4069373717913456567, guid: 3e157de98b484c74983dc4270435a0ca,
+    type: 2}
 --- !u!114 &1512590955337817000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1413,7 +1418,7 @@ MonoBehaviour:
   carouselMenu: {fileID: 8409687346247736456}
   levelSelectorDatas:
     array:
-    - {fileID: 11400000, guid: dc7c8099c89d5bd419748c1e88ba444e, type: 2}
+    - {fileID: 11400000, guid: 30aadab8d59f3334585128ef2d59cdc1, type: 2}
 --- !u!1 &1512590955844232509
 GameObject:
   m_ObjectHideFlags: 0

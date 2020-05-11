@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 6941021037443103212}
   - component: {fileID: 7827539823757901041}
   m_Layer: 13
-  m_Name: PauseMenu
+  m_Name: pfbPauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,6 +305,11 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 5353811139752098979}
   soundVolumeSlider: {fileID: 5353811141013329844}
   musicVolumeSlider: {fileID: 5353811140781508314}
+  masterMixer: {fileID: 24100000, guid: 3e157de98b484c74983dc4270435a0ca, type: 2}
+  musicGroup: {fileID: 8851461459959351680, guid: 3e157de98b484c74983dc4270435a0ca,
+    type: 2}
+  soundGroup: {fileID: -4069373717913456567, guid: 3e157de98b484c74983dc4270435a0ca,
+    type: 2}
 --- !u!1 &6941021037576991236
 GameObject:
   m_ObjectHideFlags: 0
