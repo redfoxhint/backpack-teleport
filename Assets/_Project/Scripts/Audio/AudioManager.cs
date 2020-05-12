@@ -22,7 +22,7 @@ public enum AudioFiles
     SFX_Teleport2
 }
 
-public enum AudioType { SOUNDTRACK, SOUNDEFFECT, BACKGROUND }
+public enum AudioType { MUSIC, SOUNDEFFECT, AMBIENT }
 
 public class AudioManager : PersistentSingleton<AudioManager>
 {
@@ -31,14 +31,16 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] private AudioMixerGroup soundGroup;
 
     // Private Variables
-    private AudioSource primaryMusicSource; // The starting music source
-    private AudioSource nextMusicSource; // The next music source (this is the source that will be faded into)
-    private AudioSource primaryBackgroundSource;
-    private AudioSource nextBackgroundSource;
+    private AudioSource musicSource1; // The starting music source
+    private AudioSource musicSource2; // The next music source (this is the source that will be faded into)
+
+    private AudioSource ambientSource1;
+    private AudioSource ambientSource2;
+
     private AudioSource sfxSource;
 
     private AudioSource currentMusicSource;
-    private AudioSource currentBackgroundSource;
+    private AudioSource currentAmbientSource;
 
     // Resource Paths
     private const string sfxPath = "Audio/SFX";
@@ -46,12 +48,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     // Tasks
     private Task crossfadeTask;
+
     private Task musicFadeInTask;
     private Task musicFadeOutTask;
-    private Task backGroundFadeInTask;
-    private Task backGroundFadeOutTask;
 
-
+    private Task ambientFadeInTask;
+    private Task ambientFadeOutTask;
 
     #region Unity Functions
     public override void Awake()
@@ -64,17 +66,17 @@ public class AudioManager : PersistentSingleton<AudioManager>
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            FadeIn(AudioType.SOUNDTRACK, AudioFiles.ST_01);
+            FadeIn(AudioType.MUSIC, AudioFiles.ST_01, 5f);
         }
 
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            Crossfade(AudioType.SOUNDTRACK, AudioFiles.ST_02);
+            Crossfade(AudioType.MUSIC, AudioFiles.ST_02);
         }
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            FadeOut(AudioType.SOUNDTRACK);
+            Crossfade(AudioType.MUSIC, AudioFiles.ST_01);
         }
     }
 
@@ -89,18 +91,27 @@ public class AudioManager : PersistentSingleton<AudioManager>
             sfxSource.PlayOneShot(clip);
     }
 
-    public void FadeIn(AudioType audioType, AudioFiles newAudio, float time = 5f, bool immediate = false)
+    public void FadeIn(AudioType audioType, AudioFiles audioName, float fadeInTime = 5f, bool immediate = false)
     {
-        switch (audioType)
+        AudioSource availableSource = GetNextAvailableSource(audioType);
+
+        if (availableSource != null)
         {
-            case AudioType.SOUNDEFFECT:
-                break;
-            case AudioType.SOUNDTRACK:
-                FadeInMusic(newAudio, time, immediate);
-                break;
-            case AudioType.BACKGROUND:
-                FadeInBackground(newAudio, time, immediate);
-                break;
+            switch (audioType)
+            {
+                case AudioType.SOUNDEFFECT:
+                    break;
+                case AudioType.MUSIC:
+                    FadeInMusic(audioName, availableSource, fadeInTime, immediate);
+                    break;
+                case AudioType.AMBIENT:
+                    FadeInAmbient(audioName, availableSource, fadeInTime, immediate);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.Log("Available audio source not found.");
         }
     }
 
@@ -110,37 +121,32 @@ public class AudioManager : PersistentSingleton<AudioManager>
         {
             case AudioType.SOUNDEFFECT:
                 break;
-            case AudioType.SOUNDTRACK:
+            case AudioType.MUSIC:
                 FadeOutMusic(time, () => OnFinishedFading?.Invoke());
                 break;
-            case AudioType.BACKGROUND:
-                FadeOutBackground(time, () => OnFinishedFading?.Invoke());
+            case AudioType.AMBIENT:
+                FadeOutAmbient(time, () => OnFinishedFading?.Invoke());
                 break;
         }
     }
 
     public void Crossfade(AudioType audioType, AudioFiles audioToFadeTo, float time = 5f, bool immediate = false)
     {
-        switch(audioType)
+        switch (audioType)
         {
             case AudioType.SOUNDEFFECT:
                 break;
-            case AudioType.SOUNDTRACK:
-                //CrossFadeMusic(newAudio, time, immediate);
+            case AudioType.MUSIC:
+                CrossFadeMusic(audioType, audioToFadeTo, time);
                 break;
-            case AudioType.BACKGROUND:
-                //CrossFadeBackground(newAudio, time, immediate);
+            case AudioType.AMBIENT:
+                CrossFadeBackground(audioType, audioToFadeTo, time);
                 break;
 
         }
 
-        if (!primaryMusicSource.isPlaying) return;
-
-        if (crossfadeTask == null)
-        {
-            crossfadeTask = new Task(AudioCrossfadeRoutine(primaryMusicSource, nextMusicSource, audioToFadeTo, time));
-            crossfadeTask.Start();
-        }
+        //crossfadeTask = new Task(AudioCrossfadeRoutine(current, musicSource2, audioToFadeTo, time));
+        //crossfadeTask.Start();
     }
 
     #endregion
@@ -148,93 +154,122 @@ public class AudioManager : PersistentSingleton<AudioManager>
     #region Private Functions
     private void Init()
     {
-        primaryMusicSource = gameObject.AddComponent<AudioSource>();
-        primaryMusicSource.outputAudioMixerGroup = musicGroup;
+        GameObject primarySourceObject = new GameObject("Music Source 1 Object");
+        primarySourceObject.transform.SetParent(transform);
 
-        nextMusicSource = gameObject.AddComponent<AudioSource>();
-        nextMusicSource.outputAudioMixerGroup = musicGroup;
+        musicSource1 = primarySourceObject.AddComponent<AudioSource>();
+        musicSource1.outputAudioMixerGroup = musicGroup;
 
-        primaryBackgroundSource = gameObject.AddComponent<AudioSource>();
-        primaryBackgroundSource.outputAudioMixerGroup = soundGroup;
+        GameObject nextSourceObject = new GameObject("Music Source 2 Object");
+        nextSourceObject.transform.SetParent(transform);
 
-        nextBackgroundSource = gameObject.AddComponent<AudioSource>();
-        nextBackgroundSource.outputAudioMixerGroup = soundGroup;
+        musicSource2 = nextSourceObject.AddComponent<AudioSource>();
+        musicSource2.outputAudioMixerGroup = musicGroup;
 
-        sfxSource = gameObject.AddComponent<AudioSource>();
+        GameObject primaryBackgroundSourceObject = new GameObject("Background Source 1 Object");
+        primaryBackgroundSourceObject.transform.SetParent(transform);
+
+        ambientSource1 = primaryBackgroundSourceObject.AddComponent<AudioSource>();
+        ambientSource1.outputAudioMixerGroup = soundGroup;
+
+        GameObject nextBackgroundSourceObject = new GameObject("Background Source 2 Object");
+        nextBackgroundSourceObject.transform.SetParent(transform);
+
+        ambientSource2 = nextBackgroundSourceObject.AddComponent<AudioSource>();
+        ambientSource2.outputAudioMixerGroup = soundGroup;
+
+        GameObject sfxSourceObject = new GameObject("SFX Source Object");
+        sfxSourceObject.transform.SetParent(transform);
+
+        sfxSource = sfxSourceObject.AddComponent<AudioSource>();
         sfxSource.outputAudioMixerGroup = soundGroup;
     }
-    private void FadeInMusic(AudioFiles newAudio, float time, bool immediate)
+    private void FadeInMusic(AudioFiles newAudio, AudioSource availableSource, float fadeInTime, bool immediate)
     {
-        if (primaryMusicSource.isPlaying)
+        if (currentMusicSource != null && currentMusicSource.isPlaying)
         {
             if (immediate)
             {
-                LogUtils.Log($"New music wants to fade in. Will do immediately");
-
-                primaryMusicSource.Stop();
-                primaryMusicSource.volume = 0f;
-
-                musicFadeInTask?.Stop();
-
-                musicFadeInTask = new Task(AudioFadeInRoutine(primaryMusicSource, newAudio, time));
-                musicFadeInTask.Start();
+                RestartSourceImmediate(currentMusicSource, GetAudioClipFromFile(newAudio));
             }
-
-            else
+            else // If not play immediate fade out and fade into new audio
             {
-                LogUtils.Log($"New music wants to fade in. Will do after finished fading out old music");
-
-                FadeOutMusic(time, () =>
+                FadeOutMusic(fadeInTime, () =>
                 {
-                    musicFadeInTask?.Stop();
-
-                    musicFadeInTask = new Task(AudioFadeInRoutine(primaryMusicSource, newAudio, time));
+                    musicFadeInTask = new Task(AudioFadeInRoutine(currentMusicSource, newAudio, fadeInTime));
                     musicFadeInTask.Start();
                 });
             }
         }
 
-        else
+        else if(currentMusicSource == null)
         {
-            LogUtils.Log($"New music wants to fade in. Will do now since no other music playing.");
+            if(availableSource != null)
+            {
+                currentMusicSource = availableSource;
 
-            musicFadeInTask = new Task(AudioFadeInRoutine(primaryMusicSource, newAudio, time));
-            musicFadeInTask.Start();
+                if(immediate)
+                {
+                    RestartSourceImmediate(currentMusicSource, GetAudioClipFromFile(newAudio));
+                }
+                else // If not play immediate fade out and fade into new audio
+                {
+                    FadeOutMusic(fadeInTime, () =>
+                    {
+                        musicFadeInTask = new Task(AudioFadeInRoutine(currentMusicSource, newAudio, fadeInTime));
+                        musicFadeInTask.Start();
+                    });
+                }
+            }
         }
     }
 
-    private void FadeInBackground(AudioFiles newAudio, float time, bool immediate)
+    
+
+    private void FadeInAmbient(AudioFiles newAudio, AudioSource availableSource, float fadeInTime, bool immediate)
     {
-        if (primaryBackgroundSource.isPlaying)
+        if(currentAmbientSource != null && currentAmbientSource.isPlaying)
         {
             if (immediate)
             {
-                primaryBackgroundSource.Stop();
-                primaryBackgroundSource.volume = 0f;
-
-                backGroundFadeInTask?.Stop();
-
-                backGroundFadeInTask = new Task(AudioFadeInRoutine(primaryBackgroundSource, newAudio, time));
-                backGroundFadeInTask.Start();
+                RestartSourceImmediate(currentAmbientSource, GetAudioClipFromFile(newAudio));
             }
-            else
+            else // If not play immediate fade out and fade into new audio
             {
-                FadeOutBackground(time, () =>
+                FadeOutAmbient(fadeInTime, () =>
                 {
-                    backGroundFadeInTask?.Stop();
-
-                    backGroundFadeInTask = new Task(AudioFadeInRoutine(primaryBackgroundSource, newAudio, time));
-                    backGroundFadeInTask.Start();
+                    ambientFadeInTask = new Task(AudioFadeInRoutine(currentAmbientSource, newAudio, fadeInTime));
+                    ambientFadeInTask.Start();
                 });
             }
         }
-    }
 
-    private void FadeOutMusic(float time, System.Action OnFinishedFading = null)
-    {
-        if(primaryMusicSource.isPlaying)
+        else if (currentAmbientSource == null)
         {
-            musicFadeOutTask = new Task(AudioFadeOutRoutine(primaryMusicSource, time, OnFinishedFading));
+            if (availableSource != null)
+            {
+                currentAmbientSource = availableSource;
+
+                if (immediate)
+                {
+                    RestartSourceImmediate(currentAmbientSource, GetAudioClipFromFile(newAudio));
+                }
+                else // If not play immediate fade out and fade into new audio
+                {
+                    FadeOutAmbient(fadeInTime, () =>
+                    {
+                        ambientFadeInTask = new Task(AudioFadeInRoutine(currentAmbientSource, newAudio, fadeInTime));
+                        ambientFadeInTask.Start();
+                    });
+                }
+            }
+        }
+    }
+    private void FadeOutMusic(float fadeOutTime, System.Action OnFinishedFading = null)
+    {
+        if (currentMusicSource.isPlaying)
+        {
+            musicFadeOutTask = new Task(AudioFadeOutRoutine(currentMusicSource, fadeOutTime, OnFinishedFading));
             musicFadeOutTask.Start();
         }
         else
@@ -242,18 +277,30 @@ public class AudioManager : PersistentSingleton<AudioManager>
             OnFinishedFading?.Invoke(); // Raise finished fading event right away if no music is currently playing.
         }
     }
-
-    private void FadeOutBackground(float time, System.Action OnFinishedFading = null)
+    private void FadeOutAmbient(float fadeOutTime, System.Action OnFinishedFading = null)
     {
-        if(primaryBackgroundSource.isPlaying)
+        if (currentAmbientSource.isPlaying)
         {
-            backGroundFadeOutTask = new Task(AudioFadeOutRoutine(primaryBackgroundSource, time, OnFinishedFading));
-            backGroundFadeOutTask.Start();
+            ambientFadeOutTask = new Task(AudioFadeOutRoutine(currentAmbientSource, fadeOutTime, OnFinishedFading));
+            ambientFadeOutTask.Start();
         }
         else
         {
             OnFinishedFading?.Invoke(); // Raise finished fading event right away if no music is currently playing.
         }
+    }
+
+    private void CrossFadeMusic(AudioType audioType, AudioFiles audioFile, float time)
+    {
+        AudioSource newSource = GetNextAvailableSource(audioType);
+
+        crossfadeTask = new Task(AudioCrossfadeRoutine(currentMusicSource, newSource, audioFile, time));
+        crossfadeTask.Start();
+    }
+
+    private void CrossFadeBackground(AudioType audioType, AudioFiles audioFile, float time)
+    {
+
     }
 
     private IEnumerator AudioFadeInRoutine(AudioSource source, AudioFiles newAudio, float fadeInTime)
@@ -292,13 +339,11 @@ public class AudioManager : PersistentSingleton<AudioManager>
         yield break;
     }
 
-    private IEnumerator AudioCrossfadeRoutine(AudioSource currentSource, AudioSource nextSource, AudioFiles newClip, float crossfadeTime)
+    private IEnumerator AudioCrossfadeRoutine(AudioSource currentSource, AudioSource newSource, AudioFiles newClip, float crossfadeTime)
     {
-        LogUtils.Log($"Crossfading audio: {primaryMusicSource?.clip.name} -> {newClip.ToString()}");
-
-        nextSource.clip = GetAudioClipFromFile(newClip);
-        nextSource.volume = 0f;
-        nextSource.Play();
+        newSource.clip = GetAudioClipFromFile(newClip);
+        newSource.volume = 0f;
+        newSource.Play();
 
         float elapsedTime = 0f;
 
@@ -306,7 +351,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
         {
             elapsedTime += Time.deltaTime;
             currentSource.volume = Mathf.Lerp(1f, 0f, elapsedTime / crossfadeTime);
-            nextSource.volume = Mathf.Lerp(0f, 1f, elapsedTime / crossfadeTime);
+            newSource.volume = Mathf.Lerp(0f, 1f, elapsedTime / crossfadeTime);
 
             yield return null;
         }
@@ -315,10 +360,9 @@ public class AudioManager : PersistentSingleton<AudioManager>
         currentSource.volume = 0f;
         currentSource.clip = null;
 
-        primaryMusicSource = nextSource;
+        currentMusicSource = newSource;
 
         yield break;
-
     }
 
     private AudioClip GetAudioClipFromFile(AudioFiles audioFile)
@@ -340,6 +384,44 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
         return sfxClip;
     }
+
+    private AudioSource GetNextAvailableSource(AudioType audioType)
+    {
+        switch (audioType)
+        {
+            case AudioType.SOUNDEFFECT:
+                break;
+            case AudioType.MUSIC:
+
+                if (!musicSource1.isPlaying)
+                {
+                    return musicSource1;
+                }
+
+                return musicSource2;
+
+            case AudioType.AMBIENT:
+
+                if (!ambientSource1.isPlaying)
+                {
+                    return ambientSource1;
+                }
+
+                return ambientSource2;
+        }
+
+        Debug.Log("No source is available");
+
+        return null;
+    }
+
+    private void RestartSourceImmediate(AudioSource source, AudioClip clip)
+    {
+        source.Stop();
+        source.clip = clip;
+        source.Play();
+    }
+
     #endregion
 
     public void Play(string name)
