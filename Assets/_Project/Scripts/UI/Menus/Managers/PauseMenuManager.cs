@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class PauseMenuManager : BaseMenuManager
@@ -11,6 +12,9 @@ public class PauseMenuManager : BaseMenuManager
     [SerializeField] private RectTransform loadScreen;
     [SerializeField] private RectTransform optionsScreen;
     [SerializeField] private RectTransform menu;
+    [SerializeField] private AudioMixerSnapshot pausedSnapshot;
+    [SerializeField] private AudioMixerSnapshot unpausedSnapshot;
+
 
     [Header("Buttons")]
     [SerializeField] private Button resumeButton;
@@ -76,11 +80,13 @@ public class PauseMenuManager : BaseMenuManager
     {
         GameManager.Instance.PauseGame();
         menu.gameObject.SetActive(true);
+        pausedSnapshot.TransitionTo(0.01f);
     }
 
     private void Unpause()
     {
         GameManager.Instance.ResumeGame();
         menu.gameObject.SetActive(false);
+        unpausedSnapshot.TransitionTo(0.01f);
     }
 }

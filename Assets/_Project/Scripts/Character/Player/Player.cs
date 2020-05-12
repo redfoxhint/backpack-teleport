@@ -59,7 +59,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			GameEvents.onTeleportedEvent.Invoke(pos);
 
 			Invoke("TurnTrailRendererOff", 0.5f);
-			AudioManager.Instance.Play("sfxTeleport");
+			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Teleport1);
 		}
 
 		private void TurnTrailRendererOff()
@@ -80,7 +80,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		public void TriggerThrowing()
 		{
 			animator.SetTrigger("Throw");
-			AudioManager.Instance.Play("sfxThrow");
+			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Teleport2);
 		}
 	}
 }

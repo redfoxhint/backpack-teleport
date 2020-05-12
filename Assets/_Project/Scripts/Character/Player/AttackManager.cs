@@ -97,7 +97,8 @@ public class AttackManager : MonoBehaviour
 
         // Deal damage here
         DealDamage();
-        AudioManager.Instance.Play("sfxPlayerAttack1");
+        AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_ArtiAttack1);
+        AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_ArtiGrunt1);
         Debug.Log("Attacked");
 
         if (!inCombo)

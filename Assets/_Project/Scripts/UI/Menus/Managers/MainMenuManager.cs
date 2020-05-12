@@ -26,6 +26,11 @@ public class MainMenuManager : BaseMenuManager
         levelMenuManager = GetComponent<LevelSelectScreen>();
     }
 
+    private void Start()
+    {
+        AudioManager.Instance.FadeIn(AudioType.SOUNDTRACK, AudioFiles.ST_01);
+    }
+
     protected override void InitializeButtons()
     {
         base.InitializeButtons();

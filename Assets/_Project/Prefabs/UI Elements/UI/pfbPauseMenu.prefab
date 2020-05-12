@@ -275,6 +275,9 @@ MonoBehaviour:
   loadScreen: {fileID: 6941021037668770520}
   optionsScreen: {fileID: 2374695026939510796}
   menu: {fileID: 6941021037576991235}
+  pausedSnapshot: {fileID: 24500006, guid: 3e157de98b484c74983dc4270435a0ca, type: 2}
+  unpausedSnapshot: {fileID: 6389207872754280765, guid: 3e157de98b484c74983dc4270435a0ca,
+    type: 2}
   resumeButton: {fileID: 4011069679876658543}
   optionsButton: {fileID: 4011069679996611979}
   saveButton: {fileID: 4011069679315884501}

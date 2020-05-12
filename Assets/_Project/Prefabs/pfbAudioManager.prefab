@@ -43,35 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5aabc8c643b5d14b9b850dde52fe723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: sfxPlayerAttack1
-    clip: {fileID: 8300000, guid: 98106f2c80f1f044185e34d4de687fd3, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    audioType: 1
-    source: {fileID: 0}
-  - name: sfxThrow
-    clip: {fileID: 8300000, guid: 7ff75aa37fe2f1d44896bc9c70f7f557, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    audioType: 1
-    source: {fileID: 0}
-  - name: sfxTeleport
-    clip: {fileID: 8300000, guid: 93aa4d5bfe72ea04c9dd173c500da956, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    audioType: 1
-    source: {fileID: 0}
-  - name: stTheme
-    clip: {fileID: 8300000, guid: c4dddaf5c0756794686442e4cc61e0a2, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    audioType: 0
-    source: {fileID: 0}
   musicGroup: {fileID: 8851461459959351680, guid: 3e157de98b484c74983dc4270435a0ca,
     type: 2}
   soundGroup: {fileID: -4069373717913456567, guid: 3e157de98b484c74983dc4270435a0ca,
