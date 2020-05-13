@@ -70,8 +70,6 @@ public class OptionsScreen : MonoBehaviour
 
     private void Start()
     {
-        //Debug.Log(inputActions.asset.actionMaps.Count);
-        //CreateRebindButtons();
         SetUseGamepad();
     }
 
