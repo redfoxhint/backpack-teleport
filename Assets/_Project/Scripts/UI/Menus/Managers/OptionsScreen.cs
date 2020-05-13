@@ -44,9 +44,12 @@ public class OptionsScreen : MonoBehaviour
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider soundVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider uiVolumeSlider;
+
     [SerializeField] private AudioMixer masterMixer;
     [SerializeField] private AudioMixerGroup musicGroup;
     [SerializeField] private AudioMixerGroup soundGroup;
+    [SerializeField] private AudioMixerGroup uiGroup;
 
     private int pageIndex = 0;
 
@@ -62,6 +65,7 @@ public class OptionsScreen : MonoBehaviour
         masterVolumeSlider.value = 1f;
         soundVolumeSlider.value = 1f;
         musicVolumeSlider.value = 1f;
+        uiVolumeSlider.value = 1f;
     }
 
     private void Start()
@@ -91,6 +95,7 @@ public class OptionsScreen : MonoBehaviour
         if (masterVolumeSlider != null) masterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(masterVolumeSlider.value); });
         if (soundVolumeSlider != null) soundVolumeSlider.onValueChanged.AddListener(delegate { SetSoundVolume(soundVolumeSlider.value); });
         if (musicVolumeSlider != null) musicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(musicVolumeSlider.value); });
+        if (uiVolumeSlider != null) uiVolumeSlider.onValueChanged.AddListener(delegate { SetUIVolume(uiVolumeSlider.value); });
     }
 
     private void ResetLevel(InputAction.CallbackContext value)
@@ -272,6 +277,12 @@ public class OptionsScreen : MonoBehaviour
     {
         float optimizedValue = Mathf.Log10(value) * 20;
         soundGroup.audioMixer.SetFloat("SoundVolume", optimizedValue);
+    }
+
+    private void SetUIVolume(float value)
+    {
+        float optimizedValue = Mathf.Log10(value) * 20;
+        uiGroup.audioMixer.SetFloat("UIVolume", optimizedValue);
     }
 
     #endregion

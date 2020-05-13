@@ -47,3 +47,6 @@ MonoBehaviour:
     type: 2}
   soundGroup: {fileID: -4069373717913456567, guid: 3e157de98b484c74983dc4270435a0ca,
     type: 2}
+  uiGroup: {fileID: -2799973923851459660, guid: 3e157de98b484c74983dc4270435a0ca,
+    type: 2}
+  debug: 0

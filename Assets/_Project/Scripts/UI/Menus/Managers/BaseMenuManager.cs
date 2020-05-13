@@ -130,6 +130,10 @@ public abstract class BaseMenuManager : MonoBehaviour
         {
             buttonToRegister.onClick.AddListener(methodToSubscribeTo);
             registeredButtons.Add(buttonToRegister);
+
+
+
+
         }
     }
 

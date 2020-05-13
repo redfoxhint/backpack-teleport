@@ -19,7 +19,9 @@ public enum AudioFiles
     SFX_GrassWalk4,
     SFX_RecallBackpack,
     SFX_Teleport1,
-    SFX_Teleport2
+    SFX_Teleport2,
+    SFX_Click1,
+    SFX_Select1
 }
 
 public enum AudioType { MUSIC, SOUNDEFFECT, AMBIENT }
@@ -29,6 +31,10 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [Header("Audio Manager Configuration")]
     [SerializeField] private AudioMixerGroup musicGroup;
     [SerializeField] private AudioMixerGroup soundGroup;
+    [SerializeField] private AudioMixerGroup uiGroup;
+
+    [Header("Debug")]
+    [SerializeField] private bool debug;
 
     // Private Variables
     private AudioSource musicSource1; // The starting music source
@@ -38,6 +44,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     private AudioSource ambientSource2;
 
     private AudioSource sfxSource;
+    private AudioSource uiSource;
 
     private AudioSource currentMusicSource;
     private AudioSource currentAmbientSource;
@@ -45,9 +52,11 @@ public class AudioManager : PersistentSingleton<AudioManager>
     // Resource Paths
     private const string sfxPath = "Audio/SFX";
     private const string musicPath = "Audio/Music";
+    private const string uiPath = "Audio/UI";
 
     // Tasks
-    private Task crossfadeTask;
+    private Task crossfadeMusicTask;
+    private Task crossfadeAmbientTask;
 
     private Task musicFadeInTask;
     private Task musicFadeOutTask;
@@ -83,12 +92,20 @@ public class AudioManager : PersistentSingleton<AudioManager>
     #endregion
 
     #region Public Functions
-    public void PlaySoundEffect(AudioFiles audioFile)
+    public void PlaySoundEffect(AudioFiles audioFile, float volumeScale = 1)
     {
         AudioClip clip = GetAudioClipFromFile(audioFile);
 
         if (clip != null)
-            sfxSource.PlayOneShot(clip);
+            sfxSource.PlayOneShot(clip, volumeScale);
+    }
+
+    public void PlayUISoundEffect(AudioFiles audioFile)
+    {
+        AudioClip clip = GetAudioClipFromFile(audioFile);
+
+        if (clip != null)
+            uiSource.PlayOneShot(clip);
     }
 
     public void FadeIn(AudioType audioType, AudioFiles audioName, float fadeInTime = 5f, bool immediate = false)
@@ -144,9 +161,6 @@ public class AudioManager : PersistentSingleton<AudioManager>
                 break;
 
         }
-
-        //crossfadeTask = new Task(AudioCrossfadeRoutine(current, musicSource2, audioToFadeTo, time));
-        //crossfadeTask.Start();
     }
 
     #endregion
@@ -183,6 +197,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
         sfxSource = sfxSourceObject.AddComponent<AudioSource>();
         sfxSource.outputAudioMixerGroup = soundGroup;
+
+        GameObject uiSourceObject = new GameObject("UI Source Object");
+        uiSourceObject.transform.SetParent(transform);
+
+        uiSource = sfxSourceObject.AddComponent<AudioSource>();
+        uiSource.outputAudioMixerGroup = uiGroup;
     }
     private void FadeInMusic(AudioFiles newAudio, AudioSource availableSource, float fadeInTime, bool immediate)
     {
@@ -223,9 +243,6 @@ public class AudioManager : PersistentSingleton<AudioManager>
             }
         }
     }
-
-    
-
     private void FadeInAmbient(AudioFiles newAudio, AudioSource availableSource, float fadeInTime, bool immediate)
     {
         if(currentAmbientSource != null && currentAmbientSource.isPlaying)
@@ -294,15 +311,27 @@ public class AudioManager : PersistentSingleton<AudioManager>
     {
         AudioSource newSource = GetNextAvailableSource(audioType);
 
-        crossfadeTask = new Task(AudioCrossfadeRoutine(currentMusicSource, newSource, audioFile, time));
-        crossfadeTask.Start();
+        if(newSource != null)
+        {
+            if (crossfadeMusicTask != null && crossfadeMusicTask.Running) return;
+
+            crossfadeMusicTask = new Task(AudioCrossfadeRoutine(currentMusicSource, newSource, audioFile, time));
+            crossfadeMusicTask.Start();
+        }
     }
 
     private void CrossFadeBackground(AudioType audioType, AudioFiles audioFile, float time)
     {
+        AudioSource newSource = GetNextAvailableSource(audioType);
 
+        if (newSource != null)
+        {
+            if (crossfadeAmbientTask != null && crossfadeAmbientTask.Running) return;
+
+            crossfadeAmbientTask = new Task(AudioCrossfadeRoutine(currentAmbientSource, newSource, audioFile, time));
+            crossfadeAmbientTask.Start();
+        }
     }
-
     private IEnumerator AudioFadeInRoutine(AudioSource source, AudioFiles newAudio, float fadeInTime)
     {
         source.clip = GetAudioClipFromFile(newAudio);
@@ -341,6 +370,10 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     private IEnumerator AudioCrossfadeRoutine(AudioSource currentSource, AudioSource newSource, AudioFiles newClip, float crossfadeTime)
     {
+        if (currentSource == null) yield break;
+
+        currentMusicSource = newSource;
+
         newSource.clip = GetAudioClipFromFile(newClip);
         newSource.volume = 0f;
         newSource.Play();
@@ -360,12 +393,10 @@ public class AudioManager : PersistentSingleton<AudioManager>
         currentSource.volume = 0f;
         currentSource.clip = null;
 
-        currentMusicSource = newSource;
-
         yield break;
     }
 
-    private AudioClip GetAudioClipFromFile(AudioFiles audioFile)
+    public AudioClip GetAudioClipFromFile(AudioFiles audioFile)
     {
         AudioClip sfxClip = Resources.Load<AudioClip>($"{sfxPath}/{audioFile.ToString()}");
 
@@ -375,8 +406,15 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
             if (musicClip == null)
             {
-                LogUtils.LogError($"Clip with name: {audioFile.ToString()} was not found.");
-                return null;
+                AudioClip uiClip = Resources.Load<AudioClip>($"{uiPath}/{audioFile.ToString()}");
+
+                if(uiClip == null)
+                {
+                    LogUtils.LogError($"Clip with name: {audioFile.ToString()} was not found.");
+                    return null;
+                }
+
+                return uiClip;
             }
 
             return musicClip;
@@ -423,9 +461,4 @@ public class AudioManager : PersistentSingleton<AudioManager>
     }
 
     #endregion
-
-    public void Play(string name)
-    {
-
-    }
 }
