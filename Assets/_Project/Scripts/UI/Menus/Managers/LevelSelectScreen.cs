@@ -94,7 +94,6 @@ public class LevelSelectScreen : MonoBehaviour
     public void SetDefaultLevel()
     {
         Transform defaultPage = carouselMenu.GetDefaultPage();
-        Debug.Log(defaultPage.gameObject.name);
 
         LevelSelector selectedLevel = defaultPage.GetComponent<LevelSelector>();
         selectedLevel.Select();
@@ -108,9 +107,9 @@ public class LevelSelectScreen : MonoBehaviour
     private void OnPlayLevelButtonClicked()
     {
         if (currentLevelToLoad == null) return;
-        if (IfLevelLocked()) return; // TODO: Show message saying level is locked.
+        if (IfLevelLocked()) return;
 
-        FindObjectOfType<SceneLoader>().LoadLevelByIndex(currentLevelToLoad.levelBuildIndex);
+        SceneLoader.Instance.LoadLevel(currentLevelToLoad.levelName, currentLevelToLoad.defaultSoundtrack);
     }
 
     private bool IfLevelLocked()

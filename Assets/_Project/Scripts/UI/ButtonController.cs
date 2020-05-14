@@ -32,11 +32,11 @@ public class ButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExi
         if(doSoundFeedback)
             AudioManager.Instance.PlayUISoundEffect(buttonHoverSound);
 
-        buttonImage.transform.DOScale(hoverSize, 0.1f);
+        buttonImage.transform.DOScale(hoverSize, 0.1f).SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        buttonImage.transform.DOScale(new Vector2(1f, 1f), 0.1f);
+        buttonImage.transform.DOScale(new Vector2(1f, 1f), 0.1f).SetUpdate(true);
     }
 }

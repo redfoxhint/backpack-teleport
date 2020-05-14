@@ -6,6 +6,8 @@ public enum AudioFiles
 {
     ST_01,
     ST_02,
+    ST_BrokenVillage,
+    ST_RelaxingNature,
     SFX_ArtiAttack1,
     SFX_ArtiAttack2,
     SFX_ArtiAttack3,
@@ -21,7 +23,10 @@ public enum AudioFiles
     SFX_Teleport1,
     SFX_Teleport2,
     SFX_Click1,
-    SFX_Select1
+    SFX_Select1,
+    ST_Suspense,
+    SFX_SwordStab1,
+    Nothing
 }
 
 public enum AudioType { MUSIC, SOUNDEFFECT, AMBIENT }
@@ -73,26 +78,13 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            FadeIn(AudioType.MUSIC, AudioFiles.ST_01, 5f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            Crossfade(AudioType.MUSIC, AudioFiles.ST_02);
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Crossfade(AudioType.MUSIC, AudioFiles.ST_01);
-        }
+        
     }
 
     #endregion
 
     #region Public Functions
-    public void PlaySoundEffect(AudioFiles audioFile, float volumeScale = 1)
+    public void PlaySoundEffect(AudioFiles audioFile, float volumeScale = 1, bool randomPitch = false)
     {
         AudioClip clip = GetAudioClipFromFile(audioFile);
 
@@ -149,6 +141,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public void Crossfade(AudioType audioType, AudioFiles audioToFadeTo, float time = 5f, bool immediate = false)
     {
+        if(currentMusicSource == null)
+        {
+            FadeIn(audioType, audioToFadeTo);
+            return;
+        }
+
         switch (audioType)
         {
             case AudioType.SOUNDEFFECT:
@@ -234,11 +232,14 @@ public class AudioManager : PersistentSingleton<AudioManager>
                 }
                 else // If not play immediate fade out and fade into new audio
                 {
-                    FadeOutMusic(fadeInTime, () =>
-                    {
-                        musicFadeInTask = new Task(AudioFadeInRoutine(currentMusicSource, newAudio, fadeInTime));
-                        musicFadeInTask.Start();
-                    });
+                    musicFadeInTask = new Task(AudioFadeInRoutine(currentMusicSource, newAudio, fadeInTime));
+                    musicFadeInTask.Start();
+
+                    //FadeOutMusic(fadeInTime, () =>
+                    //{
+                    //    musicFadeInTask = new Task(AudioFadeInRoutine(currentMusicSource, newAudio, fadeInTime));
+                    //    musicFadeInTask.Start();
+                    //});
                 }
             }
         }

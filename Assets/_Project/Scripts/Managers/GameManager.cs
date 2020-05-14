@@ -29,30 +29,7 @@ public class GameManager : PersistentSingleton<GameManager>
         }
     }
 
-    public PerfectPixelWithZoom PixelPerfectCamera
-    {
-        get
-        {
-            if(pixelPerfectCamera == null)
-            {
-                pixelPerfectCamera = FindObjectOfType<PerfectPixelWithZoom>();
-                if(pixelPerfectCamera != null)
-                {
-                    return pixelPerfectCamera;
-                }
-                else
-                {
-                    LogUtils.LogWarning("Pixel Perfect Camera not found.");
-                    return null;
-                }
-            }
-
-            return pixelPerfectCamera;
-        }
-    }
-
     private Player player;
-    private PerfectPixelWithZoom pixelPerfectCamera;
     private Camera mainCam;
 
     private void Start()

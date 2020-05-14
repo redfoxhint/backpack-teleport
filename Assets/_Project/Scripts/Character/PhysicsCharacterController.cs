@@ -35,7 +35,10 @@ public class PhysicsCharacterController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        rBody.velocity = moveDirection * moveSpeed;
+        if(DoMovement)
+        {
+            rBody.velocity = moveDirection * moveSpeed;
+        }
     }
     
     protected virtual bool CanMove()

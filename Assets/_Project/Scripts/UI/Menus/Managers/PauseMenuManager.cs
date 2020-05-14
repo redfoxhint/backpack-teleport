@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class PauseMenuManager : BaseMenuManager
 {
     [Header("Pause Menu")]
-    [SerializeField] private RectTransform saveScreen;
-    [SerializeField] private RectTransform loadScreen;
     [SerializeField] private RectTransform optionsScreen;
     [SerializeField] private RectTransform menu;
     [SerializeField] private AudioMixerSnapshot pausedSnapshot;
@@ -19,8 +17,6 @@ public class PauseMenuManager : BaseMenuManager
     [Header("Buttons")]
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button optionsButton;
-    [SerializeField] private Button saveButton;
-    [SerializeField] private Button loadButton;
     [SerializeField] private Button mainMenuButton;
 
     // Private Variables
@@ -44,8 +40,6 @@ public class PauseMenuManager : BaseMenuManager
     {
         base.InitializeButtons();
         RegisterButton(optionsButton, OnOptionsButtonClicked);
-        RegisterButton(saveButton, OnSaveButtonClicked);
-        RegisterButton(loadButton, OnLoadButtonClicked);
         RegisterButton(resumeButton, OnResumeButtonClicked);
         RegisterButton(mainMenuButton, OnMainMenuButtonClicked);
     }
@@ -55,23 +49,13 @@ public class PauseMenuManager : BaseMenuManager
         UpdateCurrentScreen(optionsScreen);
     }
 
-    private void OnSaveButtonClicked()
-    {
-        UpdateCurrentScreen(saveScreen);
-    }
-
-    private void OnLoadButtonClicked()
-    {
-        UpdateCurrentScreen(loadScreen);
-    }
-
     private void OnResumeButtonClicked()
     {
         Unpause();
     }
     private void OnMainMenuButtonClicked()
     {
-        FindObjectOfType<SceneLoader>().LoadLevelByIndex(0);
+        SceneLoader.Instance.LoadLevel(1);
         Unpause();
         Cursor.visible = true;
     }

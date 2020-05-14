@@ -11,6 +11,7 @@ public class BaseActivateableEditor : Editor
     SerializedProperty doorObject;
     SerializedProperty actuators;
     SerializedProperty resetActuator;
+    SerializedProperty singleActuator;
     SerializedProperty doorSpriteRenderer;
     SerializedProperty doorAnimator;
     SerializedProperty activationSequence;
@@ -26,6 +27,7 @@ public class BaseActivateableEditor : Editor
         gates = serializedObject.FindProperty("gates");
         doorObject = serializedObject.FindProperty("doorObject");
         actuators = serializedObject.FindProperty("actuators");
+        singleActuator = serializedObject.FindProperty("singleActuator");
         resetActuator = serializedObject.FindProperty("resetActuator");
         doorSpriteRenderer = serializedObject.FindProperty("doorSpriteRenderer");
         activationSequence = serializedObject.FindProperty("activationSequence");
@@ -76,6 +78,7 @@ public class BaseActivateableEditor : Editor
         EditorGUILayout.LabelField(new GUIContent("Door Configuration"));
         EditorGUILayout.PropertyField(doorObject, new GUIContent("Door Object"));
         EditorGUILayout.PropertyField(resetActuator, new GUIContent("Reset Actuator"));
+        EditorGUILayout.PropertyField(singleActuator, new GUIContent("Single Actuator"));
         EditorGUILayout.PropertyField(doorSpriteRenderer, new GUIContent("Door Sprite Renderer"));
 
         EditorGUILayout.Space(10);

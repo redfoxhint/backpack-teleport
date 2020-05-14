@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2379978587063266062}
   - component: {fileID: 8448183275199360929}
   m_Layer: 5
-  m_Name: pfbMainMenuButton
+  m_Name: pfbButton1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e008f7456352f14b8dfd9a8c989f36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonHoverSound: 17
-  buttonClickSound: 16
+  buttonHoverSound: 18
+  buttonClickSound: 19
   doSoundFeedback: 1
   hoverSize: {x: 1.1, y: 1.1}
 --- !u!1 &2401963622288916653
@@ -202,8 +202,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Story
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a1b139cb3d938df4fabf04fc78ad918a, type: 2}
-  m_sharedMaterial: {fileID: -3890644229312815471, guid: a1b139cb3d938df4fabf04fc78ad918a,
+  m_fontAsset: {fileID: 11400000, guid: e0c506f9ac2ae7740ab6fec1efe8a283, type: 2}
+  m_sharedMaterial: {fileID: 2676662878775981085, guid: e0c506f9ac2ae7740ab6fec1efe8a283,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -229,13 +229,13 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontSizeMax: 25
+  m_fontStyle: 16
   m_textAlignment: 4098
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
+  m_wordWrappingRatios: 0.382
   m_overflowMode: 0
   m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}

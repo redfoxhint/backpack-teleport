@@ -19,7 +19,6 @@ public class DoorActivateable : BaseActivateable
     [Header("Components")]
     [SerializeField] private SpriteRenderer doorSpriteRenderer;
 
-
     [Separator]
 
     [Header("Sequence Config")]
@@ -32,10 +31,25 @@ public class DoorActivateable : BaseActivateable
 
     private void Awake()
     {
-        foreach (BaseActuator actuator in actuators)
+        if(activationMode == ActivateableMode.SEQUENCE)
         {
-            actuator.OnActivatedEvent += OnActuatorActuated;
-            actuator.ActuationType = ActuationType.SEQUENCE;
+            foreach (BaseActuator actuator in actuators)
+            {
+                actuator.OnActivatedEvent += OnActuatorActuated;
+                actuator.ActuationType = ActuationType.SEQUENCE;
+            }
+        }
+
+        else
+        {
+            if(singleActuator != null)
+            {
+                singleActuator.OnActivatedEvent += OnActuatorActuated;
+            }
+            else
+            {
+                LogUtils.LogError($"Actuator not found. Make sure you assign a single actuator.");
+            }
         }
 
         if (resetActuator != null)
@@ -46,6 +60,16 @@ public class DoorActivateable : BaseActivateable
 
     public override void OnActuatorActuated(BaseActuator actuator)
     {
+        if(activationMode == ActivateableMode.SINGLE)
+        {
+            if(CheckGatesOpen())
+            {
+                Deactivate();
+            }
+
+            return;
+        }
+
         if (!sequenceStarted)
         {
             sequenceStarted = true;

@@ -34,7 +34,8 @@ public class BaseEntity : StateMachineUnit
 
     protected override void Start()
     {
-        stateMachine.ChangeState(new BaseEntity_State_Patrol(this));
+        base.Start();
+        //stateMachine.ChangeState(new BaseEntity_State_Patrol(this));
     }
 
     protected override void Update()

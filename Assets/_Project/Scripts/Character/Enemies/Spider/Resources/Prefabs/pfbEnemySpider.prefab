@@ -4958,7 +4958,7 @@ GameObject:
   - component: {fileID: 2415871262701335601}
   - component: {fileID: 1111843174}
   m_Layer: 11
-  m_Name: Enemy_Spider
+  m_Name: pfbEnemySpider
   m_TagString: Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5044,7 +5044,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 20
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -5067,7 +5067,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.042139053, y: 0.029497623}
   serializedVersion: 2
-  m_Radius: 0.35637814
+  m_Radius: 0.68910223
 --- !u!95 &1554500870670333696
 Animator:
   serializedVersion: 3
@@ -5104,8 +5104,9 @@ MonoBehaviour:
   damageBlipColor: {r: 1, g: 0, b: 0, a: 1}
   baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
   damageParticle: {fileID: 1385840775198065542}
+  physicsController: {fileID: 2415871262701335601}
   entityType: 0
-  knockbackAmount: 35
+  knockbackAmount: 120
   applyKnockbackAfterDamaged: 1
   isDead: 0
   healthBar: {fileID: 1554500870885786794}
@@ -5141,7 +5142,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554500870670333704}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93cc6a4987f7c684798156c56d545838, type: 3}
   m_Name: 
@@ -5249,6 +5250,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.08857537, b: 0, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

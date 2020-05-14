@@ -49,11 +49,11 @@ public class LevelSelector : MonoBehaviour
 
     public void Select()
     {
-        backgroundImage.sprite = selectedSprite;
+        //backgroundImage.sprite = selectedSprite;
     }
 
     public void Deselect()
     {
-        backgroundImage.sprite = originalBackgroundImage;
+        //backgroundImage.sprite = originalBackgroundImage;
     }
 }

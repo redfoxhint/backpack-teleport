@@ -19,3 +19,4 @@ MonoBehaviour:
   levelPreview: {fileID: 8527985402550923173, guid: ebd33f99f9ebd9848be287f877044958,
     type: 3}
   levelLocked: 0
+  defaultSoundtrack: 3

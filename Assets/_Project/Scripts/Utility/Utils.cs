@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
+using System.IO;
 
 public static class Utils
 {
@@ -96,4 +97,31 @@ public static class Utils
 #endif
 
 #endregion
+
+    public static AnimatorClipInfo[] GetAnimatorClipInfos(Animator animatorToCheck, bool printToConsole = false)
+    {
+        if (animatorToCheck == null)
+        {
+            Debug.LogError("Animator not found.");
+            return null;
+        }
+
+        AnimatorClipInfo[] animatorClipInfos = animatorToCheck.GetCurrentAnimatorClipInfo(0);
+        return animatorClipInfos;
+    }
+
+    public static UnityEngine.Object LoadResource(string resourceName, System.Type systemTypeInstance)
+    {
+        string ResourcesPath = Application.dataPath + "/Resources";
+
+        string[] directories = Directory.GetDirectories(ResourcesPath, "*", SearchOption.AllDirectories);
+        foreach (var item in directories)
+        {
+            string itemPath = item.Substring(ResourcesPath.Length + 1);
+            UnityEngine.Object result = Resources.Load(itemPath + "\\" + resourceName, systemTypeInstance);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
 }

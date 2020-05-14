@@ -71,7 +71,7 @@ namespace UnityEngine.UI.Extensions
             _screens = _screensContainer.childCount;
             _scroll_rect.horizontalNormalizedPosition = 0;
 
-            float _offset = 0;
+            float _offset = 0f;
             float _dimension = 0;
             Rect panelDimensions = gameObject.GetComponent<RectTransform>().rect;
             float currentXPosition = 0;
