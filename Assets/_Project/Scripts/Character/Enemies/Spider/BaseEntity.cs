@@ -8,28 +8,19 @@ using PolyNav;
 public class BaseEntity : StateMachineUnit
 {
     // Public Variables
-    [SerializeField] private List<Vector2> path = new List<Vector2>();
 
     // Private Variables
-    private PolyNav.PolyNav2D polyNav;
 
     // Components
     public BaseDamageable baseDamageable { get; private set; }
-    public PolyNavAgent agent { get; private set; }
     public EntityPhysicsController controller { get; private set; }
 
     private void Awake()
     {
         baseDamageable = GetComponent<BaseDamageable>();
-        agent = GetComponent<PolyNavAgent>();
         controller = GetComponent<EntityPhysicsController>();
 
-        polyNav = agent.map;
-        agent.Stop();
-
-
         baseDamageable.onTookDamage += OnTookDamage;
-
     }
 
     protected override void Start()
@@ -41,7 +32,6 @@ public class BaseEntity : StateMachineUnit
     protected override void Update()
     {
         base.Update();
-        path = agent.activePath;
     }
 
     public void OnTookDamage()

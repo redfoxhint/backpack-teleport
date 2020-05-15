@@ -8,13 +8,11 @@ public class BaseEntity_State_Patrol : IState
 {
     private BaseEntity entity;
     private PlayerDamageable player;
-    private PolyNav2D polyNav;
 
     public BaseEntity_State_Patrol(BaseEntity _entity)
     {
         entity = _entity;
         player = GameManager.Instance.Player.GetComponent<PlayerDamageable>();
-        polyNav = this.entity.agent.map;
     }
 
     public void Initialize()
@@ -24,9 +22,6 @@ public class BaseEntity_State_Patrol : IState
 
     public void Update()
     {
-        entity.agent.SetDestination(player.transform.position);
-        Vector2 dirToDest = entity.transform.position.DirectionTo(entity.agent.nextPoint);
-        entity.controller.SetMoveDirection(dirToDest);
     }
 
     public void FixedUpdate()

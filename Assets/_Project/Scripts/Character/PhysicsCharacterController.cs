@@ -11,8 +11,7 @@ public class PhysicsCharacterController : MonoBehaviour
     // Properties
     public bool DoMovement { get; set; }
 
-
-    protected Vector2 moveDirection;
+    protected Vector2 velocityVector;
     protected Vector2 previousDirection;
 
     protected Rigidbody2D rBody;
@@ -27,17 +26,12 @@ public class PhysicsCharacterController : MonoBehaviour
         DoMovement = true;
     }
 
-    protected virtual void Update()
-    {
-        moveDirection = Vector2.zero;
-        characterBase.SetAnimatorParameters(moveDirection);
-    }
-
     protected virtual void FixedUpdate()
     {
         if(DoMovement)
         {
-            rBody.velocity = moveDirection * moveSpeed;
+            rBody.velocity = velocityVector * moveSpeed;
+            characterBase.SetAnimatorParameters(velocityVector);
         }
     }
     
@@ -46,5 +40,19 @@ public class PhysicsCharacterController : MonoBehaviour
         return DoMovement && GameManager.Instance.PlayerControl;
     }
 
-    
+    public void SetVelocity(Vector3 _velocityVector)
+    {
+        velocityVector = _velocityVector;
+    }
+
+    public void Disable()
+    {
+        this.enabled = false;
+        rBody.velocity = Vector3.zero;
+    }
+
+    public void Enable()
+    {
+        this.enabled = true;
+    }
 }

@@ -27,6 +27,7 @@ public class CharacterBase : MonoBehaviour
         CharacterAnimator = GetComponent<Animator>();
     }
 
+
     // Facing Direction Context
     private Vector2 down = new Vector2(0, -1);
     private Vector2 right = new Vector2(1, 0);

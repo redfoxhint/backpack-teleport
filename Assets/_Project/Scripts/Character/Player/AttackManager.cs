@@ -99,7 +99,6 @@ public class AttackManager : MonoBehaviour
         DealDamage();
         AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_ArtiAttack1);
         AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_ArtiGrunt1);
-        Debug.Log("Attacked");
 
         if (!inCombo)
         {

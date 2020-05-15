@@ -23,7 +23,7 @@ namespace BackpackTeleport.Character
 		[SerializeField] protected Color damageBlipColor = Color.red;
 		[SerializeField] protected BaseCharacterData baseCharacterData;
 		[SerializeField] protected ParticleSystem damageParticle;
-		[SerializeField] protected PhysicsCharacterController physicsController;
+		//[SerializeField] protected PhysicsCharacterController physicsController;
 		[SerializeField] protected EntityType entityType;
 
 		[Header("Knockback Configuration")]
@@ -46,6 +46,8 @@ namespace BackpackTeleport.Character
 
 		// Events
 		public Action onTookDamage;
+		public Action onDamageReset;
+		public Action onDie;
 
 		protected virtual void Awake()
 		{
@@ -70,7 +72,7 @@ namespace BackpackTeleport.Character
 			animator.SetTrigger("hit");
 			DamageSequence(damageDuration);
 			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_SwordStab1, 0.5f);
-			physicsController.DoMovement = false;
+			//physicsController.DoMovement = false;
 
 			if (applyKnockbackAfterDamaged)
 			{
@@ -149,12 +151,14 @@ namespace BackpackTeleport.Character
 
 		private void OnKnockbackFinished()
 		{
-			physicsController.DoMovement = true;
+			//physicsController.DoMovement = true;
+			onDamageReset?.Invoke();
 		}
 
 		// Animation event
 		protected void Die()
 		{
+			onDie?.Invoke();
 			Destroy(gameObject);
 		}
 	}

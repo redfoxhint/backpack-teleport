@@ -32,6 +32,12 @@ public class GameManager : PersistentSingleton<GameManager>
     private Player player;
     private Camera mainCam;
 
+    public override void Awake()
+    {
+        base.Awake();
+
+    }
+
     private void Start()
     {
         player = Player;

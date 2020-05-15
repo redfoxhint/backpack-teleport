@@ -26,15 +26,15 @@ public class PlayerPhysicsController : PhysicsCharacterController
         footStepSounds = new List<AudioFiles> { AudioFiles.SFX_GrassWalk2, AudioFiles.SFX_GrassWalk3, AudioFiles.SFX_GrassWalk4 };
     }
 
-    protected override void Update()
+    private void Update()
     {
         footstepCooldown -= Time.deltaTime;
 
         if (!GameManager.Instance.PlayerControl) return;
 
-        moveDirection = Vector2.zero;
+        velocityVector = Vector2.zero;
         GetPlayerInput();
-        characterBase.SetAnimatorParameters(moveDirection);
+        //characterBase.SetAnimatorParameters(velocityVector);
 
         bool dashButton = input.InputActions.Player.DashAttack.triggered;
         if (dashButton)
@@ -66,14 +66,14 @@ public class PlayerPhysicsController : PhysicsCharacterController
                 Footsteps();
             }
 
-            moveDirection = new Vector2(moveX, moveY).normalized;
-            previousDirection = moveDirection;
+            velocityVector = new Vector2(moveX, moveY).normalized;
+            previousDirection = velocityVector;
         }
     }
 
     public void Dash()
     {
-        dashAbility.Dash(rBody, moveDirection, dashAmount, dashFilter);
+        dashAbility.Dash(rBody, velocityVector, dashAmount, dashFilter);
     }
 
     private void Footsteps()
