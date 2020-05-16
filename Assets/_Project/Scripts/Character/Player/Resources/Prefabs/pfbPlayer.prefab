@@ -45216,7 +45216,6 @@ MonoBehaviour:
   baseCharacterData: {fileID: 0}
   damageParticle: {fileID: 7918909594592417696, guid: 88b84de83d1bf9d469bbf3a0637075e9,
     type: 3}
-  physicsController: {fileID: 6698592759781982453}
   entityType: 0
   knockbackAmount: 35
   applyKnockbackAfterDamaged: 1

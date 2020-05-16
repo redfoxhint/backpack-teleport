@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using BackpackTeleport.Character.Enemy;
 using UnityEngine.InputSystem;
 
 namespace BackpackTeleport.Character.PlayerCharacter

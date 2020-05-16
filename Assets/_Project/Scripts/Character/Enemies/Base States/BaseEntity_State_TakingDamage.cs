@@ -2,9 +2,9 @@
 
 public class BaseEntity_State_TakingDamage : IState
 {
-    private BaseEntity entity;
+    private BaseStateMachineEntity entity;
 
-    public BaseEntity_State_TakingDamage(BaseEntity _entity)
+    public BaseEntity_State_TakingDamage(BaseStateMachineEntity _entity)
     {
         entity = _entity;
     }
@@ -26,7 +26,7 @@ public class BaseEntity_State_TakingDamage : IState
 
     public void Exit()
     {
-        entity.stateMachine.ChangeState(new BaseEntity_State_Patrol(entity));
+        entity.stateMachine.ChangeState(new BaseEntity_State_Chase(entity));
         Debug.Log("No longer taking Damage");
     }
 }

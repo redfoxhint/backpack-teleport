@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AICharacterBase : CharacterBase
+public class AICharacterBase : CharacterAnimator
 {
     Rigidbody2D rBody;
 

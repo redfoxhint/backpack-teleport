@@ -23,7 +23,7 @@ public class PlayerDamageable : BaseDamageable
     {
         if(Keyboard.current.vKey.wasPressedThisFrame)
         {
-            AddHealth(1f);
+            SetHealth(3f);
         }
 
         if (Keyboard.current.bKey.wasPressedThisFrame)

@@ -4951,13 +4951,13 @@ GameObject:
   - component: {fileID: 1554500870670333710}
   - component: {fileID: 1554500870670333705}
   - component: {fileID: 1554500870670333696}
-  - component: {fileID: 1554500870670333718}
-  - component: {fileID: 1554500870670333719}
   - component: {fileID: 1111843174}
+  - component: {fileID: 1554500870670333718}
+  - component: {fileID: 302020169}
+  - component: {fileID: 1554500870670333719}
   - component: {fileID: 4613876159298309327}
   - component: {fileID: 2113873285}
   - component: {fileID: 2113873286}
-  - component: {fileID: 302020169}
   m_Layer: 11
   m_Name: pfbEnemySpider
   m_TagString: Damageable
@@ -5089,6 +5089,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1111843174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554500870670333704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa2214aa16bcac41a1806d8a4437976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1554500870670333718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5102,15 +5114,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  damageDuration: 0.1
+  healthBar: {fileID: 1554500870885786794}
   damageBlipColor: {r: 1, g: 0, b: 0, a: 1}
-  baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
   damageParticle: {fileID: 1385840775198065542}
   entityType: 0
+  applyKnockback: 1
   knockbackAmount: 35
-  applyKnockbackAfterDamaged: 1
-  isDead: 0
-  healthBar: {fileID: 1554500870885786794}
+  knockbackDuration: 0.5
+  applyStun: 1
+  stunDuration: 1.5
+  stunnedParticleSystem: {fileID: 71841085791460398}
+--- !u!114 &302020169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554500870670333704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdda32fb7abe91647a6a25a9729b7440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
+  test: 0
+  characterBase: {fileID: 1111843174}
+  attackRange: 10
 --- !u!114 &1554500870670333719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5121,18 +5151,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a590e545baa6b44a9b31b4bfc4da6ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1111843174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554500870670333704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa2214aa16bcac41a1806d8a4437976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4613876159298309327
@@ -5178,10 +5196,10 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.5
+  slowdownDistance: 1
   pickNextWaypointDist: 1
-  endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
+  endReachedDistance: 2
+  alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
@@ -5213,25 +5231,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &302020169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554500870670333704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdda32fb7abe91647a6a25a9729b7440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiPath: {fileID: 2113873285}
-  characterBase: {fileID: 1111843174}
-  baseDamageable: {fileID: 1554500870670333718}
-  rBody2D: {fileID: 1554500870670333710}
-  stunnedParticleSystem: {fileID: 71841085791460398}
-  attackRange: 10
-  stunTime: 2
 --- !u!1 &1554500870885786805
 GameObject:
   m_ObjectHideFlags: 0

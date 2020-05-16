@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using MyBox;
+using System.Collections;
 
 public enum EntityType
 {
@@ -17,73 +19,147 @@ namespace BackpackTeleport.Character
 	public class BaseDamageable : MonoBehaviour, IDamageable, IActivator
 	{
 		// Inspector Fields
-		[Header("Damageable Character Configuration")]
-		[SerializeField] protected float maxHealth; 
-		[SerializeField] private float damageDuration;
+		[Header("Health Configuration")]
+		[SerializeField] [Min(5)] protected float maxHealth = 10;
+		[SerializeField] protected Image healthBar;
+
+		[Space]
+
+		[Header("Damage Configuration")]
+		
 		[SerializeField] protected Color damageBlipColor = Color.red;
-		[SerializeField] protected BaseCharacterData baseCharacterData;
+
+		[Space]
+
+		[Header("Other Configuration")]
 		[SerializeField] protected ParticleSystem damageParticle;
-		//[SerializeField] protected PhysicsCharacterController physicsController;
 		[SerializeField] protected EntityType entityType;
 
+		[Space]
+
 		[Header("Knockback Configuration")]
-		[SerializeField] private float knockbackAmount = 35f;
+		[SerializeField] protected bool applyKnockback = true;
+		[SerializeField] protected float knockbackAmount = 35f;
+		[SerializeField] protected float knockbackDuration = 1f;
+
+		[Header("Stun Configuration")]
+		[SerializeField] protected bool applyStun = true;
+		[SerializeField] protected float stunDuration = 2f;
+		[SerializeField] private ParticleSystem stunnedParticleSystem;
 
 		// Private Variables
 		protected float currentHealth;
-		[SerializeField] protected bool applyKnockbackAfterDamaged = true;
-		[SerializeField] private bool isDead = false;
+		protected float currentStunTime;
+		protected bool isDead = false;
 
 		// Properties
-		public BaseCharacterData BaseCharacterData { set { baseCharacterData = value; } }
-		public Color DamageColor { set { damageBlipColor = value; } }
+		public bool IsStunned
+		{
+			get
+			{
+				if (stunTask != null)
+				{
+					if (!stunTask.Running)
+						return false;
+
+					return true;
+				}
+
+				return false;
+			}
+		}
 
 		// Components
-		[SerializeField] protected Image healthBar;
 		protected Knockback knockback;
 		protected SpriteRenderer spriteRenderer;
 		protected Animator animator;
+		protected IWalkable walkable;
 
 		// Events
 		public Action onTookDamage;
-		public Action onDamageReset;
-		public Action onDie;
+		public Action onDamageFinished;
+		public Action onDeath;
+
+		// Tasks
+		private Task stunTask;
+
+		#region Unity Functions
 
 		protected virtual void Awake()
 		{
-			knockback = GetComponent<Knockback>();
-			spriteRenderer = GetComponent<SpriteRenderer>();
-			animator = GetComponent<Animator>();
-
-			knockback.OnKnockbackFinished += OnKnockbackFinished;
+			if (!knockback) knockback = GetComponent<Knockback>();
+			if (!spriteRenderer) spriteRenderer = GetComponent<SpriteRenderer>();
+			if (!animator) animator = GetComponent<Animator>(); ;
+			if (walkable == null) walkable = GetComponent<IWalkable>();
 		}
-
 		protected virtual void Start()
 		{
-			currentHealth = maxHealth;
-			UpdateStatBar(healthBar, currentHealth, maxHealth);
+			InitKnockback();
+
+			SetHealth(maxHealth);
+			//UpdateStatBar(healthBar, currentHealth, maxHealth);
 		}
+
+		#endregion
+
+		#region Public Functions
 
 		public virtual void TakeDamage(Transform damageDealer, float amount)
 		{
 			if (isDead) return;
 
-			RemoveHealth(amount);
-			animator.SetTrigger("hit");
-			DamageSequence(damageDuration);
-			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_SwordStab1, 0.5f);
-			//physicsController.DoMovement = false;
+			if(animator != null)
+				animator.SetTrigger("hit");
 
-			if (applyKnockbackAfterDamaged)
+			DamageSequence(knockbackDuration);
+
+			if (applyKnockback)
 			{
-				ApplyKnockback(damageDealer , damageDuration, knockbackAmount);
-				damageParticle.Play();
+				ApplyKnockback(damageDealer, knockbackDuration, knockbackAmount);
+
+				if (animator != null)
+					damageParticle.Play();
+			}
+
+			if(applyStun)
+			{
+				ApplyStun(stunDuration);
+			}
+
+			onTookDamage?.Invoke(); // Invoke damage event
+			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_SwordStab1, 0.5f);
+			RemoveHealth(amount);
+		}
+
+		public void SetHealth(float value)
+		{
+			if (value == currentHealth) return;
+
+			if(value > currentHealth)
+			{
+				AddHealth(value);
+			}
+			else if(value < currentHealth)
+			{
+				RemoveHealth(value);
+			}
+			else if(value <= 0)
+			{
+				Kill();
 			}
 		}
 
-		public virtual void RemoveHealth(float amount)
+		public virtual void SetMaxHealth(float value)
 		{
-			float newHealth = currentHealth - amount;
+			if (value <= 0) return; // Cancel if the value is 0
+
+			maxHealth = value;
+			UpdateStatBar(healthBar, currentHealth, maxHealth);
+		}
+
+		public virtual void RemoveHealth(float value)
+		{
+			float newHealth = currentHealth - value;
 
 			currentHealth = newHealth;
 			UpdateStatBar(healthBar, currentHealth, maxHealth);
@@ -94,13 +170,11 @@ namespace BackpackTeleport.Character
 				Kill();
 				return;
 			}
-
-			onTookDamage?.Invoke();
 		}
 
-		public virtual void AddHealth(float amount)
+		public virtual void AddHealth(float value)
 		{
-			float newHealth = currentHealth + amount;
+			float newHealth = currentHealth + value;
 			currentHealth = newHealth;
 
 			if (currentHealth > maxHealth)
@@ -111,57 +185,134 @@ namespace BackpackTeleport.Character
 			UpdateStatBar(healthBar, currentHealth, maxHealth);
 		}
 
-		public virtual void UpdateStatBar(Image barToUpdate, float current, float max)
+		#endregion
+
+		#region Private Functions
+		protected virtual void UpdateStatBar(Image barToUpdate, float current, float max)
 		{
-			if(barToUpdate != null)
+			if (barToUpdate != null)
 			{
 				barToUpdate.fillAmount = current / max;
 			}
 		}
 
-		public virtual void IncreaseMaxHealth(float newMaxHealth)
-		{
-			maxHealth = newMaxHealth;
-			UpdateStatBar(healthBar, currentHealth, maxHealth);
-		}
-
-		protected virtual void ApplyKnockback(Transform damageDealer, float duration, float amount)
-		{
-			knockback.ApplyKnockback(damageDealer, duration, amount);
-		}
-
+		#endregion
+		
 		protected virtual void DamageSequence(float duration)
 		{
 			Sequence damageSequence = DOTween.Sequence();
+			damageSequence.AppendCallback(() => walkable.ToggleMovement(false));
 			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", true));
 			damageSequence.AppendCallback(() => spriteRenderer.color = damageBlipColor);
-			damageSequence.AppendInterval(duration);
+			damageSequence.AppendInterval(duration + 0.2f);
 			
 			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", false));
 			damageSequence.AppendCallback(() => spriteRenderer.color = Color.white);
+
+			if(!applyStun)
+			{
+				damageSequence.AppendCallback(() => walkable.ToggleMovement(true));
+			}
+			
+			damageSequence.OnComplete(() => onDamageFinished?.Invoke());
 		}
 
-		protected virtual void Kill()
+		protected virtual void Kill(bool invokeOnEntityKilled = true, bool waitForDeathAnimation = true)
 		{
-			GameEvents.onEntityKilled.Invoke(entityType);
-			animator.SetTrigger("kill");
+			if(invokeOnEntityKilled)
+			{
+				GameEvents.onEntityKilled.Invoke(entityType);
+			}
+			
+			if(waitForDeathAnimation)
+			{
+				animator.SetTrigger("kill");
+				OnEndofDeathAnimation();
+			}
+
 			isDead = true;
-			Die();
+		}
+
+		// Animation event
+		protected void OnEndofDeathAnimation()
+		{
+			onDeath?.Invoke();
+			ResetStunTask();
+			Destroy(gameObject);
+		}
+
+		#region Knockback Functions
+
+		private void InitKnockback()
+		{
+			if(knockback != null)
+			{
+				knockback.OnKnockbackStarted += OnKnockbackStarted;
+				knockback.OnKnockbackFinished += OnKnockbackFinished;
+			}
+		}
+
+		protected virtual void ApplyKnockback(Transform source, float duration, float amount)
+		{
+			knockback.ApplyKnockback(source, duration, amount);
+		}
+
+		private void OnKnockbackStarted()
+		{
+			//onTookDamage?.Invoke();
 		}
 
 		private void OnKnockbackFinished()
 		{
-			//physicsController.DoMovement = true;
-			onDamageReset?.Invoke();
+			onDamageFinished?.Invoke();
 		}
 
-		// Animation event
-		protected void Die()
+        #endregion
+
+        #region Stun Functions
+
+		public void ApplyStun(float stunDuration)
 		{
-			onDie?.Invoke();
-			Destroy(gameObject);
+			if(IsStunned)
+			{
+				stunTask = new Task(StunRoutine());
+				currentStunTime = stunDuration;
+
+				// Play stun particles here
+				stunnedParticleSystem.Play();
+			}
+			else
+			{
+				currentStunTime = stunDuration;
+			}
 		}
-	}
+
+		private IEnumerator StunRoutine()
+		{
+			while(currentStunTime > 0f)
+			{
+				currentStunTime -= Time.deltaTime;
+				yield return null;
+			}
+
+			walkable.ToggleMovement(true);
+
+			// Stop stun particles here
+			stunnedParticleSystem.Stop();
+			yield break;
+		}
+
+		private void ResetStunTask()
+		{
+			if(stunTask != null && stunTask.Running)
+			{
+				stunTask.Stop();
+				stunTask = null;
+			}
+		}
+
+        #endregion
+    }
 }
 
 

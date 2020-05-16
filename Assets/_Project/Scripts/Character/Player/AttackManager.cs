@@ -59,7 +59,7 @@ public class AttackManager : MonoBehaviour
 
     // Components
     private PlayerPhysicsController characterController;
-    private CharacterBase characterBase;
+    private CharacterAnimator characterBase;
     private Camera cam;
     private AttackDirectionData nextAttackDirection;
 
@@ -69,7 +69,7 @@ public class AttackManager : MonoBehaviour
         CanAttack = true;
         animator = GetComponent<Animator>();
         characterController = GetComponent<PlayerPhysicsController>();
-        characterBase = GetComponent<CharacterBase>();
+        characterBase = GetComponent<CharacterAnimator>();
     }
 
     private void Update()
