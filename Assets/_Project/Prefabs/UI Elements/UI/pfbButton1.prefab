@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 455886149682393420}
   - component: {fileID: 2379978587063266062}
   - component: {fileID: 8448183275199360929}
+  - component: {fileID: 8983537743185385913}
   m_Layer: 5
   m_Name: pfbButton1
   m_TagString: Untagged
@@ -136,6 +137,21 @@ MonoBehaviour:
   buttonClickSound: 19
   doSoundFeedback: 1
   hoverSize: {x: 1.1, y: 1.1}
+--- !u!114 &8983537743185385913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931536443127579039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.16862746}
+  m_EffectDistance: {x: 0, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2401963622288916653
 GameObject:
   m_ObjectHideFlags: 0
