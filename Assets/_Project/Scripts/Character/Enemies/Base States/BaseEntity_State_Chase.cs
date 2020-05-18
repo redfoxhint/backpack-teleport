@@ -32,6 +32,8 @@ public class BaseEntity_State_Chase : IState
         {
             entity.stateMachine.ChangeState(new BaseEntity_State_Idle(entity));
         }
+
+        
     }
 
     public void FixedUpdate()

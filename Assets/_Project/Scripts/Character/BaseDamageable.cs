@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using MyBox;
 using System.Collections;
+using System.Threading;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public enum EntityType
 {
@@ -28,6 +30,7 @@ namespace BackpackTeleport.Character
 		[Header("Damage Configuration")]
 		
 		[SerializeField] protected Color damageBlipColor = Color.red;
+		[SerializeField] private float incapacitationTime = 1f;
 
 		[Space]
 
@@ -50,34 +53,21 @@ namespace BackpackTeleport.Character
 		// Private Variables
 		protected float currentHealth;
 		protected float currentStunTime;
+		protected float currentIncapacitatedTime;
 		protected bool isDead = false;
+		protected bool isIncapacitated;
+		private Vector2 currentKnockbackDirection;
 
 		// Properties
-		public bool IsStunned
-		{
-			get
-			{
-				if (stunTask != null)
-				{
-					if (!stunTask.Running)
-						return false;
-
-					return true;
-				}
-
-				return false;
-			}
-		}
+		public bool Incapacitated { get => isIncapacitated; }
 
 		// Components
-		protected Knockback knockback;
 		protected SpriteRenderer spriteRenderer;
 		protected Animator animator;
 		protected IWalkable walkable;
 
 		// Events
 		public Action onTookDamage;
-		public Action onDamageFinished;
 		public Action onStunFinished;
 		public Action onDeath;
 
@@ -88,7 +78,6 @@ namespace BackpackTeleport.Character
 
 		protected virtual void Awake()
 		{
-			if (!knockback) knockback = GetComponent<Knockback>();
 			if (!spriteRenderer) spriteRenderer = GetComponent<SpriteRenderer>();
 			if (!animator) animator = GetComponent<Animator>(); ;
 			if (walkable == null) walkable = GetComponent<IWalkable>();
@@ -97,10 +86,7 @@ namespace BackpackTeleport.Character
 		}
 		protected virtual void Start()
 		{
-			InitKnockback();
-
 			SetHealth(maxHealth);
-			//UpdateStatBar(healthBar, currentHealth, maxHealth);
 		}
 
 		#endregion
@@ -109,29 +95,38 @@ namespace BackpackTeleport.Character
 
 		public virtual void TakeDamage(Transform damageDealer, float amount)
 		{
+			// By default we just want to trigger the hurt animation and remove health.
+
 			if (isDead) return;
 
 			if(animator != null)
 				animator.SetTrigger("hit");
 
-			DamageSequence(knockbackDuration);
+			onTookDamage?.Invoke();
+			DamageSequence(stunDuration);
+			RemoveHealth(amount);
+
+			if (isIncapacitated)
+			{
+				if(applyKnockback)
+					ApplyKnockback(damageDealer, knockbackAmount);
+
+				ResetStunDuration();
+				damageParticle.Play();
+				AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_SwordStab1, 0.5f);
+
+				return;
+			}
 
 			if (applyKnockback)
-			{
-				ApplyKnockback(damageDealer, knockbackDuration, knockbackAmount);
+				ApplyKnockback(damageDealer, knockbackAmount);
 
-				if (animator != null)
-					damageParticle.Play();
-			}
-
-			if(applyStun)
-			{
+			if (applyStun)
 				ApplyStun(stunDuration);
-			}
 
-			onTookDamage?.Invoke(); // Invoke damage event
 			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_SwordStab1, 0.5f);
-			RemoveHealth(amount);
+			damageParticle.Play();
+
 		}
 
 		public void SetHealth(float value)
@@ -204,20 +199,12 @@ namespace BackpackTeleport.Character
 		protected virtual void DamageSequence(float duration)
 		{
 			Sequence damageSequence = DOTween.Sequence();
-			damageSequence.AppendCallback(() => walkable.ToggleMovement(false));
 			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", true));
 			damageSequence.AppendCallback(() => spriteRenderer.color = damageBlipColor);
 			damageSequence.AppendInterval(duration);
 			
 			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", false));
 			damageSequence.AppendCallback(() => spriteRenderer.color = Color.white);
-
-			if(!applyStun)
-			{
-				damageSequence.AppendCallback(() => walkable.ToggleMovement(true));
-			}
-			
-			damageSequence.OnComplete(() => onDamageFinished?.Invoke());
 		}
 
 		protected virtual void Kill(bool invokeOnEntityKilled = true, bool waitForDeathAnimation = true)
@@ -246,28 +233,15 @@ namespace BackpackTeleport.Character
 
 		#region Knockback Functions
 
-		private void InitKnockback()
+		private void ApplyKnockback(Transform source, float amount)
 		{
-			if(knockback != null)
-			{
-				knockback.OnKnockbackStarted += OnKnockbackStarted;
-				knockback.OnKnockbackFinished += OnKnockbackFinished;
-			}
-		}
+			Rigidbody2D rBody = GetComponent<Rigidbody2D>();
+			//rBody.velocity = Vector2.zero;
 
-		protected virtual void ApplyKnockback(Transform source, float duration, float amount)
-		{
-			knockback.ApplyKnockback(source, duration, amount);
-		}
-
-		private void OnKnockbackStarted()
-		{
-			//onTookDamage?.Invoke();
-		}
-
-		private void OnKnockbackFinished()
-		{
-			onDamageFinished?.Invoke();
+			Vector2 direction = source.position.DirectionTo(transform.position);
+			currentKnockbackDirection = direction;
+			rBody.AddForce(currentKnockbackDirection.normalized * amount, ForceMode2D.Impulse);
+			Debug.Log(direction);
 		}
 
         #endregion
@@ -276,10 +250,11 @@ namespace BackpackTeleport.Character
 
 		public void ApplyStun(float stunDuration)
 		{
-			if(!IsStunned)
+			if(!Incapacitated)
 			{
 				stunTask = new Task(StunRoutine());
 				currentStunTime = stunDuration;
+				isIncapacitated = true;
 
 				// Play stun particles here
 
@@ -288,7 +263,7 @@ namespace BackpackTeleport.Character
 			}
 			else
 			{
-				currentStunTime = stunDuration;
+				ResetStunDuration();
 			}
 		}
 
@@ -307,6 +282,7 @@ namespace BackpackTeleport.Character
 				stunnedParticleSystem.Stop();
 
 			onStunFinished?.Invoke();
+			isIncapacitated = false;
 			yield break;
 		}
 
@@ -317,6 +293,11 @@ namespace BackpackTeleport.Character
 				stunTask.Stop();
 				stunTask = null;
 			}
+		}
+
+		private void ResetStunDuration()
+		{
+			currentStunTime = stunDuration;
 		}
 
         #endregion

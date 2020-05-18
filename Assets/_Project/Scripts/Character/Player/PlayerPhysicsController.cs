@@ -34,7 +34,6 @@ public class PlayerPhysicsController : PhysicsCharacterController
 
         velocityVector = Vector2.zero;
         GetPlayerInput();
-        //characterBase.SetAnimatorParameters(velocityVector);
 
         bool dashButton = input.InputActions.Player.DashAttack.triggered;
         if (dashButton)
@@ -56,19 +55,16 @@ public class PlayerPhysicsController : PhysicsCharacterController
 
     private void GetPlayerInput()
     {
-        if (CanMove())
+        float moveX = input.MovementInput.x;
+        float moveY = input.MovementInput.y;
+
+        if (moveX != 0 || moveY != 0)
         {
-            float moveX = input.MovementInput.x;
-            float moveY = input.MovementInput.y;
-
-            if(moveX != 0 || moveY != 0)
-            {
-                Footsteps();
-            }
-
-            velocityVector = new Vector2(moveX, moveY).normalized;
-            previousDirection = velocityVector;
+            Footsteps();
         }
+
+        velocityVector = new Vector2(moveX, moveY).normalized;
+        previousDirection = velocityVector;
     }
 
     public void Dash()
@@ -80,7 +76,7 @@ public class PlayerPhysicsController : PhysicsCharacterController
     {
         int index = Random.Range(0, footStepSounds.Count);
 
-        if(footstepCooldown < 0f)
+        if (footstepCooldown < 0f)
         {
             AudioManager.Instance.PlaySoundEffect(footStepSounds[index], 0.2f);
             footstepCooldown = footstepCooldownTime;

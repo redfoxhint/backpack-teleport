@@ -8,9 +8,4 @@ public class EntityPhysicsController : PhysicsCharacterController
     {
         SetVelocity(newDirection);
     }
-
-    protected override bool CanMove()
-    {
-        return DoMovement;
-    }
 }

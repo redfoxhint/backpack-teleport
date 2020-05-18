@@ -30,7 +30,7 @@ public class BaseEntity_State_Stun : IState
 
     public void Exit()
     {
-
+        
     }
 
     private void OnStunFinished()

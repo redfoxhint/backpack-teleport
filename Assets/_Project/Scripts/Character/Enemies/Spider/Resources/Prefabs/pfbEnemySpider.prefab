@@ -4954,7 +4954,6 @@ GameObject:
   - component: {fileID: 1111843174}
   - component: {fileID: 1554500870670333718}
   - component: {fileID: 302020169}
-  - component: {fileID: 1554500870670333719}
   - component: {fileID: 1499863877}
   - component: {fileID: 805092858}
   - component: {fileID: 805092848}
@@ -5046,11 +5045,11 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 10
+  m_LinearDrag: 20
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -5116,13 +5115,14 @@ MonoBehaviour:
   maxHealth: 10
   healthBar: {fileID: 1554500870885786794}
   damageBlipColor: {r: 1, g: 0, b: 0, a: 1}
+  incapacitationTime: 0
   damageParticle: {fileID: 1385840775198065542}
   entityType: 0
   applyKnockback: 1
-  knockbackAmount: 65
-  knockbackDuration: 0.5
+  knockbackAmount: 45
+  knockbackDuration: 1
   applyStun: 1
-  stunDuration: 1.5
+  stunDuration: 0.8
   stunnedParticleSystem: {fileID: 71841085791460398}
 --- !u!114 &302020169
 MonoBehaviour:
@@ -5145,21 +5145,10 @@ MonoBehaviour:
   rangedAttackDamage: 1
   rangedAttackAmount: 3
   triggerRangedAttackMaxDistance: 5
+  maxMeleeAttackRange: 2
   meleeAttackWaitTime: 1
   meleeAttackCooldown: 2
   rangedAttackCooldown: 1
---- !u!114 &1554500870670333719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554500870670333704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a590e545baa6b44a9b31b4bfc4da6ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1499863877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5203,6 +5192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  doMovement: 1
 --- !u!114 &805092848
 MonoBehaviour:
   m_ObjectHideFlags: 0

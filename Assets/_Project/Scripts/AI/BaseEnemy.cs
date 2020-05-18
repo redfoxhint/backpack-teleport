@@ -20,6 +20,7 @@ public class BaseEnemy : BaseStateMachineEntity
     [SerializeField] private float rangedAttackDamage = 1f;
     [SerializeField] private int rangedAttackAmount = 3;
     [SerializeField] private float triggerRangedAttackMaxDistance = 5f;
+    [SerializeField] private float maxMeleeAttackRange = 2f;
     [SerializeField] private float meleeAttackWaitTime = 1f;
     [SerializeField] private float meleeAttackCooldown = 2f;
     [SerializeField] private float rangedAttackCooldown = 1f;
@@ -28,6 +29,7 @@ public class BaseEnemy : BaseStateMachineEntity
     public float MeleeAttackDamage { get => meleeAttackDamage; }
     public float RangedAttackDamage { get => rangedAttackDamage; }
     public int RangedAttackAmount { get => rangedAttackAmount; }
+    public float MaxMeleeAttackRange { get => maxMeleeAttackRange; }
     public float TriggerRangedAttackMaxDistance { get => triggerRangedAttackMaxDistance; }
     public float MeleeAttackWaitTime { get => meleeAttackWaitTime; }
     public float MeleeAttackCooldown { get => meleeAttackCooldown; }
@@ -50,7 +52,11 @@ public class BaseEnemy : BaseStateMachineEntity
 
     protected override void OnTookDamage() 
     {
-        stateMachine.ChangeState(new BaseEntity_State_Stun(this));
+        base.OnTookDamage();
+
+        if (!BaseDamageable.Incapacitated)
+            stateMachine.ChangeState(new BaseEntity_State_Stun(this));
+
     }
 
     public override void SetWalkableVelocity(Vector3 velocity)

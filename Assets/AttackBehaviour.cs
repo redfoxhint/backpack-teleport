@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BehaviorDesigner.Runtime.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +14,10 @@ public class AttackBehaviour : StateMachineBehaviour
     {
         attackManager = animator.GetComponent<AttackManager>();
         playerMovement = animator.GetComponent<PhysicsCharacterController>();
-        attackManager.CanAttack = false;
+
+        GameManager.Instance.PlayerControl = false;
+
+        Debug.Log("Started attack animation");
 
         if(Gamepad.current != null)
         {
@@ -31,10 +35,11 @@ public class AttackBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        attackManager.CanAttack = true;
-        playerMovement.DoMovement = true;
+        GameManager.Instance.PlayerControl = true;
 
-        if(Gamepad.current != null)
+        Debug.Log("Finished attack animation");
+
+        if (Gamepad.current != null)
         {
             InputSystem.PauseHaptics();
             Gamepad.current.SetMotorSpeeds(0f, 0f);

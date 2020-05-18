@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PolyNav;
+using System;
 
 [RequireComponent(typeof(BaseDamageable), typeof(Rigidbody2D), typeof(CharacterAnimator))]
 public abstract class BaseStateMachineEntity : StateMachineUnit, IWalkable
@@ -39,8 +40,14 @@ public abstract class BaseStateMachineEntity : StateMachineUnit, IWalkable
         if (BaseDamageable != null)
         {
             BaseDamageable.onTookDamage += OnTookDamage;
+            BaseDamageable.onStunFinished += OnStunFinished;
             BaseDamageable.onDeath += OnDeath;
         }
+    }
+
+    private void OnStunFinished()
+    {
+        PhysicsController.enabled = true;
     }
 
     protected override void Start()
@@ -65,7 +72,11 @@ public abstract class BaseStateMachineEntity : StateMachineUnit, IWalkable
         return Vector2.Distance(transform.position, target.position);
     }
 
-    protected abstract void OnTookDamage();
+    protected virtual void OnTookDamage()
+    {
+        PhysicsController.enabled = false;
+    }
+
     protected abstract void OnDeath();
     public abstract void SetWalkableVelocity(Vector3 velocity);
 }

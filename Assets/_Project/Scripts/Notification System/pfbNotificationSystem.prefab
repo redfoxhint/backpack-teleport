@@ -159,13 +159,14 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a1b139cb3d938df4fabf04fc78ad918a, type: 2}
-  m_sharedMaterial: {fileID: -3890644229312815471, guid: a1b139cb3d938df4fabf04fc78ad918a,
+  m_fontAsset: {fileID: 11400000, guid: 398d59c963cb80b4fa4a7a4be049aa21, type: 2}
+  m_sharedMaterial: {fileID: 8924657940473394783, guid: 398d59c963cb80b4fa4a7a4be049aa21,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -316,6 +317,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -402,7 +404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6560976051336827597}
   m_Layer: 0
-  m_Name: Notification System
+  m_Name: pfbNotificationSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

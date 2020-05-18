@@ -31,7 +31,7 @@ public class PhysicsCharacterController : MonoBehaviour, IWalkable
 
     protected virtual void FixedUpdate()
     {
-        if(DoMovement)
+        if(CanMove())
         {
             rBody.velocity = velocityVector * moveSpeed;
             characterBase.SetAnimatorParameters(velocityVector);
@@ -40,7 +40,7 @@ public class PhysicsCharacterController : MonoBehaviour, IWalkable
     
     protected virtual bool CanMove()
     {
-        return DoMovement && GameManager.Instance.PlayerControl;
+        return GameManager.Instance.PlayerControl;
     }
 
     public void SetVelocity(Vector3 _velocityVector)
