@@ -4955,9 +4955,9 @@ GameObject:
   - component: {fileID: 1554500870670333718}
   - component: {fileID: 302020169}
   - component: {fileID: 1554500870670333719}
-  - component: {fileID: 4613876159298309327}
-  - component: {fileID: 2113873285}
-  - component: {fileID: 2113873286}
+  - component: {fileID: 1499863877}
+  - component: {fileID: 805092858}
+  - component: {fileID: 805092848}
   m_Layer: 11
   m_Name: pfbEnemySpider
   m_TagString: Damageable
@@ -5069,7 +5069,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.042139053, y: 0.029497623}
   serializedVersion: 2
-  m_Radius: 0.68910223
+  m_Radius: 0.37
 --- !u!95 &1554500870670333696
 Animator:
   serializedVersion: 3
@@ -5119,7 +5119,7 @@ MonoBehaviour:
   damageParticle: {fileID: 1385840775198065542}
   entityType: 0
   applyKnockback: 1
-  knockbackAmount: 35
+  knockbackAmount: 65
   knockbackDuration: 0.5
   applyStun: 1
   stunDuration: 1.5
@@ -5138,9 +5138,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   baseCharacterData: {fileID: 11400000, guid: 7b69973330dc1aa498c4b7a402517f23, type: 2}
-  test: 0
+  maxDetectionRange: 15
   characterBase: {fileID: 1111843174}
-  attackRange: 10
+  currentPath: []
+  meleeAttackDamage: 1
+  rangedAttackDamage: 1
+  rangedAttackAmount: 3
+  triggerRangedAttackMaxDistance: 5
+  meleeAttackWaitTime: 1
+  meleeAttackCooldown: 2
+  rangedAttackCooldown: 1
 --- !u!114 &1554500870670333719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5153,7 +5160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a590e545baa6b44a9b31b4bfc4da6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4613876159298309327
+--- !u!114 &1499863877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5162,12 +5169,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1554500870670333704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cc6a4987f7c684798156c56d545838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1
-  target: {fileID: 0}
---- !u!114 &2113873285
+  _map: {fileID: 0}
+  maxSpeed: 3.5
+  mass: 20
+  stoppingDistance: 1
+  slowingDistance: 1
+  accelerationRate: 3.5
+  decelerationRate: 3.5
+  lookAheadDistance: 1
+  avoidRadius: 1
+  avoidanceConsiderStuckedTime: 3
+  avoidanceConsiderReachedDistance: 1
+  rotateTransform: 0
+  rotateSpeed: 350
+  centerOffset: {x: -0.05, y: 0}
+  repath: 0
+  restrict: 0
+  closerPointOnInvalid: 1
+  debugPath: 1
+--- !u!114 &805092858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5176,61 +5199,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1554500870670333704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Script: {fileID: 11500000, guid: 96c254650a5d3b04bb522eb31e5a199d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 2
-  radius: 0.56
-  height: 0.33
-  repathRate: 0.5
-  canSearch: 1
-  canMove: 1
-  maxSpeed: 3
-  gravity: {x: NaN, y: NaN, z: NaN}
-  groundMask:
+  moveSpeed: 3
+--- !u!114 &805092848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554500870670333704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296207b31b4a87a4dbc3ab2d485c065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 7814779826759806515, guid: 022531a0d40df8f48949c895a91ce3ca,
+    type: 3}
+  circleCol: {fileID: 1554500870670333705}
+  damageFilter:
     serializedVersion: 2
-    m_Bits: 4294967295
-  centerOffsetCompatibility: NaN
-  orientation: 1
-  enableRotation: 0
-  targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 1
-  pickNextWaypointDist: 1
-  endReachedDistance: 2
-  alwaysDrawGizmos: 1
-  slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
-  constrainInsideGraph: 0
---- !u!114 &2113873286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554500870670333704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
+    m_Bits: 512
 --- !u!1 &1554500870885786805
 GameObject:
   m_ObjectHideFlags: 0
@@ -5312,6 +5302,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1554500870670333708}
     m_Modifications:
+    - target: {fileID: 71841085085738100, guid: f4ace25831139394780f458b47983b92,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 71841086202542832, guid: f4ace25831139394780f458b47983b92,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
@@ -5350,6 +5345,11 @@ PrefabInstance:
     - target: {fileID: 71841086202542832, guid: f4ace25831139394780f458b47983b92,
         type: 3}
       propertyPath: InitialModule.startColor.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 71841086202542832, guid: f4ace25831139394780f458b47983b92,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 71841086202542833, guid: f4ace25831139394780f458b47983b92,

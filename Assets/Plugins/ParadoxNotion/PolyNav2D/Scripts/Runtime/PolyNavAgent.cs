@@ -77,6 +77,7 @@ namespace PolyNav
         private List<Vector2> _activePath = new List<Vector2>();
         private Vector2 _primeGoal = Vector2.zero;
         private float accelerationValue = 0;
+        private bool canMove;
 
         private static List<PolyNavAgent> allAgents = new List<PolyNavAgent>();
 
@@ -87,6 +88,8 @@ namespace PolyNav
             get { return transform.position + (Vector3)centerOffset; }
             set { transform.position = new Vector3(value.x, value.y, transform.position.z) - (Vector3)centerOffset; }
         }
+
+        public bool CanMove { get => canMove; }
 
         ///The current active path of the agent
         public List<Vector2> activePath {
@@ -126,6 +129,8 @@ namespace PolyNav
         public Vector2 nextPoint {
             get { return hasPath ? activePath[0] : position; }
         }
+
+        public Vector2 Velocity { get => velocity; }
 
         ///The remaining distance of the active path. 0 if none
         public float remainingDistance {
@@ -256,16 +261,19 @@ namespace PolyNav
         void LateUpdate() {
 
             if ( map == null ) {
+                canMove = false;
                 return;
             }
 
             //when there is no path just restrict
             if ( !hasPath ) {
                 Restrict();
+                canMove = false;
                 return;
             }
 
             if ( maxSpeed <= 0 ) {
+                canMove = false;
                 return;
             }
 
@@ -299,9 +307,10 @@ namespace PolyNav
                 }
             }
 
+            canMove = true;
 
             //move the agent
-            position += velocity * Time.deltaTime;
+            //position += velocity * Time.deltaTime;
 
             //restrict just after movement
             Restrict();

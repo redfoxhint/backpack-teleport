@@ -78,6 +78,7 @@ namespace BackpackTeleport.Character
 		// Events
 		public Action onTookDamage;
 		public Action onDamageFinished;
+		public Action onStunFinished;
 		public Action onDeath;
 
 		// Tasks
@@ -91,6 +92,8 @@ namespace BackpackTeleport.Character
 			if (!spriteRenderer) spriteRenderer = GetComponent<SpriteRenderer>();
 			if (!animator) animator = GetComponent<Animator>(); ;
 			if (walkable == null) walkable = GetComponent<IWalkable>();
+
+			Debug.Log(walkable);
 		}
 		protected virtual void Start()
 		{
@@ -204,7 +207,7 @@ namespace BackpackTeleport.Character
 			damageSequence.AppendCallback(() => walkable.ToggleMovement(false));
 			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", true));
 			damageSequence.AppendCallback(() => spriteRenderer.color = damageBlipColor);
-			damageSequence.AppendInterval(duration + 0.2f);
+			damageSequence.AppendInterval(duration);
 			
 			damageSequence.AppendCallback(() => animator.SetBool("isDamaged", false));
 			damageSequence.AppendCallback(() => spriteRenderer.color = Color.white);
@@ -273,13 +276,15 @@ namespace BackpackTeleport.Character
 
 		public void ApplyStun(float stunDuration)
 		{
-			if(IsStunned)
+			if(!IsStunned)
 			{
 				stunTask = new Task(StunRoutine());
 				currentStunTime = stunDuration;
 
 				// Play stun particles here
-				stunnedParticleSystem.Play();
+
+				if(stunnedParticleSystem != null)
+					stunnedParticleSystem.Play();
 			}
 			else
 			{
@@ -298,7 +303,10 @@ namespace BackpackTeleport.Character
 			walkable.ToggleMovement(true);
 
 			// Stop stun particles here
-			stunnedParticleSystem.Stop();
+			if (stunnedParticleSystem != null)
+				stunnedParticleSystem.Stop();
+
+			onStunFinished?.Invoke();
 			yield break;
 		}
 

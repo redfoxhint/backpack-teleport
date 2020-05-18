@@ -7,9 +7,10 @@ public class PhysicsCharacterController : MonoBehaviour, IWalkable
 {
     [Header("Character Controller Configuration")]
     [SerializeField] protected float moveSpeed = 60f;
+    public bool doMovement;
 
     // Properties
-    public bool DoMovement { get; set; }
+    public bool DoMovement { get => doMovement; set => value = doMovement; }
 
     protected Vector2 velocityVector;
     protected Vector2 previousDirection;
@@ -25,6 +26,8 @@ public class PhysicsCharacterController : MonoBehaviour, IWalkable
         input = InputManager.Instance;
         ToggleMovement(true);
     }
+
+    
 
     protected virtual void FixedUpdate()
     {
@@ -56,13 +59,9 @@ public class PhysicsCharacterController : MonoBehaviour, IWalkable
         this.enabled = true;
     }
 
-    public void ToggleMovement(bool toggle)
+    public virtual void ToggleMovement(bool toggle)
     {
         DoMovement = toggle;
-
-        if(!toggle)
-            SetWalkableVelocity(Vector3.zero);
-
     }
 
     public void SetWalkableVelocity(Vector3 velocity)

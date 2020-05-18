@@ -45211,16 +45211,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 7
-  damageDuration: 0
+  healthBar: {fileID: 7957442374191748638}
   damageBlipColor: {r: 1, g: 0, b: 0, a: 1}
-  baseCharacterData: {fileID: 0}
   damageParticle: {fileID: 7918909594592417696, guid: 88b84de83d1bf9d469bbf3a0637075e9,
     type: 3}
   entityType: 0
+  applyKnockback: 1
   knockbackAmount: 35
-  applyKnockbackAfterDamaged: 1
-  isDead: 0
-  healthBar: {fileID: 7957442374191748638}
+  knockbackDuration: 0.7
+  applyStun: 0
+  stunDuration: 0.5
+  stunnedParticleSystem: {fileID: 0}
   energyBar: {fileID: 383566384553900532}
 --- !u!114 &1387507732
 MonoBehaviour:
