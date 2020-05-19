@@ -208,7 +208,7 @@ namespace BackpackTeleport.Character
 			damageSequence.AppendCallback(() => spriteRenderer.color = Color.white);
 		}
 
-		protected virtual void Kill(bool invokeOnEntityKilled = true, bool waitForDeathAnimation = true)
+		public virtual void Kill(bool invokeOnEntityKilled = true, bool waitForDeathAnimation = true)
 		{
 			if(invokeOnEntityKilled)
 			{
@@ -250,7 +250,6 @@ namespace BackpackTeleport.Character
 			Vector2 direction = source.position.DirectionTo(transform.position);
 			currentKnockbackDirection = direction;
 			rBody.AddForce(currentKnockbackDirection.normalized * amount, ForceMode2D.Impulse);
-			Debug.Log(direction);
 		}
 
         #endregion

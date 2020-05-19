@@ -47,7 +47,10 @@ public abstract class BaseStateMachineEntity : StateMachineUnit, IWalkable
 
     private void OnStunFinished()
     {
-        PhysicsController.enabled = true;
+        if(PhysicsController != null)
+        {
+            PhysicsController.enabled = true;
+        }
     }
 
     protected override void Start()

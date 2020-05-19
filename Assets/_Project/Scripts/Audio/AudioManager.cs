@@ -26,6 +26,11 @@ public enum AudioFiles
     SFX_Select1,
     ST_Suspense,
     SFX_SwordStab1,
+    SFX_DoorOpenQuick,
+    SFX_DoorOpensSlow,
+    SFX_TutorialFirstDiscover,
+    ST_MF043,
+    SFX_GoldPickup,
     Nothing
 }
 

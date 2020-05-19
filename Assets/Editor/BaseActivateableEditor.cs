@@ -17,6 +17,7 @@ public class BaseActivateableEditor : Editor
     SerializedProperty activationSequence;
     SerializedProperty sequenceResetTime;
     SerializedProperty boxColliderToDisable;
+    SerializedProperty doorOpenSound;
 
     bool gateSettings;
 
@@ -34,22 +35,27 @@ public class BaseActivateableEditor : Editor
         sequenceResetTime = serializedObject.FindProperty("sequenceResetTime");
         doorAnimator = serializedObject.FindProperty("anim");
         boxColliderToDisable = serializedObject.FindProperty("colliderToDisable");
+        doorOpenSound = serializedObject.FindProperty("doorOpenSound");
     }
 
     public override void OnInspectorGUI()
     {
-        EditorGUILayout.PropertyField(activationMode, new GUIContent("Activation Mode"));
+        DrawDefaultInspector();
 
-        if (activationMode.enumValueIndex == 1)
-        {
-            DrawSequenceInspector();
-        }
-        else
-        {
-            DrawSingleInspector();
-        }
+        //EditorGUILayout.PropertyField(activationMode, new GUIContent("Activation Mode"));
+        //EditorGUILayout.PropertyField(doorOpenSound, new GUIContent("Door Open Sound"));
 
-        serializedObject.ApplyModifiedProperties();
+
+        //if (activationMode.enumValueIndex == 1)
+        //{
+        //    DrawSequenceInspector();
+        //}
+        //else
+        //{
+        //    DrawSingleInspector();
+        //}
+
+        //serializedObject.ApplyModifiedProperties();
     }
 
     private void DrawSequenceInspector()

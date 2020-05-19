@@ -1,4 +1,5 @@
-﻿using BackpackTeleport.Character.PlayerCharacter;
+﻿using BackpackTeleport.Character;
+using BackpackTeleport.Character.PlayerCharacter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,14 @@ public class DeathTrigger : MonoBehaviour
 
         if(player)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            player.GetComponent<BaseDamageable>().Kill(false, true);
+        }
+
+        BaseEnemy baseEnemy = other.GetComponent<BaseEnemy>();
+
+        if(baseEnemy)
+        {
+            baseEnemy.GetComponent<BaseDamageable>().Kill(true, true);
         }
     }
 }

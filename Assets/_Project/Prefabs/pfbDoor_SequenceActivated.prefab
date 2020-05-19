@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 3146011291233904469}
   - component: {fileID: 16964733166496621}
   m_Layer: 0
-  m_Name: pfbDoor
+  m_Name: pfbDoor_SequenceActivated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,6 +222,7 @@ MonoBehaviour:
   - {fileID: 8441482428838697423}
   - {fileID: 7194880909519234862}
   resetActuator: {fileID: 4877635818371354676}
+  doorOpenSound: 22
   doorSpriteRenderer: {fileID: 5031511163738548626}
   sequenceResetTime: 2
   activationSequence:

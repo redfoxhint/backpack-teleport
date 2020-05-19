@@ -27,6 +27,7 @@ public class RespawnScreenController : Singleton<RespawnScreenController>
         CameraFunctions.Instance.FadeDOFIn();
         CameraFunctions.Instance.SetScreenColor();
         deathScreen.gameObject.SetActive(true);
+        Cursor.visible = true;
     }
 
     public void OnRespawnClicked()

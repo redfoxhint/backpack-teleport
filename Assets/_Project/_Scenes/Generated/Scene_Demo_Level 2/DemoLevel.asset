@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57990f64ca69d99458c5f85d4163efba, type: 3}
   m_Name: DemoLevel
   m_EditorClassIdentifier: 
-  levelBuildIndex: 2
+  levelBuildIndex: 3
   levelName: Demo Level
   levelSlug: level_demo_level
   levelDescription: 

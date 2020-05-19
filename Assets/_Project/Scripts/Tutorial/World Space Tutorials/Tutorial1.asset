@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237434d7fac42d746b7bbeabdc08c6a0, type: 3}
+  m_Name: Tutorial1
+  m_EditorClassIdentifier: 
+  buttonPressSprite: {fileID: 2583221787174211439, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b,
+    type: 3}
+  tutorialText: Hold left trigger and aim with the right thumbstick. Release the
+    left trigger to throw the backpack across.

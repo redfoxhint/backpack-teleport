@@ -163,6 +163,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   resetActuator: {fileID: 0}
+  doorOpenSound: 23
   doorSpriteRenderer: {fileID: 4644941721397104973}
   sequenceResetTime: 2
   activationSequence:

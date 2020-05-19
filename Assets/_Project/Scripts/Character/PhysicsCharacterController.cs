@@ -33,7 +33,9 @@ public class PhysicsCharacterController : MonoBehaviour, IWalkable
     {
         if(CanMove())
         {
-            rBody.velocity = velocityVector * moveSpeed;
+            if(rBody != null)
+                rBody.velocity = velocityVector * moveSpeed;
+
             characterBase.SetAnimatorParameters(velocityVector);
         }
     }

@@ -464,12 +464,12 @@ PrefabInstance:
     - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
         type: 3}
@@ -481,10 +481,20 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
+        type: 3}
+      propertyPath: m_text
+      value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1931536443127579039, guid: 9a24e5920421fdd44a3417942f8ce570,
         type: 3}
       propertyPath: m_Name
-      value: pfbButton1 (1)
+      value: button_mainmenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a24e5920421fdd44a3417942f8ce570, type: 3}
@@ -621,7 +631,7 @@ PrefabInstance:
     - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
         type: 3}
@@ -638,10 +648,22 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
+        type: 3}
+      propertyPath: m_text
+      value: 'Restart
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1043332668198290182, guid: 9a24e5920421fdd44a3417942f8ce570,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1931536443127579039, guid: 9a24e5920421fdd44a3417942f8ce570,
         type: 3}
       propertyPath: m_Name
-      value: pfbButton1
+      value: button_respawn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a24e5920421fdd44a3417942f8ce570, type: 3}

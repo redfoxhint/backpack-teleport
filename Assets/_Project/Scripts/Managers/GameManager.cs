@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : PersistentSingleton<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     public bool PlayerControl { get; set; } 
     public bool GamePaused { get; set; }
@@ -32,11 +32,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private Player player;
     private Camera mainCam;
 
-    public override void Awake()
-    {
-        base.Awake();
-
-    }
+    public int berryAmount = 0;
 
     private void Start()
     {

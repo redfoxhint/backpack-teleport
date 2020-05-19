@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/_Project/_Scenes/Complete/MainMenu.unity
     guid: a787b043613573a4bac4b91096da73dc
   - enabled: 1
+    path: Assets/_Project/_Scenes/Generated/Scene_Demo_Level 2/TrailerScene.unity
+    guid: 2f532671334d3324ea61236aa5c7124c
+  - enabled: 1
     path: Assets/_Project/_Scenes/Generated/Scene_Demo_Level 2/Demo_Level.unity
     guid: bad2f938e880c7f4f88299d6791f6e93
   m_configObjects:
