@@ -51,6 +51,17 @@ public class SceneLoader : PersistentSingleton<SceneLoader>
         loadLevelSequence.AppendInterval(fadeTime + 0.5f).OnComplete(() => StartCoroutine(LoadLevelAsyncRoutine(levelIndex, audioToCrossfadeInto)));
     }
 
+    public void LoadLevel(AudioFiles audioToCrossfadeInto = AudioFiles.Nothing)
+    {
+        int index = GetCurrentBuildIndex();
+        LoadLevel(index, audioToCrossfadeInto);
+    }
+
+    private int GetCurrentBuildIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
     IEnumerator LoadLevelAsyncRoutine(string sceneToLoad, AudioFiles audioToFadeInto)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);

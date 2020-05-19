@@ -37,6 +37,7 @@ namespace BackpackTeleport.Character
 		[Header("Other Configuration")]
 		[SerializeField] protected ParticleSystem damageParticle;
 		[SerializeField] protected EntityType entityType;
+		[SerializeField] protected bool destroyOnDeath = false;
 
 		[Space]
 
@@ -227,8 +228,16 @@ namespace BackpackTeleport.Character
 		protected void OnEndofDeathAnimation()
 		{
 			onDeath?.Invoke();
+			OnDeath();
 			ResetStunTask();
-			Destroy(gameObject);
+
+			if(destroyOnDeath)
+				Destroy(gameObject);
+		}
+
+		protected virtual void OnDeath()
+		{
+
 		}
 
 		#region Knockback Functions

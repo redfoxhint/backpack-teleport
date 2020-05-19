@@ -3,16 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraFunctions : Singleton<CameraFunctions>
 {
     [SerializeField] private CinemachineVirtualCamera virtualCam;
+    [SerializeField] private Volume introVolume;
+    [SerializeField] private float clearDOFTime = 0.6f;
+    [SerializeField] private Color deathScreenColor;
 
     private Transform followTarget;
     private float originalZoomAmount;
     private const float defaultZoomAmount = 15f;
     private const float defaultZoomSpeed = 1f;
     private bool isZoomedOut = false;
+
+    private VolumeProfile profile;
+    private DepthOfField dof;
+    private ColorAdjustments colorAdjustments;
+
+    private Color originalScreenColor;
+
     public Transform FollowTarget
     {
         set
@@ -25,6 +37,18 @@ public class CameraFunctions : Singleton<CameraFunctions>
     private void Awake()
     {
         originalZoomAmount = virtualCam.m_Lens.OrthographicSize;
+        originalScreenColor = Color.white;
+
+        if (introVolume != null)
+        {
+            profile = introVolume.profile;
+            profile.TryGet<DepthOfField>(out dof);
+            profile.TryGet<ColorAdjustments>(out colorAdjustments);
+        }
+        else
+        {
+            LogUtils.LogWarning("Intro profile was not found! Make sure it is hooked up in the inspector.");
+        }
     }
 
     public void ZoomCamera(float amount = defaultZoomAmount, float zoomSpeed = defaultZoomSpeed)
@@ -61,5 +85,34 @@ public class CameraFunctions : Singleton<CameraFunctions>
         {
             virtualCam.m_Lens.OrthographicSize = x;
         });
+    }
+
+    public void FadeDOFOut()
+    {
+        DOVirtual.Float(dof.focusDistance.value, 10, clearDOFTime, (x) =>
+        {
+            dof.focusDistance.value = x;
+        }).SetUpdate(true);
+    }
+
+    public void FadeDOFIn()
+    {
+        DOVirtual.Float(dof.focusDistance.value, 0, clearDOFTime, (x) =>
+        {
+            dof.focusDistance.value = x;
+        }).SetUpdate(true);
+    }
+
+    public void SetDOFValue(float value)
+    {
+        dof.focusDistance.value = value;
+    }
+
+    public void SetScreenColor()
+    {
+        DOVirtual.Float(0f, 1f, 3f, (x) =>
+        {
+            colorAdjustments.colorFilter.Interp(colorAdjustments.colorFilter.value, deathScreenColor, x);
+        }).SetUpdate(true);
     }
 }

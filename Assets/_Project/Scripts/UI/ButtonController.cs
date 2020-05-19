@@ -13,7 +13,7 @@ public class ButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [SerializeField] private bool doSoundFeedback = true;
 
     [Header("Button Animation Configuration")]
-    [SerializeField] private Vector2 hoverSize = new Vector2(1.1f, 1.1f);
+    [SerializeField] private Vector3 hoverSize = new Vector3(1.1f, 1.1f, 1f);
 
     private Image buttonImage;
 
@@ -37,6 +37,6 @@ public class ButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        buttonImage.transform.DOScale(new Vector2(1f, 1f), 0.1f).SetUpdate(true);
+        buttonImage.transform.DOScale(new Vector3(1f, 1f, 1f), 0.1f).SetUpdate(true);
     }
 }

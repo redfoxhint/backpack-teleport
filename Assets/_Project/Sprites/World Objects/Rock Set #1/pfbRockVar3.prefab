@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5454914378710589716}
   - component: {fileID: 2111631621787776625}
   - component: {fileID: 3408997984509135366}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pfbRockVar3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 0
-  extraOffset: 0
+  extraOffset: 0.94
   invertPolygon: 1
 --- !u!60 &3408997984509135366
 PolygonCollider2D:

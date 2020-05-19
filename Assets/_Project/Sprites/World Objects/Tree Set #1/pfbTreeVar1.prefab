@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4111944597427474671}
   - component: {fileID: 6424113625388248164}
   - component: {fileID: 5395520670504810777}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pfbTreeVar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 1
-  extraOffset: 0
+  extraOffset: 0.19
   invertPolygon: 0
 --- !u!61 &5395520670504810777
 BoxCollider2D:

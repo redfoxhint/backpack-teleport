@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6995733110608166737}
   - component: {fileID: 4675014973791678912}
   - component: {fileID: 6589838291087395109}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pfbTreeVar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 1
-  extraOffset: 0
+  extraOffset: -0.49
   invertPolygon: 1

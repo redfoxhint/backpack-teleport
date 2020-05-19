@@ -40,6 +40,11 @@ public class PlayerDamageable : BaseDamageable
         {
             RemoveEnergy(1f);
         }
+
+        if(Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Kill(false, true);
+        }
     }
 
     public override void TakeDamage(Transform damageDealer, float amount)
@@ -80,5 +85,11 @@ public class PlayerDamageable : BaseDamageable
         maxEnergy = newMax;
 
         UpdateStatBar(energyBar, currentEnergy, maxEnergy);
+    }
+
+    protected override void OnDeath()
+    {
+        // Pause Game and show respawn screen.
+        RespawnScreenController.Instance.ShowRespawnScreen();
     }
 }

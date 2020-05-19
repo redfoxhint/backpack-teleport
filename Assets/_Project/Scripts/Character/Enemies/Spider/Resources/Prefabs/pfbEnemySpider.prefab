@@ -5118,6 +5118,7 @@ MonoBehaviour:
   incapacitationTime: 0
   damageParticle: {fileID: 1385840775198065542}
   entityType: 0
+  destroyOnDeath: 1
   applyKnockback: 1
   knockbackAmount: 45
   knockbackDuration: 1
