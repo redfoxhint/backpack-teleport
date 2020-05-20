@@ -8,6 +8,7 @@ public class RespawnScreenController : Singleton<RespawnScreenController>
     [SerializeField] private Button respawnButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private RectTransform deathScreen;
+    [SerializeField] private Color deathScreenColor = Color.red;
 
     private void Awake()
     {
@@ -25,7 +26,7 @@ public class RespawnScreenController : Singleton<RespawnScreenController>
         GameManager.Instance.PauseGame();
 
         CameraFunctions.Instance.FadeDOFIn();
-        CameraFunctions.Instance.SetScreenColor();
+        CameraFunctions.Instance.SetScreenColor(deathScreenColor);
         deathScreen.gameObject.SetActive(true);
         Cursor.visible = true;
     }
@@ -34,11 +35,13 @@ public class RespawnScreenController : Singleton<RespawnScreenController>
     {
         SceneLoader.Instance.LoadLevel(AudioFiles.ST_RelaxingNature);
         GameManager.Instance.ResumeGame();
+        deathScreen.gameObject.SetActive(false);
     }
 
     public void OnMainMenuClicked()
     {
         SceneLoader.Instance.LoadLevel(1);
         GameManager.Instance.ResumeGame();
+        deathScreen.gameObject.SetActive(false);
     }
 }

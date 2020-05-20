@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool PlayerControl { get; set; } 
+    [SerializeField] private bool playerControl;
+
+    public bool PlayerControl { get => playerControl; set => playerControl = value; } 
     public bool GamePaused { get; set; }
     public Player Player
     {

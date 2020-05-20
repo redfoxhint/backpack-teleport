@@ -5,17 +5,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class SceneLoader : PersistentSingleton<SceneLoader>
+public class SceneLoader : Singleton<SceneLoader>
 {
     [SerializeField] private CanvasGroup fadeCanvas;
 
     [Header("Fade Configuration")]
     [SerializeField] private float fadeTime = 1f;
 
-    public override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         FadeCanvasImmediate();
@@ -137,5 +135,6 @@ public class SceneLoader : PersistentSingleton<SceneLoader>
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         FadeToClear();
+        GameEvents.onSceneLoaded?.Invoke();
     }
 }

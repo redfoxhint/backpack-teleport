@@ -36,7 +36,7 @@ public enum AudioFiles
 
 public enum AudioType { MUSIC, SOUNDEFFECT, AMBIENT }
 
-public class AudioManager : PersistentSingleton<AudioManager>
+public class AudioManager : Singleton<AudioManager>
 {
     [Header("Audio Manager Configuration")]
     [SerializeField] private AudioMixerGroup musicGroup;
@@ -75,15 +75,10 @@ public class AudioManager : PersistentSingleton<AudioManager>
     private Task ambientFadeOutTask;
 
     #region Unity Functions
-    public override void Awake()
-    {
-        base.Awake();
-        Init();
-    }
-
-    private void Update()
+    private void Awake()
     {
         
+        Init();
     }
 
     #endregion
@@ -103,6 +98,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
         if (clip != null)
             uiSource.PlayOneShot(clip);
+    }
+
+    [ContextMenu("PlayTest")]
+    public void PlayTest()
+    {
+        Crossfade(AudioType.MUSIC, AudioFiles.ST_MF043);
     }
 
     public void FadeIn(AudioType audioType, AudioFiles audioName, float fadeInTime = 5f, bool immediate = false)

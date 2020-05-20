@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class QuestManager : MonoBehaviour
+public class QuestManager : Singleton<QuestManager>
 {
     [SerializeField] private bool dontDuplicateQuests = true;
     [SerializeField] private Quest testQuestToAdd;

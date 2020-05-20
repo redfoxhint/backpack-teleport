@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8712880844785087505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8712880844785087519}
+  - component: {fileID: 8712880844785087518}
+  m_Layer: 0
+  m_Name: pfbGameSystems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8712880844785087519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8712880844785087505}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.890572, y: 0.18355146, z: -20.957031}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8712880844785087518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8712880844785087505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c3cc40abd0dd445932160ce616895f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notificationManagerPrefab: {fileID: 4525785572696470742, guid: d9970c8425e515d488ce31b5e9618a00,
+    type: 3}
+  questManagerPrefab: {fileID: 2520935726477685754, guid: 011985552ba23c848ace999f16046b10,
+    type: 3}
+  gameManagerPrefab: {fileID: 1030606770081190753, guid: 6c8f79d46dd30d64a86e1cd3853dcb76,
+    type: 3}
+  sceneLoaderPrefab: {fileID: 1385834347446235509, guid: 8f64a5270ecceb645888fdb4f96b72cd,
+    type: 3}
+  audioManagerPrefab: {fileID: 520391518639970469, guid: e450cff26d532b34386c76206ddab453,
+    type: 3}
+  cameraFunctionsPrefab: {fileID: 8150236634461849502, guid: 5bd8a06c0ed3a8e40a42362394ad2d96,
+    type: 3}
+  deathScreenPrefab: {fileID: 7201361091477449502, guid: 87db7cc929c34bf42b6b5f5fe8456837,
+    type: 3}
+  screenshotHandlerPrefab: {fileID: 2730757399477971333, guid: cc42b6c9eecf55e45995cde70a7b745b,
+    type: 3}

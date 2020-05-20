@@ -5,13 +5,15 @@ using DG.Tweening;
 using Cinemachine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using BehaviorDesigner.Runtime.Tasks.Movement;
 
 public class CameraFunctions : Singleton<CameraFunctions>
 {
     [SerializeField] private CinemachineVirtualCamera virtualCam;
-    [SerializeField] private Volume introVolume;
-    [SerializeField] private float clearDOFTime = 0.6f;
-    [SerializeField] private Color deathScreenColor;
+    [SerializeField] private Volume defaultVolume;
+
+    [Header("Volume Configuration")]
+    [SerializeField] private float dofFadeTime = 0.6f;
 
     private Transform followTarget;
     private float originalZoomAmount;
@@ -27,6 +29,11 @@ public class CameraFunctions : Singleton<CameraFunctions>
 
     public Transform FollowTarget
     {
+        get
+        {
+            return followTarget;
+        }
+
         set
         {
             followTarget = value;
@@ -39,9 +46,11 @@ public class CameraFunctions : Singleton<CameraFunctions>
         originalZoomAmount = virtualCam.m_Lens.OrthographicSize;
         originalScreenColor = Color.white;
 
-        if (introVolume != null)
+        if (defaultVolume == null) defaultVolume = FindObjectOfType<Volume>();
+
+        if (defaultVolume != null)
         {
-            profile = introVolume.profile;
+            profile = defaultVolume.profile;
             profile.TryGet<DepthOfField>(out dof);
             profile.TryGet<ColorAdjustments>(out colorAdjustments);
         }
@@ -49,6 +58,8 @@ public class CameraFunctions : Singleton<CameraFunctions>
         {
             LogUtils.LogWarning("Intro profile was not found! Make sure it is hooked up in the inspector.");
         }
+
+        GameEvents.onSceneLoaded.AddListener(OnSceneLoaded);
     }
 
     public void ZoomCamera(float amount = defaultZoomAmount, float zoomSpeed = defaultZoomSpeed)
@@ -89,7 +100,7 @@ public class CameraFunctions : Singleton<CameraFunctions>
 
     public void FadeDOFOut()
     {
-        DOVirtual.Float(dof.focusDistance.value, 10, clearDOFTime, (x) =>
+        DOVirtual.Float(dof.focusDistance.value, 10, dofFadeTime, (x) =>
         {
             dof.focusDistance.value = x;
         }).SetUpdate(true);
@@ -97,7 +108,7 @@ public class CameraFunctions : Singleton<CameraFunctions>
 
     public void FadeDOFIn()
     {
-        DOVirtual.Float(dof.focusDistance.value, 0, clearDOFTime, (x) =>
+        DOVirtual.Float(dof.focusDistance.value, 0, dofFadeTime, (x) =>
         {
             dof.focusDistance.value = x;
         }).SetUpdate(true);
@@ -108,11 +119,19 @@ public class CameraFunctions : Singleton<CameraFunctions>
         dof.focusDistance.value = value;
     }
 
-    public void SetScreenColor()
+    public void SetScreenColor(Color screenColor)
     {
         DOVirtual.Float(0f, 1f, 3f, (x) =>
         {
-            colorAdjustments.colorFilter.Interp(colorAdjustments.colorFilter.value, deathScreenColor, x);
+            colorAdjustments.colorFilter.Interp(colorAdjustments.colorFilter.value, screenColor, x);
         }).SetUpdate(true);
+    }
+
+    private void OnSceneLoaded()
+    {
+        if(GameManager.Instance.Player != null)
+        {
+            FollowTarget = GameManager.Instance.Player.transform;
+        }
     }
 }

@@ -82,8 +82,6 @@ namespace BackpackTeleport.Character
 			if (!spriteRenderer) spriteRenderer = GetComponent<SpriteRenderer>();
 			if (!animator) animator = GetComponent<Animator>(); ;
 			if (walkable == null) walkable = GetComponent<IWalkable>();
-
-			Debug.Log(walkable);
 		}
 		protected virtual void Start()
 		{

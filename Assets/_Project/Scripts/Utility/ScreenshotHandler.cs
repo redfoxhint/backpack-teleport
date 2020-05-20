@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-public class ScreenshotHandler : PersistentSingleton<ScreenshotHandler>
+public class ScreenshotHandler : Singleton<ScreenshotHandler>
 {
     private void Update()
     {
