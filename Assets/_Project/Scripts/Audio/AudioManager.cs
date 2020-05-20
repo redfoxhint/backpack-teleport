@@ -31,6 +31,9 @@ public enum AudioFiles
     SFX_TutorialFirstDiscover,
     ST_MF043,
     SFX_GoldPickup,
+    ST_Action1,
+    ST_Tension1,
+    ST_Calm1,
     Nothing
 }
 
