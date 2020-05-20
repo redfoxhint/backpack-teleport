@@ -15,6 +15,7 @@ public class DoorActivateable : BaseActivateable
     [SerializeField] private GameObject doorObject; // This is actually the sprite for the door.
     [SerializeField] private List<BaseActuator> actuators; // This list is for storing the activators used to activate the door.
     [SerializeField] private BaseActuator resetActuator = null;
+    [SerializeField] private bool openAutomaticallyAfterAllGatesOpen = false;
     [SerializeField] private AudioFiles doorOpenSound;
 
     [Header("Components")]
@@ -56,6 +57,17 @@ public class DoorActivateable : BaseActivateable
         if (resetActuator != null)
         {
             resetActuator.OnActivatedEvent += OnResetActivatorActuated;
+        }
+    }
+
+    private void Update()
+    {
+        if(isGated && openAutomaticallyAfterAllGatesOpen)
+        {
+            if(CheckGatesOpen())
+            {
+                Deactivate();
+            }
         }
     }
 

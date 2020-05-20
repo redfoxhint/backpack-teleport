@@ -12,7 +12,7 @@ public class CameraFunctions : Singleton<CameraFunctions>
     [SerializeField] private Volume defaultVolume;
 
     [Header("Volume Configuration")]
-    [SerializeField] private float dofFadeTime = 0.6f;
+    [SerializeField] private float dofFadeTime = 1f;
 
     private Transform followTarget;
     private float originalZoomAmount;
@@ -97,20 +97,20 @@ public class CameraFunctions : Singleton<CameraFunctions>
         });
     }
 
-    public void FadeDOFOut()
+    public void FadeDOFOut(System.Action onCompletedCallback = null)
     {
         DOVirtual.Float(dof.focusDistance.value, 10, dofFadeTime, (x) =>
         {
             dof.focusDistance.value = x;
-        }).SetUpdate(true);
+        }).SetUpdate(true).OnComplete(() => onCompletedCallback?.Invoke());
     }
 
-    public void FadeDOFIn()
+    public void FadeDOFIn(System.Action onCompletedCallback = null)
     {
         DOVirtual.Float(dof.focusDistance.value, 0, dofFadeTime, (x) =>
         {
             dof.focusDistance.value = x;
-        }).SetUpdate(true);
+        }).SetUpdate(true).OnComplete(() => onCompletedCallback?.Invoke());
     }
 
     public void SetDOFValue(float value)

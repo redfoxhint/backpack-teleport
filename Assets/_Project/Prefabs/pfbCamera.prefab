@@ -279,7 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualCam: {fileID: 1117339288}
   defaultVolume: {fileID: 2065035824}
-  dofFadeTime: 0.6
+  dofFadeTime: 1
 --- !u!1 &8150236634868412823
 GameObject:
   m_ObjectHideFlags: 0

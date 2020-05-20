@@ -976,6 +976,10 @@ MonoBehaviour:
     QuestName: 
     QuestDescription: 
     Completed: 0
+  onQuestAssignedNotification:
+    NotificationText: New Quest Added To Quest Tracker!
+    NotificationType: 0
+    NotificationSprite: {fileID: 0}
   AssignedQuests: []
 --- !u!1 &1673541742871438468
 GameObject:

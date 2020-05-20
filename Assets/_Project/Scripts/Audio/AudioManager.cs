@@ -34,6 +34,9 @@ public enum AudioFiles
     ST_Action1,
     ST_Tension1,
     ST_Calm1,
+    SFX_Notification1,
+    SFX_Notification2,
+    SFX_Notification3,
     Nothing
 }
 

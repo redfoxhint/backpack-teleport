@@ -40,7 +40,7 @@ public class NotificationManager : Singleton<NotificationManager>
     {
         if(Keyboard.current.kKey.wasPressedThisFrame)
         {
-            Notification testNotif = new Notification(Random.Range(0, 1500f).ToString(), NotificationType.TEXT);
+            Notification testNotif = new Notification(Random.Range(0, 1500f).ToString(), NotificationType.FULLSCREEN);
             CreateNotification(testNotif);
         }
     }
@@ -57,6 +57,7 @@ public class NotificationManager : Singleton<NotificationManager>
         {
             notification = NotificationBuffer.Peek();
             notificationUI.ShowNotification(notification);
+            AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Notification3);
         }
     }
 }

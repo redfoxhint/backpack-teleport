@@ -51,10 +51,9 @@ public class WorldSpaceTutorial : MonoBehaviour
 
             if(!firstDiscover)
             {
-                AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_TutorialFirstDiscover);
+                AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Notification2);
                 firstDiscover = true;
             }
-
         }
     }
 

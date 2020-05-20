@@ -7,6 +7,7 @@ public class QuestManager : Singleton<QuestManager>
 {
     [SerializeField] private bool dontDuplicateQuests = true;
     [SerializeField] private Quest testQuestToAdd;
+    [SerializeField] private Notification onQuestAssignedNotification;
 
     public List<Quest> AssignedQuests;
     
@@ -38,7 +39,7 @@ public class QuestManager : Singleton<QuestManager>
 
         GameEvents.onQuestAssigned.Invoke(newQuest);
 
-        Notification onQuestAssignedNotification = new Notification("New Quest Added To Quest Tracker!", NotificationType.TEXT);
+        //Notification onQuestAssignedNotification = new Notification("New Quest Added To Quest Tracker!", NotificationType.NORMAL);
         GameEvents.onNotificationCreated.Invoke(onQuestAssignedNotification);
 
         Debug.Log($"<color=blue>New Quest Assigned: {newQuest.QuestName}</color>");
