@@ -49,6 +49,7 @@ public class ArtiCutsceneClone : MonoBehaviour
         playerSpriteRenderer.enabled = true;
         playerShadowSpr.enabled = true;
         //GameManager.Instance.PixelPerfectCamera.SetZoom(1.6f);
+        CameraFunctions.Instance.ResetZoom();
         GameManager.Instance.PlayerControl = true;
         gameObject.SetActive(false);
     }

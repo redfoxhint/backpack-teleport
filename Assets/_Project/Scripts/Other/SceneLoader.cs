@@ -1,36 +1,140 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
-public class SceneLoader : MonoBehaviour
+public class SceneLoader : Singleton<SceneLoader>
 {
-    [SerializeField] private Animator anim;
-    [SerializeField] private float transitionTime = 1;
+    [SerializeField] private CanvasGroup fadeCanvas;
 
-    public void LoadNextLevel()
+    [Header("Fade Configuration")]
+    [SerializeField] private float fadeTime = 1f;
+
+    private void Awake()
     {
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        FadeCanvasImmediate();
+        FadeToClear();
     }
 
-    public void LoadLevelByIndex(int index)
+    private void Update()
     {
-        Scene scene = SceneManager.GetSceneByBuildIndex(index);
-
-        if (scene == null)
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Debug.LogError($"Scene at index {index} was not found.");
-            return;
+            FadeToClear();
         }
 
-        StartCoroutine(LoadLevel(index));
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            FadeToBlack();
+        }
     }
 
-    private IEnumerator LoadLevel(int levelIndex)
+    public void LoadLevel(string levelName, AudioFiles audioToCrossfadeInto = AudioFiles.Nothing)
     {
-        anim.SetTrigger("start");
-        yield return new WaitForSecondsRealtime(transitionTime);
+        string sceneName = levelName.Replace(' ', '_');
 
-        SceneManager.LoadScene(levelIndex);
+        Sequence loadLevelSequence = DOTween.Sequence();
+        loadLevelSequence.AppendCallback(FadeToBlack);
+        loadLevelSequence.AppendInterval(fadeTime + 0.5f).OnComplete(() => StartCoroutine(LoadLevelAsyncRoutine(sceneName, audioToCrossfadeInto)));
+    }
+
+    public void LoadLevel(int levelIndex, AudioFiles audioToCrossfadeInto = AudioFiles.Nothing)
+    {
+        Sequence loadLevelSequence = DOTween.Sequence();
+        loadLevelSequence.AppendCallback(FadeToBlack);
+        loadLevelSequence.AppendInterval(fadeTime + 0.5f).OnComplete(() => StartCoroutine(LoadLevelAsyncRoutine(levelIndex, audioToCrossfadeInto)));
+    }
+
+    public void LoadLevel(AudioFiles audioToCrossfadeInto = AudioFiles.Nothing)
+    {
+        int index = GetCurrentBuildIndex();
+        LoadLevel(index, audioToCrossfadeInto);
+    }
+
+    private int GetCurrentBuildIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
+    IEnumerator LoadLevelAsyncRoutine(string sceneToLoad, AudioFiles audioToFadeInto)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        
+        if(audioToFadeInto != AudioFiles.Nothing)
+        {
+            AudioManager.Instance.Crossfade(AudioType.MUSIC, audioToFadeInto);
+        }
+
+        //FadeToClear();
+        yield break;
+    }
+
+    IEnumerator LoadLevelAsyncRoutine(int sceneToLoad, AudioFiles audioToFadeInto)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        if (audioToFadeInto != AudioFiles.Nothing)
+        {
+            AudioManager.Instance.Crossfade(AudioType.MUSIC, audioToFadeInto);
+        }
+
+        //FadeToClear();
+        yield break;
+    }
+
+    private void FadeToBlack()
+    {
+        if (fadeCanvas == null) return;
+
+        DOVirtual.Float(fadeCanvas.alpha, 1, fadeTime, (amount) =>
+        {
+            fadeCanvas.alpha = amount;
+        }).OnComplete(() =>
+        {
+            fadeCanvas.blocksRaycasts = true;
+            fadeCanvas.interactable = false;
+        });
+    }
+
+    private void FadeToClear()
+    {
+        if (fadeCanvas == null) return;
+
+        DOVirtual.Float(fadeCanvas.alpha, 0, fadeTime, (amount) =>
+        {
+            fadeCanvas.alpha = amount;
+        }).OnComplete(() =>
+        {
+            fadeCanvas.blocksRaycasts = false;
+            fadeCanvas.interactable = true;
+        });
+    }
+    private void FadeCanvasImmediate()
+    {
+        if (fadeCanvas == null) return;
+
+        fadeCanvas.alpha = 1;
+        fadeCanvas.blocksRaycasts = true;
+        fadeCanvas.interactable = false;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        FadeToClear();
+        GameEvents.onSceneLoaded?.Invoke();
     }
 }

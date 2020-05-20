@@ -12,6 +12,7 @@ public class GameEvents
     public static UnityOnQuestUpdated onQuestUpdated = new UnityOnQuestUpdated();
     public static UnityOnQuestCompleted onQuestCompleted = new UnityOnQuestCompleted();
     public static UnityOnNotificationCreated onNotificationCreated = new UnityOnNotificationCreated();
+    public static UnityOnSceneLoaded onSceneLoaded = new UnityOnSceneLoaded();
 }
 
 public class UnityEventOnBackpackThrown : UnityEvent { }
@@ -21,5 +22,6 @@ public class UnityOnQuestAssigned : UnityEvent<Quest> { }
 public class UnityOnQuestUpdated : UnityEvent<Quest> { }
 public class UnityOnQuestCompleted : UnityEvent<Quest> { }
 public class UnityOnNotificationCreated : UnityEvent<Notification> { }
+public class UnityOnSceneLoaded : UnityEvent { }
 
 

@@ -263,8 +263,8 @@ public class CreateNewEnemyTypeWizard : EditorWindow
 		Debug.Log(newType.ToString());
 		var newComponent = newEnemyObject.AddComponent(newType);
 		//newComponent.GetComponent<CharacterMovement>().MoveSpeed = characterMoveSpeed;
-		newComponent.GetComponent<BaseDamageable>().BaseCharacterData = baseCharacterData;
-		newComponent.GetComponent<BaseDamageable>().DamageColor = damageColor;
+		//newComponent.GetComponent<BaseDamageable>().BaseCharacterData = baseCharacterData;
+		//newComponent.GetComponent<BaseDamageable>().DamageColor = damageColor;
 	}
 
 	private void CreateAnimatorControllerAndAddAnimator()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1385834347446235508}
   - component: {fileID: 1248495092}
   m_Layer: 0
-  m_Name: LeveLoader
+  m_Name: pfbLevelLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23597ea965970a448b95a66940dde397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1385834347525823505}
-  transitionTime: 1
+  fadeCanvas: {fileID: 1385834348170954406}
+  fadeTime: 1
 --- !u!1 &1385834347525823507
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +57,6 @@ GameObject:
   - component: {fileID: 1385834347525823506}
   - component: {fileID: 1385834347525823511}
   - component: {fileID: 1385834347525823504}
-  - component: {fileID: 1385834347525823505}
   m_Layer: 0
   m_Name: CrossFade
   m_TagString: Untagged
@@ -128,25 +127,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!95 &1385834347525823505
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385834347525823507}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ed0fe784865c02a49ad0fb04e4baf16c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1385834348170954400
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +188,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

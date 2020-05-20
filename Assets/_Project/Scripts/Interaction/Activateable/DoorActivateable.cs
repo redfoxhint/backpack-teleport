@@ -15,10 +15,10 @@ public class DoorActivateable : BaseActivateable
     [SerializeField] private GameObject doorObject; // This is actually the sprite for the door.
     [SerializeField] private List<BaseActuator> actuators; // This list is for storing the activators used to activate the door.
     [SerializeField] private BaseActuator resetActuator = null;
+    [SerializeField] private AudioFiles doorOpenSound;
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer doorSpriteRenderer;
-
 
     [Separator]
 
@@ -32,10 +32,25 @@ public class DoorActivateable : BaseActivateable
 
     private void Awake()
     {
-        foreach (BaseActuator actuator in actuators)
+        if(activationMode == ActivateableMode.SEQUENCE)
         {
-            actuator.OnActivatedEvent += OnActuatorActuated;
-            actuator.ActuationType = ActuationType.SEQUENCE;
+            foreach (BaseActuator actuator in actuators)
+            {
+                actuator.OnActivatedEvent += OnActuatorActuated;
+                actuator.ActuationType = ActuationType.SEQUENCE;
+            }
+        }
+
+        else
+        {
+            if(singleActuator != null)
+            {
+                singleActuator.OnActivatedEvent += OnActuatorActuated;
+            }
+            else
+            {
+                LogUtils.LogError($"Actuator not found. Make sure you assign a single actuator.");
+            }
         }
 
         if (resetActuator != null)
@@ -46,6 +61,17 @@ public class DoorActivateable : BaseActivateable
 
     public override void OnActuatorActuated(BaseActuator actuator)
     {
+        if(activationMode == ActivateableMode.SINGLE)
+        {
+            if(CheckGatesOpen())
+            {
+                if (IsUnlocked) return;
+                Deactivate();
+            }
+
+            return;
+        }
+
         if (!sequenceStarted)
         {
             sequenceStarted = true;
@@ -126,6 +152,7 @@ public class DoorActivateable : BaseActivateable
     {
         base.Deactivate();
         anim.SetTrigger("openDoor");
+        AudioManager.Instance.PlaySoundEffect(doorOpenSound);
         colliderToDisable.enabled = false;
         IsUnlocked = true;
     }

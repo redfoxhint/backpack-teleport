@@ -41,6 +41,7 @@ public class AttackManager : MonoBehaviour
     [SerializeField] private float knockbackAmount;
     [SerializeField] private float attackAnimationTime = 1; // How long the attack lasts
     [SerializeField] private LayerMask enemyFilter;
+    [SerializeField] private AudioClip attackAudio;
 
     [Header("Attack Data")]
     [SerializeField] private List<AttackDirectionData> attackDirectionData;
@@ -58,7 +59,7 @@ public class AttackManager : MonoBehaviour
 
     // Components
     private PlayerPhysicsController characterController;
-    private CharacterBase characterBase;
+    private CharacterAnimator characterBase;
     private Camera cam;
     private AttackDirectionData nextAttackDirection;
 
@@ -68,7 +69,7 @@ public class AttackManager : MonoBehaviour
         CanAttack = true;
         animator = GetComponent<Animator>();
         characterController = GetComponent<PlayerPhysicsController>();
-        characterBase = GetComponent<CharacterBase>();
+        characterBase = GetComponent<CharacterAnimator>();
     }
 
     private void Update()
@@ -91,12 +92,13 @@ public class AttackManager : MonoBehaviour
     {
         if (characterController == null) return;
 
-        if (!CanAttack || !GameManager.Instance.PlayerControl) return;
-        characterController.DoMovement = false;
+        if (!GameManager.Instance.PlayerControl) return;
+        //characterController.DoMovement = false;
 
         // Deal damage here
         DealDamage();
-        Debug.Log("Attacked");
+        AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_ArtiAttack1);
+        AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_ArtiGrunt1);
 
         if (!inCombo)
         {
@@ -117,8 +119,8 @@ public class AttackManager : MonoBehaviour
             SetAttack(comboIndex);
             currentComboTime = comboResetTime;
         }
-        
-        Utils.ShakeCameraPosition(Camera.main.transform, 0.6f, 0.08f, 15, 0f, false);
+
+        //Utils.ShakeCameraPosition(Camera.main.transform, 0.6f, 0.08f, 15, 0f, false);
     }
 
     private void DealDamage()
@@ -139,7 +141,7 @@ public class AttackManager : MonoBehaviour
             yield return new WaitForSeconds(applyDamageDelay);
 
             //Collider2D[] detectedDamageables = Physics2D.OverlapCircleAll(damageColliderPos.position, attackRange, enemyFilter);
-            Collider2D[] detectedDamageables = Physics2D.OverlapBoxAll(attackData.attackLocation.position, attackData.attackDirectionColliderSize, enemyFilter);
+            Collider2D[] detectedDamageables = Physics2D.OverlapCircleAll(attackData.attackLocation.position, 1, enemyFilter);
 
             if (detectedDamageables.Length > 0)
             {
@@ -209,11 +211,11 @@ public class AttackManager : MonoBehaviour
             Gizmos.color = Color.red;
 
             //Gizmos.DrawSphere(circleLocation.position, attackRange);
-            Gizmos.DrawCube(nextAttackDirection.attackLocation.position, new Vector2(1.166171f, 1.638526f));
+            Gizmos.DrawWireSphere(GetAttackData().attackLocation.position, 1f);
 
             // Attack Range
             Gizmos.color = Color.blue;
-            Gizmos.DrawCube(nextAttackDirection.attackLocation.position, new Vector2(1.166171f, 1.638526f));
+            Gizmos.DrawWireSphere(nextAttackDirection.attackLocation.position, 1f);
         }
     }
 }

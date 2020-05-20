@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using BackpackTeleport.Character.Enemy;
 using UnityEngine.InputSystem;
 
 namespace BackpackTeleport.Character.PlayerCharacter
@@ -20,6 +19,8 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		// Components
 		private AttackManager attackManager;
 		private InputManager inputManager;
+		private PlayerPhysicsController controller;
+		private BaseDamageable baseDamageable;
 		private TrailRenderer trailRenderer;
 		private Animator animator;
 		private Camera cam;
@@ -30,12 +31,28 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			attackManager = GetComponent<AttackManager>();
 			trailRenderer = GetComponent<TrailRenderer>();
 			RBody2D = GetComponent<Rigidbody2D>();
+			controller = GetComponent<PlayerPhysicsController>();
+			baseDamageable = GetComponent<BaseDamageable>();
+
 
 			cam = Camera.main;
 			inputManager = InputManager.Instance;
 
 			inputManager.InputActions.Player.BasicAttack.started += Attack;
 			GameEvents.onBackpackThrownEvent.AddListener(TriggerThrowing);
+
+			baseDamageable.onTookDamage += 
+				() => 
+				{ 
+					controller.enabled = false;
+					GameManager.Instance.PlayerControl = false;
+				};
+			baseDamageable.onStunFinished += 
+				() => 
+				{ 
+					controller.enabled = true;
+					GameManager.Instance.PlayerControl = true;
+				};
 		}
 
 		private void Start()
@@ -59,6 +76,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 			GameEvents.onTeleportedEvent.Invoke(pos);
 
 			Invoke("TurnTrailRendererOff", 0.5f);
+			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Teleport1);
 		}
 
 		private void TurnTrailRendererOff()
@@ -79,6 +97,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 		public void TriggerThrowing()
 		{
 			animator.SetTrigger("Throw");
+			AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Teleport2);
 		}
 	}
 }

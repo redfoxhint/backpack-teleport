@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class StateMachine
 {
-    [SerializeField] private IState currentState;
+    public IState currentState;
 
     public void ChangeState(IState newState)
     {

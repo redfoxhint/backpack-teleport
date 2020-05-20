@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1250502277502972468}
   m_Layer: 5
-  m_Name: MenuOption_Slider
+  m_Name: pfbMenuOption_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,11 +222,12 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5647a832943faa648b394a804cb30301, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: edbdf4d2f217fd945b42143e0d4700b7, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -295,6 +296,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -368,13 +370,14 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_text: Test Slider
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f5767985287714f428a549e4d2a2a78d, type: 2}
-  m_sharedMaterial: {fileID: 3566580668405021959, guid: f5767985287714f428a549e4d2a2a78d,
+  m_fontAsset: {fileID: 11400000, guid: e0c506f9ac2ae7740ab6fec1efe8a283, type: 2}
+  m_sharedMaterial: {fileID: 2676662878775981085, guid: e0c506f9ac2ae7740ab6fec1efe8a283,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -400,8 +403,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 25.8
-  m_fontSizeBase: 25.8
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -560,11 +563,12 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 743a3dc1b3172714cbf86e49613a5cc0, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 04c9ff594dd431940ae65196cfb4a538, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

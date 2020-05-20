@@ -6,6 +6,7 @@ using UnityEngine;
 public class StateMachineUnit : MonoBehaviour
 {
     public readonly StateMachine stateMachine = new StateMachine();
+    public IState currentState;
 
     protected virtual void Start()
     {

@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4189751253363551502}
   - component: {fileID: 5454914378710589716}
-  - component: {fileID: 1767997895608462504}
-  m_Layer: 0
+  - component: {fileID: 2111631621787776625}
+  - component: {fileID: 3408997984509135366}
+  m_Layer: 12
   m_Name: pfbRockVar3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,8 +83,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1767997895608462504
-BoxCollider2D:
+--- !u!114 &2111631621787776625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809603486450870108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4f7f33d8fc7c0419b2308165807ce0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapeType: 0
+  extraOffset: 0.94
+  invertPolygon: 1
+--- !u!60 &3408997984509135366
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,7 +111,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008553445, y: -0.21953672}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -105,6 +121,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.003739, y: 0.5475563}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.27348292, y: 0.35468876}
+      - {x: -0.4718448, y: 0.14853275}
+      - {x: -0.46309578, y: -0.018253446}
+      - {x: -0.32571828, y: -0.2653457}
+      - {x: -0.087290406, y: -0.50246584}
+      - {x: 0.35906327, y: -0.36248338}
+      - {x: 0.4718448, y: -0.103833914}
+      - {x: 0.42372596, y: 0.23411298}
+      - {x: 0.28565204, y: 0.3415655}

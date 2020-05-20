@@ -12,10 +12,6 @@ public class DashAbility : MonoBehaviour
     [SerializeField] private float ghostFadeTime;
     [SerializeField] private int ghostAmount;
 
-    [Header("Dash Configuration")]
-    [SerializeField] private float dashTime = 1f; // The amount of time it will take to complete the dash (dash speed).
-    [SerializeField] private float dashAmount = 5f;
-
     // Private Variables
     private Vector2 dash;
     private bool isDashing = false;
@@ -25,7 +21,7 @@ public class DashAbility : MonoBehaviour
 
     public void Dash(Rigidbody2D rBody, Vector2 dashDirection, float dashAmount, LayerMask dashFilter)
     {
-        Vector2 dashPosition = (Vector2)transform.position + dashDirection * dashAmount;
+        Vector2 dashPosition = (Vector2)transform.position + dashDirection.normalized * dashAmount;
 
         RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, dashDirection, dashAmount, dashFilter);
         if (raycastHit2D.collider != null)

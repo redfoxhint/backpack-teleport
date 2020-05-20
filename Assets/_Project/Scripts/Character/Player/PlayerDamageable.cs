@@ -23,7 +23,7 @@ public class PlayerDamageable : BaseDamageable
     {
         if(Keyboard.current.vKey.wasPressedThisFrame)
         {
-            AddHealth(1f);
+            SetHealth(3f);
         }
 
         if (Keyboard.current.bKey.wasPressedThisFrame)
@@ -39,6 +39,11 @@ public class PlayerDamageable : BaseDamageable
         if (Keyboard.current.mKey.wasPressedThisFrame)
         {
             RemoveEnergy(1f);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Kill(false, true);
         }
     }
 
@@ -80,5 +85,11 @@ public class PlayerDamageable : BaseDamageable
         maxEnergy = newMax;
 
         UpdateStatBar(energyBar, currentEnergy, maxEnergy);
+    }
+
+    protected override void OnDeath()
+    {
+        // Pause Game and show respawn screen.
+        RespawnScreenController.Instance.ShowRespawnScreen();
     }
 }

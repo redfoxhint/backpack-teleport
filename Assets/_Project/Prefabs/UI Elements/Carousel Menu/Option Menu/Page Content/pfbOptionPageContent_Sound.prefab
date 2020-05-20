@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7712486398247690815}
   - component: {fileID: 7712486398247690784}
   m_Layer: 5
-  m_Name: OptionPage_Sound
+  m_Name: pfbOptionPageContent_Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7712486398247690784
@@ -70,6 +70,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7712486398247690815}
     m_Modifications:
+    - target: {fileID: 121689352438473312, guid: a074a6194e813b14d8de8dd1b7d186c5,
+        type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 1250502277502972468, guid: a074a6194e813b14d8de8dd1b7d186c5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -235,6 +240,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7712486398247690815}
     m_Modifications:
+    - target: {fileID: 121689352438473312, guid: a074a6194e813b14d8de8dd1b7d186c5,
+        type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 1250502277502972468, guid: a074a6194e813b14d8de8dd1b7d186c5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -400,6 +410,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7712486398247690815}
     m_Modifications:
+    - target: {fileID: 121689352438473312, guid: a074a6194e813b14d8de8dd1b7d186c5,
+        type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 1250502277502972468, guid: a074a6194e813b14d8de8dd1b7d186c5,
         type: 3}
       propertyPath: m_LocalPosition.x

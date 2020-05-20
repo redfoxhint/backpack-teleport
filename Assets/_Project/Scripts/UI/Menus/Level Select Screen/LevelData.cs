@@ -11,4 +11,5 @@ public class LevelData : ScriptableObject
     [TextArea] public string levelDescription;
     public Sprite levelPreview;
     public bool levelLocked;
+    public AudioFiles defaultSoundtrack;
 }

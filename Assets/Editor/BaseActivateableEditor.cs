@@ -11,11 +11,13 @@ public class BaseActivateableEditor : Editor
     SerializedProperty doorObject;
     SerializedProperty actuators;
     SerializedProperty resetActuator;
+    SerializedProperty singleActuator;
     SerializedProperty doorSpriteRenderer;
     SerializedProperty doorAnimator;
     SerializedProperty activationSequence;
     SerializedProperty sequenceResetTime;
     SerializedProperty boxColliderToDisable;
+    SerializedProperty doorOpenSound;
 
     bool gateSettings;
 
@@ -26,28 +28,34 @@ public class BaseActivateableEditor : Editor
         gates = serializedObject.FindProperty("gates");
         doorObject = serializedObject.FindProperty("doorObject");
         actuators = serializedObject.FindProperty("actuators");
+        singleActuator = serializedObject.FindProperty("singleActuator");
         resetActuator = serializedObject.FindProperty("resetActuator");
         doorSpriteRenderer = serializedObject.FindProperty("doorSpriteRenderer");
         activationSequence = serializedObject.FindProperty("activationSequence");
         sequenceResetTime = serializedObject.FindProperty("sequenceResetTime");
         doorAnimator = serializedObject.FindProperty("anim");
         boxColliderToDisable = serializedObject.FindProperty("colliderToDisable");
+        doorOpenSound = serializedObject.FindProperty("doorOpenSound");
     }
 
     public override void OnInspectorGUI()
     {
-        EditorGUILayout.PropertyField(activationMode, new GUIContent("Activation Mode"));
+        DrawDefaultInspector();
 
-        if (activationMode.enumValueIndex == 1)
-        {
-            DrawSequenceInspector();
-        }
-        else
-        {
-            DrawSingleInspector();
-        }
+        //EditorGUILayout.PropertyField(activationMode, new GUIContent("Activation Mode"));
+        //EditorGUILayout.PropertyField(doorOpenSound, new GUIContent("Door Open Sound"));
 
-        serializedObject.ApplyModifiedProperties();
+
+        //if (activationMode.enumValueIndex == 1)
+        //{
+        //    DrawSequenceInspector();
+        //}
+        //else
+        //{
+        //    DrawSingleInspector();
+        //}
+
+        //serializedObject.ApplyModifiedProperties();
     }
 
     private void DrawSequenceInspector()
@@ -76,6 +84,7 @@ public class BaseActivateableEditor : Editor
         EditorGUILayout.LabelField(new GUIContent("Door Configuration"));
         EditorGUILayout.PropertyField(doorObject, new GUIContent("Door Object"));
         EditorGUILayout.PropertyField(resetActuator, new GUIContent("Reset Actuator"));
+        EditorGUILayout.PropertyField(singleActuator, new GUIContent("Single Actuator"));
         EditorGUILayout.PropertyField(doorSpriteRenderer, new GUIContent("Door Sprite Renderer"));
 
         EditorGUILayout.Space(10);

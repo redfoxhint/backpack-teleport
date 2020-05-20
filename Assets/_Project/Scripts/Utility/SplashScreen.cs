@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class SplashScreen : MonoBehaviour
 {
@@ -19,8 +20,7 @@ public class SplashScreen : MonoBehaviour
 
     private void LoadNextLevel(VideoPlayer source)
     {
-        SceneLoader levelLoader = FindObjectOfType<SceneLoader>();
-        levelLoader.LoadNextLevel();
+        SceneLoader.Instance.LoadLevel(1);
     }
 
     private void Update()
