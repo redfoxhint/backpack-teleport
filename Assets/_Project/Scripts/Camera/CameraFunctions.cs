@@ -5,7 +5,6 @@ using DG.Tweening;
 using Cinemachine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using BehaviorDesigner.Runtime.Tasks.Movement;
 
 public class CameraFunctions : Singleton<CameraFunctions>
 {

@@ -24369,6 +24369,165 @@ Transform:
   m_Father: {fileID: 1212233893096824520}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1301988639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301988640}
+  - component: {fileID: 1301988642}
+  - component: {fileID: 1301988641}
+  m_Layer: 13
+  m_Name: BerryCountText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1301988640
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301988639}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8135117975177762321}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 112.3, y: 18.24}
+  m_SizeDelta: {x: 50.686546, y: 36.47754}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1301988642
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301988639}
+  m_CullTransparentMesh: 0
+--- !u!114 &1301988641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301988639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '0
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 55c68507aeb9a9147bb1952d4cd1270c, type: 2}
+  m_sharedMaterial: {fileID: 5525520483148942179, guid: 55c68507aeb9a9147bb1952d4cd1270c,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4282107357
+  m_fontColor: {r: 0.86666673, g: 0.7725491, b: 0.23137257, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 23.3
+  m_fontSizeBase: 23.3
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_textAlignment: 514
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: -1
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 1301988641}
+    characterCount: 2
+    spriteCount: 0
+    spaceCount: 1
+    wordCount: 1
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1355998245
 GameObject:
   m_ObjectHideFlags: 0
@@ -43993,6 +44152,7 @@ RectTransform:
   m_Children:
   - {fileID: 2325890187502687731}
   - {fileID: 6045555368487078693}
+  - {fileID: 1301988640}
   m_Father: {fileID: 2009337408180015777}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -44895,7 +45055,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &7316752588422890764
 Animator:
   serializedVersion: 3
@@ -45099,6 +45259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCenter: {fileID: 2465672025908152361}
+  berryCountText: {fileID: 1301988641}
   teleportEffect: {fileID: 7122859376419664860, guid: f295ed500d8eff2499df044475070b10,
     type: 3}
 --- !u!114 &7316752588422890808
@@ -45113,7 +45274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad051990bb12ca4787e168206696be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
+  debug: 1
   attackRange: 0.7
   damageAmount: 3
   dashAttackDamageDelay: 0.01
@@ -45122,7 +45283,7 @@ MonoBehaviour:
   enemyFilter:
     serializedVersion: 2
     m_Bits: 2048
-  attackAudio: {fileID: 8300000, guid: 98106f2c80f1f044185e34d4de687fd3, type: 3}
+  attackAudio: {fileID: 0}
   attackDirectionData:
   - attackDirectionColliderSize: {x: 1.166171, y: 1.638526}
     attackLocation: {fileID: 1233478544}
@@ -45157,7 +45318,7 @@ MonoBehaviour:
     attackParticle: {fileID: 1183258080}
     colliderAngle: -137.378
   comboResetTime: 1
-  dashAmount: 10
+  dashAmount: 2
   doDashAttack: 1
 --- !u!114 &7316752588422890815
 MonoBehaviour:
@@ -45176,8 +45337,6 @@ MonoBehaviour:
   ghostInterval: 0.03
   ghostFadeTime: 0.08
   ghostAmount: 3
-  dashTime: 0.05
-  dashAmount: 35
 --- !u!114 &7316752588422890805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45216,8 +45375,9 @@ MonoBehaviour:
   damageParticle: {fileID: 7918909594592417696, guid: 88b84de83d1bf9d469bbf3a0637075e9,
     type: 3}
   entityType: 0
+  destroyOnDeath: 0
   applyKnockback: 1
-  knockbackAmount: 300
+  knockbackAmount: 35
   knockbackDuration: 0.7
   applyStun: 1
   stunDuration: 0.5
@@ -45242,7 +45402,7 @@ MonoBehaviour:
     m_Bits: 38912
   dustParticles: {fileID: 1961293279}
   footstepCooldownTime: 0.3
-  dashAmount: 2
+  dashAmount: 1
 --- !u!81 &1207526013
 AudioListener:
   m_ObjectHideFlags: 0
