@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +11,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 	{
 		// Public Fields
 		[SerializeField] private Transform playerCenter;
+		[SerializeField] private TextMeshProUGUI berryCountText;
 		public Transform PlayerCenter { get => playerCenter; }
 
 		[SerializeField] private GameObject teleportEffect;
@@ -40,6 +43,7 @@ namespace BackpackTeleport.Character.PlayerCharacter
 
 			inputManager.InputActions.Player.BasicAttack.started += Attack;
 			GameEvents.onBackpackThrownEvent.AddListener(TriggerThrowing);
+			GameEvents.onBerryPickedUp.AddListener(UpdateBerryCount);
 
 			baseDamageable.onTookDamage += 
 				() => 
@@ -53,6 +57,11 @@ namespace BackpackTeleport.Character.PlayerCharacter
 					controller.enabled = true;
 					GameManager.Instance.PlayerControl = true;
 				};
+		}
+
+		private void UpdateBerryCount()
+		{
+			berryCountText.SetText(GameManager.Instance.berryAmount.ToString());
 		}
 
 		private void Start()

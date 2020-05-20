@@ -8,20 +8,17 @@ using UnityEngine.UI;
 public class WorldSpaceTutorial : MonoBehaviour
 {
     [SerializeField] private WorldSpaceTutorialData tutorialData;
-    [SerializeField] private Image buttonPressImage;
     [SerializeField] private TextMeshProUGUI tutorialText;
+    [SerializeField] private GameObject buttonPressSpritePrefab;
+    [SerializeField] private RectTransform panel;
 
     private bool firstDiscover;
+    private List<Image> buttonImages = new List<Image>();
 
     private void Awake()
     {
         Init();
         FadeOut();
-    }
-
-    private void OnValidate()
-    {
-        Init();   
     }
 
     private void Init()
@@ -32,10 +29,18 @@ public class WorldSpaceTutorial : MonoBehaviour
             return;
         }
 
-        buttonPressImage.sprite = tutorialData.buttonPressSprite;
-        tutorialText.SetText(tutorialData.tutorialText);
+        if(tutorialData.hasMultipleButtons)
+        {
+            foreach (Sprite sprite in tutorialData.buttonPressSprites)
+            {
+                Image newButtonSprite = Instantiate(buttonPressSpritePrefab, panel).GetComponent<Image>();
+                newButtonSprite.sprite = sprite;
+                newButtonSprite.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.5f).SetLoops(-1, LoopType.Yoyo);
+                buttonImages.Add(newButtonSprite);
+            }
+        }
 
-        buttonPressImage.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.5f).SetLoops(-1, LoopType.Yoyo);
+        tutorialText.SetText(tutorialData.tutorialText);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -63,13 +68,21 @@ public class WorldSpaceTutorial : MonoBehaviour
 
     private void FadeIn()
     {
-        buttonPressImage.DOFade(1f, 1f);
+        foreach(Image buttonImage in buttonImages)
+        {
+            buttonImage.DOFade(1f, 1f);
+        }
+        
         tutorialText.DOFade(1f, 1f);
     }
 
     private void FadeOut()
     {
-        buttonPressImage.DOFade(0f, 1f);
+        foreach (Image buttonImage in buttonImages)
+        {
+            buttonImage.DOFade(0f, 1f);
+        }
+            
         tutorialText.DOFade(0f, 1f);
     }
 }
