@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237434d7fac42d746b7bbeabdc08c6a0, type: 3}
   m_Name: RecallTutorial
   m_EditorClassIdentifier: 
-  hasMultipleButtons: 0
+  hasMultipleButtons: 1
   buttonPressSprites:
-  - {fileID: 6456349004720250667, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
-  tutorialText: Press the B button to recall the backpack.
+  - {fileID: 21300000, guid: 8790ec7d5fb02174d8546051e147fc49, type: 3}
+  tutorialText: Press R  to recall the backpack.

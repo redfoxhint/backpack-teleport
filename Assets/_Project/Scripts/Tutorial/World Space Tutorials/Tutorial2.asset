@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMultipleButtons: 1
   buttonPressSprites:
-  - {fileID: -3219677604582814465, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
-  - {fileID: -6880128890899415609, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
-  tutorialText: Press the X button to perform a melee attack. While moving in any
-    direction, if the attack button is pressed you will perform a dash attack.
+  - {fileID: 21300000, guid: 8139dc2cd3f4c3344add57e45d3a0ce0, type: 3}
+  tutorialText: Press the Left Mouse Button to perform a melee attack.

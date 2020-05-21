@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMultipleButtons: 1
   buttonPressSprites:
-  - {fileID: 2583221787174211439, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
-  - {fileID: 8071194959387389067, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
-  - {fileID: -8222103597664224328, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
-  tutorialText: Hold LT and aim with the right thumbstick. Press RT to throw the
-    backpack. When ready, press RT to teleport to it.
+  - {fileID: 21300000, guid: b3c6ee814a4d5744095cabbad3dc0f8c, type: 3}
+  - {fileID: 21300000, guid: 0cddc877ca7b97245acabe0bf8414a18, type: 3}
+  tutorialText: Hold Right Mouse Button to aim. Press F to throw the backpack. When
+    ready, press F again to teleport to it.
