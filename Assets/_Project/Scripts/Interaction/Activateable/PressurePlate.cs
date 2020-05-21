@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PressurePlate : BaseActuator
 {
@@ -26,6 +27,8 @@ public class PressurePlate : BaseActuator
     [SerializeField] private PressurePlateGraphics plateGraphics;
     [SerializeField] private SpriteRenderer runeSpriteRenderer;
     [SerializeField] private bool hasNoRune;
+    [SerializeField] private UnityEvent onPressurePlateActuated;
+    public int id;
 
     // Private Variables
     private List<IActivator> currentActivators = new List<IActivator>();
@@ -63,6 +66,7 @@ public class PressurePlate : BaseActuator
         if (ActuationType == ActuationType.SINGLE)
         {
             SwitchGraphics(false);
+            OnDeactivatedEvent?.Invoke(this);
             ObjectToActivate?.Activate();
         }
     }
@@ -94,6 +98,7 @@ public class PressurePlate : BaseActuator
 
             if (IsActuated) return;
             IsActuated = true;
+            GameEvents.onPressurePlateActuated.Invoke(this);
 
             LogUtils.Log("Stepped on pressure plate.");
             Activate();
@@ -102,6 +107,8 @@ public class PressurePlate : BaseActuator
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (stayActuated) return;
+
         IActivator activator = other.GetComponent<IActivator>();
 
         if (activator != null)
@@ -116,6 +123,7 @@ public class PressurePlate : BaseActuator
         {
             LogUtils.Log("Left pressure plate");
             IsActuated = false;
+
             Deactivate();
         }
     }

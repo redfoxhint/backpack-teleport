@@ -6,9 +6,11 @@ using UnityEngine.InputSystem;
 public class NotificationManager : Singleton<NotificationManager>
 {
     [SerializeField] private NotificationUI notificationUI;
+    [SerializeField] private Notification testNotification;
     private Notification notification;
 
     public Queue<Notification> NotificationBuffer { get; private set; }
+    public NotificationUI NotificationUI { get => notificationUI; }
 
     private void Awake()
     {
@@ -40,8 +42,8 @@ public class NotificationManager : Singleton<NotificationManager>
     {
         if(Keyboard.current.kKey.wasPressedThisFrame)
         {
-            Notification testNotif = new Notification(Random.Range(0, 1500f).ToString(), NotificationType.FULLSCREEN);
-            CreateNotification(testNotif);
+            //Notification testNotif = new Notification(Random.Range(0, 1500f).ToString(), NotificationType.FULLSCREEN);
+            CreateNotification(testNotification);
         }
     }
 
@@ -57,7 +59,7 @@ public class NotificationManager : Singleton<NotificationManager>
         {
             notification = NotificationBuffer.Peek();
             notificationUI.ShowNotification(notification);
-            AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Notification3);
+            AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Notification2);
         }
     }
 }

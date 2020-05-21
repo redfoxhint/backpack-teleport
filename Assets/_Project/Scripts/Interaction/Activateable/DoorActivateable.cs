@@ -4,6 +4,7 @@ using UnityEngine;
 using MyBox;
 using Malee;
 using System.Linq;
+using System;
 
 [System.Serializable]
 public class DoorSequenceList : ReorderableArray<BaseActuator> { }
@@ -16,6 +17,7 @@ public class DoorActivateable : BaseActivateable
     [SerializeField] private List<BaseActuator> actuators; // This list is for storing the activators used to activate the door.
     [SerializeField] private BaseActuator resetActuator = null;
     [SerializeField] private bool openAutomaticallyAfterAllGatesOpen = false;
+    [SerializeField] private bool closeDoorAfterActuatorDeactivate = false;
     [SerializeField] private AudioFiles doorOpenSound;
 
     [Header("Components")]
@@ -42,11 +44,22 @@ public class DoorActivateable : BaseActivateable
             }
         }
 
+        else if(activationMode == ActivateableMode.MULTIPLE)
+        {
+            foreach (BaseActuator actuator in actuators)
+            {
+                actuator.OnActivatedEvent += OnActuatorActuated;
+                actuator.OnDeactivatedEvent += OnActuatorDeactivated;
+                actuator.ActuationType = ActuationType.SINGLE;
+            }
+        }
+
         else
         {
             if(singleActuator != null)
             {
                 singleActuator.OnActivatedEvent += OnActuatorActuated;
+                singleActuator.OnDeactivatedEvent += OnActuatorDeactivated;
             }
             else
             {
@@ -60,9 +73,13 @@ public class DoorActivateable : BaseActivateable
         }
     }
 
+   
+
     private void Update()
     {
-        if(isGated && openAutomaticallyAfterAllGatesOpen)
+        if (IsUnlocked) return;
+
+        if (isGated && openAutomaticallyAfterAllGatesOpen)
         {
             if(CheckGatesOpen())
             {
@@ -73,11 +90,22 @@ public class DoorActivateable : BaseActivateable
 
     public override void OnActuatorActuated(BaseActuator actuator)
     {
+        if (IsUnlocked) return;
+
         if(activationMode == ActivateableMode.SINGLE)
         {
             if(CheckGatesOpen())
             {
-                if (IsUnlocked) return;
+                Deactivate();
+            }
+
+            return;
+        }
+
+        if(activationMode == ActivateableMode.MULTIPLE)
+        {
+            if(CheckGatesOpen())
+            {
                 Deactivate();
             }
 
@@ -91,6 +119,19 @@ public class DoorActivateable : BaseActivateable
         }
 
         playerSequence.Add(actuator);
+    }
+
+    public override void OnActuatorDeactivated(BaseActuator actuator)
+    {
+        if(closeDoorAfterActuatorDeactivate)
+        {
+            bool allDeactuated = actuators.Any() && actuators.All(item => !item.IsActuated);
+
+            if(allDeactuated)
+            {
+                Activate();
+            }
+        }
     }
 
     private IEnumerator ActivatorSequenceRoutine()
@@ -155,7 +196,7 @@ public class DoorActivateable : BaseActivateable
     public override void Activate()
     {
         base.Activate();
-        anim.SetTrigger("closeDoor");
+        anim.SetBool("openDoor", false);
         colliderToDisable.enabled = true;
         IsUnlocked = false;
     }
@@ -163,7 +204,7 @@ public class DoorActivateable : BaseActivateable
     public override void Deactivate()
     {
         base.Deactivate();
-        anim.SetTrigger("openDoor");
+        anim.SetBool("openDoor", true);
         AudioManager.Instance.PlaySoundEffect(doorOpenSound);
         colliderToDisable.enabled = false;
         IsUnlocked = true;

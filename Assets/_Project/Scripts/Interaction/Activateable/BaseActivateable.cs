@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActivateableMode { SINGLE, SEQUENCE }
+public enum ActivateableMode { SINGLE, SEQUENCE, MULTIPLE }
 
 public abstract class BaseActivateable : MonoBehaviour, IActivateable
 {
@@ -55,6 +55,7 @@ public abstract class BaseActivateable : MonoBehaviour, IActivateable
     }
 
     public abstract void OnActuatorActuated(BaseActuator actuator);
+    public abstract void OnActuatorDeactivated(BaseActuator actuator);
     public abstract void OnResetActivatorActuated(BaseActuator actuator);
     public abstract void Reset();
 }

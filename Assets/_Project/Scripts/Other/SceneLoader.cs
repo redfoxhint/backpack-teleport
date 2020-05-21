@@ -20,19 +20,6 @@ public class SceneLoader : Singleton<SceneLoader>
         FadeToClear();
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            FadeToClear();
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            FadeToBlack();
-        }
-    }
-
     public void LoadLevel(string levelName, AudioFiles audioToCrossfadeInto = AudioFiles.Nothing)
     {
         string sceneName = levelName.Replace(' ', '_');

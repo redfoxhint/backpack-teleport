@@ -29,6 +29,7 @@ public class MainMenuManager : BaseMenuManager
     private void Start()
     {
         AudioManager.Instance.FadeIn(AudioType.MUSIC, AudioFiles.ST_Calm1);
+        Cursor.visible = true;
     }
 
     protected override void InitializeButtons()

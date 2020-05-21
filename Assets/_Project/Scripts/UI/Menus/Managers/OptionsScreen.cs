@@ -61,7 +61,7 @@ public class OptionsScreen : MonoBehaviour
         CreateResolutionOptions();
         LoadOptions();
 
-        InputManager.Instance.InputActions.Debug.ResetLevel.started += ResetLevel;
+        //InputManager.Instance.InputActions.Debug.ResetLevel.started += ResetLevel;
         masterVolumeSlider.value = 1f;
         soundVolumeSlider.value = 1f;
         musicVolumeSlider.value = 1f;

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237434d7fac42d746b7bbeabdc08c6a0, type: 3}
   m_Name: Tutorial2
   m_EditorClassIdentifier: 
-  buttonPressSprite: {fileID: -6880128890899415609, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b,
-    type: 3}
+  hasMultipleButtons: 1
+  buttonPressSprites:
+  - {fileID: -3219677604582814465, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
+  - {fileID: -6880128890899415609, guid: fa47fcfd21f45ae4ca8a0bed6f1bb82b, type: 3}
   tutorialText: Press the X button to perform a melee attack. While moving in any
     direction, if the attack button is pressed you will perform a dash attack.

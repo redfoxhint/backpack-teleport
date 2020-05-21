@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 1117339288}
   - component: {fileID: 1117339287}
   - component: {fileID: 2129119381}
+  - component: {fileID: 5398956361394468418}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -183,6 +184,21 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 0
   m_Damping: 0.5
+--- !u!114 &5398956361394468418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117339286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
 --- !u!1 &2065035823
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8150236634461849501}
   - component: {fileID: 8150236634461849500}
+  - component: {fileID: 3399977331160801176}
   m_Layer: 13
   m_Name: pfbCamera
   m_TagString: Untagged
@@ -280,6 +297,47 @@ MonoBehaviour:
   virtualCam: {fileID: 1117339288}
   defaultVolume: {fileID: 2065035824}
   dofFadeTime: 1
+--- !u!114 &3399977331160801176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8150236634461849502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 2
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
 --- !u!1 &8150236634868412823
 GameObject:
   m_ObjectHideFlags: 0

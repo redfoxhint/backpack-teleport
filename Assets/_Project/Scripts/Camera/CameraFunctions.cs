@@ -23,6 +23,7 @@ public class CameraFunctions : Singleton<CameraFunctions>
     private VolumeProfile profile;
     private DepthOfField dof;
     private ColorAdjustments colorAdjustments;
+    private CinemachineImpulseSource impulseSource;
 
     private Color originalScreenColor;
 
@@ -44,6 +45,8 @@ public class CameraFunctions : Singleton<CameraFunctions>
     {
         originalZoomAmount = virtualCam.m_Lens.OrthographicSize;
         originalScreenColor = Color.white;
+
+        impulseSource = GetComponent<CinemachineImpulseSource>();
 
         if (defaultVolume == null) defaultVolume = FindObjectOfType<Volume>();
 
@@ -132,5 +135,10 @@ public class CameraFunctions : Singleton<CameraFunctions>
         {
             FollowTarget = GameManager.Instance.Player.transform;
         }
+    }
+
+    public void ShakeCamera()
+    {
+        impulseSource.GenerateImpulse();
     }
 }

@@ -116,6 +116,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bded58b93d2304bbf3ef3bc85d1a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstBerryPickupNotification:
+    NotificationText: You picked up a <color=yellow>Golden Berry</color> . These
+      are very yummy to eat but more importantly, replenish health! When you are
+      low on health, press the [E] key to eat one.
+    NotificationType: 1
+    NotificationSprite: {fileID: -8959853708064379729, guid: 50d5c34f0be07544785530e13b18656d,
+      type: 3}
 --- !u!58 &6140720732664181026
 CircleCollider2D:
   m_ObjectHideFlags: 0

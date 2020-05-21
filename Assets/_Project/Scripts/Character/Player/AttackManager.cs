@@ -95,6 +95,8 @@ public class AttackManager : MonoBehaviour
         if (!GameManager.Instance.PlayerControl) return;
         //characterController.DoMovement = false;
 
+        CameraFunctions.Instance.ShakeCamera();
+
         // Deal damage here
         DealDamage();
         AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_ArtiAttack1);
@@ -121,6 +123,7 @@ public class AttackManager : MonoBehaviour
         }
 
         //Utils.ShakeCameraPosition(Camera.main.transform, 0.6f, 0.08f, 15, 0f, false);
+        
     }
 
     private void DealDamage()

@@ -12,7 +12,7 @@ public enum NotificationType
 [System.Serializable]
 public class Notification 
 {
-    public string NotificationText;
+    [TextArea]public string NotificationText;
     public NotificationType NotificationType;
     public Sprite NotificationSprite;
 

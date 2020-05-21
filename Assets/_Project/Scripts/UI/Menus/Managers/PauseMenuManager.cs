@@ -25,7 +25,7 @@ public class PauseMenuManager : BaseMenuManager
     {
         if(InputManager.Instance.InputActions.Player.TogglePauseMenu.triggered)
         {
-            if(!GameManager.Instance.GamePaused)
+            if(!GameManager.Instance.GamePaused && !NotificationManager.Instance.NotificationUI.FullscreenPanelOpen)
             {
                 Pause();
             }

@@ -9,6 +9,7 @@ public abstract class BaseActuator : MonoBehaviour
 {
     [Header("Base Actuator Configuration")]
     [SerializeField] protected bool isDisabled;
+    [SerializeField] protected bool stayActuated = false;
     [SerializeField] protected Sprite activatedSprite;
     [SerializeField] protected Sprite deactivatedSprite;
     [SerializeField] protected SpriteRenderer actuatorSpriteRenderer;
@@ -20,6 +21,7 @@ public abstract class BaseActuator : MonoBehaviour
 
     // Events
     public Action<BaseActuator> OnActivatedEvent;
+    public Action<BaseActuator> OnDeactivatedEvent;
 
     public abstract void Activate();
     public abstract void Deactivate();

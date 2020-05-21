@@ -214,18 +214,17 @@ MonoBehaviour:
   colliderToDisable: {fileID: 5911227075465812067}
   anim: {fileID: 1719074379375969886}
   doorObject: {fileID: 5911227075465812070}
-  actuators:
-  - {fileID: 0}
-  - {fileID: 7132939303832922168}
-  - {fileID: 0}
+  actuators: []
   resetActuator: {fileID: 0}
+  openAutomaticallyAfterAllGatesOpen: 0
+  closeDoorAfterActuatorDeactivate: 1
   doorOpenSound: 22
   doorSpriteRenderer: {fileID: 5911227075465812069}
   sequenceResetTime: 2
   activationSequence:
     array:
     - {fileID: 0}
-    - {fileID: 7132939303832922168}
+    - {fileID: 0}
     - {fileID: 0}
 --- !u!114 &7742321524334892983
 MonoBehaviour:
@@ -240,8 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeType: 0
-  extraOffset: -0.52
-  invertPolygon: 1
+  extraOffset: 0
+  invertPolygon: 0
 --- !u!60 &505248401167034132
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -252,7 +251,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -273,8 +272,8 @@ PolygonCollider2D:
       - {x: 2.371028, y: 3.5324566}
     - - {x: 5.383648, y: 5.4257526}
       - {x: 4.51, y: 5.429207}
-      - {x: 4.5168076, y: 3.5338166}
-      - {x: 5.3968687, y: 3.5739162}
+      - {x: 4.482076, y: 3.5859146}
+      - {x: 5.4316, y: 3.5739136}
 --- !u!1001 &7515513010428258782
 PrefabInstance:
   m_ObjectHideFlags: 0

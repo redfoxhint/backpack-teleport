@@ -14,6 +14,7 @@ public class GameEvents
     public static UnityOnNotificationCreated onNotificationCreated = new UnityOnNotificationCreated();
     public static UnityOnSceneLoaded onSceneLoaded = new UnityOnSceneLoaded();
     public static UnityOnBerryPickedUp onBerryPickedUp = new UnityOnBerryPickedUp();
+    public static UnityOnPressurePlateActuated onPressurePlateActuated = new UnityOnPressurePlateActuated();
 }
 
 public class UnityEventOnBackpackThrown : UnityEvent { }
@@ -25,5 +26,6 @@ public class UnityOnQuestCompleted : UnityEvent<Quest> { }
 public class UnityOnNotificationCreated : UnityEvent<Notification> { }
 public class UnityOnSceneLoaded : UnityEvent { }
 public class UnityOnBerryPickedUp : UnityEvent { }
+public class UnityOnPressurePlateActuated : UnityEvent<PressurePlate> { }
 
 

@@ -6,8 +6,10 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private bool playerControl;
+    [SerializeField] private bool firstPickup = true;
 
     public bool PlayerControl { get => playerControl; set => playerControl = value; } 
+    public bool FirstPickup { get => firstPickup; set => firstPickup = value; }
     public bool GamePaused { get; set; }
     public Player Player
     {
@@ -41,6 +43,18 @@ public class GameManager : Singleton<GameManager>
         player = Player;
         mainCam = Camera.main;
         PlayerControl = false;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(berryAmount > 0)
+            {
+                Player.GetComponent<PlayerDamageable>().AddHealth(1f);
+                berryAmount--;
+            }
+        }
     }
 
     public void PauseGame()

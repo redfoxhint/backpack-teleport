@@ -378,6 +378,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationUI: {fileID: 1042680823479330311}
+  testNotification:
+    NotificationText: This is a test notification.
+    NotificationType: 1
+    NotificationSprite: {fileID: -1585465061617009156, guid: fb43fda06f89fc64c901b226a07dff63,
+      type: 3}
 --- !u!114 &1042680823479330311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +400,7 @@ MonoBehaviour:
   notificationText: {fileID: 1042680822895035627}
   fullscreenImage: {fileID: 544936939030323149}
   fullscreenText: {fileID: 544936938869898035}
+  closeFullscreenPanelButton: {fileID: 4043163844321234153}
   notificationBoxAnimationTime: 0.15
   notificationLifeTime: 2
   animationAxis: 1
@@ -436,6 +442,71 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1042680822682633366}
     m_Modifications:
+    - target: {fileID: 390652789718449460, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 390652789718449460, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 390652789718449460, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 390652789718449460, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 390652789718449460, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -128
+      objectReference: {fileID: 0}
+    - target: {fileID: 390652789718449460, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -128
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660526324998975668, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660526324998975668, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660526324998975668, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660526324998975668, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660526324998975668, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660526324998975671, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660526324998975671, guid: ed4a715292abb174eaae90eb201f04af,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1674.2384
+      objectReference: {fileID: 0}
     - target: {fileID: 1660526326443115314, guid: ed4a715292abb174eaae90eb201f04af,
         type: 3}
       propertyPath: m_Name
@@ -444,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 1660526326443115314, guid: ed4a715292abb174eaae90eb201f04af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1660526326443115315, guid: ed4a715292abb174eaae90eb201f04af,
         type: 3}
@@ -581,5 +652,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4043163844321234153 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2920420253866641262, guid: ed4a715292abb174eaae90eb201f04af,
+    type: 3}
+  m_PrefabInstance: {fileID: 1196654198287731591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

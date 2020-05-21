@@ -17,6 +17,7 @@ public class NotificationUI : MonoBehaviour
     [Header("Fullscreen Notification Configuration")]
     [SerializeField] private Image fullscreenImage;
     [SerializeField] private TextMeshProUGUI fullscreenText;
+    [SerializeField] private Button closeFullscreenPanelButton;
 
     [SerializeField] private float notificationBoxAnimationTime = 0.8f;
     [SerializeField] private float notificationLifeTime = 2f;
@@ -26,6 +27,9 @@ public class NotificationUI : MonoBehaviour
     private const float xMaxSize = 384f;
     private const float yMaxSize = 92f;
     private bool closed;
+    private bool fullscreenPanelOpen = false;
+
+    public bool FullscreenPanelOpen { get => fullscreenPanelOpen; }
 
     // Components
     private NotificationManager notificationManager;
@@ -40,6 +44,8 @@ public class NotificationUI : MonoBehaviour
         notificationText.color = new Color(notificationText.color.r, notificationText.color.g, notificationText.color.b, 0f);
         notificationBox.sizeDelta = new Vector2(0f, notificationBox.sizeDelta.y);
         closed = true;
+
+        closeFullscreenPanelButton.onClick.AddListener(DeactivateFullscreenPanel);
     }
 
     public void ShowNotification(Notification notification)
@@ -86,6 +92,7 @@ public class NotificationUI : MonoBehaviour
 
     private void ShowFullscreenNotification(Notification notification)
     {
+        SetText($"New Tutorial - Press E to view.");
         StartCoroutine(FullscreenNotificationRoutine(notification));
     }
 
@@ -95,7 +102,7 @@ public class NotificationUI : MonoBehaviour
         yield return new WaitForSeconds(notificationBoxAnimationTime);
         DOVirtual.Float(0, 1, 0.5f, SetAlpha);
 
-        while (!Keyboard.current.numpad1Key.wasPressedThisFrame)
+        while (!Keyboard.current.eKey.wasPressedThisFrame)
         {
             yield return null;
         }
@@ -106,7 +113,7 @@ public class NotificationUI : MonoBehaviour
 
         ActivateFullscreenPanel(notification);
         
-        while(!Keyboard.current.numpad2Key.wasPressedThisFrame)
+        while(!Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
         }
@@ -114,7 +121,7 @@ public class NotificationUI : MonoBehaviour
         DeactivateFullscreenPanel();
 
         yield return new WaitForSeconds(notificationBoxAnimationTime);
-        //OnAnimationFinished.Invoke();
+        OnAnimationFinished.Invoke();
     }
 
     private void SetText(string text)
@@ -173,6 +180,10 @@ public class NotificationUI : MonoBehaviour
     private void ActivateFullscreenPanel(Notification notification)
     {
         GameManager.Instance.PauseGame();
+        CameraFunctions.Instance.SetScreenColor(Color.grey);
+        Cursor.visible = true;
+        fullscreenPanelOpen = true;
+        AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Notification3);
         CameraFunctions.Instance.FadeDOFIn(() =>
         {
             fullscreenText.SetText(notification.NotificationText);
@@ -184,8 +195,12 @@ public class NotificationUI : MonoBehaviour
     private void DeactivateFullscreenPanel()
     {
         fullscreenNotificationPanel.gameObject.SetActive(false);
+        CameraFunctions.Instance.SetScreenColor(Color.white);
         GameManager.Instance.ResumeGame();
+        AudioManager.Instance.PlaySoundEffect(AudioFiles.SFX_Notification1);
 
+        Cursor.visible = false;
+        fullscreenPanelOpen = false;
         CameraFunctions.Instance.FadeDOFOut();
     }
 }
